@@ -1,0 +1,14 @@
+{
+  "name": "eventora",
+  "version": "0.1.0",
+  "description": "Eventora event planning website",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node --watch app.js"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.21.0"
+  }
+}
