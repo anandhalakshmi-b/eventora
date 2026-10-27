@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Venues & Vendors | Eventora</title>
+<link rel="icon" href="images/logo.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="css/venues.css">
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="index.html"><img src="images/logo.png" alt="Eventora logo">Eventora</a>
+  <button id="burger" aria-label="Open menu" aria-expanded="false">☰</button>
+  <div class="links" id="links">
+    <a href="index.html">Home</a>
+    <a href="venues.html" class="on">Venues & Vendors</a>
+    <a href="ideas.html">Ideas</a>
+    <a href="budget.html">Budget</a>
+    <a href="checklist.html">Checklist</a>
+    <a href="guests.html">Guests</a>
+    <a href="consultation.html">Consultation</a>
+    <a href="invites.html">Invites</a>
+    <a href="favorites.html">Favourites ♥</a>
+    <a href="ora.html">Ora</a>
+    <a class="btn sm" href="register.html">Register</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <video class="hero-video" autoplay muted loop playsinline poster="images/venues/1.jpg" aria-hidden="true">
+    <source src="images/venues/venues.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-kicker">Make every moment memorable</p>
+    <h1>Venues & Vendors</h1>
+    <p>Find the perfect place and trusted event professionals for weddings, birthdays, corporate meets and more.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="tabs" role="tablist" aria-label="Browse">
+    <button class="tab on" role="tab" id="tab-venues" aria-selected="true">🏛️ Venues</button>
+    <button class="tab" role="tab" id="tab-vendors" aria-selected="false">🎉 Vendors</button>
+  </div>
+
+  <button id="ftoggle" class="btn alt sm">Show filters</button>
+
+  <div class="layout">
+    <aside class="panel" id="filters" aria-label="Filters">
+      <h2>Filters</h2>
+
+      <label for="q">Search</label>
+      <input id="q" type="search" placeholder="Name or city">
+
+      <label for="ev">Type of event</label>
+      <select id="ev"></select>
+
+      <label for="city">Location</label>
+      <select id="city"></select>
+
+      <div class="v-only">
+        <label for="date">Event date</label>
+        <input id="date" type="date">
+        <small>Venues already booked on this date are hidden.</small>
+
+        <label for="guests">Number of guests</label>
+        <input id="guests" type="number" min="1" placeholder="e.g. 150">
+
+        <label for="vtype">Venue type</label>
+        <select id="vtype"></select>
+      </div>
+
+      <label for="price">Price: <b id="pout"></b></label>
+      <input id="price" type="range">
+
+      <label class="check"><input id="saved" type="checkbox"> Show favourites only ♥</label>
+
+      <label for="sort">Sort by</label>
+      <select id="sort">
+        <option value="rating">Top rated</option>
+        <option value="low">Price: low to high</option>
+        <option value="high">Price: high to low</option>
+      </select>
+
+      <button id="clear" class="btn alt" type="button">Clear filters</button>
+    </aside>
+
+    <section id="results" aria-live="polite">
+      <div id="vchips" class="chips" hidden></div>
+      <p id="count" class="count"></p>
+      <div id="list"></div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div><b>Eventora</b><br>Plan every moment, beautifully.</div>
+  <div><a href="index.html">Home</a><a href="budget.html">Budget</a><a href="checklist.html">Checklist</a><a href="invites.html">Invites</a></div>
+</footer>
+
+<dialog id="dlg" aria-label="Details"><div id="dbody"></div></dialog>
+
+<script src="js/venues.js"></script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Free Consultation | Eventora</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Dancing+Script:wght@600&family=Playfair+Display:wght@600;800&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/theme.css">
+  <link rel="stylesheet" href="/css/ora.css">
+  <link rel="stylesheet" href="/css/consultation.css">
+</head>
+<body>
+<!-- ===== SHARED TOP BAR: copy the same block in every page ===== -->
+<header class="topbar">
+  <a href="/" class="brand">Eventora</a>
+  <nav aria-label="Main">
+    <a href="/venues">Venues</a><a href="/ideas">Ideas</a><a href="/budget">Budget</a>
+    <a href="/consultation">Consultation</a><a href="/checklist">Checklist</a>
+    <a href="/guests">Guests</a><a href="/invites">Invites</a>
+  </nav>
+</header>
+<main class="container">
+  <section class="consult-hero">
+    <h1>Free Event Planning Consultation <span class="badge free">FREE</span></h1>
+    <p>Tell us about your event and get an instant starter plan, made for Indian celebrations.</p>
+  </section>
+
+  <div id="errors" class="alert" role="alert" hidden></div>
+
+  <form id="consult-form" class="card form-card" novalidate>
+    <label for="eventType">Event type</label>
+    <select id="eventType" name="eventType" required>
+        <option value="">Choose...</option>
+        <option value="wedding">Wedding (Hindu / Christian / Muslim / Sikh)</option>
+        <option value="engagement">Engagement / Roka / Sagai</option>
+        <option value="birthday">Birthday Party</option>
+        <option value="housewarming">Griha Pravesh / Housewarming</option>
+        <option value="babyshower">Baby Shower / Godh Bharai / Seemantham</option>
+        <option value="naming">Naming Ceremony / Namkaran</option>
+        <option value="festival">Festival Party (Diwali / Ganesh Chaturthi / Navratri / Eid / Christmas)</option>
+        <option value="corporate">Corporate Event / Annual Day / Conference</option>
+        <option value="anniversary">Anniversary</option>
+        <option value="graduation">Graduation / Farewell Party</option>
+    </select>
+
+    <label for="eventDate">Event date</label>
+    <input type="date" id="eventDate" name="eventDate" required>
+
+    <label for="guests">Number of guests</label>
+    <input type="number" id="guests" name="guests" min="1" required>
+
+    <label for="budget">Total budget (₹)</label>
+    <input type="number" id="budget" name="budget" min="1000" step="1000" placeholder="e.g. 500000" required>
+
+    <label for="city">City</label>
+    <input type="text" id="city" name="city" placeholder="e.g. Coimbatore, Jaipur, Mumbai" required>
+
+    <label for="style">Style</label>
+    <select id="style" name="style">
+        <option value="traditional">Traditional</option>
+        <option value="modern">Modern</option>
+        <option value="royal">Royal</option>
+        <option value="boho">Boho</option>
+        <option value="rustic">Rustic</option>
+    </select>
+
+    <p><button class="btn consult-btn" type="submit">Generate my plan</button></p>
+  </form>
+</main>
+
+<footer class="site-footer"><p>© Eventora · Plan every moment, beautifully.</p></footer>
+
+<!-- ===== ORA FLOATING CHAT (Module 9): paste this block + the script tag before </body> on EVERY page ===== -->
+<button id="ora-fab" class="ora-fab" aria-label="Chat with Ora" aria-expanded="false">💬</button>
+<section id="ora-window" class="ora-window" hidden aria-label="Chat with Ora">
+  <header class="ora-head"><strong>Ora</strong> · your planning buddy
+    <button id="ora-close" class="ora-x" aria-label="Close chat">×</button></header>
+  <div id="ora-log" class="ora-log" role="log" aria-live="polite"></div>
+  <div class="ora-quick">
+    <button data-q="Find venues">Find venues</button>
+    <button data-q="Set a budget">Set a budget</button>
+    <button data-q="Make an invite">Make an invite</button>
+    <button data-q="Talk to a human">Talk to a human</button>
+  </div>
+  <div class="ora-form">
+    <label for="ora-input" class="sr-only">Message Ora</label>
+    <input id="ora-input" type="text" maxlength="500" placeholder="Ask Ora anything..." autocomplete="off">
+    <button id="ora-send" class="ora-send">Send</button>
+  </div>
+</section>
+
+<script src="/js/consultation.js"></script>
+<script src="/js/ora.js"></script>
+</body>
+</html>
