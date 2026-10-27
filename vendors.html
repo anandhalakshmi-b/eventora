@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Event Vendors | Eventora</title>
+<link rel="icon" href="images/logo.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="css/venues.css">
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="index.html"><img src="images/logo.png" alt="Eventora logo">Eventora</a>
+  <button id="burger" aria-label="Open menu" aria-expanded="false">☰</button>
+  <div class="links" id="links">
+    <a href="index.html">Home</a>
+    <a href="venues.html" class="on">Venues & Vendors</a>
+    <a href="ideas.html">Ideas</a>
+    <a href="budget.html">Budget</a>
+    <a href="checklist.html">Checklist</a>
+    <a href="guests.html">Guests</a>
+    <a href="consultation.html">Consultation</a>
+    <a href="invites.html">Invites</a>
+    <a href="favorites.html">Favourites ♥</a>    
+    <a href="ora.html">Ora</a>
+    <a class="btn sm" href="register.html">Register</a>
+  </div>
+</nav>
+
+<header class="title">
+  <h1>Event Vendors</h1>
+  <p>Find the right professionals to bring your event to life.</p>
+</header>
+
+<main class="wrap">
+  <a id="category-back" class="btn alt sm" href="venues.html" hidden>← All vendor categories</a>
+  <div class="directory-top">
+    <div><h2 id="directory-heading">All Event Vendors</h2><p id="directory-intro"></p></div>
+    <div class="directory-controls">
+      <input id="vendor-search" type="search" placeholder="Search vendors or services" aria-label="Search vendors">
+      <select id="vendor-city" aria-label="Filter by location"></select>
+      <select id="vendor-sort" aria-label="Sort vendors">
+        <option value="rating">Top rated</option>
+        <option value="low">Price: low to high</option>
+        <option value="high">Price: high to low</option>
+      </select>
+    </div>
+  </div>
+  <p id="directory-count" class="count" aria-live="polite"></p>
+  <section id="directory-list" aria-live="polite"></section>
+</main>
+
+<footer>
+  <div><b>Eventora</b><br>Plan every moment, beautifully.</div>
+  <div><a href="index.html">Home</a><a href="budget.html">Budget</a><a href="checklist.html">Checklist</a><a href="invites.html">Invites</a></div>
+</footer>
+
+<dialog id="vendor-dialog" class="detail-dialog" aria-label="Vendor details"><div id="vendor-dialog-body"></div></dialog>
+<script src="js/venues.js"></script>
+</body>
+</html>
