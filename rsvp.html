@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RSVP | Eventora</title>
+<link rel="icon" href="images/logo.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="css/common.css">
+</head>
+<body class="t-yellow">
+<header class="title" style="text-align:center">
+  <img src="images/logo.png" alt="Eventora logo" height="64">
+  <p style="margin:6px auto 0">You are invited to</p>
+  <h1 id="ev">Our event</h1>
+  <p id="dt"></p>
+</header>
+<main class="wrap" style="max-width:560px">
+  <form class="panel" id="f" novalidate>
+    <h2>Will you join us?</h2>
+    <label for="n">Your name</label><input id="n" required autocomplete="name">
+    <label>Your response</label>
+    <div class="chips" id="resp">
+      <button type="button" class="chip" data-v="Accepted" aria-pressed="true">🎉 Yes, I will come</button>
+      <button type="button" class="chip" data-v="Declined" aria-pressed="false">Sorry, I can't</button>
+    </div>
+    <div id="more">
+      <label for="pl">Extra guests with you</label><input id="pl" type="number" min="0" max="10" value="0">
+      <label for="d">Food preferences or allergies</label><input id="d" placeholder="Optional">
+    </div>
+    <p class="err" id="err" role="alert"></p>
+    <div class="acts"><button class="btn main">Send my reply</button></div>
+  </form>
+  <div class="banner ok" id="done" hidden role="status"></div>
+</main>
+<script src="js/common.js"></script>
+<script>
+/* Public RSVP page. Front-end demo: replies update the guest list saved in this browser. */
+const ev = load('eventora-event', { name: 'Our event', date: '' });
+$('ev').textContent = ev.name || 'Our event';
+$('dt').textContent = ev.date ? new Date(ev.date + 'T00:00').toLocaleDateString('en-IN', { dateStyle: 'full' }) : '';
+let resp = 'Accepted';
+$('resp').onclick = e => { const v = e.target.dataset.v; if (!v) return; resp = v;
+  document.querySelectorAll('#resp .chip').forEach(c => c.setAttribute('aria-pressed', c.dataset.v === v));
+  $('more').hidden = v === 'Declined'; };
+$('f').onsubmit = e => {
+  e.preventDefault();
+  const name = $('n').value.trim();
+  if (!name) return $('err').textContent = 'Please enter your name.';
+  const G = load('eventora-guests', []);
+  const g = G.find(x => x.name.toLowerCase() === name.toLowerCase());
+  const data = { status: resp, plus: resp === 'Accepted' ? Math.max(0, +$('pl').value || 0) : 0, diet: $('d').value.trim() };
+  if (g) Object.assign(g, data, { diet: data.diet || g.diet }); else G.push({ id: uid(), name, email: '', phone: '', group: 'RSVP link', ...data });
+  save('eventora-guests', G);
+  $('f').hidden = true; $('done').hidden = false;
+  $('done').textContent = resp === 'Accepted' ? `Thank you, ${name}! We can't wait to see you.` : `Thank you for letting us know, ${name}. We will miss you.`;
+};
+</script>
+</body>
+</html>

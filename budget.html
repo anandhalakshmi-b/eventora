@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Budget Calculator & Tracker | Eventora</title>
+<link rel="icon" href="images/logo.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="css/common.css">
+<link rel="stylesheet" href="css/budget.css">
+</head>
+<body class="t-red">
+<nav>
+  <a class="brand" href="index.html"><img src="images/logo.png" alt="Eventora logo">Eventora</a>
+  <button id="burger" aria-label="Open menu" aria-expanded="false">☰</button>
+  <div class="links" id="links">
+    <a href="index.html">Home</a>
+    <a href="venues.html">Venues & Vendors</a>
+    <a href="ideas.html">Ideas</a>
+    <a href="budget.html" class="on">Budget</a>
+    <a href="checklist.html">Checklist</a>
+    <a href="guests.html">Guests</a>
+    <a href="consultation.html">Consultation</a>
+    <a href="invites.html">Invites</a>
+    <a href="ora.html">Ora</a>
+    <a class="btn sm" href="register.html">Register</a>
+  </div>
+</nav>
+
+<header class="title">
+  <h1>Budget Calculator & Tracker</h1>
+  <p>Set your total budget, compare estimated and actual costs, and stay on track.</p>
+</header>
+
+<main class="wrap">
+  <div id="warn"></div>
+  <div class="cards" id="sum"></div>
+  <div class="bar" id="bar" aria-hidden="true"><i id="fill"></i></div>
+
+  <section class="panel">
+    <h2>Total budget</h2>
+    <div class="row">
+      <div><label for="total">Total budget (₹)</label><input id="total" type="number" min="0" step="1000"></div>
+      <button class="btn main" id="setTotal" type="button">Set budget</button>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2 id="ftitle">Add an expense</h2>
+    <form id="f" novalidate>
+      <div class="row">
+        <div><label for="cat">Category</label><input id="cat" list="cats" placeholder="e.g. Catering" required><datalist id="cats"></datalist></div>
+        <div><label for="est">Estimated (₹)</label><input id="est" type="number" min="0" required></div>
+        <div><label for="act">Actual (₹)</label><input id="act" type="number" min="0" placeholder="0"></div>
+        <button class="btn main" id="fbtn">Add expense</button>
+        <button class="btn alt" id="fcancel" type="button" hidden>Cancel</button>
+      </div>
+      <p class="err" id="ferr" role="alert"></p>
+    </form>
+  </section>
+
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Category</th><th>Estimated</th><th>Actual</th><th>Difference</th><th>Actions</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+
+  <div class="acts">
+    <button class="btn" id="csv" type="button">Export to CSV</button>
+    <button class="btn alt" id="reset" type="button">Clear all expenses</button>
+  </div>
+
+  <section class="charts" style="margin-top:28px">
+    <div class="panel"><h2>Estimated split</h2><div class="pie" id="pie" role="img" aria-label="Pie chart of estimated costs"></div><ul class="legend" id="legend"></ul></div>
+    <div class="panel"><h2>Estimated vs actual</h2><div class="bars" id="bars"></div></div>
+  </section>
+</main>
+<footer>
+  <div><b>Eventora</b><br>Plan every moment, beautifully.</div>
+  <div><a href="index.html">Home</a><a href="venues.html">Venues & Vendors</a><a href="budget.html">Budget</a><a href="guests.html">Guests</a></div>
+</footer>
+<script src="js/common.js"></script>
+<script src="js/budget.js"></script>
+</body>
+</html>

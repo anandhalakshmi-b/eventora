@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Book a Consultant | Eventora</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Dancing+Script:wght@600&family=Playfair+Display:wght@600;800&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/theme.css">
+  <link rel="stylesheet" href="/css/ora.css">
+  <link rel="stylesheet" href="/css/consultation.css">
+</head>
+<body>
+<!-- ===== SHARED TOP BAR: copy the same block in every page ===== -->
+<header class="topbar">
+  <a href="/" class="brand">Eventora</a>
+  <nav aria-label="Main">
+    <a href="/venues">Venues</a><a href="/ideas">Ideas</a><a href="/budget">Budget</a>
+    <a href="/consultation">Consultation</a><a href="/checklist">Checklist</a>
+    <a href="/guests">Guests</a><a href="/invites">Invites</a>
+  </nav>
+</header>
+<main class="container">
+  <section id="confirm" class="card tile confirm" role="status" hidden>
+    <h1>Thank you! 🎉</h1>
+    <p>Our event consultant will call you at your preferred time. Namaste and see you soon!</p>
+    <p><a class="btn consult-btn" href="/">Back to home</a></p>
+  </section>
+
+  <div id="book-section">
+    <h1>Book a human consultant</h1>
+    <p>Free 20-minute call with an Eventora planner.</p>
+    <div id="errors" class="alert" role="alert" hidden></div>
+    <form id="book-form" class="card form-card" novalidate>
+      <input type="hidden" id="planId" name="planId">
+      <label for="name">Full name</label>
+      <input id="name" name="name" required>
+      <label for="phone">Mobile number</label>
+      <input id="phone" name="phone" inputmode="numeric" maxlength="10" placeholder="10-digit mobile number" required>
+      <label for="email">Email</label>
+      <input id="email" type="email" name="email" required>
+      <label for="preferredTime">Preferred time</label>
+      <select id="preferredTime" name="preferredTime">
+        <option>Morning (9 AM - 12 PM)</option><option>Afternoon (12 PM - 4 PM)</option><option>Evening (4 PM - 8 PM)</option>
+      </select>
+      <label for="notes">Notes</label>
+      <textarea id="notes" name="notes" rows="4"></textarea>
+      <p><button class="btn consult-btn" type="submit">Request call</button></p>
+    </form>
+  </div>
+</main>
+
+<footer class="site-footer"><p>© Eventora · Plan every moment, beautifully.</p></footer>
+
+<!-- ===== ORA FLOATING CHAT (Module 9): paste this block + the script tag before </body> on EVERY page ===== -->
+<button id="ora-fab" class="ora-fab" aria-label="Chat with Ora" aria-expanded="false">💬</button>
+<section id="ora-window" class="ora-window" hidden aria-label="Chat with Ora">
+  <header class="ora-head"><strong>Ora</strong> · your planning buddy
+    <button id="ora-close" class="ora-x" aria-label="Close chat">×</button></header>
+  <div id="ora-log" class="ora-log" role="log" aria-live="polite"></div>
+  <div class="ora-quick">
+    <button data-q="Find venues">Find venues</button>
+    <button data-q="Set a budget">Set a budget</button>
+    <button data-q="Make an invite">Make an invite</button>
+    <button data-q="Talk to a human">Talk to a human</button>
+  </div>
+  <div class="ora-form">
+    <label for="ora-input" class="sr-only">Message Ora</label>
+    <input id="ora-input" type="text" maxlength="500" placeholder="Ask Ora anything..." autocomplete="off">
+    <button id="ora-send" class="ora-send">Send</button>
+  </div>
+</section>
+
+<script src="/js/consultation.js"></script>
+<script src="/js/ora.js"></script>
+</body>
+</html>
