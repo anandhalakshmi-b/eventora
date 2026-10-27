@@ -1,0 +1,98 @@
+<%- include('partials/head', { pageTitle: 'Home' }) %>
+<%- include('partials/header') %>
+
+<main id="main">
+
+  <!-- Hero -->
+  <section class="hero mod-cyan">
+    <div class="container hero-inner">
+      <h1 class="hero-title">
+        Make something
+        <% const palette = ['#EF4444', '#F97316', '#F59E0B', '#22C55E', '#84CC16', '#22C08A']; %>
+        <span class="coolorful" aria-label="coolorful">
+          <% 'coolorful'.split('').forEach(function (ch, i) { %><span style="color: <%= palette[i % palette.length] %>" aria-hidden="true"><%= ch %></span><% }) %>
+        </span>
+      </h1>
+      <p class="hero-promise">Plan every moment, beautifully.</p>
+      <div class="hero-actions">
+        <a href="/register" class="btn btn-solid btn-lg">Start Planning</a>
+        <a href="/venues" class="btn btn-outline btn-lg">Explore Venues</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature cards: one pastel card per module -->
+  <section class="section container" aria-labelledby="features-heading">
+    <h2 id="features-heading" class="section-heading">Everything for your event</h2>
+    <div class="card-grid">
+      <% modules.filter(function (m) { return m.path !== '/'; }).forEach(function (m) { %>
+        <article class="card mod-<%= m.color %>">
+          <h3 class="card-title"><%= m.name %></h3>
+          <p class="card-text"><%= m.desc %></p>
+          <a href="<%= m.path %>" class="card-link">Start planning →</a>
+        </article>
+      <% }) %>
+    </div>
+  </section>
+
+  <!-- About Us -->
+  <section class="section about mod-cyan" aria-labelledby="about-heading">
+    <div class="container">
+      <h2 id="about-heading" class="section-heading">About Eventora</h2>
+      <p class="about-mission">
+        Our mission is to make event planning feel calm and clear, with every venue, vendor,
+        budget line and guest kept in one colourful place.
+      </p>
+
+      <h3 class="subheading">Three simple steps</h3>
+      <ol class="steps">
+        <% steps.forEach(function (s, i) { %>
+          <li class="step card">
+            <span class="step-number"><%= i + 1 %></span>
+            <h4 class="card-title"><%= s.title %></h4>
+            <p class="card-text"><%= s.text %></p>
+          </li>
+        <% }) %>
+      </ol>
+
+      <ul class="stats" aria-label="Key numbers">
+        <% stats.forEach(function (s) { %>
+          <li class="stat">
+            <span class="stat-value"><%= s.value %></span>
+            <span class="stat-label"><%= s.label %></span>
+          </li>
+        <% }) %>
+      </ul>
+
+      <div class="quotes">
+        <% quotes.forEach(function (q) { %>
+          <figure class="quote card">
+            <blockquote><p>“<%= q.text %>”</p></blockquote>
+            <figcaption class="caption"><%= q.by %></figcaption>
+          </figure>
+        <% }) %>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured vendors preview -->
+  <section class="section container" aria-labelledby="preview-heading">
+    <div class="section-head">
+      <h2 id="preview-heading" class="section-heading">Featured venues and vendors</h2>
+      <a href="/venues" class="card-link">See all →</a>
+    </div>
+    <div class="card-grid">
+      <% featuredVendors.forEach(function (v) { %>
+        <article class="card mod-blue">
+          <span class="tag"><%= v.category %></span>
+          <h3 class="card-title"><%= v.name %></h3>
+          <p class="card-text"><%= v.city %> · <%= v.price %></p>
+          <a href="/venues" class="card-link">View details →</a>
+        </article>
+      <% }) %>
+    </div>
+  </section>
+
+</main>
+
+<%- include('partials/footer') %>

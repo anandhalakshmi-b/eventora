@@ -1,0 +1,49 @@
+<footer class="site-footer" id="newsletter">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <img src="/images/eventora_logo_slanted.png" alt="Eventora lotus logo" height="48">
+      <p class="footer-tagline">Plan every moment, beautifully.</p>
+    </div>
+
+    <div>
+      <h2 class="footer-heading">Quick links</h2>
+      <ul class="footer-links">
+        <% modules.forEach(function (m) { %>
+          <li><a href="<%= m.path %>"><%= m.nav %></a></li>
+        <% }) %>
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="footer-heading">Contact</h2>
+      <ul class="footer-links">
+        <li><a href="mailto:hello@eventora.example">hello@eventora.example</a></li>
+        <li>+91 00000 00000</li>
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="footer-heading">Newsletter</h2>
+      <form method="POST" action="/newsletter" class="newsletter-form">
+        <label for="newsletter-email" class="form-label">Email address</label>
+        <div class="newsletter-row">
+          <input type="email" id="newsletter-email" name="email" required
+                 placeholder="you@example.com" autocomplete="email">
+          <button type="submit" class="btn btn-solid">Subscribe</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="container footer-bottom">
+    <p>&copy; <%= new Date().getFullYear() %> Eventora</p>
+  </div>
+</footer>
+
+<a href="/ora" class="ora-fab" aria-label="Chat with Ora, the Eventora assistant">
+  <span aria-hidden="true">✦</span>
+</a>
+
+<script src="/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<header class="topbar">
+  <div class="container topbar-inner">
+    <a href="/" class="brand" aria-label="Eventora home">
+      <img src="/images/eventora_logo_slanted.png" alt="Eventora lotus logo" height="40">
+      <span class="brand-name">Eventora</span>
+    </a>
+
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">
+      <span class="sr-only">Open menu</span>
+      <span class="menu-bars" aria-hidden="true"></span>
+    </button>
+
+    <nav id="main-nav" class="main-nav" aria-label="Main">
+      <ul class="nav-links">
+        <% modules.forEach(function (m) { %>
+          <li>
+            <a href="<%= m.path %>" class="nav-link<%= activePath === m.path ? ' is-active' : '' %>">
+              <%= m.nav %>
+            </a>
+          </li>
+        <% }) %>
+      </ul>
+
+      <div class="auth-controls">
+        <% if (currentUser) { %>
+          <span class="user-name">Hi, <%= currentUser.name %></span>
+          <form method="POST" action="/logout">
+            <button type="submit" class="btn btn-ghost">Logout</button>
+          </form>
+        <% } else { %>
+          <a href="/login" class="btn btn-ghost">Login</a>
+          <a href="/register" class="btn btn-solid">Register</a>
+        <% } %>
+      </div>
+    </nav>
+  </div>
+</header>

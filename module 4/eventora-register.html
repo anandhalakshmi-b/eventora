@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Register · Eventora</title>
+  <link rel="icon" href="eventora_logo_slanted.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0F172A;
+      --muted: #475569;
+      --white: #FFFFFF;
+      --page: #F8FAFC;
+      --slate-50: #F8FAFC;
+      --slate-200: #E5E7EB;
+      --focus: #2563EB;
+      --error: #DC2626;
+      --error-bg: #FEE2E2;
+      --ok: #16A34A;
+      --green-bg: #DCFCE7;
+      --pink-bg: #FCE7F3;
+      --pink-accent: #DB2777;
+      --gradient-bg: linear-gradient(135deg, #CFFAFE 0%, #F3E8FF 50%, #FCE7F3 100%);
+      --font: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; font-family: var(--font); font-size: 16px; line-height: 1.5; color: var(--ink); background: var(--page); }
+    a { color: inherit; }
+    h1, h2, h3, p, ul { margin: 0; padding: 0; }
+    ul { list-style: none; }
+    button, input, select { font: inherit; color: inherit; }
+    :focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+    [hidden] { display: none !important; }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .skip-link { position: absolute; left: 16px; top: -48px; background: var(--ink); color: var(--white); padding: 8px 16px; border-radius: 999px; z-index: 100; }
+    .skip-link:focus { top: 16px; }
+    .container { width: 100%; max-width: 1150px; margin: 0 auto; padding: 0 24px; }
+
+    /* ---------- Top bar ---------- */
+    .topbar { position: sticky; top: 0; z-index: 50; background: var(--white); border-bottom: 1px solid var(--slate-200); }
+    .topbar-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 72px; flex-wrap: wrap; }
+    .brand { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; }
+    .brand-name { font-weight: 800; font-size: 20px; }
+    .main-nav { display: none; width: 100%; }
+    .main-nav.is-open { display: block; }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 4px 8px; padding: 8px 0; }
+    .nav-link { display: inline-block; padding: 8px 12px; border-radius: 999px; font-size: 14px; font-weight: 600; text-decoration: none; background: none; border: none; cursor: pointer; }
+    .nav-link:hover { background: var(--slate-50); }
+    .auth-controls { display: flex; align-items: center; gap: 12px; padding: 8px 0 16px; flex-wrap: wrap; }
+    .menu-toggle { display: block; width: 44px; height: 44px; border: 1px solid var(--slate-200); border-radius: 12px; background: var(--white); cursor: pointer; position: relative; }
+    .menu-bars, .menu-bars::before, .menu-bars::after { display: block; position: absolute; left: 12px; right: 12px; height: 2px; background: var(--ink); border-radius: 2px; content: ''; }
+    .menu-bars { top: 50%; transform: translateY(-1px); }
+    .menu-bars::before { top: -6px; }
+    .menu-bars::after { top: 6px; }
+
+    /* ---------- Buttons ---------- */
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 10px 20px; border-radius: 999px; border: 2px solid transparent; font-size: 15px; font-weight: 600; line-height: 1.2; text-decoration: none; cursor: pointer; white-space: nowrap; background: transparent; }
+    .btn-solid { background: var(--ink); color: var(--white); }
+    .btn-solid:hover { background: #1E293B; }
+    .btn-ghost { border-color: var(--slate-200); background: var(--white); }
+    .btn-ghost:hover { background: var(--slate-50); }
+    .btn-block { width: 100%; padding: 14px 20px; }
+    .text-link { background: none; border: none; padding: 0; cursor: pointer; font-size: 13px; text-decoration: underline; color: var(--ink); }
+
+    /* ---------- Layout ---------- */
+    .reg-layout { display: grid; grid-template-columns: 1fr 1.1fr; gap: 24px; align-items: start; margin: 24px auto 56px; }
+
+    /* Left panel (green module) */
+    .side { background: var(--green-bg); border-radius: 24px; padding: 40px; }
+    .chip { display: inline-block; background: var(--white); color: var(--ok); padding: 5px 12px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+    .side h1 { font-size: 44px; font-weight: 800; line-height: 1.08; letter-spacing: -0.02em; margin-top: 20px; }
+    .side p.lead { margin-top: 16px; color: var(--muted); font-size: 16px; }
+    .side-photo { margin-top: 28px; height: 280px; border-radius: 18px; background: linear-gradient(135deg, #FDE68A 0%, #FDBA74 35%, #86EFAC 100%); position: relative; overflow: hidden; }
+    .side-logo { display: flex; align-items: center; gap: 12px; margin-top: 24px; }
+    .side-logo img { width: 40px; height: 40px; object-fit: contain; background: var(--white); border-radius: 12px; padding: 4px; }
+    .side-logo strong { display: block; font-size: 14px; }
+    .side-logo span { font-size: 12px; color: var(--muted); }
+
+    /* Right column */
+    .seg { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+    .seg button { padding: 14px; border-radius: 999px; border: 1px solid var(--slate-200); background: var(--white); font-weight: 600; cursor: pointer; font-size: 15px; }
+    .seg button[aria-selected="true"] { background: var(--ink); border-color: var(--ink); color: var(--white); }
+
+    .card { background: var(--white); border: 1px solid var(--slate-200); border-radius: 24px; padding: 36px; box-shadow: 0 6px 18px rgba(15,23,42,0.04); }
+    .card h2 { font-size: 32px; font-weight: 800; line-height: 1.15; letter-spacing: -0.01em; }
+    .already { margin-top: 8px; font-size: 14px; color: var(--muted); }
+    .already a { color: var(--ink); font-weight: 600; }
+
+    .pill-error { display: inline-block; margin-top: 18px; background: var(--error-bg); color: var(--error); padding: 6px 14px; border-radius: 999px; font-size: 13px; font-weight: 600; }
+    .pill-error[hidden] { display: none; }
+
+    /* Fields */
+    form { margin-top: 20px; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .field { margin-bottom: 14px; }
+    .field label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+    .field input[type="text"], .field input[type="email"], .field input[type="password"], .field input[type="tel"], .field select {
+      width: 100%; padding: 12px 14px; border: 1px solid var(--slate-200); border-radius: 12px; background: var(--white); font-size: 15px;
+    }
+    .field input:focus, .field select:focus { border-color: var(--focus); outline: none; box-shadow: 0 0 0 3px rgba(37,99,235,0.2); }
+    .field.is-invalid input, .field.is-invalid select { border-color: var(--error); background: #FFF7F7; }
+    .field.is-valid input { border-color: #BBF7D0; }
+    .msg { display: none; font-size: 12px; margin-top: 6px; }
+    .msg.is-error { display: block; color: var(--error); }
+    .msg.is-ok { display: block; color: var(--ok); }
+    .pw-wrap { position: relative; }
+    .pw-wrap input { padding-right: 52px; }
+    .pw-toggle { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 13px; color: var(--muted); padding: 6px; }
+
+    .rules { display: flex; gap: 8px; flex-wrap: wrap; margin: -4px 0 14px; }
+    .rule { font-size: 12px; padding: 4px 10px; border-radius: 999px; background: var(--slate-50); border: 1px solid var(--slate-200); color: var(--muted); }
+    .rule.is-pass { background: var(--green-bg); border-color: #BBF7D0; color: var(--ok); }
+
+    /* Portfolio upload */
+    .upload { border: 1.5px dashed #86EFAC; background: var(--green-bg); border-radius: 16px; padding: 18px; margin-bottom: 14px; }
+    .upload strong { font-size: 14px; }
+    .upload p { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .upload label.choose { display: inline-block; margin-top: 10px; background: var(--white); border: 1px solid var(--slate-200); padding: 8px 14px; border-radius: 999px; font-size: 13px; font-weight: 600; cursor: pointer; }
+    .upload input[type="file"] { position: absolute; width: 1px; height: 1px; opacity: 0; }
+    .file-chip { display: inline-block; margin-top: 10px; margin-left: 8px; background: var(--white); padding: 4px 12px; border-radius: 999px; font-size: 12px; font-weight: 600; color: var(--ok); }
+
+    .terms { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: var(--muted); margin: 16px 0 6px; }
+    .terms input { margin-top: 3px; accent-color: var(--ink); }
+    .terms-msg { display: none; font-size: 12px; color: var(--error); margin-bottom: 8px; }
+    .terms-msg.is-error { display: block; }
+    .sample-note { margin-top: 14px; font-size: 12px; color: var(--muted); text-align: left; }
+
+    /* Success state */
+    .success-chip { display: inline-block; background: var(--green-bg); color: var(--ok); padding: 5px 12px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+    .success h2 { margin-top: 14px; }
+    .success > p.lead { margin-top: 10px; color: var(--muted); font-size: 15px; }
+    .preview { margin-top: 22px; background: var(--pink-bg); border-radius: 20px; padding: 20px; }
+    .preview-photo { height: 180px; border-radius: 14px; background: linear-gradient(135deg, #FED7AA 0%, #FBCFE8 50%, #D9F99D 100%); }
+    .preview h3 { font-size: 22px; font-weight: 800; margin-top: 16px; }
+    .preview .meta { font-size: 14px; color: var(--muted); margin-top: 4px; }
+    .preview .tag { display: inline-block; margin-top: 12px; background: var(--white); color: var(--pink-accent); padding: 4px 12px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+    .success-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+    .success-note { margin-top: 14px; font-size: 12px; color: var(--muted); }
+
+    .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(120px); background: var(--ink); color: var(--white); padding: 12px 20px; border-radius: 999px; font-weight: 600; transition: transform 0.3s ease; z-index: 90; }
+    .toast.is-visible { transform: translateX(-50%) translateY(0); }
+
+    /* Footer and Ora */
+    .site-footer { border-top: 1px solid var(--slate-200); background: var(--white); padding: 24px 0; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .footer-inner p, .footer-inner a { font-size: 13px; color: var(--muted); text-decoration: none; }
+    .footer-links { display: flex; gap: 16px; flex-wrap: wrap; }
+    .ora-fab { position: fixed; right: 24px; bottom: 24px; z-index: 60; width: 56px; height: 56px; border-radius: 999px; display: flex; align-items: center; justify-content: center; background: var(--gradient-bg); color: #9333EA; font-size: 24px; text-decoration: none; box-shadow: 0 8px 20px rgba(147, 51, 234, 0.25); }
+
+    /* Responsive */
+    @media (min-width: 900px) {
+      .menu-toggle { display: none; }
+      .main-nav { display: flex; flex: 1; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+      .nav-links { flex: 1; justify-content: flex-end; }
+    }
+    @media (max-width: 899px) { .main-nav { border-top: 1px solid var(--slate-200); } }
+    @media (max-width: 860px) {
+      .reg-layout { grid-template-columns: 1fr; }
+      .side h1 { font-size: 34px; }
+      .side-photo { height: 220px; }
+    }
+    @media (max-width: 560px) {
+      .side, .card { padding: 24px; }
+      .side h1 { font-size: 28px; }
+      .card h2 { font-size: 26px; }
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<header class="topbar">
+  <div class="container topbar-inner">
+    <a href="#" class="brand" aria-label="Eventora home">
+      <img src="eventora_logo_slanted.png" alt="Eventora lotus logo" height="40">
+      <span class="brand-name">Eventora</span>
+    </a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">
+      <span class="sr-only">Open menu</span>
+      <span class="menu-bars" aria-hidden="true"></span>
+    </button>
+    <nav id="main-nav" class="main-nav" aria-label="Main">
+      <ul class="nav-links">
+        <li><a href="#" class="nav-link">Home</a></li>
+        <li><a href="#" class="nav-link">Venues &amp; Vendors</a></li>
+        <li><a href="#" class="nav-link">Ideas &amp; Advice</a></li>
+        <li><button class="nav-link" type="button">Planning tools <span aria-hidden="true">▾</span></button></li>
+      </ul>
+      <div class="auth-controls">
+        <a href="#" class="nav-link">Log in</a>
+        <a href="#" class="btn btn-solid">Start planning ↗</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="container reg-layout">
+
+  <!-- Left panel -->
+  <section class="side" aria-labelledby="side-title">
+    <span class="chip">Your next chapter starts here</span>
+    <h1 id="side-title">A little account.<br>A world of possibilities.</h1>
+    <p class="lead" id="side-lead">Your plans, people and favourite ideas, together in one thoughtful space. Let's make something wonderful.</p>
+    <div class="side-photo" role="img" aria-label="Guests laughing and toasting at a garden dinner table with peach flowers"></div>
+    <div class="side-logo">
+      <img src="eventora_logo_slanted.png" alt="Eventora lotus symbol">
+      <div>
+        <strong>A small symbol for big moments.</strong>
+        <span>Eventora lotus symbol</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Right column -->
+  <section aria-label="Registration">
+    <div class="seg" role="tablist" aria-label="Account type">
+      <button type="button" role="tab" id="tab-user" aria-selected="true" aria-controls="panel" data-tab="user">Register as User</button>
+      <button type="button" role="tab" id="tab-vendor" aria-selected="false" aria-controls="panel" data-tab="vendor">Register as Vendor</button>
+    </div>
+
+    <div class="card" id="panel" role="tabpanel" aria-labelledby="tab-user">
+
+      <!-- Form area -->
+      <div id="form-area">
+
+        <!-- User form -->
+        <form id="user-form" novalidate>
+          <h2 id="user-heading">Make room for your next big day.</h2>
+          <p class="already">Already part of Eventora? <a href="#">Log in ↗</a></p>
+          <p class="pill-error" id="user-summary" role="alert" hidden>Password needs attention</p>
+
+          <div class="grid-2">
+            <div class="field" data-field="first">
+              <label for="u-first">First name</label>
+              <input type="text" id="u-first" autocomplete="given-name">
+              <p class="msg" id="u-first-msg"></p>
+            </div>
+            <div class="field" data-field="last">
+              <label for="u-last">Last name</label>
+              <input type="text" id="u-last" autocomplete="family-name">
+              <p class="msg" id="u-last-msg"></p>
+            </div>
+          </div>
+
+          <div class="field" data-field="email">
+            <label for="u-email">Email address</label>
+            <input type="email" id="u-email" autocomplete="email">
+            <p class="msg" id="u-email-msg"></p>
+          </div>
+
+          <div class="field" data-field="password">
+            <label for="u-password">Create password</label>
+            <div class="pw-wrap">
+              <input type="password" id="u-password" autocomplete="new-password">
+              <button type="button" class="pw-toggle" data-toggle="u-password" aria-label="Show password">Show</button>
+            </div>
+            <p class="msg" id="u-password-msg"></p>
+          </div>
+
+          <div class="field" data-field="confirm">
+            <label for="u-confirm">Confirm password</label>
+            <div class="pw-wrap">
+              <input type="password" id="u-confirm" autocomplete="new-password">
+              <button type="button" class="pw-toggle" data-toggle="u-confirm" aria-label="Show password">Show</button>
+            </div>
+            <p class="msg" id="u-confirm-msg"></p>
+          </div>
+
+          <div class="terms">
+            <input type="checkbox" id="u-terms">
+            <label for="u-terms">I agree to the Terms of Service and Privacy Policy.</label>
+          </div>
+          <div class="terms">
+            <input type="checkbox" id="u-news">
+            <label for="u-news">Send me occasional inspiration and planning tips.</label>
+          </div>
+          <p class="terms-msg" id="u-terms-msg">Please accept the terms to continue.</p>
+
+          <button type="submit" class="btn btn-solid btn-block">Create my account →</button>
+          <p class="sample-note">Sample registration design. No details are submitted or saved.</p>
+        </form>
+
+        <!-- Vendor form -->
+        <form id="vendor-form" novalidate hidden>
+          <h2 id="vendor-heading">Let's meet your business.</h2>
+          <p class="already">Already part of Eventora? <a href="#">Log in ↗</a></p>
+          <p class="pill-error" id="vendor-summary" role="alert" hidden>Some details need attention</p>
+
+          <div class="field" data-field="bname">
+            <label for="v-bname">Business name</label>
+            <input type="text" id="v-bname" autocomplete="organization">
+            <p class="msg" id="v-bname-msg"></p>
+          </div>
+
+          <div class="grid-2">
+            <div class="field" data-field="category">
+              <label for="v-category">Category</label>
+              <select id="v-category">
+                <option value="">Choose a category</option>
+                <option>Florist &amp; decorator</option>
+                <option>Caterer</option>
+                <option>Photographer</option>
+                <option>Venue</option>
+                <option>DJ &amp; music</option>
+              </select>
+              <p class="msg" id="v-category-msg"></p>
+            </div>
+            <div class="field" data-field="city">
+              <label for="v-city">City</label>
+              <input type="text" id="v-city" autocomplete="address-level2">
+              <p class="msg" id="v-city-msg"></p>
+            </div>
+          </div>
+
+          <div class="field" data-field="services">
+            <label for="v-services">Services offered</label>
+            <input type="text" id="v-services">
+            <p class="msg" id="v-services-msg"></p>
+          </div>
+
+          <div class="grid-2">
+            <div class="field" data-field="price">
+              <label for="v-price">Starting price (USD)</label>
+              <input type="text" id="v-price" inputmode="decimal" placeholder="e.g. 1200">
+              <p class="msg" id="v-price-msg"></p>
+            </div>
+            <div class="field" data-field="contact">
+              <label for="v-contact">Contact name</label>
+              <input type="text" id="v-contact" autocomplete="name">
+              <p class="msg" id="v-contact-msg"></p>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="field" data-field="vemail">
+              <label for="v-email">Business email</label>
+              <input type="email" id="v-email" autocomplete="email">
+              <p class="msg" id="v-email-msg"></p>
+            </div>
+            <div class="field" data-field="phone">
+              <label for="v-phone">Phone</label>
+              <input type="tel" id="v-phone" autocomplete="tel">
+              <p class="msg" id="v-phone-msg"></p>
+            </div>
+          </div>
+
+          <div class="upload">
+            <strong>↑ Upload your portfolio</strong>
+            <p>JPG, PNG or PDF · Up to 10 MB each</p>
+            <label class="choose" for="v-portfolio">Choose files</label>
+            <input type="file" id="v-portfolio" accept=".jpg,.jpeg,.png,.pdf,image/jpeg,image/png,application/pdf">
+            <span class="file-chip" id="file-chip" hidden></span>
+            <p class="msg" id="v-portfolio-msg"></p>
+          </div>
+
+          <div class="field" data-field="vpassword">
+            <label for="v-password">Create password</label>
+            <div class="pw-wrap">
+              <input type="password" id="v-password" autocomplete="new-password">
+              <button type="button" class="pw-toggle" data-toggle="v-password" aria-label="Show password">Show</button>
+            </div>
+            <p class="msg" id="v-password-msg"></p>
+          </div>
+          <div class="rules" aria-live="polite">
+            <span class="rule" id="r-length">8+ characters</span>
+            <span class="rule" id="r-number">Number</span>
+            <span class="rule" id="r-special">Special character</span>
+          </div>
+
+          <div class="terms">
+            <input type="checkbox" id="v-terms">
+            <label for="v-terms">I agree to the Terms of Service and Privacy Policy.</label>
+          </div>
+          <div class="terms">
+            <input type="checkbox" id="v-news">
+            <label for="v-news">Send me occasional inspiration and planning tips.</label>
+          </div>
+          <p class="terms-msg" id="v-terms-msg">Please accept the terms to continue.</p>
+
+          <button type="submit" class="btn btn-solid btn-block">Create vendor profile →</button>
+          <p class="sample-note">Sample registration design. No details are submitted or saved.</p>
+        </form>
+
+      </div>
+
+      <!-- Success state (shown after a valid submit) -->
+      <div class="success" id="success" hidden aria-live="polite">
+        <span class="success-chip">✓ Success state preview</span>
+        <h2 id="success-heading">Your next great connection starts here.</h2>
+        <p class="lead" id="success-lead"></p>
+
+        <div class="preview" id="vendor-preview" hidden>
+          <div class="preview-photo" role="img" aria-label="Florist arranging peach and white flowers in a vase"></div>
+          <h3 id="pv-name"></h3>
+          <p class="meta" id="pv-meta"></p>
+          <span class="tag">Draft profile preview</span>
+        </div>
+
+        <div class="success-actions">
+          <button type="button" class="btn btn-solid" id="success-primary">Preview my listing →</button>
+          <button type="button" class="btn btn-ghost" id="success-back">Edit details</button>
+        </div>
+        <p class="success-note">Illustrative success state only. No account is created and no profile information is stored.</p>
+      </div>
+
+    </div>
+
+    <p style="margin-top:12px; font-size:12px; color:var(--muted); text-align:center;">
+      <button type="button" class="text-link" id="show-success">See the success state</button>
+    </p>
+  </section>
+
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div style="display:flex; align-items:center; gap:8px;">
+      <img src="eventora_logo_slanted.png" alt="Eventora lotus logo" height="28">
+      <strong>Eventora</strong>
+      <p style="margin-left:8px;">Plan every moment, beautifully.</p>
+    </div>
+    <div class="footer-links">
+      <a href="#">Sample studio</a>
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<a href="#" class="ora-fab" aria-label="Chat with Ora, the Eventora assistant"><span aria-hidden="true">✦</span></a>
+
+<script>
+  // ---------- Copy for each tab ----------
+  var COPY = {
+    user: {
+      title: 'A little account.<br>A world of possibilities.',
+      lead: "Your plans, people and favourite ideas, together in one thoughtful space. Let's make something wonderful."
+    },
+    vendor: {
+      title: "Bring your craft.<br>We'll bring the possibilities.",
+      lead: 'For the venues, makers and talented people behind unforgettable gatherings. Let your work do the talking.'
+    }
+  };
+
+  var PASSWORD_HINT = 'Use at least 8 characters, including a number and a special character.';
+  var MAX_FILE_MB = 10;
+  var ALLOWED_TYPES = ['image/jpeg', 'image/png', 'application/pdf'];
+  var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  var SPECIAL_RE = /[^A-Za-z0-9]/;
+
+  var currentTab = 'user';
+  var lastSubmitted = null;   // 'user' or 'vendor' after a valid submit
+
+  // ---------- Helpers ----------
+  function $(id) { return document.getElementById(id); }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  // Shows or clears a field's message and state
+  function setField(fieldEl, msgEl, error, okText) {
+    if (error) {
+      fieldEl.classList.add('is-invalid');
+      fieldEl.classList.remove('is-valid');
+      msgEl.textContent = error;
+      msgEl.className = 'msg is-error';
+    } else if (okText) {
+      fieldEl.classList.remove('is-invalid');
+      fieldEl.classList.add('is-valid');
+      msgEl.textContent = okText;
+      msgEl.className = 'msg is-ok';
+    } else {
+      fieldEl.classList.remove('is-invalid', 'is-valid');
+      msgEl.textContent = '';
+      msgEl.className = 'msg';
+    }
+  }
+
+  function passwordChecks(pw) {
+    return {
+      length: pw.length >= 8,
+      number: /[0-9]/.test(pw),
+      special: SPECIAL_RE.test(pw)
+    };
+  }
+
+  function passwordError(pw) {
+    if (!pw) return 'Create a password.';
+    var c = passwordChecks(pw);
+    return (c.length && c.number && c.special) ? null : PASSWORD_HINT;
+  }
+
+  function updateRules(pw) {
+    var c = passwordChecks(pw);
+    $('r-length').classList.toggle('is-pass', c.length);
+    $('r-number').classList.toggle('is-pass', c.number);
+    $('r-special').classList.toggle('is-pass', c.special);
+  }
+
+  function showToast(message) {
+    var el = $('toast');
+    el.textContent = message;
+    el.classList.add('is-visible');
+    clearTimeout(showToast.timer);
+    showToast.timer = setTimeout(function () { el.classList.remove('is-visible'); }, 2400);
+  }
+
+  // ---------- User form validation ----------
+  function validateUser(showAll) {
+    var errors = 0;
+    var first = $('u-first').value.trim();
+    var last = $('u-last').value.trim();
+    var email = $('u-email').value.trim();
+    var pw = $('u-password').value;
+    var confirm = $('u-confirm').value;
+
+    var fFirst = $('u-first').closest('.field');
+    var fLast = $('u-last').closest('.field');
+    var fEmail = $('u-email').closest('.field');
+    var fPw = $('u-password').closest('.field');
+    var fConfirm = $('u-confirm').closest('.field');
+
+    var eFirst = first ? null : 'Enter your first name.';
+    var eLast = last ? null : 'Enter your last name.';
+    var eEmail = !email ? 'Enter your email address.' : (EMAIL_RE.test(email) ? null : 'Enter a valid email address.');
+    var ePw = passwordError(pw);
+    var eConfirm = !confirm ? 'Confirm your password.' : (confirm === pw ? null : 'Passwords do not match.');
+
+    if (showAll || $('u-first').value) setField(fFirst, $('u-first-msg'), eFirst);
+    if (showAll || $('u-last').value) setField(fLast, $('u-last-msg'), eLast);
+    if (showAll || $('u-email').value) setField(fEmail, $('u-email-msg'), eEmail, (!eEmail && email) ? '✓ Valid email format' : null);
+    if (showAll || pw) setField(fPw, $('u-password-msg'), ePw, (!ePw && pw) ? '✓ Password meets the rules' : null);
+    if (showAll || confirm) setField(fConfirm, $('u-confirm-msg'), eConfirm, (!eConfirm && confirm) ? '✓ Passwords match' : null);
+
+    [eFirst, eLast, eEmail, ePw, eConfirm].forEach(function (e) { if (e) errors++; });
+
+    if (showAll && !$('u-terms').checked) {
+      $('u-terms-msg').classList.add('is-error');
+      errors++;
+    } else {
+      $('u-terms-msg').classList.remove('is-error');
+    }
+
+    $('user-summary').hidden = !(showAll && ePw);
+    return errors;
+  }
+
+  // ---------- Vendor form validation ----------
+  function validateVendor(showAll) {
+    var errors = 0;
+    var checks = [];
+
+    function check(id, fieldId, msgId, error, touched) {
+      if (showAll || touched) setField($(fieldId), $(msgId), error);
+      if (error) errors++;
+    }
+
+    var bname = $('v-bname').value.trim();
+    var category = $('v-category').value;
+    var city = $('v-city').value.trim();
+    var services = $('v-services').value.trim();
+    var price = $('v-price').value.trim();
+    var contact = $('v-contact').value.trim();
+    var email = $('v-email').value.trim();
+    var phone = $('v-phone').value.trim();
+    var pw = $('v-password').value;
+
+    check('bname', 'v-bname', 'v-bname-msg', bname ? null : 'Enter your business name.', !!bname || showAll);
+    check('category', 'v-category', 'v-category-msg', category ? null : 'Choose a category.', !!category || showAll);
+    check('city', 'v-city', 'v-city-msg', city ? null : 'Enter your city.', !!city || showAll);
+    check('services', 'v-services', 'v-services-msg', services ? null : 'List the services you offer.', !!services || showAll);
+    var priceErr = !price ? 'Enter a starting price.' : (/^\$?\d[\d,]*(\.\d{1,2})?$/.test(price) ? null : 'Enter a price as a number, for example 1200.');
+    check('price', 'v-price', 'v-price-msg', priceErr, !!price || showAll);
+    check('contact', 'v-contact', 'v-contact-msg', contact ? null : 'Enter a contact name.', !!contact || showAll);
+    var emailErr = !email ? 'Enter your business email.' : (EMAIL_RE.test(email) ? null : 'Enter a valid email address.');
+    check('vemail', 'v-email', 'v-email-msg', emailErr, !!email || showAll);
+    var phoneErr = !phone ? 'Enter a phone number.' : (phone.replace(/\D/g, '').length >= 7 ? null : 'Enter a valid phone number.');
+    check('phone', 'v-phone', 'v-phone-msg', phoneErr, !!phone || showAll);
+
+    var ePw = passwordError(pw);
+    if (showAll || pw) setField($('v-password').closest('.field'), $('v-password-msg'), ePw, (!ePw && pw) ? '✓ Password meets the rules' : null);
+    if (ePw) errors++;
+
+    if (showAll && !$('v-terms').checked) {
+      $('v-terms-msg').classList.add('is-error');
+      errors++;
+    } else {
+      $('v-terms-msg').classList.remove('is-error');
+    }
+
+    $('vendor-summary').hidden = !(showAll && errors > 0);
+    return errors;
+  }
+
+  // ---------- Tabs ----------
+  function setTab(tab) {
+    currentTab = tab;
+    document.querySelectorAll('[data-tab]').forEach(function (b) {
+      var active = b.dataset.tab === tab;
+      b.setAttribute('aria-selected', String(active));
+    });
+    $('user-form').hidden = tab !== 'user';
+    $('vendor-form').hidden = tab !== 'vendor';
+    $('form-area').hidden = false;
+    $('success').hidden = true;
+    $('side-title').innerHTML = COPY[tab].title;
+    $('side-lead').textContent = COPY[tab].lead;
+    $('panel').setAttribute('aria-labelledby', tab === 'user' ? 'tab-user' : 'tab-vendor');
+  }
+
+  document.querySelectorAll('[data-tab]').forEach(function (b) {
+    b.addEventListener('click', function () { setTab(b.dataset.tab); });
+  });
+
+  // ---------- Show or hide password ----------
+  document.querySelectorAll('[data-toggle]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var input = $(btn.dataset.toggle);
+      var show = input.type === 'password';
+      input.type = show ? 'text' : 'password';
+      btn.textContent = show ? 'Hide' : 'Show';
+      btn.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+    });
+  });
+
+  // ---------- Live and blur validation ----------
+  ['u-first', 'u-last', 'u-email', 'u-password', 'u-confirm'].forEach(function (id) {
+    $(id).addEventListener('input', function () { validateUser(false); });
+    $(id).addEventListener('blur', function () { validateUser(false); });
+  });
+  $('u-terms').addEventListener('change', function () { validateUser(false); });
+
+  ['v-bname', 'v-category', 'v-city', 'v-services', 'v-price', 'v-contact', 'v-email', 'v-phone', 'v-password'].forEach(function (id) {
+    var el = $(id);
+    el.addEventListener('input', function () { validateVendor(false); });
+    el.addEventListener('change', function () { validateVendor(false); });
+    el.addEventListener('blur', function () { validateVendor(false); });
+  });
+  $('v-password').addEventListener('input', function () { updateRules(this.value); });
+  $('v-terms').addEventListener('change', function () { validateVendor(false); });
+
+  // ---------- Portfolio upload ----------
+  $('v-portfolio').addEventListener('change', function () {
+    var file = this.files[0];
+    var msg = $('v-portfolio-msg');
+    var chip = $('file-chip');
+    chip.hidden = true;
+    msg.className = 'msg';
+    if (!file) return;
+    if (ALLOWED_TYPES.indexOf(file.type) === -1) {
+      msg.textContent = 'Upload a JPG, PNG or PDF file.';
+      msg.className = 'msg is-error';
+      this.value = '';
+      return;
+    }
+    if (file.size > MAX_FILE_MB * 1024 * 1024) {
+      msg.textContent = 'This file is over ' + MAX_FILE_MB + ' MB.';
+      msg.className = 'msg is-error';
+      this.value = '';
+      return;
+    }
+    chip.textContent = '✓ ' + file.name + ' · ' + (file.size / (1024 * 1024)).toFixed(1) + ' MB';
+    chip.hidden = false;
+  });
+
+  // ---------- Submit ----------
+  $('user-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (validateUser(true) > 0) {
+      var first = document.querySelector('#user-form .is-invalid input');
+      if (first) first.focus();
+      return;
+    }
+    lastSubmitted = 'user';
+    showSuccess('user');
+  });
+
+  $('vendor-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (validateVendor(true) > 0) {
+      var first = document.querySelector('#vendor-form .is-invalid input, #vendor-form .is-invalid select');
+      if (first) first.focus();
+      return;
+    }
+    lastSubmitted = 'vendor';
+    showSuccess('vendor');
+  });
+
+  // ---------- Success state ----------
+  function showSuccess(kind) {
+    $('form-area').hidden = true;
+    $('success').hidden = false;
+    var isVendor = kind === 'vendor';
+
+    if (isVendor) {
+      $('success-heading').textContent = 'Your next great connection starts here.';
+      $('success-lead').textContent = 'Here is how your business profile could look to planners. Review your listing and add your favourite work.';
+      $('vendor-preview').hidden = false;
+      var name = $('v-bname').value.trim() || 'Your business';
+      var services = $('v-services').value.trim() || 'Event services';
+      var city = $('v-city').value.trim() || 'Your city';
+      var price = $('v-price').value.trim().replace(/^\$/, '');
+      var email = $('v-email').value.trim();
+      $('pv-name').textContent = name;
+      $('pv-meta').textContent = services + ' · ' + city + ' · From $' + price + ' · ' + email;
+      $('success-primary').textContent = 'Preview my listing →';
+    } else {
+      $('success-heading').textContent = 'Welcome, ' + ($('u-first').value.trim() || 'friend') + '. Your next chapter starts here.';
+      $('success-lead').textContent = 'Your account is ready. Plan your first event, save venues and ideas, and keep everything in one place.';
+      $('vendor-preview').hidden = true;
+      $('success-primary').textContent = 'Go to my dashboard →';
+    }
+    $('success-back').textContent = 'Edit details';
+    $('success-heading').setAttribute('tabindex', '-1');
+    $('success-heading').focus();
+  }
+
+  $('success-primary').addEventListener('click', function () {
+    showToast('Sample only. Nothing is saved in this preview.');
+  });
+
+  $('success-back').addEventListener('click', function () {
+    $('success').hidden = true;
+    $('form-area').hidden = false;
+  });
+
+  // Demo link to see the success state without filling the form
+  $('show-success').addEventListener('click', function () {
+    lastSubmitted = currentTab;
+    // Fill sample values so the preview reads naturally
+    if (currentTab === 'vendor') {
+      if (!$('v-bname').value) $('v-bname').value = 'Wildflower Studio';
+      if (!$('v-services').value) $('v-services').value = 'Floral design & event styling';
+      if (!$('v-city').value) $('v-city').value = 'Austin, TX';
+      if (!$('v-price').value) $('v-price').value = '1200';
+      if (!$('v-email').value) $('v-email').value = 'hello@wildflower.example';
+    }
+    showSuccess(currentTab);
+  });
+
+  // Mobile menu
+  document.querySelector('.menu-toggle').addEventListener('click', function () {
+    var nav = $('main-nav');
+    var open = nav.classList.toggle('is-open');
+    this.setAttribute('aria-expanded', String(open));
+  });
+
+  setTab('user');
+</script>
+</body>
+</html>
