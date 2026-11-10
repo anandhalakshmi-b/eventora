@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wedding Invitation Studio - Eventora</title>
+  <link rel="icon" type="image/png" href="images/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- html2canvas library for high-res PNG download -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+  <header id="site-header"></header>
+
+  <main>
+    <!-- Header (Pink Theme) -->
+    <section style="background-color: var(--bg-pink); padding: 60px 0 50px;">
+      <div class="container">
+        <div style="max-width: 680px;">
+          <span class="card-badge" style="background: rgba(219, 39, 119, 0.15); color: var(--accent-pink);">Stationery & Shahi Patrika</span>
+          <h1 class="heading-xl" style="color: var(--text-dark); margin-bottom: 12px;">Live Shahi Invitation Studio</h1>
+          <p style="font-size: 1.1rem; color: #831843; line-height: 1.6;">
+            Select from royal Indian wedding templates with auspicious motifs, personalize your muhurat and ceremony details in real time, save to MongoDB, and export high-resolution PNGs ready for WhatsApp and printing.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Studio Section -->
+    <section style="padding: 48px 0 80px;">
+      <div class="container">
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: flex-start;">
+          
+          <!-- LEFT: Form & Template Controls -->
+          <div>
+            <!-- Template Switcher -->
+            <div style="background: #FFFFFF; border: 1px solid var(--border-color); border-radius: 20px; padding: 24px; box-shadow: var(--shadow-subtle); margin-bottom: 24px;">
+              <span class="form-label" style="display: block; margin-bottom: 12px;">1. Choose Royal Aesthetic</span>
+              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;" id="template-options">
+                <button type="button" class="btn btn-sm active-template" data-template="floral" style="background: #FEF9C3; color: #854D0E; border: 2px solid #CA8A04; border-radius: 12px; padding: 12px 8px; flex-direction: column; gap: 4px;">
+                  <span style="font-size: 1.2rem;">🌼</span>
+                  <span style="font-size: 0.8rem; font-weight: 700;">Royal Marigold</span>
+                </button>
+                <button type="button" class="btn btn-sm" data-template="minimalist" style="background: #FDF2F8; color: #9D174D; border: 1px solid #CBD5E1; border-radius: 12px; padding: 12px 8px; flex-direction: column; gap: 4px;">
+                  <span style="font-size: 1.2rem;">💖</span>
+                  <span style="font-size: 0.8rem; font-weight: 700;">Pastel Sangeet</span>
+                </button>
+                <button type="button" class="btn btn-sm" data-template="royal" style="background: #7F1D1D; color: #FEF08A; border: 1px solid #D4AF37; border-radius: 12px; padding: 12px 8px; flex-direction: column; gap: 4px;">
+                  <span style="font-size: 1.2rem;">👑</span>
+                  <span style="font-size: 0.8rem; font-weight: 700;">Imperial Crimson</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Customizer Form -->
+            <div style="background: #FFFFFF; border: 1px solid var(--border-color); border-radius: 20px; padding: 28px; box-shadow: var(--shadow-card);">
+              <span class="form-label" style="display: block; margin-bottom: 16px;">2. Personalize Shahi Patrika Details</span>
+
+              <form id="invite-form">
+                <div class="form-group">
+                  <label class="form-label" for="invite-title">Auspicious Blessing / Header</label>
+                  <input type="text" id="invite-title" class="form-control" value="॥ श्री गणेशाय नमः ॥ With Blessings of Elders" />
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="invite-hosts">Couple or Host Names *</label>
+                  <input type="text" id="invite-hosts" class="form-control" value="Diya Sharma & Aarav Kapoor" required />
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label" for="invite-date">Ceremony Date</label>
+                    <input type="text" id="invite-date" class="form-control" value="Sunday, December 13, 2026" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="invite-time">Shubh Muhurat / Timing</label>
+                    <input type="text" id="invite-time" class="form-control" value="Baraat: 6:00 PM • Varmala & Pheras: 8:00 PM" />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="invite-venue">Palace / Venue Name</label>
+                  <input type="text" id="invite-venue" class="form-control" value="The Rambagh Palace & Heritage Lawns" />
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="invite-address">Address & City</label>
+                  <input type="text" id="invite-address" class="form-control" value="Bhawani Singh Road, Jaipur, Rajasthan" />
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="invite-message">Personal Warm Invitation</label>
+                  <textarea id="invite-message" class="form-control" rows="2">Cordially request your gracious presence and heartfelt blessings on the auspicious occasion of our sacred wedding ceremony.</textarea>
+                </div>
+
+                <div style="display: flex; gap: 12px; margin-top: 24px;">
+                  <button type="button" id="btn-save-invite" class="btn btn-primary" style="flex: 1;">
+                    💾 Save to MongoDB
+                  </button>
+                  <button type="button" id="btn-download-png" class="btn btn-accent" style="flex: 1;">
+                    📷 Download as PNG
+                  </button>
+                </div>
+
+                <div id="save-status-msg" style="display:none; margin-top:12px; text-align:center; font-size:0.85rem; color:#16A34A; font-weight:700;"></div>
+              </form>
+            </div>
+          </div>
+
+          <!-- RIGHT: Live Canvas Preview -->
+          <div>
+            <div style="text-align: center; margin-bottom: 12px;">
+              <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Real-Time Shahi Patrika Preview</span>
+            </div>
+
+            <div id="invite-canvas" class="invite-canvas template-floral">
+              <div>
+                <img src="images/logo.png" alt="Eventora Lotus" class="invite-lotus-icon" id="preview-logo" />
+                <h4 id="preview-title" style="font-size: 0.9rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 8px;">
+                  ॥ श्री गणेशाय नमः ॥ With Blessings of Elders
+                </h4>
+                <div id="preview-hosts" class="invite-hosts">
+                  Diya Sharma & Aarav Kapoor
+                </div>
+              </div>
+
+              <div style="margin: 20px 0;">
+                <p id="preview-message" style="font-size: 0.95rem; font-style: italic; line-height: 1.6; max-width: 330px; margin: 0 auto 16px;">
+                  Cordially request your gracious presence and heartfelt blessings on the auspicious occasion of our sacred wedding ceremony.
+                </p>
+                <div style="width: 50px; height: 2px; background: currentColor; margin: 16px auto; opacity: 0.4;"></div>
+                <div id="preview-date" style="font-weight: 800; font-size: 1.1rem; letter-spacing: 0.04em;">
+                  Sunday, December 13, 2026
+                </div>
+                <div id="preview-time" style="font-size: 0.9rem; opacity: 0.9; margin-top: 4px; font-weight: 600;">
+                  Baraat: 6:00 PM • Varmala & Pheras: 8:00 PM
+                </div>
+              </div>
+
+              <div>
+                <div id="preview-venue" style="font-weight: 800; font-size: 1.05rem;">
+                  The Rambagh Palace & Heritage Lawns
+                </div>
+                <div id="preview-address" style="font-size: 0.82rem; opacity: 0.85; margin-top: 4px;">
+                  Bhawani Singh Road, Jaipur, Rajasthan
+                </div>
+              </div>
+            </div>
+
+            <!-- Saved Invites History Drawer -->
+            <div style="margin-top: 40px; background: #FFFFFF; border: 1px solid var(--border-color); border-radius: 20px; padding: 24px; box-shadow: var(--shadow-subtle);">
+              <h3 class="heading-sm" style="margin-bottom: 14px;">Your Saved Invitations (<span id="saved-invites-count">0</span>)</h3>
+              <div id="saved-invites-list" style="display: flex; flex-direction: column; gap: 8px; max-height: 220px; overflow-y: auto;">
+                <div style="color: var(--text-muted); font-size: 0.85rem; text-align: center; padding: 16px;">
+                  Saved invitations will appear here.
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/invites.js"></script>
+</body>
+</html>
