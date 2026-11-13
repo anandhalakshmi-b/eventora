@@ -1,135 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI Shaadi Consultation & Blueprint - Eventora</title>
-  <link rel="icon" type="image/png" href="images/favicon.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Free Consultation | Eventora</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Dancing+Script:wght@600&family=Playfair+Display:wght@600;800&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/theme.css">
+  <link rel="stylesheet" href="/css/ora.css">
+  <link rel="stylesheet" href="/css/consultation.css">
 </head>
 <body>
-  <header id="site-header"></header>
+<!-- ===== SHARED TOP BAR: copy the same block in every page ===== -->
+<header class="topbar">
+  <a href="/" class="brand">Eventora</a>
+  <nav aria-label="Main">
+    <a href="/venues">Venues</a><a href="/ideas">Ideas</a><a href="/budget">Budget</a>
+    <a href="/consultation">Consultation</a><a href="/checklist">Checklist</a>
+    <a href="/guests">Guests</a><a href="/invites">Invites</a>
+  </nav>
+</header>
+<main class="container">
+  <section class="consult-hero">
+    <h1>Free Event Planning Consultation <span class="badge free">FREE</span></h1>
+    <p>Tell us about your event and get an instant starter plan, made for Indian celebrations.</p>
+  </section>
 
-  <main>
-    <!-- Header (Cyan -> Purple -> Pink Gradient) -->
-    <section style="background: var(--gradient-ai); padding: 60px 0 50px; border-bottom: 1px solid rgba(147, 51, 234, 0.15);">
-      <div class="container">
-        <div style="max-width: 700px;">
-          <span class="card-badge" style="background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(8px); color: var(--accent-purple);">
-            ✨ Eventora AI Intelligence
-          </span>
-          <h1 class="heading-xl" style="color: var(--text-dark); margin-bottom: 12px;">AI Shaadi Consultation</h1>
-          <p style="font-size: 1.1rem; color: #334155; line-height: 1.6;">
-            Answer a few quick questions regarding your celebration traditions. Our AI synthesizer will build a tailored multi-day ceremony schedule (Haldi, Mehendi, Sangeet, Baraat & Pheras) and an itemized budget blueprint in ₹ (Rupees) in seconds.
-          </p>
-        </div>
-      </div>
-    </section>
+  <div id="errors" class="alert" role="alert" hidden></div>
 
-    <!-- Main Content -->
-    <section style="padding: 48px 0 80px;">
-      <div class="container">
+  <form id="consult-form" class="card form-card" novalidate>
+    <label for="eventType">Event type</label>
+    <select id="eventType" name="eventType" required>
+        <option value="">Choose...</option>
+        <option value="wedding">Wedding (Hindu / Christian / Muslim / Sikh)</option>
+        <option value="engagement">Engagement / Roka / Sagai</option>
+        <option value="birthday">Birthday Party</option>
+        <option value="housewarming">Griha Pravesh / Housewarming</option>
+        <option value="babyshower">Baby Shower / Godh Bharai / Seemantham</option>
+        <option value="naming">Naming Ceremony / Namkaran</option>
+        <option value="festival">Festival Party (Diwali / Ganesh Chaturthi / Navratri / Eid / Christmas)</option>
+        <option value="corporate">Corporate Event / Annual Day / Conference</option>
+        <option value="anniversary">Anniversary</option>
+        <option value="graduation">Graduation / Farewell Party</option>
+    </select>
 
-        <!-- Form Card -->
-        <div style="background: #FFFFFF; border: 1px solid var(--border-color); border-radius: 24px; padding: 36px; box-shadow: var(--shadow-card); max-width: 840px; margin: 0 auto 48px;">
-          <h2 class="heading-md" style="margin-bottom: 8px;">Describe Your Celebration Vision</h2>
-          <p class="subtitle" style="font-size: 0.95rem; margin-bottom: 28px;">
-            Input your parameters below to generate your tailored Indian event blueprint.
-          </p>
+    <label for="eventDate">Event date</label>
+    <input type="date" id="eventDate" name="eventDate" required>
 
-          <form id="consultation-form">
-            <div class="form-row">
-              <div class="form-group">
-                <label class="form-label" for="consult-event-type">Event / Shaadi Type *</label>
-                <select id="consult-event-type" class="form-control" required>
-                  <option value="Grand 3-Day Shaadi">Grand 3-Day Wedding (Haldi, Sangeet & Pheras)</option>
-                  <option value="Sangeet & Cocktail Soirée">Sangeet & Cocktail Night</option>
-                  <option value="Haldi & Mehendi Carnival">Haldi & Mehendi Day Carnival</option>
-                  <option value="Royal Wedding Reception">Royal Wedding Reception</option>
-                  <option value="Roka & Ring Ceremony">Roka & Ring Ceremony</option>
-                  <option value="Griha Pravesh & Hawan">Griha Pravesh & Auspicious Hawan</option>
-                  <option value="25th / 50th Silver Anniversary">Silver / Golden Wedding Anniversary</option>
-                </select>
-              </div>
+    <label for="guests">Number of guests</label>
+    <input type="number" id="guests" name="guests" min="1" required>
 
-              <div class="form-group">
-                <label class="form-label" for="consult-style">Aesthetic & Decor Theme *</label>
-                <select id="consult-style" class="form-control" required>
-                  <option value="Royal Rajputana Heritage">Royal Rajputana Palace (Udaipur & Jaipur Domes)</option>
-                  <option value="Vedic Marigold & Terracotta">Vedic Marigold, Rajnigandha & Brass Urlis</option>
-                  <option value="Bollywood Glitz & Glamour">Bollywood Glitz, LED Truss & Neon Sangeet</option>
-                  <option value="Coastal Sunset Mandap">Sunset Beachside Mandap (Goa Coastal)</option>
-                  <option value="Contemporary Pastel Floral">Contemporary Pastel Florals & Fairy Lights</option>
-                </select>
-              </div>
-            </div>
+    <label for="budget">Total budget (₹)</label>
+    <input type="number" id="budget" name="budget" min="1000" step="1000" placeholder="e.g. 500000" required>
 
-            <div class="form-row">
-              <div class="form-group">
-                <label class="form-label" for="consult-guests">Estimated Total Guests *</label>
-                <input type="number" id="consult-guests" class="form-control" value="350" min="20" max="5000" required />
-              </div>
+    <label for="city">City</label>
+    <input type="text" id="city" name="city" placeholder="e.g. Coimbatore, Jaipur, Mumbai" required>
 
-              <div class="form-group">
-                <label class="form-label" for="consult-budget">Total Target Budget in Rupees (₹) *</label>
-                <input type="number" id="consult-budget" class="form-control" value="3500000" min="200000" step="50000" required />
-              </div>
-            </div>
+    <label for="style">Style</label>
+    <select id="style" name="style">
+        <option value="traditional">Traditional</option>
+        <option value="modern">Modern</option>
+        <option value="royal">Royal</option>
+        <option value="boho">Boho</option>
+        <option value="rustic">Rustic</option>
+    </select>
 
-            <div class="form-row">
-              <div class="form-group">
-                <label class="form-label" for="consult-city">Preferred Destination / City *</label>
-                <select id="consult-city" class="form-control" required>
-                  <option value="Jaipur">Jaipur (Rajasthan)</option>
-                  <option value="Udaipur">Udaipur (Rajasthan)</option>
-                  <option value="Delhi NCR">Delhi NCR</option>
-                  <option value="Mumbai">Mumbai (Maharashtra)</option>
-                  <option value="Bengaluru">Bengaluru (Karnataka)</option>
-                  <option value="Goa">Goa (Beach Destination)</option>
-                  <option value="Hyderabad">Hyderabad (Telangana)</option>
-                  <option value="Kolkata">Kolkata (West Bengal)</option>
-                  <option value="Pune">Pune (Maharashtra)</option>
-                </select>
-              </div>
+    <p><button class="btn consult-btn" type="submit">Generate my plan</button></p>
+  </form>
+</main>
 
-              <div class="form-group">
-                <label class="form-label" for="consult-season">Target Shubh Muhurat Season</label>
-                <select id="consult-season" class="form-control">
-                  <option value="Winter Shaadi (Nov - Feb)">Winter Shaadi Season (November - February)</option>
-                  <option value="Spring Muhurat (Mar - Apr)">Spring Auspicious Muhurat (March - April)</option>
-                  <option value="Summer Destination (May - Jun)">Summer Wedding (May - June)</option>
-                  <option value="Autumn Festive (Sep - Oct)">Autumn Festive Season (September - October)</option>
-                </select>
-              </div>
-            </div>
+<footer class="site-footer"><p>© Eventora · Plan every moment, beautifully.</p></footer>
 
-            <div class="form-group">
-              <label class="form-label" for="consult-notes">Special Requests or Family Priorities</label>
-              <textarea id="consult-notes" class="form-control" rows="2" placeholder="e.g. Live Chandni Chowk Chaat stall, 8 Dhol players for Baraat, 100% Pure Jain catering counter, Sufi music for dinner"></textarea>
-            </div>
+<!-- ===== ORA FLOATING CHAT (Module 9): paste this block + the script tag before </body> on EVERY page ===== -->
+<button id="ora-fab" class="ora-fab" aria-label="Chat with Ora" aria-expanded="false">💬</button>
+<section id="ora-window" class="ora-window" hidden aria-label="Chat with Ora">
+  <header class="ora-head"><strong>Ora</strong> · your planning buddy
+    <button id="ora-close" class="ora-x" aria-label="Close chat">×</button></header>
+  <div id="ora-log" class="ora-log" role="log" aria-live="polite"></div>
+  <div class="ora-quick">
+    <button data-q="Find venues">Find venues</button>
+    <button data-q="Set a budget">Set a budget</button>
+    <button data-q="Make an invite">Make an invite</button>
+    <button data-q="Talk to a human">Talk to a human</button>
+  </div>
+  <div class="ora-form">
+    <label for="ora-input" class="sr-only">Message Ora</label>
+    <input id="ora-input" type="text" maxlength="500" placeholder="Ask Ora anything..." autocomplete="off">
+    <button id="ora-send" class="ora-send">Send</button>
+  </div>
+</section>
 
-            <button type="submit" id="btn-generate-plan" class="btn btn-primary" style="width: 100%; padding: 14px; font-size: 1rem; background: var(--text-dark);">
-              ✨ Generate AI Shaadi Master Blueprint
-            </button>
-          </form>
-        </div>
-
-        <!-- Generated Plan Container (Hidden until form submission) -->
-        <div id="ai-plan-result" style="display: none; animation: modalScale 0.3s cubic-bezier(0.16, 1, 0.3, 1);">
-          <!-- Content populated by consultation.js -->
-        </div>
-
-      </div>
-    </section>
-  </main>
-
-  <footer id="site-footer"></footer>
-
-  <script src="js/api.js"></script>
-  <script src="js/main.js"></script>
-  <script src="js/consultation.js"></script>
+<script src="/js/consultation.js"></script>
+<script src="/js/ora.js"></script>
 </body>
 </html>
