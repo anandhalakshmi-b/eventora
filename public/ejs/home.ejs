@@ -1,5 +1,5 @@
-<%- include('partials/head', { pageTitle: 'Home' }) %>
-<%- include('partials/header') %>
+<%- include('head', { pageTitle: 'Home' }) %>
+<%- include('header') %>
 
 <main id="main">
 
@@ -9,9 +9,6 @@
       <h1 class="hero-title">
         Make something
         <% const palette = ['#EF4444', '#F97316', '#F59E0B', '#22C55E', '#84CC16', '#22C08A']; %>
-        <span class="coolorful" aria-label="coolorful">
-          <% 'coolorful'.split('').forEach(function (ch, i) { %><span style="color: <%= palette[i % palette.length] %>" aria-hidden="true"><%= ch %></span><% }) %>
-        </span>
       </h1>
       <p class="hero-promise">Plan every moment, beautifully.</p>
       <div class="hero-actions">
@@ -95,4 +92,4 @@
 
 </main>
 
-<%- include('partials/footer') %>
+<%- include('footer') %>

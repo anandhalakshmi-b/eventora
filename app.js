@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 3000;
 
 // ----- Server setup -----
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'public', 'ejs'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -78,11 +78,62 @@ app.post('/newsletter', (req, res) => {
   res.redirect('/#newsletter');
 });
 
+// ----- Other pages -----
+// Each nav link maps to an HTML file inside the /pages folder.
+// "aliases" are old file names used in links inside those pages (e.g. href="venues.html").
+const pages = [
+  { route: '/venues',       file: 'venues.html',             aliases: ['venues.html'] },
+  { route: '/vendors',      file: 'vendors.html',            aliases: ['vendors.html'] },
+  { route: '/favorites',    file: 'favorites.html',          aliases: ['favorites.html'] },
+  { route: '/ideas',        file: 'eventora-ideas.html',     aliases: ['ideas.html', 'eventora-ideas.html'] },
+  { route: '/budget',       file: 'budget.html',             aliases: ['budget.html'] },
+  { route: '/consultation', file: 'consultation.html',       aliases: ['consultation.html'] },
+  { route: '/checklist',    file: 'eventora-checklist.html', aliases: ['checklist.html', 'eventora-checklist.html'] },
+  { route: '/guests',       file: 'guests.html',             aliases: ['guests.html'] },
+  { route: '/rsvp',         file: 'rsvp.html',               aliases: ['rsvp.html'] },
+  { route: '/register',     file: 'eventora-register.html',  aliases: ['register.html', 'eventora-register.html'] },
+  { route: '/ora',          file: 'chatbot.html',            aliases: ['ora.html', 'chatbot.html'] },
+  { route: '/invites',      file: 'invites.html',            aliases: ['invites.html'] }
+];
+
+pages.forEach((page) => {
+  app.get(page.route, (req, res) => {
+    res.sendFile(path.join(__dirname, 'pages', page.file));
+  });
+  // Old-style links such as "venues.html" go to the clean URL "/venues".
+  page.aliases.forEach((alias) => {
+    app.get('/' + alias, (req, res) => res.redirect(page.route));
+  });
+});
+
+// Old links back to the home page
+['index.html', 'eventora-home.html'].forEach((name) => {
+  app.get('/' + name, (req, res) => res.redirect('/'));
+});
+
+// Some pages still ask for the old logo file name
+app.get('/eventora_logo_slanted.png', (req, res) => res.redirect('/images/logo.png'));
+
 // Fallback for pages not built yet
 app.use((req, res) => {
   res.status(404).send('Page not found');
 });
 
-app.listen(PORT, () => {
-  console.log(`Eventora running at http://localhost:${PORT}`);
-});
+// ----- Start the server -----
+// If the port is busy, try the next one instead of crashing.
+function startServer(port) {
+  const server = app.listen(port, () => {
+    console.log(`Eventora running at http://localhost:${port}`);
+  });
+
+  server.on('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+      console.log(`Port ${port} is busy, trying ${port + 1}...`);
+      startServer(port + 1);
+    } else {
+      throw err;
+    }
+  });
+}
+
+startServer(Number(PORT));
