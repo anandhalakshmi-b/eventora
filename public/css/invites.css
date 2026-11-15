@@ -1,34 +1,304 @@
-/* Module 10 - pink family (Invites & Websites) */
-.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
-.steps{display:flex;gap:8px;list-style:none;padding:0;flex-wrap:wrap}
-.steps li{padding:8px 16px;border-radius:999px;background:var(--slate50);border:1px solid var(--border);font-weight:600;font-size:14px}
-.steps li.on{background:var(--pink-bg);color:var(--pink);border-color:var(--pink)}
-.tpl{border:0;text-align:center;cursor:pointer;font:inherit;display:flex;flex-direction:column;gap:8px;align-items:center}
-.tpl-emoji{font-size:40px}
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
-.two-col.preview-only .form-panel{display:none}
-.two-col.preview-only{grid-template-columns:1fr}
-.form-panel{background:var(--slate50)}
-.tile-pink{background:var(--pink-bg);color:var(--pink)}
-.tile-green{background:var(--green-bg);color:var(--green)}
-.inv-btn{background:var(--pink);color:#fff}
-.inv-btn-outline{background:#fff;color:var(--pink);border:2px solid var(--pink)}
-.nav-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-.small{font-size:13px}
-.alert{background:var(--red-bg);color:var(--red);border-radius:12px;padding:12px 16px;margin-bottom:16px}
-.guest-send{list-style:none;padding:0}.guest-send li{padding:6px 0;border-bottom:1px solid var(--border)}.guest-send a{margin-left:12px;font-weight:600;color:var(--pink)}
-.map{width:100%;height:260px;border:0;border-radius:20px;margin-bottom:20px}
+/* Module 10 - Invites & Websites (Multi-event Studio) */
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
-/* The invitation card itself */
-.invite-card{background:var(--bg);color:var(--fg);border-radius:20px;padding:36px 28px;text-align:center;
-  border:3px double var(--fg);max-width:480px;margin:0 auto;line-height:1.5}
-.inv-lotus{font-size:32px}
-.inv-heading{text-transform:uppercase;letter-spacing:.2em;font-size:13px;font-weight:700;margin:8px 0}
-.inv-title{font-size:38px;margin:12px 0;font-weight:800;line-height:1.15}
-.inv-hosts{font-size:16px;font-weight:600}
-.inv-message{font-size:15px;margin:16px 0}
-.inv-photo{width:160px;height:160px;object-fit:cover;border-radius:50%;border:4px solid var(--fg);margin:8px auto}
-.inv-details{border-top:1px solid var(--fg);border-bottom:1px solid var(--fg);padding:12px 0;margin:16px 0;font-size:14px}
-.inv-details p{margin:6px 0}
-.inv-brand{font-size:11px;opacity:.7;margin:8px 0 0}
-@media(max-width:800px){.two-col{grid-template-columns:1fr}.inv-title{font-size:30px}}
+/* 3-Step Wizard Navigation */
+.steps { display: flex; gap: 10px; list-style: none; padding: 0; margin: 24px 0; flex-wrap: wrap; }
+.steps li {
+  padding: 10px 22px;
+  border-radius: 999px;
+  background: #F1F5F9;
+  border: 1px solid #CBD5E1;
+  font-weight: 700;
+  font-size: 14px;
+  color: #475569;
+  transition: all 0.2s ease;
+}
+.steps li.on {
+  background: #FCE7F3;
+  color: #DB2777;
+  border-color: #DB2777;
+  box-shadow: 0 2px 8px rgba(219, 39, 119, 0.15);
+}
+
+/* Template Grid (Step 1) */
+.tpl-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 16px;
+  margin: 20px 0 40px;
+}
+.tpl {
+  border: 2px solid transparent;
+  border-radius: 20px;
+  padding: 24px 16px;
+  text-align: center;
+  cursor: pointer;
+  font: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+}
+.tpl:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.1);
+  border-color: currentColor;
+}
+.tpl-emoji { font-size: 42px; line-height: 1; }
+.tpl strong { font-size: 15px; font-weight: 700; }
+
+/* 2-Column Layout (Step 2 & 3) */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+  align-items: start;
+  margin: 24px 0 48px;
+}
+.two-col.preview-only { grid-template-columns: 1fr; max-width: 580px; margin: 24px auto 48px; }
+.two-col.preview-only .form-panel { display: none; }
+
+/* Form Panel */
+.form-panel {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+}
+.form-panel label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 14px;
+  margin-bottom: 6px;
+}
+.form-panel label:first-of-type { margin-top: 0; }
+.form-panel input,
+.form-panel select,
+.form-panel textarea {
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: 12px;
+  border: 1px solid #CBD5E1;
+  font-size: 14px;
+  background: #F8FAFC;
+  color: #0F172A;
+  box-sizing: border-box;
+  font-family: inherit;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.form-panel input:focus,
+.form-panel select:focus,
+.form-panel textarea:focus {
+  outline: none;
+  border-color: #DB2777;
+  background: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(219, 39, 119, 0.15);
+}
+.form-panel input[type="color"] {
+  height: 44px;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+.form-panel input[type="file"] {
+  background: #FFFFFF;
+  cursor: pointer;
+}
+
+/* Card Tiles */
+.tile-pink {
+  background: #FDF2F8;
+  color: #9D174D;
+  border: 1px solid #FBCFE8;
+  border-radius: 24px;
+  padding: 36px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+  max-width: 600px;
+  margin: 0 auto 40px;
+}
+.tile-pink h2 { font-size: 28px; font-weight: 800; margin-bottom: 10px; }
+.tile-pink p { font-size: 15px; color: #475569; line-height: 1.6; }
+
+/* Buttons */
+.inv-btn {
+  background: #DB2777;
+  color: #FFFFFF;
+  border: 2px solid #DB2777;
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-decoration: none;
+}
+.inv-btn:hover {
+  background: #BE185D;
+  border-color: #BE185D;
+  transform: translateY(-1px);
+}
+.inv-btn-outline {
+  background: #FFFFFF;
+  color: #DB2777;
+  border: 2px solid #DB2777;
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-decoration: none;
+}
+.inv-btn-outline:hover {
+  background: #FDF2F8;
+  transform: translateY(-1px);
+}
+.nav-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+.small { font-size: 13px; color: #64748B; }
+.alert {
+  background: #FEE2E2;
+  color: #DC2626;
+  border-radius: 14px;
+  padding: 14px 20px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  border: 1px solid #FECACA;
+}
+
+/* =========================================================
+   PRETTY INVITATION CARD (.invite-card)
+   ========================================================= */
+
+.preview-wrap {
+  position: sticky;
+  top: 90px;
+}
+
+.invite-card {
+  position: relative;
+  background: var(--bg, #FCE7F3);
+  color: var(--fg, #DB2777);
+  border-radius: 28px;
+  padding: 44px 36px;
+  text-align: center;
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.5;
+  box-shadow: 0 20px 48px rgba(15, 23, 42, 0.12), 0 4px 12px rgba(15, 23, 42, 0.04);
+  border: 3px double var(--fg, #DB2777);
+  overflow: hidden;
+  box-sizing: border-box;
+  transition: all 0.25s ease;
+}
+
+/* Elegant Inner Inset Border */
+.invite-card::before {
+  content: '';
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  border: 1.5px solid currentColor;
+  opacity: 0.35;
+  border-radius: 18px;
+  pointer-events: none;
+}
+
+.inv-lotus {
+  font-size: 38px;
+  margin-bottom: 8px;
+  line-height: 1;
+}
+
+.inv-heading {
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-size: 12px;
+  font-weight: 700;
+  margin: 8px 0 10px;
+  opacity: 0.88;
+}
+
+.inv-title {
+  font-size: 34px;
+  margin: 12px 0;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.inv-hosts {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 6px 0 14px;
+  opacity: 0.92;
+}
+
+.inv-message {
+  font-size: 14.5px;
+  line-height: 1.6;
+  font-style: italic;
+  margin: 16px auto;
+  max-width: 380px;
+  opacity: 0.95;
+}
+
+.inv-photo {
+  width: 130px;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid var(--fg, #DB2777);
+  margin: 12px auto;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  display: block;
+}
+
+.inv-details {
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 16px;
+  padding: 16px 20px;
+  margin: 20px 0 14px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(4px);
+}
+.inv-details p {
+  margin: 5px 0;
+}
+.inv-details strong {
+  font-weight: 800;
+}
+
+.inv-brand {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.65;
+  margin-top: 14px;
+}
+
+@media (max-width: 800px) {
+  .two-col { grid-template-columns: 1fr; gap: 24px; }
+  .inv-title { font-size: 28px; }
+  .invite-card { padding: 32px 20px; }
+}

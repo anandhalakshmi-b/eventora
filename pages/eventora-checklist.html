@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Checklist · Eventora</title>
-  <link rel="icon" href="eventora_logo_slanted.png">
+  <title>Checklist · Milestones for Every Celebration | Eventora</title>
+  <link rel="icon" href="images/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -195,61 +195,65 @@
       *, *::before, *::after { transition: none !important; animation: none !important; }
     }
   </style>
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/ora.css">
 </head>
 <body>
 <a href="#main" class="skip-link">Skip to content</a>
 
-<header class="topbar">
-  <div class="container topbar-inner">
-    <a href="eventora-home.html" class="brand" aria-label="Eventora home">
-      <img src="eventora_logo_slanted.png" alt="Eventora lotus logo" height="40">
-      <span class="brand-name">Eventora</span>
-    </a>
-    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">
-      <span class="sr-only">Open menu</span>
-      <span class="menu-bars" aria-hidden="true"></span>
-    </button>
-    <nav id="main-nav" class="main-nav" aria-label="Main">
-      <ul class="nav-links">
-        <li><a href="eventora-home.html" class="nav-link">Home</a></li>
-        <li><a href="venues.html" class="nav-link">Venues &amp; Vendors</a></li>
-        <li><a href="eventora-ideas.html" class="nav-link">Ideas &amp; Advice</a></li>
-        <li><button class="nav-link" type="button">Planning tools <span aria-hidden="true">▾</span></button></li>
-      </ul>
-      <div class="auth-controls">
-        <span class="user-name">Hi, Maya</span>
-        <a href="eventora-dashboard.html" class="btn btn-solid">My dashboard ↗</a>
-      </div>
-    </nav>
+<nav>
+  <a class="brand" href="index.html"><img src="images/logo.png" alt="Eventora logo">Eventora</a>
+  <button id="burger" aria-label="Open menu" aria-expanded="false">☰</button>
+  <div class="links" id="links">
+    <a href="index.html">Home</a>
+    <a href="venues.html">Venues & Vendors</a>
+    <a href="ideas.html">Ideas</a>
+    <a href="budget.html">Budget</a>
+    <a href="checklist.html" class="on">Checklist</a>
+    <a href="guests.html">Guests</a>
+    <a href="consultation.html">Consultation</a>
+    <a href="invites.html">Invites</a>
+    <a href="favorites.html">Favourites ♥</a>
+    <a class="btn sm" href="register.html">Register</a>
   </div>
-</header>
+</nav>
 
 <main id="main">
 
-  <section class="container event-head">
+  <header class="hero">
+  <video class="hero-video" autoplay muted loop playsinline poster="images/venues/1.jpg" aria-hidden="true">
+    <source src="images/venues/venues.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-kicker">✦ SHUBH VIVAH &amp; RITUAL TIMELINE ✦</p>
+    <h1>Aarav &amp; Meera's Grand Shaadi</h1>
+    <p>Auspicious muhurat dates, 3-day pre-wedding rituals, Sadya catering tastings, and baraat logistics organised with calm precision.</p>
+    <div class="hero-actions">
+      <button class="btn btn-solid" type="button" id="hero-add">+ Add new task</button>
+      <a href="budget.html" class="btn btn-outline">Check Budget</a>
+    </div>
+  </div>
+</header>
+
+<div class="container" style="padding-top:24px;">
+  <section class="event-head" style="padding-top:0;">
     <div>
-      <h1 class="event-title">Maya &amp; Leo's garden wedding <span aria-hidden="true">▾</span></h1>
+      <h2 class="event-title" style="margin:0;">Aarav &amp; Meera's Grand Shaadi <span aria-hidden="true">▾</span></h2>
       <p class="event-meta" id="event-meta"></p>
     </div>
     <span class="pill" id="days-pill"></span>
   </section>
 
-  <div class="container">
-    <nav class="event-tabs" aria-label="Event sections">
-      <a href="eventora-home.html">Overview</a>
-      <a href="budget.html">Budget</a>
-      <a href="eventora-checklist.html" aria-current="page">Checklist</a>
-      <a href="guests.html">Guests &amp; RSVPs</a>
-      <a href="invites.html">Invites</a>
-      <a href="consultation.html">AI Consultation</a>
-    </nav>
-
-    <section class="hero-card" aria-labelledby="hero-title">
-      <p class="hero-kicker">Checklist · One little step at a time</p>
-      <h2 class="hero-title" id="hero-title">Less in your head. More in your plan.</h2>
-      <p class="hero-sub">Your steps, gently organised. You don't have to do it all today.</p>
-      <button class="btn btn-solid" type="button" id="hero-add">+ Add task</button>
-    </section>
+  <nav class="event-tabs" aria-label="Event sections">
+    <a href="index.html">Overview</a>
+    <a href="venues.html">Venues &amp; Vendors</a>
+    <a href="budget.html">Budget</a>
+    <a href="checklist.html" aria-current="page">Checklist</a>
+    <a href="guests.html">Guests &amp; RSVPs</a>
+    <a href="invites.html">Invites</a>
+    <a href="consultation.html">AI Consultation</a>
+  </nav>
 
     <div class="layout">
 
@@ -352,8 +356,9 @@
     <div class="field">
       <label for="f-assignee">Assigned to</label>
       <select id="f-assignee">
-        <option value="Maya">Maya</option>
-        <option value="Leo">Leo</option>
+        <option value="Aarav (Groom)">Aarav (Groom)</option>
+        <option value="Meera (Bride)">Meera (Bride)</option>
+        <option value="Family Elders">Family Elders</option>
         <option value="Both">Both</option>
       </select>
     </div>
@@ -367,76 +372,61 @@
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <footer class="site-footer">
-  <div class="container footer-inner">
-    <div style="display:flex; align-items:center; gap:8px;">
-      <img src="eventora_logo_slanted.png" alt="Eventora lotus logo" height="28">
-      <strong>Eventora</strong>
-      <p style="margin-left:8px;">Plan every moment, beautifully.</p>
-    </div>
-    <div class="footer-links">
-      <a href="#">Sample event</a>
-      <a href="#">Privacy</a>
-      <a href="#">Terms</a>
-      <a href="#">Contact</a>
-    </div>
+  <div>
+    <b>Eventora</b><br>
+    Plan every royal Indian celebration, beautifully.
+  </div>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="venues.html">Venues &amp; Vendors</a>
+    <a href="ideas.html">Ideas</a>
+    <a href="budget.html">Budget</a>
+    <a href="checklist.html">Checklist</a>
+    <a href="guests.html">Guests</a>
   </div>
 </footer>
 
-<a href="#" class="ora-fab" aria-label="Chat with Ora, the Eventora assistant"><span aria-hidden="true">✦</span></a>
-
 <script>
   // ---------- Event details (edit these to change the sample event) ----------
-  var EVENT = { title: "Maya & Leo's garden wedding", date: '2027-06-15', location: 'Austin, TX', label: 'Sample event' };
+  var EVENT = { title: "Aarav & Meera's Grand Shaadi", date: '2027-02-18', location: 'Coimbatore & Chennai', label: 'Shubh Vivah' };
 
   var GROUPS = [
-    { id: 'g1', name: 'First things first', note: 'Your first milestones' },
-    { id: 'g2', name: 'Make it feel like you', note: 'The creative details' },
-    { id: 'g3', name: 'Bring your people together', note: 'Invitations & guest company' }
+    { id: 'g1', name: 'Shubh Muhurat & Mandap', note: 'Auspicious dates, palace/kalyana mandapam & pandit' },
+    { id: 'g2', name: 'Haldi, Mehendi & Sangeet', note: 'Pre-wedding ceremonies, dhol DJs & festive attire' },
+    { id: 'g3', name: 'Shaadi Day, Reception & Atithi', note: 'Baraat, Kanyadaan, Sadya feast & guest hospitality' }
   ];
 
-  var CATEGORIES = ['Budget', 'Venue', 'Guests', 'Flowers', 'Photography', 'Catering', 'Decor', 'Invites', 'Music', 'Other', 'Ideas'];
-  var ASSIGNEES = ['Everyone', 'Maya', 'Leo'];
+  var CATEGORIES = ['Muhurat & Puja', 'Mandap & Venue', 'Catering & Sadya', 'Decor & Flowers', 'Photography', 'Mehendi & Makeup', 'Dhol & Music', 'Patrika & Invites', 'Attire & Jewellery', 'Guest Care', 'Other'];
+  var ASSIGNEES = ['Everyone', 'Aarav (Groom)', 'Meera (Bride)', 'Family Elders', 'Both'];
   var STATUSES = ['All tasks', 'To do', 'Completed'];
   var PRIORITY_RANK = { High: 0, Medium: 1, Low: 2 };
-  var START_COUNT = 12, PAGE_SIZE = 10;
-  var STORAGE_KEY = 'eventora-checklist-v2';
-  var QUEUE_KEY = 'eventora-checklist-queue';
+  var START_COUNT = 14, PAGE_SIZE = 10;
+  var STORAGE_KEY = 'eventora-checklist-shubh-v1';
+  var QUEUE_KEY = 'eventora-checklist-queue-v1';
 
-  // Sample tasks from the wireframe, then more tasks for "Load more".
-  // Fields: title, due, category, priority, assignee, group, done
   var SEED_ROWS = [
-    ['Set the wedding budget', '2026-10-22', 'Budget', 'High', 'Maya', 'g1', true],
-    ['Shortlist garden venues', '2026-10-10', 'Venue', 'High', 'Maya', 'g1', true],
-    ['Book The Glasshouse', '2026-10-29', 'Venue', 'High', 'Maya', 'g1', true],
-    ['Draft your guest list', '2026-10-19', 'Guests', 'Medium', 'Maya', 'g1', true],
-    ['Review floral quote with Wildflower Studio', '2026-09-02', 'Flowers', 'High', 'Maya', 'g2', false],
-    ['Confirm photography coverage', '2026-11-02', 'Photography', 'High', 'Maya', 'g2', false],
-    ['Choose our seasonal dinner menu', '2026-11-07', 'Catering', 'Medium', 'Maya', 'g2', false],
-    ['Build a ceremony rain plan', '2026-11-11', 'Venue', 'High', 'Maya', 'g2', false],
-    ['Make a reception mood board', '2026-11-15', 'Decor', 'Low', 'Maya', 'g2', false],
-    ['Finalise the invitation design', '2027-03-05', 'Invites', 'Medium', 'Maya', 'g3', false],
-    ['Send invitations to our 120 guests', '2027-03-19', 'Guests', 'High', 'Maya', 'g3', false],
-    ['Confirm dietary requirements', '2027-05-16', 'Guests', 'Medium', 'Maya', 'g3', false],
-    ['Pick the ceremony readings', '2026-11-02', 'Other', 'Low', 'Leo', 'g2', true],
-    ['Choose wedding cake flavours', '2026-11-20', 'Catering', 'Medium', 'Both', 'g2', true],
-    ['Order table linens', '2026-12-04', 'Decor', 'Low', 'Maya', 'g2', true],
-    ['Pick the first dance song', '2026-12-18', 'Music', 'Low', 'Leo', 'g2', true],
-    ['Book hair and make-up trial', '2027-03-12', 'Other', 'Medium', 'Maya', 'g2', false],
-    ['Order the wedding cake', '2027-05-01', 'Catering', 'High', 'Maya', 'g2', false],
-    ['Plan the seating chart', '2027-05-22', 'Guests', 'High', 'Both', 'g2', false],
-    ['Set up the wedding website', '2026-10-12', 'Invites', 'Medium', 'Leo', 'g3', true],
-    ['Mail save-the-date cards', '2026-10-30', 'Invites', 'High', 'Maya', 'g3', true],
-    ['Confirm the officiant', '2026-11-15', 'Other', 'High', 'Leo', 'g3', true],
-    ['Book the rehearsal dinner', '2026-12-10', 'Venue', 'Medium', 'Both', 'g3', true],
-    ['Book the room block for guests', '2027-02-15', 'Venue', 'Medium', 'Leo', 'g3', false],
-    ['Buy wedding rings', '2027-04-22', 'Other', 'Medium', 'Both', 'g3', false],
-    ['Print place cards', '2027-05-28', 'Invites', 'Low', 'Maya', 'g3', false],
-    ['Arrange guest transport', '2027-05-30', 'Other', 'Medium', 'Leo', 'g3', false],
-    ['Write the day-of timeline', '2027-05-20', 'Other', 'High', 'Maya', 'g3', false],
-    ['Confirm final headcount with caterer', '2027-06-01', 'Catering', 'High', 'Maya', 'g3', false],
-    ['Schedule hair and make-up', '2027-06-10', 'Other', 'Medium', 'Maya', 'g3', false],
-    ['Pack the emergency kit', '2027-06-12', 'Other', 'Low', 'Leo', 'g3', false],
-    ['Send thank-you notes', '2027-07-01', 'Invites', 'Low', 'Both', 'g3', false]
+    ['Consult family Pandit for Shubh Vivah Muhurat & Lagna timings', '2026-10-15', 'Muhurat & Puja', 'High', 'Family Elders', 'g1', true],
+    ['Shortlist & book Kalyana Mandapam / Heritage Palace', '2026-10-25', 'Mandap & Venue', 'High', 'Both', 'g1', true],
+    ['Finalise 3-day Shaadi budget breakdown in Rupee allocations', '2026-10-28', 'Other', 'High', 'Both', 'g1', true],
+    ['Draft Atithi guest list for Ladkewale and Ladkiwale', '2026-11-05', 'Guest Care', 'High', 'Meera (Bride)', 'g1', true],
+    ['Sample traditional 24-course banana leaf Sadya & Chaat menu', '2026-11-20', 'Catering & Sadya', 'High', 'Aarav (Groom)', 'g1', false],
+    ['Book Master Caterer for multi-cuisine 3-day wedding feast', '2026-12-01', 'Catering & Sadya', 'High', 'Family Elders', 'g1', false],
+    ['Book Candid Wedding Photographer & Cinematic Drone Filmmaker', '2026-12-10', 'Photography', 'High', 'Meera (Bride)', 'g1', false],
+    ['Book Bridal Mehendi artist for intricate bridal henna & lounge', '2026-12-18', 'Mehendi & Makeup', 'High', 'Meera (Bride)', 'g2', false],
+    ['Select Kanjeevaram wedding silks & designer Sherwani', '2027-01-05', 'Attire & Jewellery', 'Medium', 'Both', 'g2', false],
+    ['Book Live Punjabi Dhol troupe & Bollywood Sangeet DJ', '2027-01-12', 'Dhol & Music', 'High', 'Aarav (Groom)', 'g2', false],
+    ['Finalise Mandap floral stage & marigold entrance arches', '2027-01-18', 'Decor & Flowers', 'Medium', 'Meera (Bride)', 'g2', false],
+    ['Design & order gold-embossed digital WhatsApp Patrika & sweet boxes', '2027-01-22', 'Patrika & Invites', 'High', 'Aarav (Groom)', 'g3', false],
+    ['Send WhatsApp wedding invitations with Google Maps venue link', '2027-01-25', 'Patrika & Invites', 'High', 'Both', 'g3', false],
+    ['Block 40 AC rooms & airport transit cabs for out-of-town guests', '2027-01-28', 'Guest Care', 'High', 'Family Elders', 'g3', false],
+    ['Arrange Baraat vintage car / Ghodi and safa tying specialist', '2027-02-05', 'Other', 'Medium', 'Aarav (Groom)', 'g3', false],
+    ['Purchase Pooja Samagri, havan wood, coconuts & Ganga jal', '2027-02-10', 'Muhurat & Puja', 'High', 'Family Elders', 'g3', false],
+    ['Finalise Phoolon Ki Chaadar for bride entry & Varmala garlands', '2027-02-12', 'Decor & Flowers', 'Medium', 'Meera (Bride)', 'g3', false],
+    ['Order traditional Tamboolam / wedding return gift hampers', '2027-02-14', 'Guest Care', 'Medium', 'Family Elders', 'g3', false],
+    ['Conduct Haldi ceremony with phoolon ki holi', '2027-02-16', 'Decor & Flowers', 'High', 'Both', 'g2', false],
+    ['Host Sangeet night with choreographed family performances', '2027-02-17', 'Dhol & Music', 'High', 'Both', 'g2', false],
+    ['Shaadi Muhurat, Seven Pheras & Mangalasutram ritual', '2027-02-18', 'Muhurat & Puja', 'High', 'Both', 'g3', false],
+    ['Grand Reception gala dinner with live sufi and dessert counters', '2027-02-18', 'Catering & Sadya', 'High', 'Both', 'g3', false]
   ];
 
   // ---------- Date helpers (local time, YYYY-MM-DD) ----------
@@ -451,43 +441,113 @@
   function longDate(s) { return parse(s).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }); }
   function isOverdue(t) { return !t.done && !!t.due && t.due < todayStr(); }
 
-  // ---------- Templates (title, category, priority, days before the event) ----------
+    // ---------- Templates (title, category, priority, days before the event) ----------
   var TEMPLATES = {
     wedding: {
-      label: 'Wedding',
+      label: '💍 Shaadi & Kalyanam',
       items: SEED_ROWS.map(function (r) { return [r[0], r[2], r[3], daysBetween(r[1], EVENT.date)]; })
     },
-    birthday: {
-      label: 'Birthday',
+    engagement: {
+      label: '💞 Engagement & Roka',
       items: [
-        ['Book venue', 'Venue', 'High', 30],
-        ['Order cake', 'Catering', 'High', 14],
-        ['Send invitations', 'Invites', 'Medium', 21],
-        ['Plan decorations', 'Decor', 'Medium', 10],
-        ['Plan games or music', 'Music', 'Low', 7],
-        ['Collect RSVPs', 'Guests', 'Medium', 10]
+        ['Book intimate banquet or rooftop venue', 'Mandap & Venue', 'High', 45],
+        ['Select and engrave engagement rings', 'Attire & Jewellery', 'High', 30],
+        ['Book candid photographer & videographer', 'Photography', 'High', 25],
+        ['Design & send digital WhatsApp invitations', 'Patrika & Invites', 'Medium', 20],
+        ['Order floral backdrops & ring tray styling', 'Decor & Flowers', 'Medium', 15],
+        ['Finalise buffet menu & welcome mocktails', 'Catering & Sadya', 'Medium', 10],
+        ['Order fresh rose ring varmalas & sweets', 'Muhurat & Puja', 'Low', 5]
+      ]
+    },
+    birthday: {
+      label: '🎂 Birthday Milestone Party',
+      items: [
+        ['Book party hall, garden lawn, or cafe', 'Mandap & Venue', 'High', 30],
+        ['Choose theme & order custom designer cake', 'Catering & Sadya', 'High', 20],
+        ['Book balloon artist and theme decorator', 'Decor & Flowers', 'High', 15],
+        ['Book party DJ, magician, or children’s anchor', 'Dhol & Music', 'Medium', 14],
+        ['Send digital birthday invites with RSVP link', 'Patrika & Invites', 'Medium', 12],
+        ['Plan interactive party games & return gift bags', 'Guest Care', 'Medium', 7],
+        ['Order finger foods, snacks & dessert spread', 'Catering & Sadya', 'High', 5]
+      ]
+    },
+    college: {
+      label: '🎓 College Fest & Farewell',
+      items: [
+        ['Reserve campus auditorium / convention hall', 'Mandap & Venue', 'High', 40],
+        ['Form student organising committee & budgets', 'Other', 'High', 35],
+        ['Book live sound system, stage lighting & DJ', 'Dhol & Music', 'High', 25],
+        ['Order custom batch hoodies, mementos & yearbooks', 'Guest Care', 'Medium', 20],
+        ['Design digital banners, passes & social flyers', 'Patrika & Invites', 'Medium', 15],
+        ['Arrange catering stalls & food truck counters', 'Catering & Sadya', 'High', 10],
+        ['Book event photographer & live stream crew', 'Photography', 'Medium', 7]
       ]
     },
     corporate: {
-      label: 'Corporate',
+      label: '💼 Corporate Gala & Offsite',
       items: [
-        ['Book venue', 'Venue', 'High', 60],
-        ['Confirm speakers', 'Other', 'High', 45],
-        ['Arrange catering', 'Catering', 'High', 30],
-        ['Send invitations', 'Invites', 'Medium', 21],
-        ['Arrange AV equipment', 'Other', 'Medium', 14],
-        ['Set up registration desk', 'Guests', 'Low', 7]
+        ['Book tech-enabled conference centre / resort', 'Mandap & Venue', 'High', 45],
+        ['Finalise AV setup, LED display & microphones', 'Mandap & Venue', 'High', 30],
+        ['Send calendar invites & registration links', 'Patrika & Invites', 'High', 25],
+        ['Arrange executive buffet catering & coffee breaks', 'Catering & Sadya', 'High', 20],
+        ['Book corporate emcee / keynote speaker', 'Dhol & Music', 'Medium', 15],
+        ['Design awards, trophies & branded gift kits', 'Guest Care', 'Medium', 10],
+        ['Arrange delegate badges & airport transfers', 'Guest Care', 'Low', 5]
       ]
     },
-    'baby-shower': {
-      label: 'Baby shower',
+    babyshower: {
+      label: '🍼 Baby Shower & Godh Bharai',
       items: [
-        ['Book venue', 'Venue', 'Medium', 30],
-        ['Send invitations', 'Invites', 'Medium', 21],
-        ['Create gift list', 'Other', 'Low', 21],
-        ['Order food and cake', 'Catering', 'High', 14],
-        ['Plan decorations', 'Decor', 'Low', 7],
-        ['Plan games', 'Other', 'Low', 7]
+        ['Book cozy hall or prepare living room', 'Mandap & Venue', 'Medium', 30],
+        ['Order traditional silk attire / pastel gown', 'Attire & Jewellery', 'High', 20],
+        ['Arrange 7-variety rice traditional feast / brunch', 'Catering & Sadya', 'High', 15],
+        ['Order fresh flower veni, garlands & cradle decor', 'Decor & Flowers', 'High', 10],
+        ['Send WhatsApp invitations to friends and elders', 'Patrika & Invites', 'Medium', 10],
+        ['Prepare return gift favours for women elders', 'Guest Care', 'Medium', 5]
+      ]
+    },
+    housewarming: {
+      label: '🏠 Griha Pravesh & Housewarming',
+      items: [
+        ['Consult family priest for Shubh Pravesh Muhurat', 'Muhurat & Puja', 'High', 30],
+        ['Purchase Havan Samagri, Navadhanya & brass milk pot', 'Muhurat & Puja', 'High', 15],
+        ['Book catering for traditional Satvik lunch / feast', 'Catering & Sadya', 'High', 20],
+        ['Arrange fresh mango leaf toran & rangoli artists', 'Decor & Flowers', 'Medium', 5],
+        ['Send digital Griha Pravesh invites to family', 'Patrika & Invites', 'Medium', 14],
+        ['Organise return sweet boxes & auspicious gifts', 'Guest Care', 'Medium', 4]
+      ]
+    },
+    anniversary: {
+      label: '🥂 Anniversary Celebration',
+      items: [
+        ['Book romantic beachfront lawn / rooftop restaurant', 'Mandap & Venue', 'High', 30],
+        ['Book candid couple photographer for portraits', 'Photography', 'High', 20],
+        ['Order tiered anniversary cake & floral centerpieces', 'Decor & Flowers', 'Medium', 15],
+        ['Book acoustic live singers / relaxing music setup', 'Dhol & Music', 'Medium', 12],
+        ['Send digital invitations to family & friends', 'Patrika & Invites', 'Medium', 10],
+        ['Curate milestone photo slideshow / celebration reel', 'Other', 'Low', 5]
+      ]
+    },
+    naming: {
+      label: '👶 Naming Ceremony / Naamkaran',
+      items: [
+        ['Finalise auspicious baby name & horoscope', 'Muhurat & Puja', 'High', 25],
+        ['Book banquet hall / cradle ceremony space', 'Mandap & Venue', 'High', 20],
+        ['Decorate traditional cradle with fresh jasmine & silks', 'Decor & Flowers', 'High', 10],
+        ['Send digital WhatsApp naming announcement & invite', 'Patrika & Invites', 'Medium', 10],
+        ['Arrange grand feast and sweets for guests', 'Catering & Sadya', 'High', 7],
+        ['Prepare baby gift hampers & keepsake souvenirs', 'Guest Care', 'Low', 4]
+      ]
+    },
+    festival: {
+      label: '🪔 Festive Gathering & Puja',
+      items: [
+        ['Reserve community hall / temple grounds / garden', 'Mandap & Venue', 'High', 30],
+        ['Arrange festive stage, diyas, lights & festive decor', 'Decor & Flowers', 'High', 20],
+        ['Book traditional music / cultural troupe / live dhol', 'Dhol & Music', 'High', 15],
+        ['Organise community prasad & festive dinner spread', 'Catering & Sadya', 'High', 12],
+        ['Send festival celebration invites & schedule flyers', 'Patrika & Invites', 'Medium', 10],
+        ['Coordinate volunteers for guest seating & prasad', 'Guest Care', 'Medium', 5]
       ]
     }
   };
@@ -939,5 +999,28 @@
   buildControls();
   render();
 </script>
+
+<!-- ===== ORA FLOATING CHAT ===== -->
+<button id="ora-fab" class="ora-fab" aria-label="Chat with Ora" aria-expanded="false">💬</button>
+<section id="ora-window" class="ora-window" hidden aria-label="Chat with Ora">
+  <header class="ora-head">
+    <strong>Ora</strong> · your planning buddy
+    <button id="ora-close" class="ora-x" aria-label="Close chat">×</button>
+  </header>
+  <div id="ora-log" class="ora-log" role="log" aria-live="polite"></div>
+  <div class="ora-quick">
+    <button data-q="Find venues">Find venues</button>
+    <button data-q="Set a budget">Set a budget</button>
+    <button data-q="Make an invite">Make an invite</button>
+    <button data-q="Talk to a human">Talk to a human</button>
+  </div>
+  <div class="ora-form">
+    <label for="ora-input" class="sr-only">Message Ora</label>
+    <input id="ora-input" type="text" maxlength="500" placeholder="Ask Ora anything..." autocomplete="off">
+    <button id="ora-send" class="ora-send">Send</button>
+  </div>
+</section>
+
+<script src="js/ora.js"></script>
 </body>
 </html>

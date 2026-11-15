@@ -5,20 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Event | Eventora</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Dancing+Script:wght@600&family=Playfair+Display:wght@600;800&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/theme.css">
-  <link rel="stylesheet" href="/css/ora.css">
-  <link rel="stylesheet" href="/css/invites.css">
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/ora.css">
+  <link rel="stylesheet" href="css/invites.css">
+  <link rel="stylesheet" href="css/navbar.css">
 </head>
 <body>
 <!-- ===== SHARED TOP BAR: copy the same block in every page ===== -->
-<header class="topbar">
-  <a href="/" class="brand">Eventora</a>
-  <nav aria-label="Main">
-    <a href="/venues">Venues</a><a href="/ideas">Ideas</a><a href="/budget">Budget</a>
-    <a href="/consultation">Consultation</a><a href="/checklist">Checklist</a>
-    <a href="/guests">Guests</a><a href="/invites">Invites</a>
-  </nav>
-</header>
+<nav>
+  <a class="brand" href="index.html"><img src="images/logo.png" alt="Eventora logo">Eventora</a>
+  <button id="burger" aria-label="Open menu" aria-expanded="false">☰</button>
+  <div class="links" id="links">
+    <a href="index.html">Home</a>
+    <a href="venues.html">Venues & Vendors</a>
+    <a href="ideas.html">Ideas</a>
+    <a href="budget.html">Budget</a>
+    <a href="checklist.html">Checklist</a>
+    <a href="guests.html">Guests</a>
+    <a href="consultation.html">Consultation</a>
+    <a href="invites.html" class="on">Invites</a>
+    <a href="favorites.html">Favourites ♥</a>
+    <a class="btn sm" href="register.html">Register</a>
+  </div>
+</nav>
 <main class="container">
   <div id="errors" class="alert" role="alert" hidden></div>
   <div id="event-root" class="two-col" hidden>
@@ -53,20 +62,36 @@
         <label for="r-count">Number of people coming (including you)</label>
         <input id="r-count" type="number" name="count" min="1" max="20" value="1">
         <label for="r-diet">Food preference</label>
-        <select id="r-diet" name="dietary"><option>Vegetarian</option><option>Non-vegetarian</option><option>Jain</option><option>Vegan</option><option>No preference</option></select>
+        <select id="r-diet" name="dietary">
+          <option>Traditional Pure Veg / Jain</option>
+          <option>South Indian Sadya</option>
+          <option>North Indian Feast</option>
+          <option>Non-vegetarian</option>
+          <option>No preference</option>
+        </select>
         <p><button class="btn inv-btn" type="submit">Send RSVP</button></p>
       </form>
     </div>
   </div>
 </main>
 
-<footer class="site-footer"><p>© Eventora · Plan every moment, beautifully.</p></footer>
+<footer class="site-footer">
+  <div><b>Eventora</b><br>Plan every royal Indian celebration, beautifully.</div>
+  <div><a href="index.html">Home</a><a href="venues.html">Venues &amp; Vendors</a><a href="budget.html">Budget</a><a href="checklist.html">Checklist</a></div>
+</footer>
 
-<!-- ===== ORA FLOATING CHAT (Module 9): paste this block + the script tag before </body> on EVERY page ===== -->
+
+
+<script src="js/invites.js"></script>
+
+
+<!-- ===== ORA FLOATING CHAT ===== -->
 <button id="ora-fab" class="ora-fab" aria-label="Chat with Ora" aria-expanded="false">💬</button>
 <section id="ora-window" class="ora-window" hidden aria-label="Chat with Ora">
-  <header class="ora-head"><strong>Ora</strong> · your planning buddy
-    <button id="ora-close" class="ora-x" aria-label="Close chat">×</button></header>
+  <header class="ora-head">
+    <strong>Ora</strong> · your planning buddy
+    <button id="ora-close" class="ora-x" aria-label="Close chat">×</button>
+  </header>
   <div id="ora-log" class="ora-log" role="log" aria-live="polite"></div>
   <div class="ora-quick">
     <button data-q="Find venues">Find venues</button>
@@ -81,7 +106,6 @@
   </div>
 </section>
 
-<script src="/js/invites.js"></script>
-<script src="/js/ora.js"></script>
+<script src="js/ora.js"></script>
 </body>
 </html>

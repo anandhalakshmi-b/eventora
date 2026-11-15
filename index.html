@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Eventora · Plan Every Life Celebration, Beautifully</title>
+  <link rel="icon" href="images/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/ora.css">
+  <style>
+    :root {
+      --ink: #0F172A;
+      --white: #FFFFFF;
+      --slate-50: #F8FAFC;
+      --slate-200: #E5E7EB;
+      --focus: #2563EB;
+      --gradient-bg: linear-gradient(135deg, #CFFAFE 0%, #F3E8FF 50%, #FCE7F3 100%);
+      --gradient-accent: #9333EA;
+      --font: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; font-family: var(--font); font-size: 16px; line-height: 1.5; color: var(--ink); background: var(--white); }
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: inherit; }
+    h1, h2, h3, h4, p, ul, ol, figure, blockquote { margin: 0; padding: 0; }
+    ul, ol { list-style: none; }
+
+    :focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+
+    .container { width: 100%; max-width: 1250px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 64px 0; }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .skip-link { position: absolute; left: 16px; top: -48px; background: var(--ink); color: var(--white); padding: 8px 16px; border-radius: 999px; z-index: 100; }
+    .skip-link:focus { top: 16px; }
+
+    /* Module colours */
+    .mod-cyan    { --bg: #CFFAFE; --accent: #0891B2; }
+    .mod-blue    { --bg: #DBEAFE; --accent: #2563EB; }
+    .mod-purple  { --bg: #F3E8FF; --accent: #9333EA; }
+    .mod-pink    { --bg: #FCE7F3; --accent: #DB2777; }
+    .mod-red     { --bg: #FEE2E2; --accent: #DC2626; }
+    .mod-orange  { --bg: #FFEDD5; --accent: #EA580C; }
+    .mod-yellow  { --bg: #FEF9C3; --accent: #CA8A04; }
+    .mod-green   { --bg: #DCFCE7; --accent: #16A34A; }
+
+    /* Headings and cards */
+    .section-heading { font-size: clamp(1.8rem, 3.5vw, 2.4rem); font-weight: 800; line-height: 1.2; margin-bottom: 8px; letter-spacing: -0.02em; }
+    .section-sub { color: #64748B; font-size: 1.05rem; margin-bottom: 32px; }
+    .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 32px; }
+    .section-head .section-heading { margin-bottom: 0; }
+    .subheading { font-size: 24px; font-weight: 800; margin: 48px 0 24px; }
+
+    /* Visual Cards matching venues.html format */
+    .card-grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); }
+    .card { position: relative; border: 1px solid var(--slate-200); border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; background: var(--bg, #fff); color: var(--accent, var(--ink)); transition: transform 0.2s ease, box-shadow 0.2s ease; text-decoration: none; }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(15, 23, 42, 0.12); }
+    .card-banner { height: 190px; position: relative; overflow: hidden; background: #E2E8F0; }
+    .card-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.35s ease; }
+    .card:hover .card-img { transform: scale(1.06); }
+    .card-body { padding: 22px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+    .card-title { font-size: 1.25rem; font-weight: 800; line-height: 1.25; margin: 0; color: var(--ink); }
+    .card-text { margin: 0; font-size: 0.95rem; color: #475569; line-height: 1.5; }
+    .card-links { display: flex; gap: 14px; flex-wrap: wrap; margin-top: auto; padding-top: 12px; }
+    .card-link { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--accent, #2563EB); text-decoration: none; }
+    .card-link:hover { text-decoration: underline; }
+    .tag { display: inline-block; padding: 4px 12px; border-radius: 999px; font-size: 11px; font-weight: 700; background: var(--white); color: var(--accent); margin-bottom: 4px; letter-spacing: 0.06em; text-transform: uppercase; width: fit-content; }
+
+    /* About Section */
+    .about { padding: 80px 0; background: #F8FAFC; border-top: 1px solid var(--slate-200); border-bottom: 1px solid var(--slate-200); }
+    .about-mission { font-size: 1.25rem; max-width: 800px; color: #334155; line-height: 1.6; margin-bottom: 40px; }
+    .steps { display: grid; gap: 24px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+    .step { background: var(--white); border: 1px solid var(--slate-200); border-radius: 20px; padding: 28px; }
+    .step-number { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 999px; margin-bottom: 16px; background: #2563EB; color: var(--white); font-weight: 800; font-size: 1.1rem; }
+    .stats { display: grid; gap: 24px; margin: 48px 0; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+    .stat { background: #fff; border: 1px solid var(--slate-200); border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 4px; }
+    .stat-value { font-size: 42px; font-weight: 800; line-height: 1.1; color: #2563EB; }
+    .stat span { font-size: 0.95rem; color: #475569; font-weight: 600; }
+    .quotes { display: grid; gap: 24px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+    .quote { background: var(--white); border: 1px solid var(--slate-200); border-radius: 20px; padding: 28px; }
+    .quote blockquote { font-size: 1.05rem; font-style: italic; color: #1E293B; margin-bottom: 16px; line-height: 1.6; }
+    .quote figcaption { font-size: 13px; color: #2563EB; font-weight: 700; }
+
+    /* Footer styling */
+    .footer-grid { display: grid; gap: 40px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+    .footer-brand img { margin-bottom: 16px; }
+    .footer-tagline, .footer-heading { color: #CBD5E1; }
+    .footer-heading { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px; }
+    .footer-links { display: grid; gap: 10px; }
+    .footer-links a { color: var(--white); text-decoration: none; font-size: 0.92rem; }
+    .footer-links a:hover { text-decoration: underline; color: #60A5FA; }
+    .newsletter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+    .newsletter-row input { flex: 1 1 160px; min-width: 0; padding: 12px 16px; border: 1px solid var(--slate-200); border-radius: 999px; font: inherit; color: var(--ink); }
+    .footer-bottom { margin-top: 48px; padding-top: 24px; border-top: 1px solid #1E293B; font-size: 13px; color: #94A3B8; text-align: center; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+      .card:hover, .btn:hover { transform: none; }
+    }
+  </style>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<nav>
+  <a class="brand" href="index.html"><img src="images/logo.png" alt="Eventora logo">Eventora</a>
+  <button id="burger" aria-label="Open menu" aria-expanded="false">☰</button>
+  <div class="links" id="links">
+    <a href="index.html" class="on">Home</a>
+    <a href="venues.html">Venues &amp; Vendors</a>
+    <a href="ideas.html">Ideas</a>
+    <a href="budget.html">Budget</a>
+    <a href="checklist.html">Checklist</a>
+    <a href="guests.html">Guests</a>
+    <a href="consultation.html">Consultation</a>
+    <a href="invites.html">Invites</a>
+    <a href="favorites.html">Favourites ♥</a>
+    <a class="btn sm" href="register.html">Register</a>
+  </div>
+</nav>
+
+<main id="main">
+
+  <!-- Royal Video Hero -->
+  <header class="hero">
+    <video class="hero-video" autoplay muted loop playsinline poster="images/venues/1.jpg" aria-hidden="true">
+      <source src="images/venues/venues.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-kicker">✦ Plan Every Life Celebration, Beautifully ✦</p>
+      <h1>Weddings, Birthdays, College Fests &amp; Corporate Celebrations</h1>
+      <p>From intimate birthday parties, baby showers, and college graduations to grand weddings and corporate galas — discover verified venues, top vendors, budget calculators, and digital invites across India.</p>
+      <div class="hero-actions">
+        <a href="venues.html" class="btn btn-solid">Explore Venues &amp; Vendors</a>
+        <a href="ideas.html" class="btn btn-outline">Celebration Ideas &amp; Themes</a>
+        <a href="consultation.html" class="btn btn-outline">Free Event Plan</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Section 1: Plan by Celebration Type (10 Diverse Life Events) -->
+  <section class="section container" aria-labelledby="events-heading">
+    <div class="section-head">
+      <div>
+        <h2 id="events-heading" class="section-heading">Plan by Celebration Type</h2>
+        <p class="section-sub">Explore tailored venues, 1-click budget presets, and custom digital invites for every life milestone.</p>
+      </div>
+      <a href="venues.html" class="card-link" style="font-size:14px; color:#2563EB;">Browse All Celebrations →</a>
+    </div>
+
+    <div class="card-grid">
+      <!-- 1: Wedding -->
+      <article class="card mod-purple">
+        <div class="card-banner">
+          <img src="images/venues/1.jpg" alt="Weddings and Receptions" class="card-img" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="tag">Palaces &amp; Mandaps</span>
+          <h3 class="card-title">💍 Weddings &amp; Receptions</h3>
+          <p class="card-text">Grand Kalyana mandapams, royal heritage palaces, master banquet feasts, bridal styling, and live dhol DJs.</p>
+          <div class="card-links">
+            <a href="venues.html?event=Wedding" class="card-link">Venues →</a>
+            <a href="budget.html" class="card-link">Budget (₹15L) →</a>
+            <a href="invites.html" class="card-link">Invites →</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 2: Engagement -->
+      <article class="card mod-pink">
+        <div class="card-banner">
+          <img src="images/venues/3.jpg" alt="Engagements and Roka" class="card-img" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="tag">Ring Ceremonies</span>
+          <h3 class="card-title">💞 Engagements &amp; Roka</h3>
+          <p class="card-text">Scenic rooftop terraces, romantic floral backdrops, intimate catering spreads, and ring exchange celebrations.</p>
+          <div class="card-links">
+            <a href="venues.html?event=Engagement" class="card-link">Venues →</a>
+            <a href="invites.html" class="card-link">Design Invite →</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3: Birthday -->
+      <article class="card mod-orange">
+        <div class="card-banner">
+          <img src="images/venues/7.jpg" alt="Birthday Parties" class="card-img" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="tag">Kids &amp; Milestones</span>
+          <h3 class="card-title">🎂 Birthday Parties</h3>
+          <p class="card-text">Cheerful party halls with play zones, custom designer cakes, vibrant balloon arches, and high-energy party DJs.</p>
+          <div class="card-links">
+            <a href="venues.html?event=Birthday" class="card-link">Venues →</a>
+            <a href="budget.html" class="card-link">Budget (₹75k) →</a>
+            <a href="invites.html" class="card-link">Invites →</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 4: College & Graduation -->
+      <article class="card mod-cyan">
+        <div class="card-banner">
+          <img src="images/venues/8.jpg" alt="College Events and Farewells" class="card-img" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="tag">Campus Fests &amp; Farewells</span>
+          <h3 class="card-title">🎓 College Fests &amp; Farewells</h3>
+          <p class="card-text">Tiered auditoriums, stage lighting, live sound consoles, DJ nights, food trucks, and batch mementos.</p>
+          <div class="card-links">
+            <a href="venues.html?event=College%20%26%20Graduation" class="card-link">Auditoriums →</a>
+            <a href="budget.html" class="card-link">Budget (₹2L) →</a>
+            <a href="invites.html" class="card-link">Invites →</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 5: Corporate -->
+      <article class="card mod-blue">
+        <div class="card-banner">
+          <img src="images/venues/5.jpg" alt="Corporate and Team Events" class="card-img" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="tag">Offsites &amp; Summits</span>
+          <h3 class="card-title">💼 Corporate &amp; Team Meets</h3>
+          <p class="card-text">Modern conference centres, break-out rooms, AV projectors, executive dining, and team offsite resorts.</p>
+          <div class="card-links">
+            <a href="venues.html?event=Corporate%20%26%20Team" class="card-link">Conferences →</a>
+            <a href="budget.html" class="card-link">Budget (₹4.5L) →</a>
+            <a href="invites.html" class="card-link">Invites →</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 6: Baby Shower -->
+      <article class="card mod-yellow">
+        <div class="card-banner">
+          <img src="images/catering/2.jpg" alt="Baby Showers and Godh Bharai" class="card-img" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="tag">Seemantham &amp; Blessings</span>
+          <h3 class="card-title">🍼 Baby Showers &amp; Godh Bharai</h3>
+          <p class="card-text">Charming celebration spaces, fresh flower venis, 7-variety traditional feasts, and cute celebration favors.</p>
+          <div class="card-links">
+            <a href="venues.html?event=Baby%20Shower" class="card-link">Venues →</a>
+            <a href="budget.html" class="card-link">Budget (₹1.8L) →</a>
+            <a href="invites.html" class="card-link">Invites →</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 7: Housewarming -->
+      <article class="card mod-green">
+        <div class="card-banner">
+          <img src="images/decor/1.jpg" alt="Housewarmings and Griha Pravesh" class="card-img" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="tag">New Home Blessings</span>
+          <h3 class="card-title">🏠 Griha Pravesh &amp; Housewarming</h3>
+          <p class="card-text">Satvik traditional lunch catering, fresh mango leaf torans, Pandit puja coordination, and return gifts.</p>
+          <div class="card-links">
+            <a href="venues.html?event=Housewarming" class="card-link">Venues →</a>
+            <a href="budget.html" class="card-link">Budget (₹1.5L) →</a>
+            <a href="checklist.html" class="card-link">Checklist →</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 8: Anniversary -->
+      <article class="card mod-red">
+        <div class="card-banner">
+          <img src="images/venues/6.jpg" alt="Anniversary Celebrations" class="card-img" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="tag">Milestone Romance</span>
+          <h3 class="card-title">🥂 Anniversary Celebrations</h3>
+          <p class="card-text">Beachfront lawns, sunset dining, acoustic live musicians, and elegant candlelit banquet setups.</p>
+          <div class="card-links">
+            <a href="venues.html?event=Anniversary" class="card-link">Venues →</a>
+            <a href="budget.html" class="card-link">Budget (₹2.5L) →</a>
+            <a href="invites.html" class="card-link">Invites →</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 9: Naming Ceremony -->
+      <article class="card mod-pink">
+        <div class="card-banner">
+          <img src="images/decor/4.jpg" alt="Naming Ceremonies" class="card-img" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="tag">Cradle &amp; Blessings</span>
+          <h3 class="card-title">👶 Naming Ceremonies</h3>
+          <p class="card-text">Cradle decoration with fresh jasmine and silks, family feast caterers, and digital naming announcements.</p>
+          <div class="card-links">
+            <a href="venues.html?event=Naming%20Ceremony" class="card-link">Venues →</a>
+            <a href="invites.html" class="card-link">Design Invite →</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 10: Festival -->
+      <article class="card mod-orange">
+        <div class="card-banner">
+          <img src="images/venues/2.jpg" alt="Festivals and Cultural Events" class="card-img" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="tag">Community Celebrations</span>
+          <h3 class="card-title">🪔 Festivals &amp; Cultural Events</h3>
+          <p class="card-text">Open-air grounds with fairy lights, live Dhol and folk bands, community prasad, and cultural stages.</p>
+          <div class="card-links">
+            <a href="venues.html?event=Festival" class="card-link">Venues →</a>
+            <a href="budget.html" class="card-link">Budget (₹1.2L) →</a>
+            <a href="invites.html" class="card-link">Invites →</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Section 2: Core Platform Modules with Authentic Photos -->
+  <section class="section container" aria-labelledby="features-heading">
+    <div class="section-head">
+      <div>
+        <h2 id="features-heading" class="section-heading">Everything for Your Event</h2>
+        <p class="section-sub">From budget planning and venue discovery to digital invitations and guest management.</p>
+      </div>
+      <a href="venues.html" class="card-link" style="font-size:14px; color:#2563EB;">Browse All Listings →</a>
+    </div>
+
+    <div class="card-grid">
+      <!-- 1: Venues & Vendors -->
+      <article class="card mod-blue">
+        <div class="card-banner">
+          <img src="images/venues/1.jpg" alt="Heritage Palace & Banquet Hall" class="card-img" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="tag">Venues &amp; Mandaps</span>
+          <h3 class="card-title">Venues &amp; Verified Vendors</h3>
+          <p class="card-text">Discover grand banquet halls, outdoor garden lawns, rooftop lounges, and conference auditoriums across India.</p>
+          <a href="venues.html" class="card-link">Explore venues →</a>
+        </div>
+      </article>
+
+      <!-- 2: Themes & Ideas -->
+      <article class="card mod-purple">
+        <div class="card-banner">
+          <img src="images/decor/1.jpg" alt="Floral Event Decor" class="card-img" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="tag">Themes &amp; Inspiration</span>
+          <h3 class="card-title">Ideas &amp; Moodboards</h3>
+          <p class="card-text">Curated colour palettes, aesthetic lighting themes, and décor ideas for weddings, birthdays, college fests, and corporate summits.</p>
+          <a href="ideas.html" class="card-link">View moodboards →</a>
+        </div>
+      </article>
+
+      <!-- 3: Budget Calculator -->
+      <article class="card mod-red">
+        <div class="card-banner">
+          <img src="images/venues/4.jpg" alt="Royal Wedding Setup" class="card-img" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="tag">Rupee Budgeting</span>
+          <h3 class="card-title">Budget Calculator &amp; Tracker</h3>
+          <p class="card-text">1-click presets for weddings, birthdays, college farewells, corporate summits, and housewarmings. Track spending in Lakhs &amp; Crores.</p>
+          <a href="budget.html" class="card-link">Track spending →</a>
+        </div>
+      </article>
+
+      <!-- 4: Guests & RSVPs -->
+      <article class="card mod-yellow">
+        <div class="card-banner">
+          <img src="images/catering/1.jpg" alt="Banquet Catering Spread" class="card-img" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="tag">Guest Management</span>
+          <h3 class="card-title">Guests &amp; RSVPs</h3>
+          <p class="card-text">Organise guest lists by family side, batch, or company team. Track dietary preferences with instant WhatsApp RSVP links.</p>
+          <a href="guests.html" class="card-link">Manage guests →</a>
+        </div>
+      </article>
+
+      <!-- 5: Checklist -->
+      <article class="card mod-orange">
+        <div class="card-banner">
+          <img src="images/photo/1.jpg" alt="Event Planning Rituals" class="card-img" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="tag">Interactive Timelines</span>
+          <h3 class="card-title">Checklists for Every Event</h3>
+          <p class="card-text">Milestone timelines for weddings, birthdays, college fests, and corporate galas. Never miss a vendor deadline or booking.</p>
+          <a href="checklist.html" class="card-link">Open checklist →</a>
+        </div>
+      </article>
+
+      <!-- 6: Digital Invites -->
+      <article class="card mod-pink">
+        <div class="card-banner">
+          <img src="images/decor/2.jpg" alt="Digital Invitations" class="card-img" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="tag">Digital E-Cards</span>
+          <h3 class="card-title">E-Invites &amp; WhatsApp Cards</h3>
+          <p class="card-text">Design elegant invitations in 3 simple steps across 10 event themes. Download high-res PNG/PDF or share directly to WhatsApp.</p>
+          <a href="invites.html" class="card-link">Design invite →</a>
+        </div>
+      </article>
+
+      <!-- 7: Makeup & Styling -->
+      <article class="card mod-pink">
+        <div class="card-banner">
+          <img src="images/makeup/1.jpg" alt="Bridal & Occasion Styling" class="card-img" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="tag">Glow &amp; Styling</span>
+          <h3 class="card-title">Makeup &amp; Occasion Styling</h3>
+          <p class="card-text">Book verified bridal makeup artists, party stylists, saree draping professionals, and Mehendi artists for all occasions.</p>
+          <a href="vendors.html" class="card-link">Find artists →</a>
+        </div>
+      </article>
+
+      <!-- 8: DJs & Live Music -->
+      <article class="card mod-cyan">
+        <div class="card-banner">
+          <img src="images/dj/1.jpg" alt="DJ and Stage Lighting" class="card-img" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="tag">Live Music &amp; DJs</span>
+          <h3 class="card-title">Music, DJs &amp; Emcees</h3>
+          <p class="card-text">High-energy Punjabi dhol players, Bollywood DJs, acoustic live bands, and multilingual event anchors for any stage.</p>
+          <a href="vendors.html" class="card-link">Book music →</a>
+        </div>
+      </article>
+
+      <!-- 9: Free Consultation -->
+      <article class="card mod-green">
+        <div class="card-banner">
+          <img src="images/venues/6.jpg" alt="Beachfront Celebration" class="card-img" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="tag">Starter Blueprint</span>
+          <h3 class="card-title">Free Event Consultation</h3>
+          <p class="card-text">Receive an instant, personalised starter blueprint tailored to your city, guest count, celebration type, and budget.</p>
+          <a href="consultation.html" class="card-link">Get your plan →</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- About Us with Stories Across All Celebrations -->
+  <section class="about" aria-labelledby="about-heading">
+    <div class="container">
+      <h2 id="about-heading" class="section-heading">Built for Life's Greatest Moments</h2>
+      <p class="about-mission">
+        Our mission is to make event planning feel calm, clear, and joyful. Whether you are hosting an intimate birthday, a college graduation farewell, a grand wedding, or an executive corporate summit, Eventora brings venues, vendors, budget trackers, and invitations together in one beautiful place.
+      </p>
+
+      <h3 class="subheading">Three Simple Steps to Every Celebration</h3>
+      <ol class="steps">
+        <li class="step">
+          <span class="step-number">1</span>
+          <h4 class="card-title" style="margin-bottom:8px;">Set Date &amp; Guests</h4>
+          <p class="card-text">Enter your event dates, guest headcount, and total budget in Indian Rupees with 1-click presets.</p>
+        </li>
+        <li class="step">
+          <span class="step-number">2</span>
+          <h4 class="card-title" style="margin-bottom:8px;">Discover Venues &amp; Masters</h4>
+          <p class="card-text">Compare verified banquet halls, lawns, caterers, photographers, DJs, and makeup artists with real photos.</p>
+        </li>
+        <li class="step">
+          <span class="step-number">3</span>
+          <h4 class="card-title" style="margin-bottom:8px;">Design &amp; Share Invites</h4>
+          <p class="card-text">Create beautiful cards across 10 event templates, download high-res PNG/PDF, and collect WhatsApp RSVPs.</p>
+        </li>
+      </ol>
+
+      <ul class="stats" aria-label="Key numbers">
+        <li class="stat"><span class="stat-value">10</span><span>Celebration Categories</span></li>
+        <li class="stat"><span class="stat-value">10+</span><span>Designer E-Invite Templates</span></li>
+        <li class="stat"><span class="stat-value">500+</span><span>Verified Venues &amp; Vendors</span></li>
+        <li class="stat"><span class="stat-value">1</span><span>Calm Platform for All Events</span></li>
+      </ul>
+
+      <div class="quotes">
+        <figure class="quote">
+          <blockquote><p>“Planning our 3-day royal wedding in Madurai was effortless. Eventora connected us with our mandap decorator, Sadya caterer, and nadaswaram troupe seamlessly.”</p></blockquote>
+          <figcaption>— Priya &amp; Karthik · Wedding, Bengaluru</figcaption>
+        </figure>
+        <figure class="quote">
+          <blockquote><p>“Organised my daughter's 1st birthday party in Coimbatore. The balloon decorator and dessert table caterer were punctual and amazing!”</p></blockquote>
+          <figcaption>— Ananya &amp; Vikram · Birthday, Coimbatore</figcaption>
+        </figure>
+        <figure class="quote">
+          <blockquote><p>“We organised our 2026 College Farewell for 400 students using Eventora’s budget tracker and auditorium booking. Unbelievably smooth!”</p></blockquote>
+          <figcaption>— Arjun · College Farewell, Chennai</figcaption>
+        </figure>
+        <figure class="quote">
+          <blockquote><p>“Booked Bloom Conference Centre and executive buffet catering for our 150-person corporate offsite. The WhatsApp RSVP links saved hours.”</p></blockquote>
+          <figcaption>— Deepa R. · Corporate Summit, Bengaluru</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Venues & Vendors Preview -->
+  <section class="section container" aria-labelledby="preview-heading">
+    <div class="section-head">
+      <div>
+        <h2 id="preview-heading" class="section-heading">Featured Venues &amp; Event Masters</h2>
+        <p class="section-sub">Hand-picked and verified across Coimbatore, Chennai, Bengaluru, Madurai &amp; Pondicherry.</p>
+      </div>
+      <a href="venues.html" class="card-link" style="color:#2563EB">See all listings →</a>
+    </div>
+    <div class="card-grid">
+      <article class="card mod-blue">
+        <div class="card-banner">
+          <img src="images/venues/1.jpg" alt="Lotus Grand Banquet" class="card-img" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="tag">Banquet Hall</span>
+          <h3 class="card-title">Lotus Grand Banquet</h3>
+          <p class="card-text">Coimbatore · Capacity 600 · From ₹90,000</p>
+          <a href="venues.html" class="card-link">View details →</a>
+        </div>
+      </article>
+
+      <article class="card mod-orange">
+        <div class="card-banner">
+          <img src="images/venues/4.jpg" alt="Heritage Mahal" class="card-img" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="tag">Heritage Mahal</span>
+          <h3 class="card-title">Heritage Mahal</h3>
+          <p class="card-text">Madurai · Capacity 800 · From ₹1,20,000</p>
+          <a href="venues.html" class="card-link">View details →</a>
+        </div>
+      </article>
+
+      <article class="card mod-cyan">
+        <div class="card-banner">
+          <img src="images/venues/5.jpg" alt="Bloom Conference Centre" class="card-img" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="tag">Conference &amp; Auditorium</span>
+          <h3 class="card-title">Bloom Conference Centre</h3>
+          <p class="card-text">Bengaluru · Capacity 250 · From ₹70,000</p>
+          <a href="venues.html" class="card-link">View details →</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+</main>
+
+<!-- Shared Footer -->
+<footer style="background:#0F172A; color:#fff; padding:64px 0 32px; margin-top:64px;">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a class="brand" href="index.html" style="color:#fff; text-decoration:none; display:inline-flex; align-items:center; gap:8px; font-weight:800; font-size:20px; margin-bottom:12px;">
+        <img src="images/logo.png" alt="Eventora" style="width:32px; height:32px; border-radius:8px;"> Eventora
+      </a>
+      <p class="footer-tagline" style="font-size:0.95rem; line-height:1.6; max-width:320px;">
+        Plan every life celebration, beautifully. Venues, vendors, budgets, guest RSVPs, and digital invites in one calm place.
+      </p>
+    </div>
+    <div>
+      <h3 class="footer-heading">Celebrations</h3>
+      <div class="footer-links">
+        <a href="venues.html?event=Wedding">Weddings &amp; Receptions</a>
+        <a href="venues.html?event=Birthday">Birthday Parties</a>
+        <a href="venues.html?event=College%20%26%20Graduation">College Fests &amp; Farewells</a>
+        <a href="venues.html?event=Corporate%20%26%20Team">Corporate Events &amp; Summits</a>
+        <a href="venues.html?event=Baby%20Shower">Baby Showers &amp; Seemantham</a>
+        <a href="venues.html?event=Housewarming">Griha Pravesh &amp; Housewarming</a>
+      </div>
+    </div>
+    <div>
+      <h3 class="footer-heading">Planning Tools</h3>
+      <div class="footer-links">
+        <a href="venues.html">Venues &amp; Vendors</a>
+        <a href="budget.html">Budget Calculator</a>
+        <a href="checklist.html">Checklist &amp; Muhurat</a>
+        <a href="invites.html">Digital Invites Studio</a>
+        <a href="guests.html">Atithi &amp; RSVPs</a>
+        <a href="consultation.html">Free Starter Plan</a>
+      </div>
+    </div>
+    <div>
+      <h3 class="footer-heading">Stay Connected</h3>
+      <p style="color:#94A3B8; font-size:0.9rem; line-height:1.5; margin-bottom:12px;">
+        Receive season trends, auspicious dates, and vendor tips.
+      </p>
+      <form class="newsletter-row" action="register.html" method="get">
+        <input type="email" placeholder="Your email address" aria-label="Email for updates" required>
+        <button type="submit" class="btn btn-solid" style="background:#2563EB; color:#fff; padding:10px 18px; border-radius:999px; border:none; font-weight:700; cursor:pointer;">Join</button>
+      </form>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <p>© 2026 Eventora. All rights reserved. Crafted with care for celebrations across India.</p>
+  </div>
+</footer>
+
+<!-- Shared Ora Floating Chatbot -->
+<button id="ora-fab" class="ora-fab" aria-label="Chat with Ora" aria-expanded="false">💬</button>
+<section id="ora-window" class="ora-window" hidden aria-label="Chat with Ora">
+  <header class="ora-head">
+    <strong>Ora</strong> · your planning buddy
+    <button id="ora-close" class="ora-close" aria-label="Close chat">×</button>
+  </header>
+  <div id="ora-messages" class="ora-messages" role="log" aria-live="polite"></div>
+  <div class="ora-quick" id="ora-quick">
+    <button type="button" data-q="Recommend venues">Recommend venues</button>
+    <button type="button" data-q="Plan my budget">Plan my budget</button>
+    <button type="button" data-q="College fest ideas">College fest ideas</button>
+    <button type="button" data-q="Birthday party tips">Birthday party tips</button>
+    <button type="button" data-q="Create digital invite">Create digital invite</button>
+  </div>
+  <form id="ora-form" class="ora-input">
+    <input id="ora-text" type="text" placeholder="Ask anything about your celebration..." aria-label="Message to Ora" autocomplete="off" />
+    <button type="submit">Send</button>
+  </form>
+</section>
+
+<script src="js/navbar.js"></script>
+<script src="js/ora.js"></script>
+</body>
+</html>

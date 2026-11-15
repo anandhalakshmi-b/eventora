@@ -1,15 +1,15 @@
 /* Guests & RSVPs – front end only, saved in this browser (localStorage).
    Swap load/save for API calls when the backend is ready. */
-const GK = 'eventora-guests', EK = 'eventora-event';
+const GK = 'eventora-guests-v2', EK = 'eventora-event-v2';
 const STATUSES = ['Pending', 'Accepted', 'Declined'];
 let G = load(GK, null) || [
-  { id: uid(), name: 'Ravi Kumar', email: 'ravi@example.com', phone: '9000000011', group: 'Family', diet: 'Vegetarian', plus: 2, status: 'Accepted' },
-  { id: uid(), name: 'Anita Sharma', email: 'anita@example.com', phone: '9000000012', group: 'Family', diet: '', plus: 1, status: 'Pending' },
-  { id: uid(), name: 'Karthik S', email: 'karthik@example.com', phone: '9000000013', group: 'Friends', diet: 'Nut allergy', plus: 0, status: 'Accepted' },
-  { id: uid(), name: 'Divya Menon', email: 'divya@example.com', phone: '9000000014', group: 'Friends', diet: 'Vegan', plus: 1, status: 'Declined' },
-  { id: uid(), name: 'Mr. Iyer', email: 'iyer@example.com', phone: '9000000015', group: 'Colleagues', diet: '', plus: 0, status: 'Pending' }
+  { id: uid(), name: 'Suresh & Malini Sharma', email: 'sharma.family@example.com', phone: '98401 23456', group: "Ladkiwale (Bride's Family)", diet: 'Pure Veg / Jain', plus: 3, status: 'Accepted' },
+  { id: uid(), name: 'Col. Rajesh Verma', email: 'r.verma@example.com', phone: '98402 34567', group: "Ladkewale (Groom's Side)", diet: 'North Indian Feast', plus: 2, status: 'Accepted' },
+  { id: uid(), name: 'Karthik Subramanian', email: 'karthik.subbu@example.com', phone: '98403 45678', group: 'Friends & Cousins', diet: 'South Indian Sadya', plus: 1, status: 'Accepted' },
+  { id: uid(), name: 'Dr. Meenakshi & Family', email: 'meenakshi.dr@example.com', phone: '98404 56789', group: 'VIP Elders', diet: 'Traditional Pure Veg', plus: 2, status: 'Pending' },
+  { id: uid(), name: 'Anand & Pooja Kapoor', email: 'kapoor.anand@example.com', phone: '98405 67890', group: 'Friends & Cousins', diet: 'Non-Veg Special', plus: 0, status: 'Pending' }
 ];
-let EV = load(EK, { name: "Aarav & Meera's Wedding", date: '' });
+let EV = load(EK, { name: "Aarav & Meera's Grand Shaadi", date: '2027-02-18' });
 let fStatus = 'All', editing = null;
 
 $('ename').value = EV.name; $('edate').value = EV.date;
@@ -17,7 +17,7 @@ $('ename').oninput = $('edate').oninput = () => { EV = { name: $('ename').value,
 
 const rsvpLink = () => new URL('rsvp.html', location.href).href;
 $('copy').onclick = async () => {
-  try { await navigator.clipboard.writeText(rsvpLink()); $('copied').textContent = 'RSVP link copied. Share it with your guests.'; }
+  try { await navigator.clipboard.writeText(rsvpLink()); $('copied').textContent = 'RSVP link copied. Share it with your guests on WhatsApp.'; }
   catch (e) { $('copied').textContent = 'Copy this link: ' + rsvpLink(); }
 };
 
@@ -25,15 +25,15 @@ function draw() {
   const count = s => G.filter(g => g.status === s).length;
   const heads = G.filter(g => g.status === 'Accepted').reduce((s, g) => s + 1 + g.plus, 0);
   $('sum').innerHTML =
-    `<div class="stat"><b>${G.length}</b><span>Guests invited</span></div>
-     <div class="stat good"><b>${count('Accepted')}</b><span>Accepted</span></div>
-     <div class="stat bad"><b>${count('Declined')}</b><span>Declined</span></div>
-     <div class="stat warn"><b>${count('Pending')}</b><span>Pending</span></div>
-     <div class="stat"><b>${heads}</b><span>Expected headcount</span></div>
-     <div class="stat"><b>${G.filter(g => g.diet).length}</b><span>Dietary notes</span></div>`;
+    `<div class="stat"><b>${G.length}</b><span>Atithi Invited</span></div>
+     <div class="stat good"><b>${count('Accepted')}</b><span>Confirmed</span></div>
+     <div class="stat bad"><b>${count('Declined')}</b><span>Regrets</span></div>
+     <div class="stat warn"><b>${count('Pending')}</b><span>Pending Reply</span></div>
+     <div class="stat"><b>${heads}</b><span>Expected Headcount</span></div>
+     <div class="stat"><b>${G.filter(g => g.diet).length}</b><span>Dietary Notes</span></div>`;
 
   const groups = [...new Set(G.map(g => g.group).filter(Boolean))].sort(), cur = $('grp').value;
-  $('grp').innerHTML = '<option value="">All groups</option>' + groups.map(x => `<option${x === cur ? ' selected' : ''}>${esc(x)}</option>`).join('');
+  $('grp').innerHTML = '<option value="">All groups (Ladkewale & Ladkiwale)</option>' + groups.map(x => `<option${x === cur ? ' selected' : ''}>${esc(x)}</option>`).join('');
   $('chips').innerHTML = ['All', ...STATUSES].map(s =>
     `<button class="chip" data-chip="${s}" aria-pressed="${fStatus === s}">${s}${s === 'All' ? ` (${G.length})` : ` (${count(s)})`}</button>`).join('');
 
@@ -58,45 +58,61 @@ function openForm(g) {
   $('gg').value = g?.group || ''; $('gpl').value = g?.plus ?? 0; $('gd').value = g?.diet || ''; $('gs').value = g?.status || 'Pending';
   $('dlg').showModal(); $('gn').focus();
 }
-$('add').onclick = () => openForm(null);
+$('add').onclick = () => openForm();
 $('gx').onclick = () => $('dlg').close();
 $('gf').onsubmit = e => {
   e.preventDefault();
-  const name = $('gn').value.trim(), email = $('ge').value.trim();
-  if (!name) return $('gerr').textContent = 'Please enter the guest name.';
-  if (email && !/^\S+@\S+\.\S+$/.test(email)) return $('gerr').textContent = 'Enter a valid email address.';
-  const data = { name, email, phone: $('gp').value.trim(), group: $('gg').value.trim(), diet: $('gd').value.trim(),
-    plus: Math.max(0, +$('gpl').value || 0), status: $('gs').value };
-  if (editing) Object.assign(G.find(g => g.id === editing), data); else G.push({ id: uid(), ...data });
+  const name = $('gn').value.trim();
+  if (!name) return $('gerr').textContent = 'Please enter a name.';
+  const payload = {
+    name, email: $('ge').value.trim(), phone: $('gp').value.trim(),
+    group: $('gg').value.trim(), plus: Math.max(0, +$('gpl').value || 0),
+    diet: $('gd').value.trim(), status: $('gs').value
+  };
+  if (editing) Object.assign(G.find(g => g.id === editing), payload);
+  else G.push({ id: uid(), ...payload });
   $('dlg').close(); draw();
 };
 
-/* table + filter events */
 $('rows').onclick = e => {
   const ed = e.target.dataset.edit, del = e.target.dataset.del;
   if (ed) openForm(G.find(g => g.id === ed));
-  if (del && confirm('Remove this guest?')) { G = G.filter(g => g.id !== del); draw(); }
+  if (del && confirm('Delete this guest?')) { G = G.filter(g => g.id !== del); draw(); }
 };
-$('rows').onchange = e => { const id = e.target.dataset.st; if (id) { G.find(g => g.id === id).status = e.target.value; draw(); } };
-$('chips').onclick = e => { if (e.target.dataset.chip) { fStatus = e.target.dataset.chip; draw(); } };
+$('rows').onchange = e => {
+  const id = e.target.dataset.st;
+  if (id) { G.find(g => g.id === id).status = e.target.value; draw(); }
+};
+
+$('chips').onclick = e => {
+  const c = e.target.dataset.chip; if (c) { fStatus = c; draw(); }
+};
 $('q').oninput = $('grp').onchange = draw;
 
-/* CSV import / export */
-$('imp').onclick = () => $('file').click();
-$('file').onchange = async () => {
-  const f = $('file').files[0]; if (!f) return;
-  const rows = parseCSV(await f.text()), head = rows.shift().map(h => h.trim().toLowerCase().replace(/[^a-z]/g, ''));
-  const col = n => head.indexOf(n); let n = 0;
-  rows.forEach(r => {
-    const get = k => (col(k) >= 0 ? (r[col(k)] || '').trim() : '');
-    if (!get('name')) return;
-    const st = STATUSES.find(s => s.toLowerCase() === get('status').toLowerCase()) || 'Pending';
-    G.push({ id: uid(), name: get('name'), email: get('email'), phone: get('phone'), group: get('group'), diet: get('dietary'), plus: Math.max(0, parseInt(get('plusones')) || 0), status: st }); n++;
-  });
-  $('msg').textContent = n ? `Imported ${n} guest${n > 1 ? 's' : ''}.` : 'No guests found. Check that the file has a "name" column.';
-  $('file').value = ''; draw();
+/* CSV */
+$('exp').onclick = () => {
+  const lines = [['Name','Email','Phone','Group','Dietary','PlusOnes','Status'].map(csvCell).join(',')]
+    .concat(G.map(g => [g.name, g.email, g.phone, g.group, g.diet, g.plus, g.status].map(csvCell).join(',')));
+  downloadFile('eventora-guests.csv', lines.join('\n'));
 };
-$('exp').onclick = () => downloadFile('eventora-guests.csv',
-  [['name','email','phone','group','dietary','plusones','status'].join(',')]
-    .concat(G.map(g => [g.name, g.email, g.phone, g.group, g.diet, g.plus, g.status].map(csvCell).join(','))).join('\n'));
+$('imp').onclick = () => $('file').click();
+$('file').onchange = e => {
+  const f = e.target.files[0]; if (!f) return;
+  const r = new FileReader();
+  r.onload = ev => {
+    try {
+      const rows = parseCSV(ev.target.result);
+      if (!rows.length) throw new Error('File is empty.');
+      const start = rows[0][0].toLowerCase().includes('name') ? 1 : 0;
+      let added = 0;
+      for (let i = start; i < rows.length; i++) {
+        const [name, email = '', phone = '', group = '', diet = '', plus = '0', status = 'Pending'] = rows[i];
+        if (name) { G.push({ id: uid(), name, email, phone, group, diet, plus: Math.max(0, +plus || 0), status: STATUSES.includes(status) ? status : 'Pending' }); added++; }
+      }
+      $('msg').textContent = `Imported ${added} guest(s).`; draw();
+    } catch (err) { $('msg').textContent = 'Could not read CSV: ' + err.message; $('msg').style.color = '#DC2626'; }
+  };
+  r.readAsText(f);
+};
+
 draw();

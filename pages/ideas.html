@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ideas &amp; Inspiration · Eventora</title>
+  <link rel="icon" href="images/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/ora.css">
+  <style>
+    :root {
+      --ink: #0F172A;
+      --muted: #475569;
+      --white: #FFFFFF;
+      --page: #FAFAFC;
+      --slate-50: #F8FAFC;
+      --slate-200: #E5E7EB;
+      --focus: #2563EB;
+      --purple-bg: #F3E8FF;
+      --purple-soft: #FAF5FF;
+      --purple-accent: #9333EA;
+      --pink: #DB2777;
+      --gradient-bg: linear-gradient(135deg, #CFFAFE 0%, #F3E8FF 50%, #FCE7F3 100%);
+      --font: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; font-family: var(--font); font-size: 16px; line-height: 1.5; color: var(--ink); background: var(--page); }
+    a { color: inherit; }
+    h1, h2, h3, p, ul { margin: 0; padding: 0; }
+    ul { list-style: none; }
+    button, input, select { font: inherit; color: inherit; }
+    :focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .skip-link { position: absolute; left: 16px; top: -48px; background: var(--ink); color: var(--white); padding: 8px 16px; border-radius: 999px; z-index: 100; }
+    .skip-link:focus { top: 16px; }
+    .container { width: 100%; max-width: 1250px; margin: 0 auto; padding: 0 24px; }
+
+    /* ---------- Buttons ---------- */
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 10px 20px; border-radius: 999px; border: 2px solid transparent; font-size: 15px; font-weight: 600; line-height: 1.2; text-decoration: none; cursor: pointer; white-space: nowrap; background: transparent; }
+    .btn-solid { background: var(--ink); color: var(--white); }
+    .btn-solid:hover { background: #1E293B; }
+    .btn-purple { background: var(--purple-accent); color: var(--white); }
+    .btn-purple:hover { filter: brightness(0.95); }
+    .btn-ghost { border-color: var(--slate-200); background: var(--white); }
+    .btn-ghost:hover { background: var(--slate-50); }
+    .btn-small { padding: 6px 14px; font-size: 14px; }
+
+    /* ---------- Search, sort, filters ---------- */
+    .controls { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin: 32px 0 16px; }
+    .field label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); margin-bottom: 6px; }
+    .field input, .field select { width: 100%; padding: 14px 16px; border: 1px solid var(--slate-200); border-radius: 14px; background: var(--white); }
+    .field input:focus, .field select:focus { border-color: var(--focus); outline: none; box-shadow: 0 0 0 3px rgba(37,99,235,0.2); }
+
+    .pills { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 32px; }
+    .pill { padding: 9px 18px; border-radius: 999px; border: 1px solid var(--slate-200); background: var(--white); cursor: pointer; font-size: 14px; font-weight: 600; }
+    .pill:hover { border-color: var(--ink); }
+    .pill[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--white); }
+
+    /* ---------- Section headings ---------- */
+    .section-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
+    .section-heading { font-size: 28px; font-weight: 800; letter-spacing: -0.01em; }
+    .muted-small { font-size: 12px; color: var(--muted); }
+
+    /* ---------- Spotlight ---------- */
+    .spotlight { display: grid; grid-template-columns: 1.2fr 1fr; border-radius: 24px; overflow: hidden; background: #FFF7ED; border: 1px solid #FED7AA; margin-bottom: 48px; box-shadow: 0 8px 24px rgba(15,23,42,0.06); }
+    .spotlight-photo { min-height: 360px; background: url('images/venues/4.jpg') center/cover no-repeat; position: relative; }
+    .spotlight-body { padding: 40px; display: flex; flex-direction: column; justify-content: center; gap: 14px; }
+    .spotlight-body h2 { font-size: 32px; font-weight: 800; line-height: 1.2; letter-spacing: -0.01em; color: var(--ink); }
+    .spotlight-body p { color: #475569; font-size: 1.05rem; line-height: 1.6; }
+    .link-purple { background: none; border: none; padding: 0; cursor: pointer; color: #EA580C; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; text-align: left; align-self: flex-start; }
+    .link-purple:hover { text-decoration: underline; }
+    .tag-pill { align-self: flex-start; background: #EA580C; color: var(--white); padding: 4px 14px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+
+    /* ---------- Idea cards ---------- */
+    .idea-grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); margin-bottom: 56px; }
+    .idea-card { background: var(--white); border: 1px solid var(--slate-200); border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .idea-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08); }
+    .idea-photo { height: 190px; position: relative; overflow: hidden; background: var(--photo-bg, #E2E8F0); }
+    .idea-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s ease; }
+    .idea-card:hover .idea-img { transform: scale(1.06); }
+    .idea-content { padding: 20px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+    .idea-meta { display: flex; justify-content: space-between; align-items: center; }
+    .cat { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #2563EB; }
+    .save-btn { background: none; border: none; cursor: pointer; font-size: 13px; color: var(--muted); padding: 2px 4px; border-radius: 6px; }
+    .save-btn:hover { color: var(--pink); }
+    .save-btn[aria-pressed="true"] { color: var(--pink); font-weight: 700; }
+    .idea-card h3 { font-size: 1.25rem; font-weight: 800; line-height: 1.25; color: var(--ink); }
+    .idea-card p { font-size: 14px; color: var(--muted); line-height: 1.5; margin-bottom: 8px; }
+    .empty { display: none; text-align: center; padding: 40px 24px; background: var(--purple-bg); border-radius: 20px; color: var(--purple-accent); margin-bottom: 56px; }
+    .empty.is-visible { display: block; }
+    .empty h3 { font-size: 20px; font-weight: 800; color: var(--ink); margin-bottom: 6px; }
+
+    /* ---------- Expert guidance ---------- */
+    .guidance { margin-bottom: 64px; }
+    .advice-grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); align-items: stretch; }
+    .advice-card { background: var(--white); border: 1px solid var(--slate-200); border-radius: 20px; padding: 26px; display: flex; flex-direction: column; gap: 10px; text-align: left; cursor: pointer; font: inherit; color: inherit; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .advice-card:hover { transform: translateY(-3px); box-shadow: 0 10px 22px rgba(15, 23, 42, 0.08); border-color: #2563EB; }
+    .advice-card h3 { font-size: 1.15rem; font-weight: 800; line-height: 1.3; color: var(--ink); }
+    .advice-card .meta { font-size: 12px; color: #2563EB; font-weight: 700; margin-top: auto; }
+    .advice-card .kicker { font-size: 11px; font-weight: 700; color: #EA580C; text-transform: uppercase; letter-spacing: 0.1em; }
+
+    /* ---------- Dialog ---------- */
+    dialog { border: none; border-radius: 24px; padding: 0; width: min(560px, calc(100% - 32px)); box-shadow: 0 24px 48px rgba(15,23,42,0.25); }
+    dialog::backdrop { background: rgba(15,23,42,0.5); }
+    .dialog-body { padding: 32px; display: flex; flex-direction: column; gap: 12px; }
+    .dialog-body h3 { font-size: 26px; font-weight: 800; line-height: 1.2; }
+    .dialog-body p { color: var(--muted); }
+    .dialog-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+    .dialog-send { display: none; flex-direction: column; gap: 8px; padding-top: 8px; }
+    .dialog-send.is-visible { display: flex; }
+    .dialog-send .btn { justify-content: flex-start; }
+    .dialog-close { align-self: flex-end; margin-top: 4px; background: none; border: none; text-decoration: underline; cursor: pointer; color: var(--ink); }
+
+    /* ---------- Toast ---------- */
+    .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(120px); background: var(--ink); color: var(--white); padding: 12px 20px; border-radius: 999px; font-weight: 600; transition: transform 0.3s ease; z-index: 90; }
+    .toast.is-visible { transform: translateX(-50%) translateY(0); }
+
+    @media (max-width: 768px) {
+      .controls { grid-template-columns: 1fr; }
+      .spotlight { grid-template-columns: 1fr; }
+      .spotlight-photo { min-height: 240px; }
+    }
+  </style>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<nav>
+  <a class="brand" href="index.html"><img src="images/logo.png" alt="Eventora logo">Eventora</a>
+  <button id="burger" aria-label="Open menu" aria-expanded="false">☰</button>
+  <div class="links" id="links">
+    <a href="index.html">Home</a>
+    <a href="venues.html">Venues &amp; Vendors</a>
+    <a href="ideas.html" class="on">Ideas</a>
+    <a href="budget.html">Budget</a>
+    <a href="checklist.html">Checklist</a>
+    <a href="guests.html">Guests</a>
+    <a href="consultation.html">Consultation</a>
+    <a href="invites.html">Invites</a>
+    <a href="favorites.html">Favourites ♥</a>
+    <a class="btn sm" href="register.html">Register</a>
+  </div>
+</nav>
+
+<!-- Royal Video Hero -->
+<header class="hero">
+  <video class="hero-video" autoplay muted loop playsinline poster="images/venues/4.jpg" aria-hidden="true">
+    <source src="images/venues/venues.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-kicker">✦ INSPIRATION &amp; TRADITIONS ✦</p>
+    <h1>Royal Themes, Rites &amp; Vibrant Celebrations</h1>
+    <p>Curated Indian moodboards, Shubh Muhurat traditions, and festive decor guides for Haldi, Sangeet, Mehendi, and Shaadi.</p>
+    <div class="hero-actions">
+      <button class="btn btn-solid" type="button" id="saved-hero" data-filter="Saved">♥ Saved Ideas (<span id="saved-count">0</span>)</button>
+      <a href="consultation.html" class="btn btn-outline">Free Shubh Plan</a>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="container">
+
+  <!-- Search and sort -->
+  <div class="controls">
+    <div class="field">
+      <label for="search">Search ideas, rituals &amp; themes</label>
+      <input type="search" id="search" placeholder="Try 'Marigold Haldi', 'Sangeet Dhol', or 'Muhurat tips'" autocomplete="off">
+    </div>
+    <div class="field">
+      <label for="sort">Sort by</label>
+      <select id="sort">
+        <option value="fresh">Curated for Indian Weddings</option>
+        <option value="title">Title A to Z</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Filter pills -->
+  <div class="pills" role="group" aria-label="Filter ideas" id="pills"></div>
+
+  <!-- Royal Spotlight -->
+  <section class="spotlight" aria-labelledby="spot-title">
+    <div class="spotlight-photo" role="img" aria-label="Heritage Mahal illuminated wedding mandap at night"></div>
+    <div class="spotlight-body">
+      <span class="tag-pill">Royal Spotlight · Shubh Vivah</span>
+      <h2 id="spot-title">The Royal Rajputana Shaadi &amp; Mandap</h2>
+      <p>Step into an illuminated heritage courtyard adorned with marigold malas, brass urlis with floating candles, traditional Shehnai welcome, and a majestic lotus floral mandap.</p>
+      <button class="link-purple" type="button" data-open="spot">Explore the moodboard ↗</button>
+    </div>
+  </section>
+
+  <!-- Idea cards -->
+  <div class="section-head">
+    <div>
+      <h2 class="section-heading">Curated Celebration Moodboards</h2>
+      <p class="muted-small">Authentic themes crafted for multi-day Indian rituals</p>
+    </div>
+  </div>
+
+  <div class="idea-grid" id="idea-grid"></div>
+
+  <div class="empty" id="empty" role="status">
+    <h3>No ideas match those filters</h3>
+    <p>Try searching for 'Haldi', 'Sangeet', 'Wedding', or switch back to All ideas.</p>
+  </div>
+
+  <!-- Cultural Guidance -->
+  <section class="guidance" aria-labelledby="guidance-title">
+    <h2 class="section-heading" id="guidance-title" style="margin-bottom:20px;">Shaadi Planning Advice &amp; Ritual Guides</h2>
+    <div class="advice-grid" id="advice-grid"></div>
+  </section>
+
+</main>
+
+<!-- Idea and advice detail dialog -->
+<dialog id="idea-dialog" aria-labelledby="dialog-title">
+  <div class="dialog-body">
+    <p class="cat" id="dialog-kicker"></p>
+    <h3 id="dialog-title"></h3>
+    <p id="dialog-text"></p>
+    <div class="dialog-actions" id="dialog-actions">
+      <button type="button" class="btn btn-ghost" id="dialog-save">♡ Save</button>
+      <button type="button" class="btn btn-solid" id="dialog-use" style="background:#2563EB; border-color:#2563EB; color:#fff;">Use this idea</button>
+    </div>
+    <div class="dialog-send" id="dialog-send">
+      <p><strong>Where should this go?</strong></p>
+      <button type="button" class="btn btn-solid" data-target="checklist">Add to my checklist</button>
+      <button type="button" class="btn btn-ghost" data-target="consultation">Send to free consultation</button>
+    </div>
+    <button type="button" class="dialog-close" id="dialog-close">Close</button>
+  </div>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<footer class="site-footer">
+  <div>
+    <b>Eventora</b><br>
+    Plan every royal Indian celebration, beautifully.
+  </div>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="venues.html">Venues &amp; Vendors</a>
+    <a href="ideas.html">Ideas</a>
+    <a href="budget.html">Budget</a>
+    <a href="checklist.html">Checklist</a>
+    <a href="guests.html">Guests</a>
+  </div>
+</footer>
+
+<!-- ===== ORA FLOATING CHAT ===== -->
+<button id="ora-fab" class="ora-fab" aria-label="Chat with Ora" aria-expanded="false">💬</button>
+<section id="ora-window" class="ora-window" hidden aria-label="Chat with Ora">
+  <header class="ora-head">
+    <strong>Ora</strong> · your planning buddy
+    <button id="ora-close" class="ora-x" aria-label="Close chat">×</button>
+  </header>
+  <div id="ora-log" class="ora-log" role="log" aria-live="polite"></div>
+  <div class="ora-quick">
+    <button data-q="Find venues">Find venues</button>
+    <button data-q="Set a budget">Set a budget</button>
+    <button data-q="Make an invite">Make an invite</button>
+    <button data-q="Talk to a human">Talk to a human</button>
+  </div>
+  <div class="ora-form">
+    <label for="ora-input" class="sr-only">Message Ora</label>
+    <input id="ora-input" type="text" maxlength="500" placeholder="Ask Ora anything..." autocomplete="off">
+    <button id="ora-send" class="ora-send">Send</button>
+  </div>
+</section>
+
+<script>
+  // ---------- Content ----------
+    var FILTERS = ['All ideas', 'Wedding', 'Birthday', 'College & Graduation', 'Corporate & Team', 'Baby Shower', 'Housewarming', 'Anniversary', 'Festival', 'Saved'];
+
+  var IDEAS = [
+    { id: 1, category: 'Wedding', title: 'Royal Heritage Mandap & Reception', desc: 'Pillared courtyards, floral lotus canopy, elegant stage lighting, and multi-course feast.', body: 'Incorporate timeless regal architecture with red carpet entryway, fragrant floral garlands, beautifully lit mandap stage for sacred vows, and a grand banquet reception.', img: 'images/venues/1.jpg', bg: 'linear-gradient(135deg,#FEE2E2,#DC2626)', alt: 'Royal Wedding Setup' },
+    { id: 2, category: 'Birthday', title: 'Cheerful Birthday Bash & Cake Table', desc: 'Colourful balloon arches, custom photo backdrops, DJ dance floor, and live dessert counters.', body: 'Style your birthday celebration with vibrant theme decor, energetic music, interactive games corner, customized birthday cake table, and delicious buffet catering for all ages.', img: 'images/venues/7.jpg', bg: 'linear-gradient(135deg,#FEF9C3,#CA8A04)', alt: 'Birthday party setup' },
+    { id: 3, category: 'College & Graduation', title: 'College Farewell & Convocation Gala', desc: 'Tiered auditorium, memorable slide shows, photo booths, awards stage, and dinner celebration.', body: 'Celebrate your academic milestone with class memories, farewell toasts, student band performances, custom yearbook photo corners, and a lively graduation dinner with classmates.', img: 'images/venues/8.jpg', bg: 'linear-gradient(135deg,#DCFCE7,#16A34A)', alt: 'College auditorium and graduation celebration' },
+    { id: 4, category: 'Corporate & Team', title: 'Corporate Leadership Summit & Gala', desc: 'Conference hall, high-speed AV projectors, keynote stage, networking lounge, and banquet dinner.', body: 'Host professional conferences, product launches, or team awards galas with state-of-the-art audiovisual setups, acoustic stage, break-out meeting lounges, and premium dining service.', img: 'images/venues/5.jpg', bg: 'linear-gradient(135deg,#DBEAFE,#2563EB)', alt: 'Corporate conference and team gala' },
+    { id: 5, category: 'Baby Shower', title: 'Joyous Baby Shower Gathering', desc: 'Pastel balloon clouds, blessings corner, floral backdrop, games, and celebratory feast.', body: 'Shower the parents-to-be with love, laughter, playful baby shower games, thoughtful gifts, decorative dessert tables, and wholesome catering for family and close friends.', img: 'images/photo/2.jpg', bg: 'linear-gradient(135deg,#F3E8FF,#9333EA)', alt: 'Baby shower celebration' },
+    { id: 6, category: 'Housewarming', title: 'Warm Housewarming & Family Pooja', desc: 'Floral entrance toran, welcoming lamps, auspicious blessings, and delicious sit-down lunch.', body: 'Celebrate stepping into your new home with auspicious threshold decorations, warm hospitality, family blessings, and a festive meal shared with neighbours and dear relatives.', img: 'images/decor/2.jpg', bg: 'linear-gradient(135deg,#FFEDD5,#EA580C)', alt: 'Housewarming decor' },
+    { id: 7, category: 'Anniversary', title: 'Romantic Anniversary Milestone Dinner', desc: 'City-view rooftop terrace, candlelight dining, live acoustic music, and champagne toasts.', body: 'Celebrate lasting love with ambient fairy lighting, romantic table centerpieces, heartfelt speeches, video memory reel, and an exquisite dinner with cherished family and friends.', img: 'images/venues/3.jpg', bg: 'linear-gradient(135deg,#FCE7F3,#DB2777)', alt: 'Anniversary rooftop celebration' },
+    { id: 8, category: 'Festival', title: 'Festive Lights, Music & Sweets Evening', desc: 'Glowing diyas and lanterns, live folk & acoustic melodies, mithai counters, and festive feast.', body: 'Brighten seasonal holidays (Diwali, Eid, Christmas, New Year) with traditional decorative lanterns, live classical or acoustic melodies, festive sweets, and joyous family get-togethers.', img: 'images/venues/6.jpg', bg: 'linear-gradient(135deg,#FEF3C7,#D97706)', alt: 'Festival celebration' }
+  ];
+
+  var SPOTLIGHT = {
+    kicker: 'Royal Spotlight · Shubh Vivah',
+    title: 'The Royal Rajputana Shaadi & Mandap',
+    body: 'Step into an illuminated heritage courtyard adorned with marigold malas, brass urlis with floating candles, traditional Shehnai welcome, and a majestic lotus floral mandap.'
+  };
+
+  var ADVICE = [
+        { n: '05', title: 'Tamil Muhurtham & Ketti Melam Guide', topic: 'Tamil Traditions', mins: 6, body: 'From Janavasam car arrival and Kasi Yatra to Oonjal swing and tying the Thirumangalyam with 3 knots to Ketti Melam beats, follow the complete Tamil wedding sequence smoothly.' },
+    { n: '01', title: 'Shubh Muhurat & Pandit Consultation', topic: 'Rituals & Timing', mins: 6, body: 'Consult family priests early to calculate auspicious lagna timings, Rahu Kaalam windows, and required puja samagri for pre-wedding and pheras rituals.' },
+    { n: '02', title: 'Your ₹15L to ₹30L Shaadi Budget, Unpacked', topic: 'Budget Tips', mins: 8, body: 'Allocate about 35% for Mandap & venue, 25% for 3-day multi-cuisine catering, 15% for photography & decor, and 15% for jewellery, attire, and gifts.' },
+    { n: '03', title: 'Ladkewale & Ladkiwale Hospitality Guide', topic: 'Guest Care', mins: 5, body: 'Designate family coordinators for out-of-town baratis. Arrange welcome hampers with dry fruits, itinerary cards, airport cabs, and hotel room keys.' },
+    { n: '04', title: 'Curating the Multi-Day Shaadi Menu', topic: 'Catering Guide', mins: 7, body: 'Balance light Chaat and live counters for Sangeet night with a rich Sadya or North Indian buffet for the wedding, ensuring dedicated Jain counters.' }
+  ];
+
+  var SAVED_KEY = 'eventora-saved-ideas';
+  var DEFAULT_SAVED = [1, 2, 3, 5];
+
+  var state = { filter: 'All ideas', query: '', sort: 'fresh', saved: loadSaved(), current: null };
+
+  function loadSaved() {
+    try {
+      var s = JSON.parse(localStorage.getItem(SAVED_KEY));
+      return Array.isArray(s) ? s : DEFAULT_SAVED.slice();
+    } catch (e) { return DEFAULT_SAVED.slice(); }
+  }
+  function persistSaved() {
+    try { localStorage.setItem(SAVED_KEY, JSON.stringify(state.saved)); } catch (e) { }
+  }
+  function isSaved(id) { return state.saved.indexOf(id) !== -1; }
+  function toggleSave(id) {
+    var i = state.saved.indexOf(id);
+    if (i === -1) { state.saved.push(id); toast('Saved to your ideas'); }
+    else { state.saved.splice(i, 1); toast('Removed from saved ideas'); }
+    persistSaved();
+    render();
+  }
+
+  function matchesFilter(idea) {
+    if (state.filter === 'All ideas') return true;
+    if (state.filter === 'Saved') return isSaved(idea.id);
+    return idea.category === state.filter;
+  }
+  function matchesQuery(idea) {
+    var q = state.query.trim().toLowerCase();
+    if (!q) return true;
+    return (idea.title + ' ' + idea.desc + ' ' + idea.category).toLowerCase().indexOf(q) !== -1;
+  }
+  function sortIdeas(list) {
+    var copy = list.slice();
+    if (state.sort === 'title') copy.sort(function (a, b) { return a.title.localeCompare(b.title); });
+    else copy.sort(function (a, b) { return a.id - b.id; });
+    return copy;
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function renderPills() {
+    var wrap = document.getElementById('pills');
+    wrap.innerHTML = FILTERS.map(function (f) {
+      return '<button type="button" class="pill" data-filter="' + f + '" aria-pressed="' + (state.filter === f) + '">' +
+        escapeHtml(f) + '</button>';
+    }).join('');
+  }
+
+  function cardHtml(idea) {
+    var saved = isSaved(idea.id);
+    var imgMarkup = idea.img ? '<img src="' + idea.img + '" alt="' + escapeHtml(idea.alt) + '" class="idea-img">' : '';
+    return '' +
+      '<article class="idea-card">' +
+        '<div class="idea-photo" style="--photo-bg:' + idea.bg + '" role="img" aria-label="' + escapeHtml(idea.alt) + '">' +
+          imgMarkup +
+        '</div>' +
+        '<div class="idea-content">' +
+          '<div class="idea-meta">' +
+            '<span class="cat">' + escapeHtml(idea.category) + '</span>' +
+            '<button type="button" class="save-btn" data-save="' + idea.id + '" aria-pressed="' + saved + '" aria-label="' + (saved ? 'Remove from saved: ' : 'Save: ') + escapeHtml(idea.title) + '">' +
+              (saved ? '♥ Saved' : '♡ Save') +
+            '</button>' +
+          '</div>' +
+          '<h3>' + escapeHtml(idea.title) + '</h3>' +
+          '<p>' + escapeHtml(idea.desc) + '</p>' +
+          '<button type="button" class="link-purple" data-open="' + idea.id + '">See inspiration ↗</button>' +
+        '</div>' +
+      '</article>';
+  }
+
+  function renderGrid() {
+    var list = sortIdeas(IDEAS.filter(function (i) { return matchesFilter(i) && matchesQuery(i); }));
+    document.getElementById('idea-grid').innerHTML = list.map(cardHtml).join('');
+    document.getElementById('empty').classList.toggle('is-visible', list.length === 0);
+  }
+
+  function renderAdvice() {
+    document.getElementById('advice-grid').innerHTML = ADVICE.map(function (a) {
+      return '<button type="button" class="advice-card" data-advice="' + a.n + '">' +
+        '<span class="kicker">' + a.n + ' / Guide</span>' +
+        '<h3>' + escapeHtml(a.title) + '</h3>' +
+        '<span class="meta">' + escapeHtml(a.topic) + ' · ' + a.mins + ' min read</span>' +
+      '</button>';
+    }).join('');
+  }
+
+  function renderSavedCount() {
+    document.getElementById('saved-count').textContent = state.saved.length;
+  }
+
+  function render() {
+    renderPills();
+    renderSavedCount();
+    renderGrid();
+  }
+
+  var dialog = document.getElementById('idea-dialog');
+
+  function openIdea(id) {
+    var idea = IDEAS.filter(function (i) { return i.id === id; })[0];
+    if (id === 'spot') {
+      idea = { id: 'spot', category: 'Shubh Vivah', title: SPOTLIGHT.title, desc: SPOTLIGHT.body, body: SPOTLIGHT.body };
+    }
+    if (!idea) return;
+    state.current = idea;
+    document.getElementById('dialog-kicker').textContent = idea.category;
+    document.getElementById('dialog-title').textContent = idea.title;
+    document.getElementById('dialog-text').textContent = idea.body;
+    var isCard = typeof idea.id === 'number';
+    document.getElementById('dialog-save').style.display = isCard ? '' : 'none';
+    document.getElementById('dialog-use').style.display = isCard ? '' : 'none';
+    document.getElementById('dialog-save').textContent = isSaved(idea.id) ? '♥ Saved' : '♡ Save';
+    document.getElementById('dialog-send').classList.remove('is-visible');
+    dialog.showModal();
+  }
+
+  function openAdvice(n) {
+    var a = ADVICE.filter(function (x) { return x.n === n; })[0];
+    if (!a) return;
+    state.current = null;
+    document.getElementById('dialog-kicker').textContent = a.topic + ' · ' + a.mins + ' min read';
+    document.getElementById('dialog-title').textContent = a.title;
+    document.getElementById('dialog-text').textContent = a.body;
+    document.getElementById('dialog-save').style.display = 'none';
+    document.getElementById('dialog-use').style.display = 'none';
+    document.getElementById('dialog-send').classList.remove('is-visible');
+    dialog.showModal();
+  }
+
+  function toast(msg) {
+    var t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('is-visible');
+    setTimeout(function () { t.classList.remove('is-visible'); }, 2000);
+  }
+
+  document.addEventListener('click', function (e) {
+    var filterBtn = e.target.closest('[data-filter]');
+    if (filterBtn) {
+      state.filter = filterBtn.getAttribute('data-filter');
+      render();
+      return;
+    }
+    var saveBtn = e.target.closest('[data-save]');
+    if (saveBtn) {
+      toggleSave(Number(saveBtn.getAttribute('data-save')));
+      return;
+    }
+    var openBtn = e.target.closest('[data-open]');
+    if (openBtn) {
+      var val = openBtn.getAttribute('data-open');
+      openIdea(val === 'spot' ? 'spot' : Number(val));
+      return;
+    }
+    var advBtn = e.target.closest('[data-advice]');
+    if (advBtn) {
+      openAdvice(advBtn.getAttribute('data-advice'));
+      return;
+    }
+  });
+
+  document.getElementById('search').addEventListener('input', function (e) {
+    state.query = e.target.value;
+    renderGrid();
+  });
+  document.getElementById('sort').addEventListener('change', function (e) {
+    state.sort = e.target.value;
+    renderGrid();
+  });
+  document.getElementById('dialog-close').addEventListener('click', function () { dialog.close(); });
+  dialog.addEventListener('click', function (e) { if (e.target === dialog) dialog.close(); });
+  document.getElementById('dialog-save').addEventListener('click', function () {
+    if (state.current && typeof state.current.id === 'number') toggleSave(state.current.id);
+  });
+  document.getElementById('dialog-use').addEventListener('click', function () {
+    document.getElementById('dialog-send').classList.toggle('is-visible');
+  });
+  document.querySelectorAll('[data-target]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var target = btn.getAttribute('data-target');
+      toast('Sent to ' + target + '!');
+      dialog.close();
+    });
+  });
+
+  render();
+  renderAdvice();
+</script>
+<script src="js/ora.js"></script>
+</body>
+</html>

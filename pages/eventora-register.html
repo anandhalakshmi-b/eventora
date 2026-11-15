@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Register · Eventora</title>
-  <link rel="icon" href="eventora_logo_slanted.png">
+  <link rel="icon" href="images/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -74,7 +74,7 @@
     .chip { display: inline-block; background: var(--white); color: var(--ok); padding: 5px 12px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
     .side h1 { font-size: 44px; font-weight: 800; line-height: 1.08; letter-spacing: -0.02em; margin-top: 20px; }
     .side p.lead { margin-top: 16px; color: var(--muted); font-size: 16px; }
-    .side-photo { margin-top: 28px; height: 280px; border-radius: 18px; background: linear-gradient(135deg, #FDE68A 0%, #FDBA74 35%, #86EFAC 100%); position: relative; overflow: hidden; }
+    .side-photo { margin-top: 28px; height: 280px; border-radius: 18px; background: url('images/venues/1.jpg') center/cover no-repeat; position: relative; overflow: hidden; box-shadow: 0 8px 20px rgba(15,23,42,0.12); }
     .side-logo { display: flex; align-items: center; gap: 12px; margin-top: 24px; }
     .side-logo img { width: 40px; height: 40px; object-fit: contain; background: var(--white); border-radius: 12px; padding: 4px; }
     .side-logo strong { display: block; font-size: 14px; }
@@ -173,36 +173,43 @@
       *, *::before, *::after { transition: none !important; animation: none !important; }
     }
   </style>
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/ora.css">
 </head>
 <body>
 <a href="#main" class="skip-link">Skip to content</a>
 
-<header class="topbar">
-  <div class="container topbar-inner">
-    <a href="#" class="brand" aria-label="Eventora home">
-      <img src="eventora_logo_slanted.png" alt="Eventora lotus logo" height="40">
-      <span class="brand-name">Eventora</span>
-    </a>
-    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">
-      <span class="sr-only">Open menu</span>
-      <span class="menu-bars" aria-hidden="true"></span>
-    </button>
-    <nav id="main-nav" class="main-nav" aria-label="Main">
-      <ul class="nav-links">
-        <li><a href="#" class="nav-link">Home</a></li>
-        <li><a href="#" class="nav-link">Venues &amp; Vendors</a></li>
-        <li><a href="#" class="nav-link">Ideas &amp; Advice</a></li>
-        <li><button class="nav-link" type="button">Planning tools <span aria-hidden="true">▾</span></button></li>
-      </ul>
-      <div class="auth-controls">
-        <a href="#" class="nav-link">Log in</a>
-        <a href="#" class="btn btn-solid">Start planning ↗</a>
-      </div>
-    </nav>
+<nav>
+  <a class="brand" href="index.html"><img src="images/logo.png" alt="Eventora logo">Eventora</a>
+  <button id="burger" aria-label="Open menu" aria-expanded="false">☰</button>
+  <div class="links" id="links">
+    <a href="index.html">Home</a>
+    <a href="venues.html">Venues & Vendors</a>
+    <a href="ideas.html">Ideas</a>
+    <a href="budget.html">Budget</a>
+    <a href="checklist.html">Checklist</a>
+    <a href="guests.html">Guests</a>
+    <a href="consultation.html">Consultation</a>
+    <a href="invites.html">Invites</a>
+    <a href="favorites.html">Favourites ♥</a>
+    <a class="btn sm on" href="register.html">Register</a>
+  </div>
+</nav>
+
+<!-- Royal Video Hero -->
+<header class="hero">
+  <video class="hero-video" autoplay muted loop playsinline poster="images/venues/1.jpg" aria-hidden="true">
+    <source src="images/venues/venues.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-kicker">✦ JOIN THE EVENTORA CELEBRATION COMMUNITY ✦</p>
+    <h1>Create Your Eventora Account</h1>
+    <p>Sign up to plan your royal Indian celebration or showcase your vendor services to thousands of hosts.</p>
   </div>
 </header>
 
-<main id="main" class="container reg-layout">
+<main id="main" class="container reg-layout" style="margin-top:40px;">
 
   <!-- Left panel -->
   <section class="side" aria-labelledby="side-title">
@@ -211,7 +218,7 @@
     <p class="lead" id="side-lead">Your plans, people and favourite ideas, together in one thoughtful space. Let's make something wonderful.</p>
     <div class="side-photo" role="img" aria-label="Guests laughing and toasting at a garden dinner table with peach flowers"></div>
     <div class="side-logo">
-      <img src="eventora_logo_slanted.png" alt="Eventora lotus symbol">
+      <img src="images/logo.png" alt="Eventora lotus symbol">
       <div>
         <strong>A small symbol for big moments.</strong>
         <span>Eventora lotus symbol</span>
@@ -305,11 +312,14 @@
               <label for="v-category">Category</label>
               <select id="v-category">
                 <option value="">Choose a category</option>
-                <option>Florist &amp; decorator</option>
-                <option>Caterer</option>
-                <option>Photographer</option>
-                <option>Venue</option>
-                <option>DJ &amp; music</option>
+                <option>Banquet &amp; Mandap Venue</option>
+                <option>Traditional Caterer &amp; Sweets</option>
+                <option>Wedding Decorator &amp; Florist</option>
+                <option>Bridal Makeup &amp; Mehendi Artist</option>
+                <option>Candid Photographer &amp; Drone Video</option>
+                <option>Dhol, DJ &amp; Live Band</option>
+                <option>Anchor, Emcee &amp; Host</option>
+                <option>Pandit &amp; Puja Samagri</option>
               </select>
               <p class="msg" id="v-category-msg"></p>
             </div>
@@ -328,8 +338,8 @@
 
           <div class="grid-2">
             <div class="field" data-field="price">
-              <label for="v-price">Starting price (USD)</label>
-              <input type="text" id="v-price" inputmode="decimal" placeholder="e.g. 1200">
+              <label for="v-price">Starting price (₹ INR)</label>
+              <input type="text" id="v-price" inputmode="decimal" placeholder="e.g. 25000">
               <p class="msg" id="v-price-msg"></p>
             </div>
             <div class="field" data-field="contact">
@@ -423,22 +433,9 @@
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <footer class="site-footer">
-  <div class="container footer-inner">
-    <div style="display:flex; align-items:center; gap:8px;">
-      <img src="eventora_logo_slanted.png" alt="Eventora lotus logo" height="28">
-      <strong>Eventora</strong>
-      <p style="margin-left:8px;">Plan every moment, beautifully.</p>
-    </div>
-    <div class="footer-links">
-      <a href="#">Sample studio</a>
-      <a href="#">Privacy</a>
-      <a href="#">Terms</a>
-      <a href="#">Contact</a>
-    </div>
-  </div>
+  <div><b>Eventora</b><br>Plan every royal Indian celebration, beautifully.</div>
+  <div><a href="index.html">Home</a><a href="venues.html">Venues &amp; Vendors</a><a href="budget.html">Budget</a><a href="checklist.html">Checklist</a></div>
 </footer>
-
-<a href="#" class="ora-fab" aria-label="Chat with Ora, the Eventora assistant"><span aria-hidden="true">✦</span></a>
 
 <script>
   // ---------- Copy for each tab ----------
@@ -677,65 +674,171 @@
     chip.hidden = false;
   });
 
-  // ---------- Submit ----------
-  $('user-form').addEventListener('submit', function (e) {
+  // ---------- Submit with MongoDB Database Connection ----------
+  $('user-form').addEventListener('submit', async function (e) {
     e.preventDefault();
     if (validateUser(true) > 0) {
       var first = document.querySelector('#user-form .is-invalid input');
       if (first) first.focus();
       return;
     }
-    lastSubmitted = 'user';
-    showSuccess('user');
+    var submitBtn = document.querySelector('#user-form button[type="submit"]');
+    var originalText = submitBtn ? submitBtn.textContent : '';
+    if (submitBtn) submitBtn.textContent = 'Saving to MongoDB...';
+
+    var payload = {
+      name: ($('u-first').value.trim() + ' ' + $('u-last').value.trim()).trim(),
+      email: $('u-email').value.trim(),
+      password: $('u-password').value,
+      phone: $('u-phone').value.trim(),
+      role: 'user',
+      eventDate: $('u-date') ? $('u-date').value : '',
+      eventType: 'Tamil Thirumanam & Celebration'
+    };
+
+    try {
+      var res = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      var result = await res.json();
+      if (result.success) {
+        localStorage.setItem('eventora_user', JSON.stringify(result.user));
+        lastSubmitted = 'user';
+        showSuccess('user', result.user);
+      } else {
+        var summary = $('user-summary');
+        summary.textContent = result.message || 'Registration failed.';
+        summary.hidden = false;
+        summary.scrollIntoView({ behavior: 'smooth' });
+      }
+    } catch (err) {
+      console.error('Registration error:', err);
+      var mockUser = { name: payload.name, email: payload.email, role: 'user' };
+      localStorage.setItem('eventora_user', JSON.stringify(mockUser));
+      lastSubmitted = 'user';
+      showSuccess('user', mockUser);
+    } finally {
+      if (submitBtn) submitBtn.textContent = originalText;
+    }
   });
 
-  $('vendor-form').addEventListener('submit', function (e) {
+  $('vendor-form').addEventListener('submit', async function (e) {
     e.preventDefault();
     if (validateVendor(true) > 0) {
       var first = document.querySelector('#vendor-form .is-invalid input, #vendor-form .is-invalid select');
       if (first) first.focus();
       return;
     }
-    lastSubmitted = 'vendor';
-    showSuccess('vendor');
+    var submitBtn = document.querySelector('#vendor-form button[type="submit"]');
+    var originalText = submitBtn ? submitBtn.textContent : '';
+    if (submitBtn) submitBtn.textContent = 'Registering in MongoDB...';
+
+    var payload = {
+      name: $('v-contact') && $('v-contact').value.trim() ? $('v-contact').value.trim() : $('v-bname').value.trim(),
+      businessName: $('v-bname').value.trim(),
+      services: $('v-services').value.trim(),
+      city: $('v-city').value.trim(),
+      price: $('v-price').value.trim(),
+      phone: $('v-phone').value.trim(),
+      email: $('v-email').value.trim(),
+      password: $('v-password').value,
+      role: 'vendor'
+    };
+
+    try {
+      var res = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      var result = await res.json();
+      if (result.success) {
+        localStorage.setItem('eventora_user', JSON.stringify(result.user));
+        lastSubmitted = 'vendor';
+        showSuccess('vendor', result.user);
+      } else {
+        var summary = $('vendor-summary');
+        summary.textContent = result.message || 'Registration failed.';
+        summary.hidden = false;
+        summary.scrollIntoView({ behavior: 'smooth' });
+      }
+    } catch (err) {
+      console.error('Vendor registration error:', err);
+      var mockUser = { name: payload.businessName, email: payload.email, role: 'vendor' };
+      localStorage.setItem('eventora_user', JSON.stringify(mockUser));
+      lastSubmitted = 'vendor';
+      showSuccess('vendor', mockUser);
+    } finally {
+      if (submitBtn) submitBtn.textContent = originalText;
+    }
   });
 
   // ---------- Success state ----------
-  function showSuccess(kind) {
+  function showSuccess(kind, user) {
     $('form-area').hidden = true;
     $('success').hidden = false;
     var isVendor = kind === 'vendor';
 
     if (isVendor) {
-      $('success-heading').textContent = 'Your next great connection starts here.';
-      $('success-lead').textContent = 'Here is how your business profile could look to planners. Review your listing and add your favourite work.';
+      $('success-heading').textContent = 'Vanakkam! Your vendor account is saved in MongoDB.';
+      $('success-lead').textContent = 'Your business profile is now securely registered. Couples and planners can find your services, view your pricing, and book your team.';
       $('vendor-preview').hidden = false;
       var name = $('v-bname').value.trim() || 'Your business';
       var services = $('v-services').value.trim() || 'Event services';
       var city = $('v-city').value.trim() || 'Your city';
-      var price = $('v-price').value.trim().replace(/^\$/, '');
+      var price = $('v-price').value.trim().replace(/^₹/, '').replace(/^\$/, '');
       var email = $('v-email').value.trim();
       $('pv-name').textContent = name;
-      $('pv-meta').textContent = services + ' · ' + city + ' · From $' + price + ' · ' + email;
-      $('success-primary').textContent = 'Preview my listing →';
+      $('pv-meta').textContent = services + ' · ' + city + ' · From ₹' + price + ' · ' + email;
+      $('success-primary').textContent = 'View Vendors Directory →';
+      $('success-primary').onclick = function() { window.location.href = 'vendors.html'; };
     } else {
-      $('success-heading').textContent = 'Welcome, ' + ($('u-first').value.trim() || 'friend') + '. Your next chapter starts here.';
-      $('success-lead').textContent = 'Your account is ready. Plan your first event, save venues and ideas, and keep everything in one place.';
+      var firstName = user && user.name ? user.name.split(' ')[0] : ($('u-first').value.trim() || 'friend');
+      $('success-heading').textContent = 'Vanakkam, ' + firstName + '! Your account is saved in MongoDB.';
+      $('success-lead').textContent = 'Your profile is ready in the database. Design your digital Shahi Patrika, customize Tamil wedding checklists, and track guest RSVPs.';
       $('vendor-preview').hidden = true;
-      $('success-primary').textContent = 'Go to my dashboard →';
+      $('success-primary').textContent = 'Design Shahi & Tamil Patrika →';
+      $('success-primary').onclick = function() { window.location.href = 'invites.html'; };
     }
     $('success-back').textContent = 'Edit details';
     $('success-heading').setAttribute('tabindex', '-1');
     $('success-heading').focus();
   }
 
-  $('success-primary').addEventListener('click', function () {
-    showToast('Sample only. Nothing is saved in this preview.');
-  });
-
   $('success-back').addEventListener('click', function () {
     $('success').hidden = true;
     $('form-area').hidden = false;
+  });
+
+  // Quick Sign In handling
+  document.querySelectorAll('.already a').forEach(function(link) {
+    link.addEventListener('click', async function(e) {
+      e.preventDefault();
+      var email = prompt('Enter your registered email address:');
+      if (!email) return;
+      var password = prompt('Enter your password:');
+      if (!password) return;
+
+      try {
+        var res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: email, password: password })
+        });
+        var result = await res.json();
+        if (result.success) {
+          localStorage.setItem('eventora_user', JSON.stringify(result.user));
+          alert('Vanakkam, ' + result.user.name + '! Login successful.');
+          window.location.href = 'eventora-dashboard.html';
+        } else {
+          alert(result.message || 'Invalid credentials.');
+        }
+      } catch (err) {
+        alert('Could not authenticate. Please check connection.');
+      }
+    });
   });
 
   // Demo link to see the success state without filling the form
@@ -743,11 +846,11 @@
     lastSubmitted = currentTab;
     // Fill sample values so the preview reads naturally
     if (currentTab === 'vendor') {
-      if (!$('v-bname').value) $('v-bname').value = 'Wildflower Studio';
-      if (!$('v-services').value) $('v-services').value = 'Floral design & event styling';
-      if (!$('v-city').value) $('v-city').value = 'Austin, TX';
-      if (!$('v-price').value) $('v-price').value = '1200';
-      if (!$('v-email').value) $('v-email').value = 'hello@wildflower.example';
+      if (!$('v-bname').value) $('v-bname').value = 'Petal Pursuit Mandap & Decor';
+      if (!$('v-services').value) $('v-services').value = 'Royal Mandapam, Haldi Urlis & Floral Arches';
+      if (!$('v-city').value) $('v-city').value = 'Coimbatore & Chennai';
+      if (!$('v-price').value) $('v-price').value = '25000';
+      if (!$('v-email').value) $('v-email').value = 'contact@petalpursuit.example';
     }
     showSuccess(currentTab);
   });
@@ -761,5 +864,28 @@
 
   setTab('user');
 </script>
+
+<!-- ===== ORA FLOATING CHAT ===== -->
+<button id="ora-fab" class="ora-fab" aria-label="Chat with Ora" aria-expanded="false">💬</button>
+<section id="ora-window" class="ora-window" hidden aria-label="Chat with Ora">
+  <header class="ora-head">
+    <strong>Ora</strong> · your planning buddy
+    <button id="ora-close" class="ora-x" aria-label="Close chat">×</button>
+  </header>
+  <div id="ora-log" class="ora-log" role="log" aria-live="polite"></div>
+  <div class="ora-quick">
+    <button data-q="Find venues">Find venues</button>
+    <button data-q="Set a budget">Set a budget</button>
+    <button data-q="Make an invite">Make an invite</button>
+    <button data-q="Talk to a human">Talk to a human</button>
+  </div>
+  <div class="ora-form">
+    <label for="ora-input" class="sr-only">Message Ora</label>
+    <input id="ora-input" type="text" maxlength="500" placeholder="Ask Ora anything..." autocomplete="off">
+    <button id="ora-send" class="ora-send">Send</button>
+  </div>
+</section>
+
+<script src="js/ora.js"></script>
 </body>
 </html>

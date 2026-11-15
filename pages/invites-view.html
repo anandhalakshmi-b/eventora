@@ -3,77 +3,210 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Your Invite | Eventora</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Dancing+Script:wght@600&family=Playfair+Display:wght@600;800&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/theme.css">
-  <link rel="stylesheet" href="/css/ora.css">
-  <link rel="stylesheet" href="/css/invites.css">
+  <title>Your Event Invitation | Eventora</title>
+  <link rel="icon" href="images/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/invites.css">
+  <link rel="stylesheet" href="css/ora.css">
 </head>
 <body>
-<!-- ===== SHARED TOP BAR: copy the same block in every page ===== -->
-<header class="topbar">
-  <a href="/" class="brand">Eventora</a>
-  <nav aria-label="Main">
-    <a href="/venues">Venues</a><a href="/ideas">Ideas</a><a href="/budget">Budget</a>
-    <a href="/consultation">Consultation</a><a href="/checklist">Checklist</a>
-    <a href="/guests">Guests</a><a href="/invites">Invites</a>
-  </nav>
-</header>
-<main class="container">
-  <div id="errors" class="alert" role="alert" hidden></div>
-  <div id="view-root" hidden>
-    <h1>Your invite is ready 🎉</h1>
+
+<!-- ===== SHARED TOP BAR ===== -->
+<nav>
+  <a class="brand" href="index.html"><img src="images/logo.png" alt="Eventora logo">Eventora</a>
+  <button id="burger" aria-label="Open menu" aria-expanded="false">☰</button>
+  <div class="links" id="links">
+    <a href="index.html">Home</a>
+    <a href="venues.html">Venues &amp; Vendors</a>
+    <a href="ideas.html">Ideas</a>
+    <a href="budget.html">Budget</a>
+    <a href="checklist.html">Checklist</a>
+    <a href="guests.html">Guests</a>
+    <a href="consultation.html">Consultation</a>
+    <a href="invites.html" class="on">Invites</a>
+    <a href="favorites.html">Favourites ♥</a>
+    <a class="btn sm" href="register.html">Register</a>
+  </div>
+</nav>
+
+<main class="container" style="padding-top: 40px; padding-bottom: 60px;">
+  <div id="view-root">
+    <div style="text-align: center; margin-bottom: 28px;">
+      <h1 style="font-size: 32px; font-weight: 800; margin-bottom: 8px;">Your Invitation Card is Ready 🎉</h1>
+      <p style="color: #64748B; font-size: 15px;">Download high-resolution image files or share the invitation directly with friends, family, and colleagues.</p>
+    </div>
+
     <div class="two-col">
+      <!-- Left: The Pretty Card -->
       <div class="preview-wrap">
-        <article id="invite-card" class="invite-card" style="--bg:#FCE7F3;--fg:#DB2777;font-family:'Playfair Display',serif">
-          <div class="inv-lotus" aria-hidden="true">🪷</div>
-          <p class="inv-heading" data-field="heading"></p>
+        <article id="invite-card" class="invite-card" style="--bg:#FEE2E2;--fg:#DC2626;font-family:'Playfair Display',serif">
+          <div class="inv-lotus" id="card-emoji" aria-hidden="true">🎉</div>
+          <p class="inv-heading" data-field="heading">Special Celebration</p>
           <img class="inv-photo" data-field="photo" alt="Event photo" hidden>
-          <h2 class="inv-title" data-field="title"></h2>
-          <p class="inv-hosts" data-field="hosts"></p>
-          <p class="inv-message" data-field="message"></p>
+          <h2 class="inv-title" data-field="title">Event Title</h2>
+          <p class="inv-hosts" data-field="hosts">Together with their families</p>
+          <p class="inv-message" data-field="message">Cordially request the pleasure of your company to celebrate this memorable occasion.</p>
+          
           <div class="inv-details">
             <p><strong>When:</strong> <span data-field="dateText"></span> <span data-field="time"></span></p>
-            <p><strong>Where:</strong> <span data-field="venue"></span> <span data-field="address"></span></p>
+            <p><strong>Where:</strong> <span data-field="venue"></span>, <span data-field="address"></span></p>
             <p><strong>Dress code:</strong> <span data-field="dressCode"></span></p>
             <p><strong>RSVP:</strong> <span data-field="rsvpContact"></span></p>
           </div>
           <p class="inv-brand">Made with Eventora</p>
         </article>
       </div>
-      <div class="card form-panel">
-        <h2>Share it</h2>
-        <p class="nav-row">
-          <button class="btn inv-btn" id="dl-png" type="button">Download PNG</button>
-          <button class="btn inv-btn" id="dl-pdf" type="button">Download PDF</button>
-        </p>
-        <label for="share-url">Shareable link (event website)</label>
-        <input id="share-url" readonly>
-        <p class="nav-row">
-          <button class="btn inv-btn-outline" id="copy-link" type="button">Copy link</button>
-          <a id="wa-link" class="btn inv-btn-outline" href="#" target="_blank" rel="noopener">Share on WhatsApp</a>
-          <a id="mail-link" class="btn inv-btn-outline" href="#">Share by email</a>
-          <a id="site-link" class="btn inv-btn-outline" href="#" target="_blank" rel="noopener">Open event website</a>
-        </p>
-        <p id="copy-msg" class="small" role="status"></p>
 
-        <div id="guest-wrap" hidden>
-          <h2>Send to guests</h2>
-          <ul id="guest-send" class="guest-send"></ul>
+      <!-- Right: Share and Export Actions -->
+      <div class="card form-panel">
+        <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 16px;">Download &amp; Share</h2>
+
+        <div class="nav-row" style="margin-top: 0; margin-bottom: 20px;">
+          <button class="btn inv-btn" id="dl-png" type="button">📷 Download PNG</button>
+          <button class="btn inv-btn" id="dl-pdf" type="button">📄 Download PDF</button>
+          <a class="btn inv-btn" id="wa-link" href="#" target="_blank" rel="noopener" style="background:#16A34A; border-color:#16A34A;">💬 WhatsApp</a>
         </div>
-        <p id="guest-note" class="small">Guest-wise sending appears here once your guest list is added in Guests &amp; RSVPs.</p>
+
+        <label for="share-url">Shareable Web Link</label>
+        <div style="display:flex; gap:8px;">
+          <input id="share-url" readonly value="">
+          <button class="btn inv-btn-outline" id="copy-link" type="button">Copy</button>
+        </div>
+        <p id="copy-msg" class="small" style="color:#16A34A; font-weight:700; margin-top:6px; display:none;">✓ Copied to clipboard!</p>
+
+        <div style="margin-top: 24px; padding-top: 18px; border-top: 1px solid #E2E8F0;">
+          <a href="invites.html" class="btn inv-btn-outline" style="display:inline-block;">✏️ Create another invite</a>
+          <a href="guests.html" class="btn inv-btn-outline" style="display:inline-block;">👥 Manage RSVPs</a>
+        </div>
       </div>
     </div>
   </div>
 </main>
 
-<footer class="site-footer"><p>© Eventora · Plan every moment, beautifully.</p></footer>
+<footer class="site-footer">
+  <div><b>Eventora</b><br>Plan every memorable event and celebration, beautifully.</div>
+  <div><a href="index.html">Home</a><a href="venues.html">Venues &amp; Vendors</a><a href="ideas.html">Ideas</a><a href="budget.html">Budget</a><a href="checklist.html">Checklist</a></div>
+</footer>
 
-<!-- ===== ORA FLOATING CHAT (Module 9): paste this block + the script tag before </body> on EVERY page ===== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const id = urlParams.get('id');
+  const card = document.getElementById('invite-card');
+  const shareInput = document.getElementById('share-url');
+  if (shareInput) shareInput.value = window.location.href;
+
+  const setField = (field, val) => {
+    const el = card.querySelector(`[data-field="${field}"]`);
+    if (el) el.textContent = val || '';
+  };
+
+  if (id) {
+    try {
+      const res = await fetch(`/api/invites/${id}`);
+      const result = await res.json();
+      if (result.success && result.data) {
+        const inv = result.data;
+        if (inv.bg) card.style.setProperty('--bg', inv.bg);
+        if (inv.accent) card.style.setProperty('--fg', inv.accent);
+        if (inv.fontFamily) card.style.fontFamily = `'${inv.fontFamily}', serif`;
+
+        setField('heading', inv.heading);
+        setField('title', inv.title);
+        setField('hosts', inv.hosts);
+        setField('time', inv.time);
+        setField('venue', inv.venue);
+        setField('address', inv.address);
+        setField('dressCode', inv.dressCode);
+        setField('rsvpContact', inv.rsvpContact);
+        setField('message', inv.message);
+
+        if (inv.date) {
+          const parts = inv.date.split('-');
+          const d = new Date(parts[0], parts[1] - 1, parts[2]);
+          setField('dateText', d.toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }));
+        }
+
+        // WhatsApp Link
+        const waLink = document.getElementById('wa-link');
+        if (waLink) {
+          const msg = `🎉 *${inv.title}*\n${inv.hosts}\n\n📅 *When:* ${inv.date} ${inv.time}\n📍 *Where:* ${inv.venue}, ${inv.address}\n\n"${inv.message}"\n\nView Digital Card: ${window.location.href}`;
+          waLink.href = `https://wa.me/?text=${encodeURIComponent(msg)}`;
+        }
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  // Copy link
+  const btnCopy = document.getElementById('copy-link');
+  if (btnCopy) {
+    btnCopy.addEventListener('click', () => {
+      navigator.clipboard.writeText(shareInput.value).then(() => {
+        const msg = document.getElementById('copy-msg');
+        if (msg) {
+          msg.style.display = 'block';
+          setTimeout(() => { msg.style.display = 'none'; }, 3000);
+        }
+      });
+    });
+  }
+
+  // Download PNG
+  const btnPng = document.getElementById('dl-png');
+  if (btnPng) {
+    btnPng.addEventListener('click', async () => {
+      if (typeof html2canvas === 'undefined') return;
+      btnPng.textContent = 'Generating...';
+      try {
+        const canvas = await html2canvas(card, { scale: 2.5, useCORS: true, backgroundColor: null });
+        const a = document.createElement('a');
+        a.href = canvas.toDataURL('image/png');
+        a.download = 'Eventora_Invitation.png';
+        a.click();
+      } finally {
+        btnPng.textContent = '📷 Download PNG';
+      }
+    });
+  }
+
+  // Download PDF
+  const btnPdf = document.getElementById('dl-pdf');
+  if (btnPdf) {
+    btnPdf.addEventListener('click', async () => {
+      if (typeof html2canvas === 'undefined' || typeof window.jspdf === 'undefined') return;
+      btnPdf.textContent = 'Generating...';
+      try {
+        const canvas = await html2canvas(card, { scale: 2, useCORS: true, backgroundColor: null });
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+        const w = pdf.internal.pageSize.getWidth();
+        const h = (canvas.height * (w - 24)) / canvas.width;
+        pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 12, 16, w - 24, h);
+        pdf.save('Eventora_Invitation.pdf');
+      } finally {
+        btnPdf.textContent = '📄 Download PDF';
+      }
+    });
+  }
+});
+</script>
+
+<!-- ===== ORA FLOATING CHAT ===== -->
 <button id="ora-fab" class="ora-fab" aria-label="Chat with Ora" aria-expanded="false">💬</button>
 <section id="ora-window" class="ora-window" hidden aria-label="Chat with Ora">
-  <header class="ora-head"><strong>Ora</strong> · your planning buddy
-    <button id="ora-close" class="ora-x" aria-label="Close chat">×</button></header>
+  <header class="ora-head">
+    <strong>Ora</strong> · your planning buddy
+    <button id="ora-close" class="ora-x" aria-label="Close chat">×</button>
+  </header>
   <div id="ora-log" class="ora-log" role="log" aria-live="polite"></div>
   <div class="ora-quick">
     <button data-q="Find venues">Find venues</button>
@@ -88,9 +221,6 @@
   </div>
 </section>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="/js/invites.js"></script>
-<script src="/js/ora.js"></script>
+<script src="js/ora.js"></script>
 </body>
 </html>

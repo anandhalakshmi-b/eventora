@@ -3,59 +3,90 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Book a Consultant | Eventora</title>
+  <title>Book a Wedding Consultant | Eventora</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Dancing+Script:wght@600&family=Playfair+Display:wght@600;800&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/theme.css">
-  <link rel="stylesheet" href="/css/ora.css">
-  <link rel="stylesheet" href="/css/consultation.css">
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/consultation.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/ora.css">
 </head>
 <body>
-<!-- ===== SHARED TOP BAR: copy the same block in every page ===== -->
-<header class="topbar">
-  <a href="/" class="brand">Eventora</a>
-  <nav aria-label="Main">
-    <a href="/venues">Venues</a><a href="/ideas">Ideas</a><a href="/budget">Budget</a>
-    <a href="/consultation">Consultation</a><a href="/checklist">Checklist</a>
-    <a href="/guests">Guests</a><a href="/invites">Invites</a>
-  </nav>
+<!-- ===== SHARED TOP BAR ===== -->
+<nav>
+  <a class="brand" href="index.html"><img src="images/logo.png" alt="Eventora logo">Eventora</a>
+  <button id="burger" aria-label="Open menu" aria-expanded="false">☰</button>
+  <div class="links" id="links">
+    <a href="index.html">Home</a>
+    <a href="venues.html">Venues &amp; Vendors</a>
+    <a href="ideas.html">Ideas</a>
+    <a href="budget.html">Budget</a>
+    <a href="checklist.html">Checklist</a>
+    <a href="guests.html">Guests</a>
+    <a href="consultation.html" class="on">Consultation</a>
+    <a href="invites.html">Invites</a>
+    <a href="favorites.html">Favourites ♥</a>
+    <a class="btn sm" href="register.html">Register</a>
+  </div>
+</nav>
+
+<!-- Royal Video Hero -->
+<header class="hero">
+  <video class="hero-video" autoplay muted loop playsinline poster="images/venues/1.jpg" aria-hidden="true">
+    <source src="images/venues/venues.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-kicker">✦ 1-ON-1 CULTURAL EVENT EXPERT ✦</p>
+    <h1>Book a Wedding Consultant</h1>
+    <p>Free 20-minute discovery call with an experienced Indian wedding and event planner.</p>
+  </div>
 </header>
-<main class="container">
-  <section id="confirm" class="card tile confirm" role="status" hidden>
-    <h1>Thank you! 🎉</h1>
-    <p>Our event consultant will call you at your preferred time. Namaste and see you soon!</p>
-    <p><a class="btn consult-btn" href="/">Back to home</a></p>
+
+<main class="container" style="padding-top:40px;">
+  <section id="confirm" class="card tile confirm" role="status" hidden style="box-shadow:0 10px 25px rgba(15,23,42,0.06);">
+    <h2>Dhanyavad! Namaste 🎉</h2>
+    <p>Our senior wedding consultant will call you at your preferred time slot. We look forward to planning your special day!</p>
+    <p><a class="btn consult-btn" href="index.html">Back to home</a></p>
   </section>
 
   <div id="book-section">
-    <h1>Book a human consultant</h1>
-    <p>Free 20-minute call with an Eventora planner.</p>
     <div id="errors" class="alert" role="alert" hidden></div>
-    <form id="book-form" class="card form-card" novalidate>
+    <form id="book-form" class="card form-card" novalidate style="box-shadow: 0 10px 25px rgba(15,23,42,0.06);">
+      <h2 style="margin:0 0 16px;">Schedule Your Free Planning Call</h2>
       <input type="hidden" id="planId" name="planId">
       <label for="name">Full name</label>
-      <input id="name" name="name" required>
-      <label for="phone">Mobile number</label>
-      <input id="phone" name="phone" inputmode="numeric" maxlength="10" placeholder="10-digit mobile number" required>
-      <label for="email">Email</label>
-      <input id="email" type="email" name="email" required>
-      <label for="preferredTime">Preferred time</label>
+      <input id="name" name="name" required placeholder="e.g. Aarav Sharma">
+      <label for="phone">Mobile number (WhatsApp enabled)</label>
+      <input id="phone" name="phone" inputmode="numeric" maxlength="10" placeholder="10-digit mobile number (e.g. 9840012345)" required>
+      <label for="email">Email address</label>
+      <input id="email" type="email" name="email" required placeholder="you@example.com">
+      <label for="preferredTime">Preferred time slot</label>
       <select id="preferredTime" name="preferredTime">
-        <option>Morning (9 AM - 12 PM)</option><option>Afternoon (12 PM - 4 PM)</option><option>Evening (4 PM - 8 PM)</option>
+        <option>Morning (9 AM - 12 PM)</option>
+        <option>Afternoon (12 PM - 4 PM)</option>
+        <option>Evening (4 PM - 8 PM)</option>
       </select>
-      <label for="notes">Notes</label>
-      <textarea id="notes" name="notes" rows="4"></textarea>
+      <label for="notes">Ritual details or special questions (optional)</label>
+      <textarea id="notes" name="notes" rows="4" placeholder="Tell us about your mandap, city preferences, catering style, or family requirements..."></textarea>
       <p><button class="btn consult-btn" type="submit">Request call</button></p>
     </form>
   </div>
 </main>
 
-<footer class="site-footer"><p>© Eventora · Plan every moment, beautifully.</p></footer>
+<footer class="site-footer">
+  <div><b>Eventora</b><br>Plan every royal Indian celebration, beautifully.</div>
+  <div><a href="index.html">Home</a><a href="venues.html">Venues &amp; Vendors</a><a href="budget.html">Budget</a><a href="checklist.html">Checklist</a></div>
+</footer>
 
-<!-- ===== ORA FLOATING CHAT (Module 9): paste this block + the script tag before </body> on EVERY page ===== -->
+<script src="js/consultation.js"></script>
+
+<!-- ===== ORA FLOATING CHAT ===== -->
 <button id="ora-fab" class="ora-fab" aria-label="Chat with Ora" aria-expanded="false">💬</button>
 <section id="ora-window" class="ora-window" hidden aria-label="Chat with Ora">
-  <header class="ora-head"><strong>Ora</strong> · your planning buddy
-    <button id="ora-close" class="ora-x" aria-label="Close chat">×</button></header>
+  <header class="ora-head">
+    <strong>Ora</strong> · your planning buddy
+    <button id="ora-close" class="ora-x" aria-label="Close chat">×</button>
+  </header>
   <div id="ora-log" class="ora-log" role="log" aria-live="polite"></div>
   <div class="ora-quick">
     <button data-q="Find venues">Find venues</button>
@@ -70,7 +101,6 @@
   </div>
 </section>
 
-<script src="/js/consultation.js"></script>
-<script src="/js/ora.js"></script>
+<script src="js/ora.js"></script>
 </body>
 </html>

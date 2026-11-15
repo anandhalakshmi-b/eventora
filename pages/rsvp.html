@@ -7,38 +7,86 @@
 <link rel="icon" href="images/logo.png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap">
 <link rel="stylesheet" href="css/common.css">
+<link rel="stylesheet" href="css/navbar.css">
+<link rel="stylesheet" href="css/ora.css">
 </head>
 <body class="t-yellow">
-<header class="title" style="text-align:center">
-  <img src="images/logo.png" alt="Eventora logo" height="64">
-  <p style="margin:6px auto 0">You are invited to</p>
-  <h1 id="ev">Our event</h1>
-  <p id="dt"></p>
+<nav>
+  <a class="brand" href="index.html"><img src="images/logo.png" alt="Eventora logo">Eventora</a>
+  <button id="burger" aria-label="Open menu" aria-expanded="false">☰</button>
+  <div class="links" id="links">
+    <a href="index.html">Home</a>
+    <a href="venues.html">Venues &amp; Vendors</a>
+    <a href="ideas.html">Ideas</a>
+    <a href="budget.html">Budget</a>
+    <a href="checklist.html">Checklist</a>
+    <a href="guests.html" class="on">Guests</a>
+    <a href="consultation.html">Consultation</a>
+    <a href="invites.html">Invites</a>
+    <a href="favorites.html">Favourites ♥</a>
+    <a class="btn sm" href="register.html">Register</a>
+  </div>
+</nav>
+
+<!-- Royal Video Hero -->
+<header class="hero">
+  <video class="hero-video" autoplay muted loop playsinline poster="images/venues/1.jpg" aria-hidden="true">
+    <source src="images/venues/venues.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content" style="text-align:center;">
+    <p class="hero-kicker">✦ SHUBH VIVAH INVITATION &amp; RSVP ✦</p>
+    <h1 id="ev">Aarav &amp; Meera's Grand Shaadi</h1>
+    <p id="dt" style="font-weight:600; color:#FCD34D; font-size:1.15rem;"></p>
+    <p style="margin:8px auto 0; max-width:600px;">Your presence and warm blessings will make our celebration complete.</p>
+  </div>
 </header>
-<main class="wrap" style="max-width:560px">
-  <form class="panel" id="f" novalidate>
-    <h2>Will you join us?</h2>
-    <label for="n">Your name</label><input id="n" required autocomplete="name">
-    <label>Your response</label>
+
+<main class="wrap" style="max-width:580px; padding-top:40px;">
+  <form class="panel" id="f" novalidate style="box-shadow: 0 10px 25px rgba(15,23,42,0.06);">
+    <h2>Will you join our celebration?</h2>
+    <label for="n">Your full name</label>
+    <input id="n" required autocomplete="name" placeholder="e.g. Suresh &amp; Malini Sharma">
+
+    <label style="margin-top:14px;">Your response</label>
     <div class="chips" id="resp">
-      <button type="button" class="chip" data-v="Accepted" aria-pressed="true">🎉 Yes, I will come</button>
-      <button type="button" class="chip" data-v="Declined" aria-pressed="false">Sorry, I can't</button>
+      <button type="button" class="chip" data-v="Accepted" aria-pressed="true">🎉 Yes, we will attend with joy</button>
+      <button type="button" class="chip" data-v="Declined" aria-pressed="false">Sending blessings from afar</button>
     </div>
-    <div id="more">
-      <label for="pl">Extra guests with you</label><input id="pl" type="number" min="0" max="10" value="0">
-      <label for="d">Food preferences or allergies</label><input id="d" placeholder="Optional">
+
+    <div id="more" style="margin-top:14px;">
+      <label for="pl">Additional family members accompanying you</label>
+      <input id="pl" type="number" min="0" max="10" value="0">
+
+      <label for="d" style="margin-top:12px;">Meal &amp; dietary preferences</label>
+      <input id="d" list="dietlist" placeholder="Traditional Pure Veg / Jain, Sadya...">
+      <datalist id="dietlist">
+        <option value="Traditional Pure Veg / Jain">
+        <option value="South Indian Sadya">
+        <option value="North Indian Feast">
+        <option value="Non-Veg Special">
+      </datalist>
     </div>
+
     <p class="err" id="err" role="alert"></p>
-    <div class="acts"><button class="btn main">Send my reply</button></div>
+    <div class="acts" style="margin-top:20px;">
+      <button class="btn main" style="width:100%;">Confirm RSVP</button>
+    </div>
   </form>
-  <div class="banner ok" id="done" hidden role="status"></div>
+  <div class="banner ok" id="done" hidden role="status" style="font-size:1.1rem; text-align:center; padding:24px;"></div>
 </main>
+
+<footer class="site-footer">
+  <div><b>Eventora</b><br>Plan every royal Indian celebration, beautifully.</div>
+  <div><a href="index.html">Home</a><a href="venues.html">Venues &amp; Vendors</a><a href="budget.html">Budget</a><a href="guests.html">Guests</a></div>
+</footer>
+
 <script src="js/common.js"></script>
 <script>
 /* Public RSVP page. Front-end demo: replies update the guest list saved in this browser. */
-const ev = load('eventora-event', { name: 'Our event', date: '' });
-$('ev').textContent = ev.name || 'Our event';
-$('dt').textContent = ev.date ? new Date(ev.date + 'T00:00').toLocaleDateString('en-IN', { dateStyle: 'full' }) : '';
+const ev = load('eventora-event-v2', null) || load('eventora-event', { name: "Aarav & Meera's Grand Shaadi", date: '2027-02-18' });
+$('ev').textContent = ev.name || "Aarav & Meera's Grand Shaadi";
+$('dt').textContent = ev.date ? new Date(ev.date + 'T00:00').toLocaleDateString('en-IN', { dateStyle: 'full' }) : 'Thursday, 18 February 2027';
 let resp = 'Accepted';
 $('resp').onclick = e => { const v = e.target.dataset.v; if (!v) return; resp = v;
   document.querySelectorAll('#resp .chip').forEach(c => c.setAttribute('aria-pressed', c.dataset.v === v));
@@ -47,14 +95,38 @@ $('f').onsubmit = e => {
   e.preventDefault();
   const name = $('n').value.trim();
   if (!name) return $('err').textContent = 'Please enter your name.';
-  const G = load('eventora-guests', []);
+  const GK = 'eventora-guests-v2';
+  const G = load(GK, []) || load('eventora-guests', []);
   const g = G.find(x => x.name.toLowerCase() === name.toLowerCase());
   const data = { status: resp, plus: resp === 'Accepted' ? Math.max(0, +$('pl').value || 0) : 0, diet: $('d').value.trim() };
-  if (g) Object.assign(g, data, { diet: data.diet || g.diet }); else G.push({ id: uid(), name, email: '', phone: '', group: 'RSVP link', ...data });
-  save('eventora-guests', G);
+  if (g) Object.assign(g, data, { diet: data.diet || g.diet }); else G.push({ id: uid(), name, email: '', phone: '', group: 'RSVP Link', ...data });
+  save(GK, G);
   $('f').hidden = true; $('done').hidden = false;
-  $('done').textContent = resp === 'Accepted' ? `Thank you, ${name}! We can't wait to see you.` : `Thank you for letting us know, ${name}. We will miss you.`;
+  $('done').textContent = resp === 'Accepted' ? `Dhanyavad, ${name}! We eagerly look forward to celebrating with you.` : `Thank you for your blessings, ${name}. You will be warmly remembered.`;
 };
 </script>
+
+<!-- ===== ORA FLOATING CHAT ===== -->
+<button id="ora-fab" class="ora-fab" aria-label="Chat with Ora" aria-expanded="false">💬</button>
+<section id="ora-window" class="ora-window" hidden aria-label="Chat with Ora">
+  <header class="ora-head">
+    <strong>Ora</strong> · your planning buddy
+    <button id="ora-close" class="ora-x" aria-label="Close chat">×</button>
+  </header>
+  <div id="ora-log" class="ora-log" role="log" aria-live="polite"></div>
+  <div class="ora-quick">
+    <button data-q="Find venues">Find venues</button>
+    <button data-q="Set a budget">Set a budget</button>
+    <button data-q="Make an invite">Make an invite</button>
+    <button data-q="Talk to a human">Talk to a human</button>
+  </div>
+  <div class="ora-form">
+    <label for="ora-input" class="sr-only">Message Ora</label>
+    <input id="ora-input" type="text" maxlength="500" placeholder="Ask Ora anything..." autocomplete="off">
+    <button id="ora-send" class="ora-send">Send</button>
+  </div>
+</section>
+
+<script src="js/ora.js"></script>
 </body>
 </html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ora AI Chatbot | Eventora</title>
+  <link rel="icon" href="images/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/ora.css">
+  <style>
+    :root {
+      --ink: #0F172A;
+      --border-color: #E2E8F0;
+      --border-light: #F1F5F9;
+      --text-dark: #0F172A;
+      --text-muted: #64748B;
+      --accent-purple: #9333EA;
+      --gradient-ai: linear-gradient(135deg, #CFFAFE 0%, #F3E8FF 50%, #FCE7F3 100%);
+      --shadow-subtle: 0 4px 12px rgba(15, 23, 42, 0.05);
+      --shadow-card: 0 10px 30px rgba(15, 23, 42, 0.08);
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: 'Inter', system-ui, sans-serif; color: var(--ink); background: #FAF5FF; line-height: 1.5; }
+    .container { width: min(1200px, 92%); margin: 0 auto; }
+    .heading-xl { font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 800; margin: 0; }
+    .heading-sm { font-size: 1.15rem; font-weight: 700; margin: 0; }
+    .card-badge { display: inline-block; padding: 6px 14px; border-radius: 999px; font-size: 0.85rem; font-weight: 700; margin-bottom: 12px; }
+    .btn-secondary { background: #F8FAFC; border: 1px solid #CBD5E1; color: #0F172A; border-radius: 12px; font-weight: 600; cursor: pointer; transition: all 0.15s ease; }
+    .btn-secondary:hover { background: #F1F5F9; border-color: #94A3B8; }
+    .btn-primary { background: #9333EA; color: #fff; border: none; font-weight: 700; cursor: pointer; transition: background 0.15s ease; }
+    .btn-primary:hover { background: #7E22CE; }
+    .chat-bubble { max-width: 85%; padding: 12px 16px; border-radius: 18px; font-size: 0.95rem; line-height: 1.5; }
+    .bubble-user { background: #9333EA; color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; }
+    .bubble-bot { background: #FFFFFF; color: #0F172A; align-self: flex-start; border-bottom-left-radius: 4px; border: 1px solid #E2E8F0; box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
+    footer { background: #0F172A; color: #fff; padding: 28px 5%; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; font-size: 0.9rem; }
+    footer a { color: #fff; text-decoration: none; margin-left: 14px; }
+    footer a:hover { text-decoration: underline; }
+    @media (max-width: 860px) {
+      .chat-grid { grid-template-columns: 1fr !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== EVENTORA NAVIGATION BAR ===== -->
+<nav>
+  <a class="brand" href="index.html"><img src="images/logo.png" alt="Eventora logo">Eventora</a>
+  <button id="burger" aria-label="Open menu" aria-expanded="false">☰</button>
+  <div class="links" id="links">
+    <a href="index.html">Home</a>
+    <a href="venues.html">Venues & Vendors</a>
+    <a href="ideas.html">Ideas</a>
+    <a href="budget.html">Budget</a>
+    <a href="checklist.html">Checklist</a>
+    <a href="guests.html">Guests</a>
+    <a href="consultation.html">Consultation</a>
+    <a href="invites.html">Invites</a>
+    <a href="favorites.html">Favourites ♥</a>
+    <a class="btn sm" href="register.html">Register</a>
+  </div>
+</nav>
+
+<!-- Royal Video Hero -->
+<header class="hero">
+  <video class="hero-video" autoplay muted loop playsinline poster="images/venues/1.jpg" aria-hidden="true">
+    <source src="images/venues/venues.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-kicker">✦ DEDICATED EVENTORA AI CONCIERGE ✦</p>
+    <h1>Ora, Your Cultural Event Planner</h1>
+    <p>Ask anything about royal palaces, wedding budgets in ₹, Haldi/Sangeet rituals, 24-course catering, or WhatsApp invites.</p>
+  </div>
+</header>
+
+<main>
+
+  <!-- Chat Console Section -->
+  <section style="padding: 40px 0 80px;">
+    <div class="container">
+      <div class="chat-grid" style="display: grid; grid-template-columns: 290px 1fr; gap: 28px; align-items: flex-start; max-width: 1080px; margin: 0 auto;">
+        
+        <!-- Suggested Inquiries Sidebar -->
+        <div style="background: #FFFFFF; border: 1px solid var(--border-color); border-radius: 20px; padding: 24px; box-shadow: var(--shadow-subtle);">
+          <h3 class="heading-sm" style="margin-bottom: 16px;">Suggested Inquiries</h3>
+          
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <button class="btn-secondary" style="text-align: left; font-size: 0.85rem; padding: 10px 14px;" onclick="window.askSamplePrompt('Where can I find royal palaces in Jaipur or Udaipur?')">
+              🏰 Royal palaces in Rajasthan
+            </button>
+            <button class="btn-secondary" style="text-align: left; font-size: 0.85rem; padding: 10px 14px;" onclick="window.askSamplePrompt('How do I calculate a Shaadi budget for 350 guests in ₹?')">
+              💰 Shaadi budget for 350 guests
+            </button>
+            <button class="btn-secondary" style="text-align: left; font-size: 0.85rem; padding: 10px 14px;" onclick="window.askSamplePrompt('What tasks should I do for Sangeet, Mehendi & Haldi?')">
+              📋 Sangeet & Haldi checklist
+            </button>
+            <button class="btn-secondary" style="text-align: left; font-size: 0.85rem; padding: 10px 14px;" onclick="window.askSamplePrompt('How do I design a Shahi Patrika or wedding invite?')">
+              💌 Live Wedding Invites Studio
+            </button>
+            <button class="btn-secondary" style="text-align: left; font-size: 0.85rem; padding: 10px 14px;" onclick="window.askSamplePrompt('How can I track Ladkewale & Ladkiwale guests and Jain meals?')">
+              👥 Guest RSVPs & Meal Tracking
+            </button>
+            <button class="btn-secondary" style="text-align: left; font-size: 0.85rem; padding: 10px 14px;" onclick="window.askSamplePrompt('Can I list my bridal Mehendi or Catering business?')">
+              🎨 Register as a wedding vendor
+            </button>
+          </div>
+
+          <div style="margin-top: 24px; border-top: 1px solid var(--border-light); padding-top: 16px;">
+            <button id="btn-clear-chat" class="btn-secondary" style="width: 100%; color: var(--text-muted); font-size: 0.8rem; padding: 8px 12px;">
+              Clear Conversation
+            </button>
+          </div>
+        </div>
+
+        <!-- Main Chat Console Box -->
+        <div style="background: #FFFFFF; border: 1px solid var(--border-color); border-radius: 20px; box-shadow: var(--shadow-card); display: flex; flex-direction: column; height: 600px; overflow: hidden;">
+          
+          <!-- Chat Window Header -->
+          <div style="padding: 16px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; background: #FAF5FF;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <div style="width: 38px; height: 38px; border-radius: 50%; background: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; border: 1px solid #E9D5FF;">
+                🌸
+              </div>
+              <div>
+                <strong style="font-size: 0.95rem; color: var(--text-dark);">Ora AI Concierge</strong>
+                <div style="font-size: 0.75rem; color: var(--accent-purple); font-weight: 600;">● Online & ready to assist</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Messages Stream -->
+          <div id="full-chat-messages" style="flex: 1; padding: 24px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; background: #F8FAFC;">
+            <div class="chat-bubble bubble-bot">
+              Namaste! I am your <strong>Eventora AI Concierge</strong>.
+              I can assist you with finding royal palaces & banquet lawns across India, managing your wedding budget in ₹ (Rupees), organizing Haldi, Mehendi & Sangeet tasks, designing invitations, and tracking guest RSVPs.
+              What are you celebrating today?
+            </div>
+          </div>
+
+          <!-- Chat Input Area -->
+          <form id="full-chat-form" style="padding: 16px 24px; background: #FFFFFF; border-top: 1px solid var(--border-color); display: flex; gap: 12px;">
+            <input type="text" id="full-chat-input" placeholder="Ask about mandap decor, mehendi, budget in ₹..." autocomplete="off" style="flex:1; border: 1px solid #CBD5E1; border-radius: 9999px; padding: 12px 20px; font-size: 0.95rem; outline:none;" required>
+            <button type="submit" class="btn-primary" style="border-radius: 9999px; padding: 12px 24px; font-size: 0.95rem;">
+              Send
+            </button>
+          </form>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div><b>Eventora</b><br>Plan every moment, beautifully.</div>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="venues.html">Venues & Vendors</a>
+    <a href="budget.html">Budget</a>
+    <a href="checklist.html">Checklist</a>
+    <a href="guests.html">Guests</a>
+    <a href="invites.html">Invites</a>
+  </div>
+</footer>
+
+
+
+
+<script>
+  window.askSamplePrompt = function(promptText) {
+    var input = document.getElementById('full-chat-input');
+    var form = document.getElementById('full-chat-form');
+    if (input && form) {
+      input.value = promptText;
+      form.dispatchEvent(new Event('submit'));
+    }
+  };
+</script>
+
+
+
+
+
+<!-- ===== ORA FLOATING CHAT ===== -->
+<button id="ora-fab" class="ora-fab" aria-label="Chat with Ora" aria-expanded="false">💬</button>
+<section id="ora-window" class="ora-window" hidden aria-label="Chat with Ora">
+  <header class="ora-head">
+    <strong>Ora</strong> · your planning buddy
+    <button id="ora-close" class="ora-x" aria-label="Close chat">×</button>
+  </header>
+  <div id="ora-log" class="ora-log" role="log" aria-live="polite"></div>
+  <div class="ora-quick">
+    <button data-q="Find venues">Find venues</button>
+    <button data-q="Set a budget">Set a budget</button>
+    <button data-q="Make an invite">Make an invite</button>
+    <button data-q="Talk to a human">Talk to a human</button>
+  </div>
+  <div class="ora-form">
+    <label for="ora-input" class="sr-only">Message Ora</label>
+    <input id="ora-input" type="text" maxlength="500" placeholder="Ask Ora anything..." autocomplete="off">
+    <button id="ora-send" class="ora-send">Send</button>
+  </div>
+</section>
+
+<script src="js/ora.js"></script>
+</body>
+</html>

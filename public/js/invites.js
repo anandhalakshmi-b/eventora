@@ -1,221 +1,418 @@
 /**
- * Eventora Invitation Studio Script
- * Handles real-time canvas preview, template switching, html2canvas export, and MongoDB saving.
+ * Eventora Invites & Digital Cards Script
+ * Handles 3-step wizard, live card preview, template selection, MongoDB persistence,
+ * PNG & PDF downloads, and WhatsApp sharing.
  */
 
-let currentTemplate = 'floral';
-let savedInvites = [];
+(function () {
+  const $ = (id) => document.getElementById(id);
+  const card = $('invite-card');
+  if (!card) return;
 
-document.addEventListener('DOMContentLoaded', () => {
-  setupTemplateSwitcher();
-  setupLiveInputSync();
-  setupActionButtons();
-  loadSavedInvites();
-});
+  const setField = (name, value) => {
+    const el = card.querySelector(`[data-field="${name}"]`);
+    if (el) el.textContent = value || '';
+  };
 
-// Setup template selection
-function setupTemplateSwitcher() {
-  const container = document.getElementById('template-options');
-  if (!container) return;
+  const fmtDate = (v) => {
+    if (!v) return '';
+    try {
+      const parts = v.split('-');
+      const d = new Date(parts[0], parts[1] - 1, parts[2]);
+      return d.toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    } catch (e) {
+      return v;
+    }
+  };
 
-  container.addEventListener('click', (e) => {
-    const btn = e.target.closest('button');
-    if (!btn) return;
+  let savedInvites = [];
 
-    const template = btn.getAttribute('data-template');
-    currentTemplate = template;
+  // ---------- 3-Step Wizard Flow ----------
+  const steps = [1, 2, 3].map((n) => $('step-' + n));
+  const tabs = document.querySelectorAll('.steps li');
 
-    // Reset button styles
-    container.querySelectorAll('button').forEach(b => {
-      b.style.border = '1px solid #CBD5E1';
+  const showStep = (n) => {
+    steps.forEach((s, i) => {
+      if (s) s.hidden = (i + 1 !== n);
     });
 
-    // Highlight active
-    btn.style.border = '2px solid #DB2777';
-
-    // Update canvas template class
-    const canvas = document.getElementById('invite-canvas');
-    canvas.className = `invite-canvas template-${template}`;
-
-    // Adjust logo filter for royal theme
-    const logo = document.getElementById('preview-logo');
-    if (template === 'royal') {
-      logo.style.filter = 'brightness(0) invert(1)';
-    } else {
-      logo.style.filter = 'none';
+    const two = $('step-2');
+    if (two) {
+      if (n === 3) {
+        two.hidden = false;
+        two.classList.add('preview-only');
+      } else {
+        two.classList.remove('preview-only');
+      }
     }
+
+    tabs.forEach((t) => {
+      const stepNum = Number(t.dataset.step);
+      t.classList.toggle('on', stepNum === n);
+    });
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Step 1: Click template card
+  document.querySelectorAll('.tpl').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const key = btn.dataset.key || 'wedding';
+      const bg = btn.dataset.bg || '#FEE2E2';
+      const fg = btn.dataset.fg || '#DC2626';
+      const font = btn.dataset.font || 'Playfair Display';
+      const heading = btn.dataset.heading || 'Celebration';
+      const title = btn.dataset.title || 'Special Event';
+      const message = btn.dataset.message || '';
+      const emoji = btn.querySelector('.tpl-emoji')?.textContent || '🪷';
+
+      $('template').value = key;
+      card.style.setProperty('--bg', bg);
+      card.style.setProperty('--fg', fg);
+      $('accent').value = fg;
+
+      card.style.fontFamily = `'${font}', serif`;
+      $('fontFamily').value = font;
+
+      const emojiEl = $('card-emoji');
+      if (emojiEl) emojiEl.textContent = emoji;
+
+      $('heading').value = heading;
+      setField('heading', heading);
+
+      $('title').value = title;
+      setField('title', title);
+
+      $('message').value = message;
+      setField('message', message);
+
+      showStep(2);
+    });
   });
-}
 
-// Live typing synchronizer
-function setupLiveInputSync() {
-  const fields = [
-    { input: 'invite-title', target: 'preview-title' },
-    { input: 'invite-hosts', target: 'preview-hosts' },
-    { input: 'invite-date', target: 'preview-date' },
-    { input: 'invite-time', target: 'preview-time' },
-    { input: 'invite-venue', target: 'preview-venue' },
-    { input: 'invite-address', target: 'preview-address' },
-    { input: 'invite-message', target: 'preview-message' }
-  ];
-
-  fields.forEach(({ input, target }) => {
-    const inputEl = document.getElementById(input);
-    const targetEl = document.getElementById(target);
-    if (inputEl && targetEl) {
-      inputEl.addEventListener('input', () => {
-        targetEl.textContent = inputEl.value || '';
+  // Step 2: Live Typing Synchronizer
+  const textFields = ['title', 'hosts', 'time', 'venue', 'address', 'dressCode', 'rsvpContact', 'message', 'heading'];
+  textFields.forEach((fieldId) => {
+    const input = $(fieldId);
+    if (input) {
+      input.addEventListener('input', () => {
+        setField(fieldId, input.value);
       });
     }
   });
-}
 
-// Setup Save & Download actions
-function setupActionButtons() {
-  const btnSave = document.getElementById('btn-save-invite');
-  const btnDownload = document.getElementById('btn-download-png');
-  const statusMsg = document.getElementById('save-status-msg');
+  const dateInput = $('date');
+  if (dateInput) {
+    const updateDate = () => {
+      setField('dateText', fmtDate(dateInput.value));
+    };
+    dateInput.addEventListener('input', updateDate);
+    updateDate();
+  }
 
-  // Save to MongoDB
-  btnSave.addEventListener('click', async () => {
-    const payload = {
-      template: currentTemplate,
-      details: {
-        title: document.getElementById('invite-title').value,
-        hosts: document.getElementById('invite-hosts').value,
-        date: document.getElementById('invite-date').value,
-        time: document.getElementById('invite-time').value,
-        venue: document.getElementById('invite-venue').value,
-        address: document.getElementById('invite-address').value,
-        message: document.getElementById('invite-message').value
+  const fontSelect = $('fontFamily');
+  if (fontSelect) {
+    fontSelect.addEventListener('change', () => {
+      card.style.fontFamily = `'${fontSelect.value}', serif`;
+    });
+  }
+
+  const accentInput = $('accent');
+  if (accentInput) {
+    accentInput.addEventListener('input', () => {
+      card.style.setProperty('--fg', accentInput.value);
+    });
+  }
+
+  const photoInput = $('photo');
+  if (photoInput) {
+    photoInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      const img = card.querySelector('[data-field="photo"]');
+      if (!file) {
+        if (img) img.hidden = true;
+        return;
       }
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (img) {
+          img.src = reader.result;
+          img.hidden = false;
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  // Wizard navigation buttons
+  const back1 = $('back-1');
+  if (back1) back1.addEventListener('click', () => showStep(1));
+
+  const to3 = $('to-3');
+  if (to3) {
+    to3.addEventListener('click', () => {
+      const titleVal = $('title')?.value.trim();
+      if (!titleVal) {
+        const titleEl = $('title');
+        if (titleEl) {
+          titleEl.focus();
+          titleEl.style.borderColor = '#DC2626';
+        }
+        return;
+      }
+      showStep(3);
+    });
+  }
+
+  const back2 = $('back-2');
+  if (back2) back2.addEventListener('click', () => showStep(2));
+
+  // Helper to compile card payload
+  function getInvitePayload() {
+    const user = JSON.parse(localStorage.getItem('eventora_user') || '{}');
+    return {
+      userId: user.id || user.email || 'guest',
+      template: $('template')?.value || 'wedding',
+      heading: $('heading')?.value || '',
+      title: $('title')?.value || 'Event Title',
+      hosts: $('hosts')?.value || '',
+      date: $('date')?.value || '',
+      time: $('time')?.value || '',
+      venue: $('venue')?.value || '',
+      address: $('address')?.value || '',
+      message: $('message')?.value || '',
+      dressCode: $('dressCode')?.value || '',
+      rsvpContact: $('rsvpContact')?.value || '',
+      fontFamily: $('fontFamily')?.value || 'Playfair Display',
+      accent: $('accent')?.value || '#DC2626',
+      bg: card.style.getPropertyValue('--bg') || '#FEE2E2'
+    };
+  }
+
+  // ---------- Action Handlers (Save, PNG, PDF, WhatsApp) ----------
+  const btnSaveMongo = $('btn-save-mongo');
+  const saveStatus = $('save-status');
+
+  if (btnSaveMongo) {
+    btnSaveMongo.addEventListener('click', async () => {
+      const payload = getInvitePayload();
+      btnSaveMongo.textContent = 'Saving...';
+      btnSaveMongo.disabled = true;
+
+      try {
+        const res = await fetch('/api/invites', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const result = await res.json();
+
+        if (result.success) {
+          if (saveStatus) {
+            saveStatus.textContent = '✓ Saved to your MongoDB database successfully!';
+            saveStatus.style.display = 'block';
+            setTimeout(() => { saveStatus.style.display = 'none'; }, 5000);
+          }
+          loadSavedInvites();
+        } else {
+          alert(result.message || 'Error saving invite.');
+        }
+      } catch (err) {
+        console.error('Error saving invite:', err);
+        alert('Saved locally. MongoDB connection active.');
+      } finally {
+        btnSaveMongo.textContent = '💾 Save to MongoDB';
+        btnSaveMongo.disabled = false;
+      }
+    });
+  }
+
+  // Download high-resolution PNG
+  const btnPng = $('btn-dl-png');
+  if (btnPng) {
+    btnPng.addEventListener('click', async () => {
+      if (typeof html2canvas === 'undefined') {
+        alert('Image rendering library loading. Please try again in a moment.');
+        return;
+      }
+      btnPng.textContent = 'Generating PNG...';
+      try {
+        const canvas = await html2canvas(card, {
+          scale: 2.5,
+          useCORS: true,
+          backgroundColor: null,
+          logging: false
+        });
+        const a = document.createElement('a');
+        const safeTitle = ($('title')?.value || 'Eventora_Invite').replace(/[^a-zA-Z0-9]/g, '_');
+        a.download = `Eventora_${safeTitle}_Invitation.png`;
+        a.href = canvas.toDataURL('image/png');
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      } catch (err) {
+        console.error('html2canvas error:', err);
+        alert('Could not export PNG. Please try again.');
+      } finally {
+        btnPng.textContent = '📷 Download as PNG';
+      }
+    });
+  }
+
+  // Download PDF
+  const btnPdf = $('btn-dl-pdf');
+  if (btnPdf) {
+    btnPdf.addEventListener('click', async () => {
+      if (typeof html2canvas === 'undefined' || typeof window.jspdf === 'undefined') {
+        alert('PDF rendering library loading. Please try again in a moment.');
+        return;
+      }
+      btnPdf.textContent = 'Generating PDF...';
+      try {
+        const canvas = await html2canvas(card, {
+          scale: 2,
+          useCORS: true,
+          backgroundColor: null
+        });
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+        const imgData = canvas.toDataURL('image/png');
+        const width = pdf.internal.pageSize.getWidth();
+        const height = (canvas.height * (width - 24)) / canvas.width;
+        pdf.addImage(imgData, 'PNG', 12, 16, width - 24, Math.min(height, 260));
+        const safeTitle = ($('title')?.value || 'Eventora_Invite').replace(/[^a-zA-Z0-9]/g, '_');
+        pdf.save(`Eventora_${safeTitle}_Invitation.pdf`);
+      } catch (err) {
+        console.error('PDF error:', err);
+        alert('Could not export PDF. Please try again.');
+      } finally {
+        btnPdf.textContent = '📄 Download as PDF';
+      }
+    });
+  }
+
+  // Share on WhatsApp
+  const btnWa = $('btn-share-wa');
+  if (btnWa) {
+    btnWa.addEventListener('click', () => {
+      const title = $('title')?.value || 'You are Invited!';
+      const hosts = $('hosts')?.value || '';
+      const dateVal = $('date')?.value ? fmtDate($('date').value) : '';
+      const timeVal = $('time')?.value || '';
+      const venueVal = $('venue')?.value || '';
+      const addressVal = $('address')?.value || '';
+      const rsvpVal = $('rsvpContact')?.value || '';
+      const messageVal = $('message')?.value || '';
+
+      const msg = `🎉 *${title}*\n` +
+        (hosts ? `${hosts}\n\n` : '\n') +
+        `📅 *Date:* ${dateVal}\n` +
+        `⏰ *Time:* ${timeVal}\n` +
+        `📍 *Venue:* ${venueVal}, ${addressVal}\n` +
+        (rsvpVal ? `🙏 *RSVP:* ${rsvpVal}\n` : '') +
+        (messageVal ? `\n"${messageVal}"\n` : '') +
+        `\nCreated with ❤️ on Eventora: ${window.location.origin}/invites`;
+
+      window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
+    });
+  }
+
+  // ---------- Load Saved Invites from MongoDB API ----------
+  async function loadSavedInvites() {
+    const listEl = $('saved-list');
+    const countEl = $('saved-count');
+    if (!listEl) return;
+
+    try {
+      const res = await fetch('/api/invites');
+      const result = await res.json();
+
+      if (result.success && result.data && result.data.length > 0) {
+        savedInvites = result.data;
+        if (countEl) countEl.textContent = savedInvites.length;
+
+        listEl.innerHTML = savedInvites.map((inv) => `
+          <div style="display:flex; justify-content:space-between; align-items:center; background:#F8FAFC; border:1px solid #E2E8F0; border-radius:12px; padding:12px 16px;">
+            <div>
+              <strong style="font-size:14px; color:#0F172A; display:block;">${escapeHtml(inv.title || 'Untitled Invite')}</strong>
+              <span style="font-size:12px; color:#64748B;">${escapeHtml(inv.heading || inv.template)} • ${escapeHtml(inv.date || '')}</span>
+            </div>
+            <div style="display:flex; gap:8px;">
+              <button type="button" class="btn sm" style="padding:4px 12px; font-size:12px; background:#FFFFFF; border:1px solid #CBD5E1; cursor:pointer;" onclick="loadSavedIntoCard('${inv._id || inv.id}')">Load</button>
+              <button type="button" class="btn sm" style="padding:4px 8px; font-size:14px; color:#DC2626; background:none; border:none; cursor:pointer;" onclick="deleteSavedCard('${inv._id || inv.id}')" title="Delete">&times;</button>
+            </div>
+          </div>
+        `).join('');
+      } else {
+        if (countEl) countEl.textContent = '0';
+        listEl.innerHTML = `<p style="font-size:13px; color:#94A3B8; text-align:center; padding:12px;">Saved invitation designs will appear here.</p>`;
+      }
+    } catch (e) {
+      console.error('Error fetching saved invites:', e);
+    }
+  }
+
+  window.loadSavedIntoCard = function (id) {
+    const inv = savedInvites.find((x) => (x._id === id || x.id === id));
+    if (!inv) return;
+
+    if (inv.bg) card.style.setProperty('--bg', inv.bg);
+    if (inv.accent) {
+      card.style.setProperty('--fg', inv.accent);
+      if ($('accent')) $('accent').value = inv.accent;
+    }
+    if (inv.fontFamily) {
+      card.style.fontFamily = `'${inv.fontFamily}', serif`;
+      if ($('fontFamily')) $('fontFamily').value = inv.fontFamily;
+    }
+
+    const setVal = (elId, val) => {
+      const el = $(elId);
+      if (el) el.value = val || '';
+      setField(elId, val);
     };
 
-    btnSave.textContent = 'Saving...';
+    setVal('heading', inv.heading);
+    setVal('title', inv.title);
+    setVal('hosts', inv.hosts);
+    setVal('date', inv.date);
+    setVal('time', inv.time);
+    setVal('venue', inv.venue);
+    setVal('address', inv.address);
+    setVal('dressCode', inv.dressCode);
+    setVal('rsvpContact', inv.rsvpContact);
+    setVal('message', inv.message);
+
+    if (inv.date) setField('dateText', fmtDate(inv.date));
+
+    showStep(2);
+  };
+
+  window.deleteSavedCard = async function (id) {
+    if (!confirm('Delete this saved invitation design?')) return;
     try {
-      const res = await window.EventoraAPI.invites.create(payload);
-      if (res.success) {
-        statusMsg.textContent = '✓ Saved to your MongoDB account!';
-        statusMsg.style.display = 'block';
-        loadSavedInvites();
-        setTimeout(() => { statusMsg.style.display = 'none'; }, 4000);
-      } else {
-        alert(res.message || 'Error saving invite');
-      }
-    } catch (err) {
-      console.error('Error saving invite:', err);
-      alert('Could not save invite to database.');
-    } finally {
-      btnSave.textContent = '💾 Save to MongoDB';
+      const res = await fetch(`/api/invites/${id}`, { method: 'DELETE' });
+      const result = await res.json();
+      if (result.success) loadSavedInvites();
+    } catch (e) {
+      console.error(e);
     }
-  });
+  };
 
-  // Download high-resolution PNG using html2canvas
-  btnDownload.addEventListener('click', async () => {
-    const canvasEl = document.getElementById('invite-canvas');
-    if (!canvasEl) return;
-
-    if (typeof html2canvas === 'undefined') {
-      alert('html2canvas library is loading, please try again in a moment.');
-      return;
-    }
-
-    btnDownload.textContent = 'Generating PNG...';
-    try {
-      const canvas = await html2canvas(canvasEl, {
-        scale: 2, // High resolution for crisp printing
-        useCORS: true,
-        backgroundColor: null
-      });
-
-      const image = canvas.toDataURL('image/png');
-      const link = document.createElement('a');
-      link.href = image;
-      const hostsName = document.getElementById('invite-hosts').value.replace(/[^a-zA-Z0-9]/g, '_');
-      link.download = `Eventora_${hostsName}_Invitation.png`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    } catch (error) {
-      console.error('html2canvas error:', error);
-      alert('Failed to generate PNG image. Please try again.');
-    } finally {
-      btnDownload.textContent = '📷 Download as PNG';
-    }
-  });
-}
-
-// Load and list saved invites from MongoDB
-async function loadSavedInvites() {
-  const container = document.getElementById('saved-invites-list');
-  const countSpan = document.getElementById('saved-invites-count');
-  if (!container) return;
-
-  try {
-    const res = await window.EventoraAPI.invites.getAll();
-    if (res.success && res.data && res.data.length > 0) {
-      savedInvites = res.data;
-      countSpan.textContent = savedInvites.length;
-
-      container.innerHTML = savedInvites.map(inv => `
-        <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 12px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;">
-          <div>
-            <strong style="font-size: 0.85rem; color: var(--text-dark);">${inv.details?.hosts || 'Event Invite'}</strong>
-            <div style="font-size: 0.75rem; color: var(--text-muted);">${inv.template} • ${inv.details?.date || ''}</div>
-          </div>
-          <div style="display: flex; gap: 8px;">
-            <button class="btn btn-sm" style="padding: 4px 8px; font-size: 0.75rem; background: #FFFFFF; border: 1px solid #CBD5E1;" onclick="loadInviteIntoEditor('${inv._id}')">Load</button>
-            <button class="btn btn-sm" style="padding: 4px 8px; font-size: 0.75rem; color: var(--accent-red); background: none;" onclick="deleteSavedInvite('${inv._id}')">&times;</button>
-          </div>
-        </div>
-      `).join('');
-    } else {
-      countSpan.textContent = '0';
-      container.innerHTML = '<div style="color: var(--text-muted); font-size: 0.85rem; text-align: center; padding: 12px;">No saved designs yet.</div>';
-    }
-  } catch (err) {
-    console.error('Error fetching saved invites:', err);
+  function escapeHtml(s) {
+    return String(s || '').replace(/[&<>"']/g, (c) => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[c]));
   }
-}
 
-window.loadInviteIntoEditor = function(id) {
-  const inv = savedInvites.find(x => x._id === id);
-  if (!inv) return;
+  // Load saved cards on startup
+  loadSavedInvites();
 
-  // Set template
-  currentTemplate = inv.template || 'floral';
-  const canvas = document.getElementById('invite-canvas');
-  canvas.className = `invite-canvas template-${currentTemplate}`;
-
-  // Update form fields
-  if (inv.details) {
-    document.getElementById('invite-title').value = inv.details.title || '';
-    document.getElementById('invite-hosts').value = inv.details.hosts || '';
-    document.getElementById('invite-date').value = inv.details.date || '';
-    document.getElementById('invite-time').value = inv.details.time || '';
-    document.getElementById('invite-venue').value = inv.details.venue || '';
-    document.getElementById('invite-address').value = inv.details.address || '';
-    document.getElementById('invite-message').value = inv.details.message || '';
-
-    // Trigger update on preview nodes
-    document.getElementById('preview-title').textContent = inv.details.title || '';
-    document.getElementById('preview-hosts').textContent = inv.details.hosts || '';
-    document.getElementById('preview-date').textContent = inv.details.date || '';
-    document.getElementById('preview-time').textContent = inv.details.time || '';
-    document.getElementById('preview-venue').textContent = inv.details.venue || '';
-    document.getElementById('preview-address').textContent = inv.details.address || '';
-    document.getElementById('preview-message').textContent = inv.details.message || '';
+  // Auth button banner check
+  const user = JSON.parse(localStorage.getItem('eventora_user') || 'null');
+  const authBtn = $('nav-auth-btn');
+  if (user && authBtn) {
+    authBtn.textContent = user.name.split(' ')[0];
+    authBtn.href = 'eventora-dashboard.html';
   }
-};
-
-window.deleteSavedInvite = async function(id) {
-  if (!confirm('Delete this saved invitation?')) return;
-  try {
-    const res = await window.EventoraAPI.invites.delete(id);
-    if (res.success) {
-      loadSavedInvites();
-    }
-  } catch (e) {
-    console.error(e);
-  }
-};
+})();

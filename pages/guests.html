@@ -3,10 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Guests & RSVPs | Eventora</title>
+<title>Guests &amp; RSVPs | Eventora</title>
 <link rel="icon" href="images/logo.png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap">
 <link rel="stylesheet" href="css/common.css">
+<link rel="stylesheet" href="css/navbar.css">
+<link rel="stylesheet" href="css/ora.css">
 </head>
 <body class="t-yellow">
 <nav>
@@ -14,30 +16,38 @@
   <button id="burger" aria-label="Open menu" aria-expanded="false">☰</button>
   <div class="links" id="links">
     <a href="index.html">Home</a>
-    <a href="venues.html">Venues & Vendors</a>
+    <a href="venues.html">Venues &amp; Vendors</a>
     <a href="ideas.html">Ideas</a>
     <a href="budget.html">Budget</a>
     <a href="checklist.html">Checklist</a>
     <a href="guests.html" class="on">Guests</a>
     <a href="consultation.html">Consultation</a>
     <a href="invites.html">Invites</a>
-    <a href="ora.html">Ora</a>
+    <a href="favorites.html">Favourites ♥</a>
     <a class="btn sm" href="register.html">Register</a>
   </div>
 </nav>
 
-<header class="title">
-  <h1>Guests & RSVPs</h1>
-  <p>Build your guest list, send one RSVP link and see who is coming.</p>
+<!-- Royal Video Hero -->
+<header class="hero">
+  <video class="hero-video" autoplay muted loop playsinline poster="images/venues/1.jpg" aria-hidden="true">
+    <source src="images/venues/venues.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-kicker">✦ ATITHI DEVO BHAVA ✦</p>
+    <h1>Guests &amp; Atithi RSVPs</h1>
+    <p>Manage celebration guest lists for weddings, birthdays, college farewells, corporate summits &amp; family celebrations. Track dietary preferences and send WhatsApp RSVP links.</p>
+  </div>
 </header>
 
 <main class="wrap">
   <section class="panel">
-    <h2>Your event</h2>
+    <h2>Your Celebration</h2>
     <div class="row">
-      <div><label for="ename">Event name</label><input id="ename" placeholder="e.g. Aarav & Meera's Wedding"></div>
+      <div><label for="ename">Event name</label><input id="ename" placeholder="e.g. Aarav &amp; Meera's Grand Shaadi"></div>
       <div><label for="edate">Date</label><input id="edate" type="date"></div>
-      <button class="btn main" id="copy" type="button">Copy RSVP link</button>
+      <button class="btn main" id="copy" type="button">Copy WhatsApp RSVP link</button>
       <a class="btn alt" id="open" href="rsvp.html" target="_blank" rel="noopener">Preview RSVP page</a>
     </div>
     <p id="copied" class="err" style="color:#16A34A" role="status"></p>
@@ -47,9 +57,9 @@
 
   <section class="panel">
     <div class="row">
-      <div><label for="q">Search guests</label><input id="q" type="search" placeholder="Name, email or phone"></div>
-      <div><label for="grp">Group / table</label><select id="grp"></select></div>
-      <button class="btn main" id="add" type="button">+ Add guest</button>
+      <div><label for="q">Search atithi</label><input id="q" type="search" placeholder="Name, email or phone"></div>
+      <div><label for="grp">Side / Group</label><select id="grp"></select></div>
+      <button class="btn main" id="add" type="button">+ Add atithi</button>
       <button class="btn alt" id="imp" type="button">Import CSV</button>
       <button class="btn alt" id="exp" type="button">Export CSV</button>
       <input id="file" type="file" accept=".csv,text/csv" hidden>
@@ -61,7 +71,7 @@
 
   <div class="tablewrap">
     <table>
-      <thead><tr><th>Guest</th><th>Contact</th><th>Group / table</th><th>Plus-ones</th><th>Dietary notes</th><th>RSVP</th><th>Actions</th></tr></thead>
+      <thead><tr><th>Atithi Name</th><th>Contact</th><th>Side / Group</th><th>Plus-ones</th><th>Dietary Notes</th><th>RSVP</th><th>Actions</th></tr></thead>
       <tbody id="rows"></tbody>
     </table>
   </div>
@@ -69,21 +79,69 @@
 
 <dialog id="dlg" aria-labelledby="dt">
   <form id="gf" novalidate>
-    <h2 id="dt">Add guest</h2>
-    <label for="gn">Full name</label><input id="gn" required>
-    <div class="row"><div><label for="ge">Email</label><input id="ge" type="email"></div><div><label for="gp">Phone</label><input id="gp" type="tel"></div></div>
-    <div class="row"><div><label for="gg">Group / table</label><input id="gg" placeholder="Family, Friends, Table 3"></div><div><label for="gpl">Plus-ones</label><input id="gpl" type="number" min="0" max="10" value="0"></div></div>
-    <label for="gd">Dietary notes</label><input id="gd" placeholder="Vegetarian, nut allergy...">
+    <h2 id="dt">Add atithi</h2>
+    <label for="gn">Full name</label><input id="gn" required placeholder="e.g. Suresh &amp; Malini Sharma">
+    <div class="row"><div><label for="ge">Email</label><input id="ge" type="email" placeholder="email@example.com"></div><div><label for="gp">Phone (WhatsApp)</label><input id="gp" type="tel" placeholder="98400 12345"></div></div>
+    <div class="row">
+      <div>
+        <label for="gg">Side / Group</label>
+        <input id="gg" list="grouplist" placeholder="Ladkiwale, Ladkewale, VIP Elders">
+        <datalist id="grouplist">
+          <option value="Family &amp; Relatives">
+          <option value="Ladkiwale (Bride's Family)">
+          <option value="Ladkewale (Groom's Side)">
+          <option value="Friends &amp; Batchmates">
+          <option value="College Faculty &amp; Alumni">
+          <option value="Corporate Team &amp; Clients">
+          <option value="VIP Elders &amp; Gurus">
+          <option value="Neighbours &amp; Community">
+        </datalist>
+      </div>
+      <div><label for="gpl">Plus-ones</label><input id="gpl" type="number" min="0" max="10" value="0"></div>
+    </div>
+    <label for="gd">Dietary preferences</label>
+    <input id="gd" list="dietlist" placeholder="Traditional Pure Veg / Jain, Sadya...">
+    <datalist id="dietlist">
+      <option value="Traditional Pure Veg / Jain">
+      <option value="South Indian Sadya">
+      <option value="North Indian Feast">
+      <option value="Non-Veg Special">
+    </datalist>
     <label for="gs">RSVP status</label><select id="gs"><option>Pending</option><option>Accepted</option><option>Declined</option></select>
     <p class="err" id="gerr" role="alert"></p>
-    <div class="acts"><button class="btn main">Save guest</button><button class="btn alt" type="button" id="gx">Cancel</button></div>
+    <div class="acts"><button class="btn main">Save atithi</button><button class="btn alt" type="button" id="gx">Cancel</button></div>
   </form>
 </dialog>
-<footer>
-  <div><b>Eventora</b><br>Plan every moment, beautifully.</div>
-  <div><a href="index.html">Home</a><a href="venues.html">Venues & Vendors</a><a href="budget.html">Budget</a><a href="guests.html">Guests</a></div>
+
+<footer class="site-footer">
+  <div><b>Eventora</b><br>Plan every royal Indian celebration, beautifully.</div>
+  <div><a href="index.html">Home</a><a href="venues.html">Venues &amp; Vendors</a><a href="budget.html">Budget</a><a href="guests.html">Guests</a></div>
 </footer>
+
 <script src="js/common.js"></script>
 <script src="js/guests.js"></script>
+
+<!-- ===== ORA FLOATING CHAT ===== -->
+<button id="ora-fab" class="ora-fab" aria-label="Chat with Ora" aria-expanded="false">💬</button>
+<section id="ora-window" class="ora-window" hidden aria-label="Chat with Ora">
+  <header class="ora-head">
+    <strong>Ora</strong> · your planning buddy
+    <button id="ora-close" class="ora-x" aria-label="Close chat">×</button>
+  </header>
+  <div id="ora-log" class="ora-log" role="log" aria-live="polite"></div>
+  <div class="ora-quick">
+    <button data-q="Find venues">Find venues</button>
+    <button data-q="Set a budget">Set a budget</button>
+    <button data-q="Make an invite">Make an invite</button>
+    <button data-q="Talk to a human">Talk to a human</button>
+  </div>
+  <div class="ora-form">
+    <label for="ora-input" class="sr-only">Message Ora</label>
+    <input id="ora-input" type="text" maxlength="500" placeholder="Ask Ora anything..." autocomplete="off">
+    <button id="ora-send" class="ora-send">Send</button>
+  </div>
+</section>
+
+<script src="js/ora.js"></script>
 </body>
 </html>

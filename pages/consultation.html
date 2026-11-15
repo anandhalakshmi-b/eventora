@@ -5,29 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Free Consultation | Eventora</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Dancing+Script:wght@600&family=Playfair+Display:wght@600;800&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/theme.css">
-  <link rel="stylesheet" href="/css/ora.css">
-  <link rel="stylesheet" href="/css/consultation.css">
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/consultation.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/ora.css">
 </head>
 <body>
-<!-- ===== SHARED TOP BAR: copy the same block in every page ===== -->
-<header class="topbar">
-  <a href="/" class="brand">Eventora</a>
-  <nav aria-label="Main">
-    <a href="/venues">Venues</a><a href="/ideas">Ideas</a><a href="/budget">Budget</a>
-    <a href="/consultation">Consultation</a><a href="/checklist">Checklist</a>
-    <a href="/guests">Guests</a><a href="/invites">Invites</a>
-  </nav>
-</header>
-<main class="container">
-  <section class="consult-hero">
-    <h1>Free Event Planning Consultation <span class="badge free">FREE</span></h1>
-    <p>Tell us about your event and get an instant starter plan, made for Indian celebrations.</p>
-  </section>
+<!-- ===== SHARED TOP BAR ===== -->
+<nav>
+  <a class="brand" href="index.html"><img src="images/logo.png" alt="Eventora logo">Eventora</a>
+  <button id="burger" aria-label="Open menu" aria-expanded="false">☰</button>
+  <div class="links" id="links">
+    <a href="index.html">Home</a>
+    <a href="venues.html">Venues &amp; Vendors</a>
+    <a href="ideas.html">Ideas</a>
+    <a href="budget.html">Budget</a>
+    <a href="checklist.html">Checklist</a>
+    <a href="guests.html">Guests</a>
+    <a href="consultation.html" class="on">Consultation</a>
+    <a href="invites.html">Invites</a>
+    <a href="favorites.html">Favourites ♥</a>
+    <a class="btn sm" href="register.html">Register</a>
+  </div>
+</nav>
 
+<!-- Royal Video Hero -->
+<header class="hero">
+  <video class="hero-video" autoplay muted loop playsinline poster="images/venues/1.jpg" aria-hidden="true">
+    <source src="images/venues/venues.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-kicker">✦ FREE INSTANT STARTER BLUEPRINT ✦</p>
+    <h1>Free Event Planning Consultation</h1>
+    <p>Tell us about your celebration—whether a wedding, birthday, college fest, baby shower, or corporate summit—and receive a tailored plan, budget estimate, and vendor milestones in seconds.</p>
+  </div>
+</header>
+
+<main class="container" style="padding-top:40px;">
   <div id="errors" class="alert" role="alert" hidden></div>
 
-  <form id="consult-form" class="card form-card" novalidate>
+  <form id="consult-form" class="card form-card" novalidate style="box-shadow: 0 10px 25px rgba(15,23,42,0.06);">
     <label for="eventType">Event type</label>
     <select id="eventType" name="eventType" required>
         <option value="">Choose...</option>
@@ -47,34 +65,41 @@
     <input type="date" id="eventDate" name="eventDate" required>
 
     <label for="guests">Number of guests</label>
-    <input type="number" id="guests" name="guests" min="1" required>
+    <input type="number" id="guests" name="guests" min="1" required placeholder="e.g. 500">
 
     <label for="budget">Total budget (₹)</label>
-    <input type="number" id="budget" name="budget" min="1000" step="1000" placeholder="e.g. 500000" required>
+    <input type="number" id="budget" name="budget" min="1000" step="1000" placeholder="e.g. 1500000" required>
 
     <label for="city">City</label>
-    <input type="text" id="city" name="city" placeholder="e.g. Coimbatore, Jaipur, Mumbai" required>
+    <input type="text" id="city" name="city" placeholder="e.g. Coimbatore, Madurai, Chennai, Jaipur" required>
 
-    <label for="style">Style</label>
+    <label for="style">Celebration Style</label>
     <select id="style" name="style">
-        <option value="traditional">Traditional</option>
-        <option value="modern">Modern</option>
-        <option value="royal">Royal</option>
-        <option value="boho">Boho</option>
-        <option value="rustic">Rustic</option>
+        <option value="royal">Royal Rajputana / Heritage</option>
+        <option value="traditional">Traditional South / North Indian</option>
+        <option value="modern">Modern Contemporary</option>
+        <option value="boho">Bohemian Floral</option>
+        <option value="rustic">Open Garden / Beachfront</option>
     </select>
 
     <p><button class="btn consult-btn" type="submit">Generate my plan</button></p>
   </form>
 </main>
 
-<footer class="site-footer"><p>© Eventora · Plan every moment, beautifully.</p></footer>
+<footer class="site-footer">
+  <div><b>Eventora</b><br>Plan every royal Indian celebration, beautifully.</div>
+  <div><a href="index.html">Home</a><a href="venues.html">Venues &amp; Vendors</a><a href="budget.html">Budget</a><a href="checklist.html">Checklist</a></div>
+</footer>
 
-<!-- ===== ORA FLOATING CHAT (Module 9): paste this block + the script tag before </body> on EVERY page ===== -->
+<script src="js/consultation.js"></script>
+
+<!-- ===== ORA FLOATING CHAT ===== -->
 <button id="ora-fab" class="ora-fab" aria-label="Chat with Ora" aria-expanded="false">💬</button>
 <section id="ora-window" class="ora-window" hidden aria-label="Chat with Ora">
-  <header class="ora-head"><strong>Ora</strong> · your planning buddy
-    <button id="ora-close" class="ora-x" aria-label="Close chat">×</button></header>
+  <header class="ora-head">
+    <strong>Ora</strong> · your planning buddy
+    <button id="ora-close" class="ora-x" aria-label="Close chat">×</button>
+  </header>
   <div id="ora-log" class="ora-log" role="log" aria-live="polite"></div>
   <div class="ora-quick">
     <button data-q="Find venues">Find venues</button>
@@ -89,7 +114,6 @@
   </div>
 </section>
 
-<script src="/js/consultation.js"></script>
-<script src="/js/ora.js"></script>
+<script src="js/ora.js"></script>
 </body>
 </html>

@@ -1,17 +1,115 @@
 /* Budget Calculator & Tracker – front end only, saved in this browser (localStorage).
    Swap load/save for API calls when the backend is ready. */
 const KEY = 'eventora-budget';
-const CATS = ['Venue','Catering','Decor','Photography','Makeup','Music & DJ','Invites','Travel','Other'];
-const COL = ['#2563EB','#EA580C','#9333EA','#0891B2','#DB2777','#DC2626','#CA8A04','#16A34A','#64748B'];
+const CATS = [
+  'Mandap & Palace Venue',
+  'Traditional Catering & Sweets',
+  'Decor & Fresh Flowers',
+  'Bridal Makeup & Mehendi',
+  'Candid Photography & Film',
+  'Baraat, DJ & Dhol',
+  'Shahi Invites & Mithai Boxes',
+  'Jewellery & Attire',
+  'Pandit & Pooja Samagri',
+  'Guest Hospitality & Rooms',
+  'Other'
+];
+const COL = ['#2563EB','#EA580C','#9333EA','#0891B2','#DB2777','#DC2626','#CA8A04','#16A34A','#D97706','#4F46E5','#64748B'];
 
-let B = load(KEY, null) || { total: 500000, items: [
-  { id: uid(), cat: 'Venue', est: 150000, act: 140000 },
-  { id: uid(), cat: 'Catering', est: 120000, act: 135000 },
-  { id: uid(), cat: 'Decor', est: 60000, act: 0 },
-  { id: uid(), cat: 'Photography', est: 50000, act: 45000 },
-  { id: uid(), cat: 'Music & DJ', est: 30000, act: 0 },
-  { id: uid(), cat: 'Invites', est: 10000, act: 8000 }
-]};
+const PRESETS = {
+  wedding: {
+    total: 1500000,
+    items: [
+      { cat: 'Mandap & Palace Venue', est: 450000, act: 420000 },
+      { cat: 'Traditional Catering & Sweets', est: 400000, act: 380000 },
+      { cat: 'Decor & Fresh Flowers', est: 200000, act: 190000 },
+      { cat: 'Jewellery & Attire', est: 180000, act: 175000 },
+      { cat: 'Candid Photography & Film', est: 120000, act: 120000 },
+      { cat: 'Baraat, DJ & Dhol', est: 60000, act: 55000 },
+      { cat: 'Bridal Makeup & Mehendi', est: 40000, act: 35000 },
+      { cat: 'Pandit & Pooja Samagri', est: 20000, act: 18000 },
+      { cat: 'Shahi Invites & Mithai Boxes', est: 30000, act: 28000 }
+    ]
+  },
+  birthday: {
+    total: 75000,
+    items: [
+      { cat: 'Mandap & Palace Venue', est: 25000, act: 22000 },
+      { cat: 'Traditional Catering & Sweets', est: 25000, act: 24000 },
+      { cat: 'Decor & Fresh Flowers', est: 12000, act: 10000 },
+      { cat: 'Baraat, DJ & Dhol', est: 8000, act: 8000 },
+      { cat: 'Candid Photography & Film', est: 5000, act: 5000 }
+    ]
+  },
+  college: {
+    total: 200000,
+    items: [
+      { cat: 'Mandap & Palace Venue', est: 60000, act: 55000 }, // Auditorium / campus hall
+      { cat: 'Baraat, DJ & Dhol', est: 45000, act: 40000 }, // Sound & lighting
+      { cat: 'Traditional Catering & Sweets', est: 50000, act: 48000 }, // Snacks & dinner
+      { cat: 'Decor & Fresh Flowers', est: 25000, act: 22000 }, // Stage banners & photo booths
+      { cat: 'Candid Photography & Film', est: 20000, act: 20000 }
+    ]
+  },
+  corporate: {
+    total: 450000,
+    items: [
+      { cat: 'Mandap & Palace Venue', est: 180000, act: 170000 }, // Conference centre
+      { cat: 'Traditional Catering & Sweets', est: 140000, act: 135000 }, // Buffet & gala dinner
+      { cat: 'Decor & Fresh Flowers', est: 50000, act: 45000 }, // Branding & stage
+      { cat: 'Baraat, DJ & Dhol', est: 40000, act: 38000 }, // AV & sound
+      { cat: 'Candid Photography & Film', est: 40000, act: 40000 }
+    ]
+  },
+  babyshower: {
+    total: 180000,
+    items: [
+      { cat: 'Traditional Catering & Sweets', est: 80000, act: 75000 },
+      { cat: 'Decor & Fresh Flowers', est: 40000, act: 36000 },
+      { cat: 'Jewellery & Attire', est: 25000, act: 22000 },
+      { cat: 'Candid Photography & Film', est: 20000, act: 20000 },
+      { cat: 'Pandit & Pooja Samagri', est: 15000, act: 12000 }
+    ]
+  },
+  housewarming: {
+    total: 150000,
+    items: [
+      { cat: 'Traditional Catering & Sweets', est: 65000, act: 60000 },
+      { cat: 'Decor & Fresh Flowers', est: 35000, act: 30000 },
+      { cat: 'Pandit & Pooja Samagri', est: 25000, act: 22000 },
+      { cat: 'Shahi Invites & Mithai Boxes', est: 15000, act: 12000 },
+      { cat: 'Candid Photography & Film', est: 10000, act: 10000 }
+    ]
+  },
+  anniversary: {
+    total: 250000,
+    items: [
+      { cat: 'Mandap & Palace Venue', est: 85000, act: 80000 },
+      { cat: 'Traditional Catering & Sweets', est: 80000, act: 75000 },
+      { cat: 'Decor & Fresh Flowers', est: 35000, act: 30000 },
+      { cat: 'Baraat, DJ & Dhol', est: 25000, act: 22000 },
+      { cat: 'Candid Photography & Film', est: 25000, act: 25000 }
+    ]
+  },
+  festival: {
+    total: 120000,
+    items: [
+      { cat: 'Traditional Catering & Sweets', est: 50000, act: 48000 },
+      { cat: 'Decor & Fresh Flowers', est: 35000, act: 30000 },
+      { cat: 'Shahi Invites & Mithai Boxes', est: 20000, act: 18000 },
+      { cat: 'Baraat, DJ & Dhol', est: 15000, act: 12000 }
+    ]
+  }
+};
+
+let B = load(KEY, null);
+if (!B || !B.items || !B.items.length) {
+  B = {
+    total: PRESETS.classic.total,
+    items: PRESETS.classic.items.map(i => ({ id: uid(), ...i }))
+  };
+}
+
 let editing = null;
 $('cats').innerHTML = CATS.map(c => `<option value="${c}">`).join('');
 
@@ -36,7 +134,7 @@ function draw() {
   $('warn').innerHTML = left < 0 ? `<div class="banner bad" role="alert">⚠ You are over budget by ${rupee(-left)}. Review your spending.</div>`
     : est > B.total && B.total ? `<div class="banner warn">Your estimates are ${rupee(est - B.total)} above your total budget.</div>`
     : pct >= 90 ? '<div class="banner warn">You have used over 90% of your budget.</div>'
-    : B.items.length ? '<div class="banner ok">You are within budget. Keep going!</div>' : '';
+    : B.items.length ? '<div class="banner ok">You are within budget. Shubh Anand!</div>' : '';
   $('fill').style.width = pct + '%'; $('bar').classList.toggle('over', left < 0);
 
   /* table */
@@ -45,7 +143,7 @@ function draw() {
     return `<tr><td><b>${esc(i.cat)}</b></td><td>${rupee(i.est)}</td><td>${rupee(i.act)}</td>
       <td style="color:${d > 0 ? '#DC2626' : '#16A34A'};font-weight:700">${i.act ? (d > 0 ? '+' : '') + rupee(d).replace('₹-', '-₹') : '-'}</td>
       <td><button class="btn alt" data-edit="${i.id}">Edit</button><button class="btn alt" data-del="${i.id}">Delete</button></td></tr>`;
-  }).join('') || '<tr><td colspan="5" class="empty">No expenses yet. Add your first one above.</td></tr>';
+  }).join('') || '<tr><td colspan="5" class="empty">No expenses yet. Add your first one above or pick a preset.</td></tr>';
 
   /* pie chart (CSS conic gradient) */
   const g = group('est'), keys = Object.keys(g), tot = est || 1; let from = 0;
@@ -76,6 +174,21 @@ $('f').onsubmit = e => {
 };
 $('fcancel').onclick = resetForm;
 $('setTotal').onclick = () => { B.total = Math.max(0, +$('total').value || 0); draw(); };
+
+document.querySelectorAll('[data-preset]').forEach(btn => {
+  btn.onclick = () => {
+    const pKey = btn.getAttribute('data-preset');
+    const preset = PRESETS[pKey];
+    if (preset && confirm(`Load the ${btn.textContent.trim()} preset? This will set standard Indian expense allocations.`)) {
+      B = {
+        total: preset.total,
+        items: preset.items.map(i => ({ id: uid(), ...i }))
+      };
+      resetForm();
+      draw();
+    }
+  };
+});
 
 $('rows').onclick = e => {
   const ed = e.target.dataset.edit, del = e.target.dataset.del;

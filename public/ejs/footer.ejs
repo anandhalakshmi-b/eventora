@@ -1,16 +1,22 @@
 <footer class="site-footer" id="newsletter">
   <div class="container footer-grid">
     <div class="footer-brand">
-      <img src="/images/eventora_logo_slanted.png" alt="Eventora lotus logo" height="48">
+      <img src="/images/logo.png" alt="Eventora lotus logo" height="48">
       <p class="footer-tagline">Plan every moment, beautifully.</p>
     </div>
 
     <div>
       <h2 class="footer-heading">Quick links</h2>
       <ul class="footer-links">
-        <% modules.forEach(function (m) { %>
-          <li><a href="<%= m.path %>"><%= m.nav %></a></li>
-        <% }) %>
+        <li><a href="/venues">Venues & Vendors</a></li>
+        <li><a href="/ideas">Ideas & Advice</a></li>
+        <li><a href="/budget">Budget Tracker</a></li>
+        <li><a href="/checklist">Checklist</a></li>
+        <li><a href="/guests">Guests & RSVPs</a></li>
+        <li><a href="/consultation">Free Consultation</a></li>
+        <li><a href="/invites">Invites & Websites</a></li>
+        <li><a href="/favorites">Favourites ♥</a></li>
+        <li><a href="/ora">Ora AI Chatbot</a></li>
       </ul>
     </div>
 
@@ -40,10 +46,27 @@
   </div>
 </footer>
 
-<a href="/ora" class="ora-fab" aria-label="Chat with Ora, the Eventora assistant">
-  <span aria-hidden="true">✦</span>
-</a>
+<!-- ===== ORA FLOATING CHAT ===== -->
+<button id="ora-fab" class="ora-fab" aria-label="Chat with Ora" aria-expanded="false">💬</button>
+<section id="ora-window" class="ora-window" hidden aria-label="Chat with Ora">
+  <header class="ora-head">
+    <strong>Ora</strong> · your planning buddy
+    <button id="ora-close" class="ora-x" aria-label="Close chat">×</button>
+  </header>
+  <div id="ora-log" class="ora-log" role="log" aria-live="polite"></div>
+  <div class="ora-quick">
+    <button data-q="Find venues">Find venues</button>
+    <button data-q="Set a budget">Set a budget</button>
+    <button data-q="Make an invite">Make an invite</button>
+    <button data-q="Talk to a human">Talk to a human</button>
+  </div>
+  <div class="ora-form">
+    <label for="ora-input" class="sr-only">Message Ora</label>
+    <input id="ora-input" type="text" maxlength="500" placeholder="Ask Ora anything..." autocomplete="off">
+    <button id="ora-send" class="ora-send">Send</button>
+  </div>
+</section>
 
-<script src="/js/main.js"></script>
+<script src="/js/ora.js"></script>
 </body>
 </html>
