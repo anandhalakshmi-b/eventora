@@ -23,5 +23,6 @@
   "bugs": {
     "url": "https://github.com/anandhalakshmi-b/eventora/issues"
   },
-  "homepage": "https://github.com/anandhalakshmi-b/eventora#readme"
+  "homepage": "https://github.com/anandhalakshmi-b/eventora#readme",
+  "devDependencies": {}
 }
