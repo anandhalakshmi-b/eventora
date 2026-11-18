@@ -72,7 +72,7 @@ const celebrationEvents = [
   { name: '👶 Naming Ceremonies', tag: 'Cradle Functions', image: 'images/home/12.jpg', color: 'pink',
     desc: 'Cradle decoration with fresh jasmine and silks, family feast caterers, and digital announcements.',
     venueLink: '/venues?event=Naming%20Ceremony', inviteLink: '/invites' },
-  { name: '🪔 Festivals & Cultural Events', tag: 'Community Celebrations', image: 'images/venues/6.jpg', color: 'orange',
+  { name: '🪔 Festivals & Cultural Events', tag: 'Community Celebrations', image: 'images/venues/7.jpg', color: 'orange',
     desc: 'Open-air grounds with fairy lights, live Dhol and folk bands, and festive feasts.',
     venueLink: '/venues?event=Festival', budgetLink: '/budget', inviteLink: '/invites' }
 ];
