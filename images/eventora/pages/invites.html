@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Invites & Websites | Eventora</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Dancing+Script:wght@600&family=Playfair+Display:wght@600;800&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/theme.css">
+  <link rel="stylesheet" href="/css/ora.css">
+  <link rel="stylesheet" href="/css/invites.css">
+</head>
+<body>
+<!-- ===== SHARED TOP BAR: copy the same block in every page ===== -->
+<header class="topbar">
+  <a href="/" class="brand">Eventora</a>
+  <nav aria-label="Main">
+    <a href="/venues">Venues</a><a href="/ideas">Ideas</a><a href="/budget">Budget</a>
+    <a href="/consultation">Consultation</a><a href="/checklist">Checklist</a>
+    <a href="/guests">Guests</a><a href="/invites">Invites</a>
+  </nav>
+</header>
+<main class="container">
+  <h1>Invites &amp; Websites</h1>
+  <p>Design a beautiful invitation in three steps, then share it on WhatsApp.</p>
+
+  <ol class="steps" aria-label="Progress">
+    <li data-step="1" class="on">1. Choose template</li>
+    <li data-step="2">2. Fill details</li>
+    <li data-step="3">3. Preview &amp; create</li>
+  </ol>
+
+  <div id="errors" class="alert" role="alert" hidden></div>
+
+  <form id="invite-form" enctype="multipart/form-data" novalidate>
+    <input type="hidden" name="template" id="template" value="">
+
+    <!-- Step 1 -->
+    <section id="step-1" class="step">
+      <div class="grid tpl-grid">
+        <button type="button" class="card tpl" data-key="wedding" data-bg="#FEE2E2" data-fg="#DC2626" data-font="Playfair Display" data-heading="Shubh Vivah" data-title="Aarav &amp; Meera" data-message="Together with their families, request the pleasure of your company at the wedding celebrations. Your blessings and presence will make our day special." style="background:#FEE2E2;color:#DC2626">
+          <span class="tpl-emoji" aria-hidden="true">💍</span><strong>Wedding (Shubh Vivah)</strong>
+        </button>
+        <button type="button" class="card tpl" data-key="engagement" data-bg="#FCE7F3" data-fg="#DB2777" data-font="Dancing Script" data-heading="Save the Date · Sagai" data-title="Ananya &amp; Rohan" data-message="Join us as we celebrate the beginning of our forever with our loved ones." style="background:#FCE7F3;color:#DB2777">
+          <span class="tpl-emoji" aria-hidden="true">💞</span><strong>Engagement (Sagai)</strong>
+        </button>
+        <button type="button" class="card tpl" data-key="birthday" data-bg="#FEF9C3" data-fg="#CA8A04" data-font="Poppins" data-heading="You are invited!" data-title="Riya turns 10" data-message="Come celebrate with cake, games and lots of fun. Please join us!" style="background:#FEF9C3;color:#CA8A04">
+          <span class="tpl-emoji" aria-hidden="true">🎂</span><strong>Birthday</strong>
+        </button>
+        <button type="button" class="card tpl" data-key="babyshower" data-bg="#F3E8FF" data-fg="#9333EA" data-font="Dancing Script" data-heading="Godh Bharai" data-title="Baby on the way" data-message="We are expecting a little bundle of joy! Join us for blessings, games and a lovely get-together." style="background:#F3E8FF;color:#9333EA">
+          <span class="tpl-emoji" aria-hidden="true">🍼</span><strong>Baby Shower (Godh Bharai)</strong>
+        </button>
+        <button type="button" class="card tpl" data-key="housewarming" data-bg="#FFEDD5" data-fg="#EA580C" data-font="Playfair Display" data-heading="Griha Pravesh" data-title="Our New Home" data-message="With the blessings of the Almighty, we invite you to the housewarming puja and lunch at our new home." style="background:#FFEDD5;color:#EA580C">
+          <span class="tpl-emoji" aria-hidden="true">🏠</span><strong>Griha Pravesh</strong>
+        </button>
+        <button type="button" class="card tpl" data-key="naming" data-bg="#CFFAFE" data-fg="#0891B2" data-font="Dancing Script" data-heading="Namkaran Ceremony" data-title="Welcome, Little One" data-message="Please join us to bless our baby on the naming ceremony." style="background:#CFFAFE;color:#0891B2">
+          <span class="tpl-emoji" aria-hidden="true">👶</span><strong>Naming Ceremony (Namkaran)</strong>
+        </button>
+        <button type="button" class="card tpl" data-key="corporate" data-bg="#DBEAFE" data-fg="#2563EB" data-font="Inter" data-heading="You are invited" data-title="Annual Day 2026" data-message="We look forward to your presence for an evening of recognition, networking and celebration." style="background:#DBEAFE;color:#2563EB">
+          <span class="tpl-emoji" aria-hidden="true">💼</span><strong>Corporate Event</strong>
+        </button>
+        <button type="button" class="card tpl" data-key="anniversary" data-bg="#FCE7F3" data-fg="#DB2777" data-font="Playfair Display" data-heading="Celebrating Love" data-title="25 Years Together" data-message="Join us to celebrate a journey of love, laughter and togetherness." style="background:#FCE7F3;color:#DB2777">
+          <span class="tpl-emoji" aria-hidden="true">🥂</span><strong>Anniversary</strong>
+        </button>
+        <button type="button" class="card tpl" data-key="graduation" data-bg="#DCFCE7" data-fg="#16A34A" data-font="Poppins" data-heading="Cheers to the Graduate" data-title="Class of 2026" data-message="Come and celebrate this proud milestone with us." style="background:#DCFCE7;color:#16A34A">
+          <span class="tpl-emoji" aria-hidden="true">🎓</span><strong>Graduation / Farewell</strong>
+        </button>
+        <button type="button" class="card tpl" data-key="festival" data-bg="#FFEDD5" data-fg="#EA580C" data-font="Playfair Display" data-heading="Shubh Deepavali" data-title="Diwali Get-together" data-message="Light up the evening with us. Join for diyas, sweets, music and good company." style="background:#FFEDD5;color:#EA580C">
+          <span class="tpl-emoji" aria-hidden="true">🪔</span><strong>Festival (Diwali / Eid / Christmas)</strong>
+        </button>
+      </div>
+    </section>
+
+    <!-- Step 2 (form + live preview). Step 3 reuses the preview. -->
+    <section id="step-2" class="step two-col" hidden>
+      <div class="card form-panel">
+        <label for="title">Event title</label><input id="title" name="title" required>
+        <label for="hosts">Host names</label><input id="hosts" name="hosts" placeholder="e.g. The Sharma &amp; Iyer Families">
+        <label for="date">Date</label><input id="date" type="date" name="date">
+        <label for="time">Time</label><input id="time" name="time" placeholder="e.g. 7:00 PM onwards">
+        <label for="venue">Venue</label><input id="venue" name="venue" placeholder="e.g. Grand Heritage Banquet">
+        <label for="address">Address</label><input id="address" name="address" placeholder="Area, City, PIN">
+        <label for="dressCode">Dress code</label><input id="dressCode" name="dressCode" placeholder="e.g. Traditional / Ethnic wear">
+        <label for="rsvpContact">RSVP contact (mobile or email)</label><input id="rsvpContact" name="rsvpContact">
+        <label for="message">Custom message</label><textarea id="message" name="message" rows="4"></textarea>
+        <label for="photo">Photo (JPG, PNG or WebP, up to 3 MB)</label><input id="photo" type="file" name="photo" accept="image/png,image/jpeg,image/webp">
+        <label for="fontFamily">Font</label>
+        <select id="fontFamily" name="fontFamily"><option>Playfair Display</option><option>Dancing Script</option><option>Poppins</option><option>Inter</option></select>
+        <label for="accent">Accent colour</label><input id="accent" type="color" name="accent" value="#DB2777">
+        <p class="nav-row">
+          <button type="button" class="btn inv-btn-outline" id="back-1">Back</button>
+          <button type="button" class="btn inv-btn" id="to-3">Next: preview</button>
+        </p>
+      </div>
+      <div class="preview-wrap" aria-live="polite">
+        <h2 class="sr-only">Live preview</h2>
+        <article id="invite-card" class="invite-card" style="--bg:#FCE7F3;--fg:#DB2777;font-family:'Playfair Display',serif">
+          <div class="inv-lotus" aria-hidden="true">🪷</div>
+          <p class="inv-heading" data-field="heading"></p>
+          <img class="inv-photo" data-field="photo" alt="Event photo" hidden>
+          <h2 class="inv-title" data-field="title"></h2>
+          <p class="inv-hosts" data-field="hosts"></p>
+          <p class="inv-message" data-field="message"></p>
+          <div class="inv-details">
+            <p><strong>When:</strong> <span data-field="dateText"></span> <span data-field="time"></span></p>
+            <p><strong>Where:</strong> <span data-field="venue"></span> <span data-field="address"></span></p>
+            <p><strong>Dress code:</strong> <span data-field="dressCode"></span></p>
+            <p><strong>RSVP:</strong> <span data-field="rsvpContact"></span></p>
+          </div>
+          <p class="inv-brand">Made with Eventora</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="step-3" class="step" hidden>
+      <div class="card tile-pink">
+        <h2>Looking good! 🎉</h2>
+        <p>Create your invite to get a shareable link, PNG/PDF download, WhatsApp sharing and a mini event website with RSVP.</p>
+        <p class="nav-row">
+          <button type="button" class="btn inv-btn-outline" id="back-2">Edit details</button>
+          <button type="submit" class="btn inv-btn">Create invite &amp; website</button>
+        </p>
+      </div>
+    </section>
+  </form>
+</main>
+
+<footer class="site-footer"><p>© Eventora · Plan every moment, beautifully.</p></footer>
+
+<!-- ===== ORA FLOATING CHAT (Module 9): paste this block + the script tag before </body> on EVERY page ===== -->
+<button id="ora-fab" class="ora-fab" aria-label="Chat with Ora" aria-expanded="false">💬</button>
+<section id="ora-window" class="ora-window" hidden aria-label="Chat with Ora">
+  <header class="ora-head"><strong>Ora</strong> · your planning buddy
+    <button id="ora-close" class="ora-x" aria-label="Close chat">×</button></header>
+  <div id="ora-log" class="ora-log" role="log" aria-live="polite"></div>
+  <div class="ora-quick">
+    <button data-q="Find venues">Find venues</button>
+    <button data-q="Set a budget">Set a budget</button>
+    <button data-q="Make an invite">Make an invite</button>
+    <button data-q="Talk to a human">Talk to a human</button>
+  </div>
+  <div class="ora-form">
+    <label for="ora-input" class="sr-only">Message Ora</label>
+    <input id="ora-input" type="text" maxlength="500" placeholder="Ask Ora anything..." autocomplete="off">
+    <button id="ora-send" class="ora-send">Send</button>
+  </div>
+</section>
+
+<script src="/js/invites.js"></script>
+<script src="/js/ora.js"></script>
+</body>
+</html>

@@ -21,15 +21,8 @@
   <button id="burger" aria-label="Open menu" aria-expanded="false">☰</button>
   <div class="links" id="links">
     <a href="index.html">Home</a>
-    <a href="venues.html">Venues &amp; Vendors</a>
-    <a href="ideas.html">Ideas</a>
-    <a href="budget.html">Budget</a>
-    <a href="checklist.html">Checklist</a>
-    <a href="guests.html">Guests</a>
-    <a href="consultation.html">Consultation</a>
-    <a href="invites.html" class="on">Invites</a>
-    <a href="favorites.html">Favourites ♥</a>
-    <a class="btn sm" href="register.html" id="nav-auth-btn">Register</a>
+    <a href="chatbot.html">Chatbot</a>
+    <a class="btn sm" href="register.html" id="nav-auth-btn">Login / Register</a>
   </div>
 </nav>
 
@@ -59,42 +52,70 @@
   <form id="invite-form" novalidate>
     <input type="hidden" name="template" id="template" value="wedding">
 
-    <!-- STEP 1: Choose Template (Covering all event types) -->
+    <!-- STEP 1: Choose Template (5 Core Basic Templates) -->
     <section id="step-1" class="step">
-      <div class="grid tpl-grid">
-        <button type="button" class="tpl" data-key="wedding" data-bg="#FEE2E2" data-fg="#DC2626" data-font="Playfair Display" data-heading="Wedding Celebration" data-title="Aarav &amp; Meera" data-message="Together with their families, request the pleasure of your company at their wedding celebrations. Your presence will make our day special." style="background:#FEE2E2;color:#DC2626">
+      <div style="margin-bottom: 20px;">
+        <h2 style="font-size: 1.4rem; font-weight: 800; margin: 0 0 4px;">Choose from Basic Invitation Templates</h2>
+        <p style="color: #64748B; margin: 0; font-size: 0.95rem;">Select any of the basic templates below to personalize the message, date, venue, typography, and live colors.</p>
+      </div>
+
+      <div style="margin-bottom: 12px; font-weight: 800; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; color: #DB2777;">
+        ★ 5 Core Basic Templates
+      </div>
+      <div class="grid tpl-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+        <!-- Template 1: Wedding -->
+        <button type="button" class="tpl" data-key="wedding" data-bg="#FEE2E2" data-fg="#DC2626" data-font="Playfair Display" data-heading="Wedding Celebration" data-title="Aarav &amp; Meera" data-message="Together with their families, request the pleasure of your company at their wedding celebrations. Your presence will make our day special." style="background:#FEE2E2;color:#DC2626; border:2px solid #FECACA;">
+          <span style="font-size:0.75rem; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; background:rgba(220,38,38,0.12); padding:2px 8px; border-radius:999px;">Basic Template 1</span>
           <span class="tpl-emoji" aria-hidden="true">💍</span>
-          <strong>Wedding</strong>
+          <strong>Royal Wedding</strong>
+          <small style="font-size:0.75rem; opacity:0.85;">Serif · Deep Crimson &amp; Gold</small>
         </button>
 
-        <button type="button" class="tpl" data-key="engagement" data-bg="#FCE7F3" data-fg="#DB2777" data-font="Dancing Script" data-heading="Save the Date" data-title="Ananya &amp; Rohan" data-message="Join us as we celebrate our engagement and the beginning of our forever together." style="background:#FCE7F3;color:#DB2777">
-          <span class="tpl-emoji" aria-hidden="true">💞</span>
-          <strong>Engagement &amp; Ring Ceremony</strong>
-        </button>
-
-        <button type="button" class="tpl" data-key="birthday" data-bg="#FEF9C3" data-fg="#CA8A04" data-font="Poppins" data-heading="You are invited!" data-title="Riya's Birthday Bash" data-message="Come celebrate with cake, music, laughter and lots of fun. Please join us to make it unforgettable!" style="background:#FEF9C3;color:#CA8A04">
+        <!-- Template 2: Birthday -->
+        <button type="button" class="tpl" data-key="birthday" data-bg="#FEF9C3" data-fg="#CA8A04" data-font="Poppins" data-heading="You are invited!" data-title="Riya's Birthday Bash" data-message="Come celebrate with cake, music, laughter and lots of fun. Please join us to make it unforgettable!" style="background:#FEF9C3;color:#CA8A04; border:2px solid #FDE68A;">
+          <span style="font-size:0.75rem; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; background:rgba(202,138,4,0.12); padding:2px 8px; border-radius:999px;">Basic Template 2</span>
           <span class="tpl-emoji" aria-hidden="true">🎂</span>
-          <strong>Birthday Party</strong>
+          <strong>Birthday Celebration</strong>
+          <small style="font-size:0.75rem; opacity:0.85;">Modern · Warm Festive Amber</small>
         </button>
 
+        <!-- Template 3: Engagement -->
+        <button type="button" class="tpl" data-key="engagement" data-bg="#FCE7F3" data-fg="#DB2777" data-font="Dancing Script" data-heading="Save the Date" data-title="Ananya &amp; Rohan" data-message="Join us as we celebrate our engagement and the beginning of our forever together." style="background:#FCE7F3;color:#DB2777; border:2px solid #FBCFE8;">
+          <span style="font-size:0.75rem; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; background:rgba(219,39,119,0.12); padding:2px 8px; border-radius:999px;">Basic Template 3</span>
+          <span class="tpl-emoji" aria-hidden="true">💞</span>
+          <strong>Romantic Engagement</strong>
+          <small style="font-size:0.75rem; opacity:0.85;">Calligraphy · Rose Petal Pink</small>
+        </button>
+
+        <!-- Template 4: Corporate -->
+        <button type="button" class="tpl" data-key="corporate" data-bg="#DBEAFE" data-fg="#2563EB" data-font="Inter" data-heading="You Are Cordially Invited" data-title="Annual Corporate Gala 2026" data-message="Join us for an evening of team recognition, leadership keynotes, dinner, and networking celebration." style="background:#DBEAFE;color:#2563EB; border:2px solid #BFDBFE;">
+          <span style="font-size:0.75rem; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; background:rgba(37,99,235,0.12); padding:2px 8px; border-radius:999px;">Basic Template 4</span>
+          <span class="tpl-emoji" aria-hidden="true">💼</span>
+          <strong>Corporate Gala</strong>
+          <small style="font-size:0.75rem; opacity:0.85;">Minimalist · Executive Navy Blue</small>
+        </button>
+
+        <!-- Template 5: Housewarming -->
+        <button type="button" class="tpl" data-key="housewarming" data-bg="#FFEDD5" data-fg="#EA580C" data-font="Playfair Display" data-heading="Housewarming Gathering" data-title="Our New Home" data-message="With heartfelt joy, we invite you to bless our new home, share delicious food, and celebrate with us." style="background:#FFEDD5;color:#EA580C; border:2px solid #FED7AA;">
+          <span style="font-size:0.75rem; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; background:rgba(234,88,12,0.12); padding:2px 8px; border-radius:999px;">Basic Template 5</span>
+          <span class="tpl-emoji" aria-hidden="true">🏠</span>
+          <strong>Housewarming Blessing</strong>
+          <small style="font-size:0.75rem; opacity:0.85;">Traditional · Auspicious Orange</small>
+        </button>
+      </div>
+
+      <div style="margin: 32px 0 14px; font-weight: 800; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; color: #64748B;">
+        ✦ Additional Celebration Themes
+      </div>
+      <div class="grid tpl-grid">
         <button type="button" class="tpl" data-key="graduation" data-bg="#DCFCE7" data-fg="#16A34A" data-font="Poppins" data-heading="Congratulations Graduate!" data-title="Class of 2026 Farewell" data-message="Come celebrate this proud college milestone, toast to memories, and cheer for the journey ahead!" style="background:#DCFCE7;color:#16A34A">
           <span class="tpl-emoji" aria-hidden="true">🎓</span>
-          <strong>College Event &amp; Graduation</strong>
-        </button>
-
-        <button type="button" class="tpl" data-key="corporate" data-bg="#DBEAFE" data-fg="#2563EB" data-font="Inter" data-heading="You Are Cordially Invited" data-title="Annual Corporate Gala 2026" data-message="Join us for an evening of team recognition, leadership keynotes, dinner, and networking celebration." style="background:#DBEAFE;color:#2563EB">
-          <span class="tpl-emoji" aria-hidden="true">💼</span>
-          <strong>Corporate &amp; Team Event</strong>
+          <strong>College Farewell &amp; Graduation</strong>
         </button>
 
         <button type="button" class="tpl" data-key="babyshower" data-bg="#F3E8FF" data-fg="#9333EA" data-font="Dancing Script" data-heading="Blessings for the Little One" data-title="Baby Shower Celebration" data-message="We are expecting a sweet little bundle of joy! Join us for blessings, games, food and happiness." style="background:#F3E8FF;color:#9333EA">
           <span class="tpl-emoji" aria-hidden="true">🍼</span>
           <strong>Baby Shower</strong>
-        </button>
-
-        <button type="button" class="tpl" data-key="housewarming" data-bg="#FFEDD5" data-fg="#EA580C" data-font="Playfair Display" data-heading="Housewarming Gathering" data-title="Our New Home" data-message="With heartfelt joy, we invite you to bless our new home, share delicious food, and celebrate with us." style="background:#FFEDD5;color:#EA580C">
-          <span class="tpl-emoji" aria-hidden="true">🏠</span>
-          <strong>Housewarming</strong>
         </button>
 
         <button type="button" class="tpl" data-key="anniversary" data-bg="#FCE7F3" data-fg="#DB2777" data-font="Playfair Display" data-heading="Celebrating Togetherness" data-title="Silver Wedding Anniversary" data-message="Join us in celebrating 25 years of love, laughter, shared dreams and cherished moments." style="background:#FCE7F3;color:#DB2777">

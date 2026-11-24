@@ -1,0 +1,15 @@
+.bar{height:16px;background:#E5E7EB;border-radius:99px;overflow:hidden;margin:6px 0 18px}
+.bar i{display:block;height:100%;background:#16A34A;border-radius:99px;transition:width .4s}
+.bar.over i{background:#DC2626}
+.charts{display:grid;grid-template-columns:1fr 1.4fr;gap:22px}
+.pie{width:200px;height:200px;border-radius:50%;margin:10px auto 16px}
+.legend{list-style:none;padding:0;margin:0;display:grid;gap:6px;font-size:.9rem}
+.legend li{display:flex;align-items:center;gap:8px}
+.legend i{width:12px;height:12px;border-radius:3px;flex:none}
+.legend span{margin-left:auto;font-weight:700}
+.bars{display:grid;gap:14px}
+.bars div b{display:block;font-size:.85rem;margin-bottom:3px}
+.bars em{display:flex;align-items:center;gap:8px;font-style:normal;font-size:.75rem;margin-bottom:2px}
+.bars em i{display:block;height:10px;border-radius:99px}
+.est{background:#FCA5A5}.act{background:#DC2626}
+@media(max-width:800px){.charts{grid-template-columns:1fr}}

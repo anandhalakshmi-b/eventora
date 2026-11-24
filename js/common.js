@@ -1,0 +1,197 @@
+/* Shared helpers */
+const $ = id => document.getElementById(id);
+const rupee = n => '₹' + Number(n || 0).toLocaleString('en-IN');
+const uid = () => Math.random().toString(36).slice(2, 9);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const load = (k, d) => { try { const v = JSON.parse(localStorage.getItem(k)); return v ?? d; } catch (e) { return d; } };
+const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
+
+function downloadFile(name, text) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([text], { type: 'text/csv' }));
+  a.download = name; a.click(); URL.revokeObjectURL(a.href);
+}
+const csvCell = v => '"' + String(v ?? '').replace(/"/g, '""') + '"';
+function parseCSV(text) {            /* handles quoted cells */
+  const rows = []; let row = [], cell = '', q = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (q) { if (c === '"' && text[i + 1] === '"') { cell += '"'; i++; } else if (c === '"') q = false; else cell += c; }
+    else if (c === '"') q = true;
+    else if (c === ',') { row.push(cell); cell = ''; }
+    else if (c === '\n' || c === '\r') { if (c === '\r' && text[i + 1] === '\n') i++; row.push(cell); rows.push(row); row = []; cell = ''; }
+    else cell += c;
+  }
+  if (cell || row.length) { row.push(cell); rows.push(row); }
+  return rows.filter(r => r.some(x => x.trim()));
+}
+
+// ========================================================
+// Dynamic Navbar Sync: Logged-out vs Vendor vs Customer
+// ========================================================
+function initDynamicNavbar() {
+  const linksContainer = document.getElementById('links');
+  if (!linksContainer) return;
+
+  const path = window.location.pathname.toLowerCase();
+  const isFile = window.location.protocol === 'file:' || path.endsWith('.html');
+
+  // URL resolver
+  const u = (clean, file) => isFile ? file : clean;
+
+  const routes = {
+    home: u('/', 'index.html'),
+    chatbot: u('/ora', 'chatbot.html'),
+    register: u('/register', 'register.html'),
+    venues: u('/venues', 'venues.html'),
+    ideas: u('/ideas', 'ideas.html'),
+    budget: u('/budget', 'budget.html'),
+    checklist: u('/checklist', 'checklist.html'),
+    guests: u('/guests', 'guests.html'),
+    rsvp: u('/rsvp', 'rsvp.html'),
+    consultation: u('/consultation', 'consultation.html'),
+    invites: u('/invites', 'invites.html'),
+    favorites: u('/favorites', 'favorites.html'),
+    userDashboard: u('/dashboard', 'eventora-dashboard.html'),
+    vendorDashboard: u('/vendor-dashboard', 'vendor-dashboard.html')
+  };
+
+  // Determine current active page key
+  const isActive = (key) => {
+    if (key === 'home' && (path === '/' || path.endsWith('/index.html') || path.endsWith('/home.html') || path === '')) return true;
+    if (key === 'chatbot' && (path.includes('ora') || path.includes('chatbot'))) return true;
+    if (key === 'register' && path.includes('register')) return true;
+    if (key === 'venues' && (path.includes('venues') || path.includes('vendors'))) return true;
+    if (key === 'ideas' && path.includes('ideas')) return true;
+    if (key === 'budget' && path.includes('budget')) return true;
+    if (key === 'checklist' && path.includes('checklist')) return true;
+    if (key === 'guests' && path.includes('guests')) return true;
+    if (key === 'rsvp' && path.includes('rsvp')) return true;
+    if (key === 'consultation' && path.includes('consultation')) return true;
+    if (key === 'invites' && path.includes('invites')) return true;
+    if (key === 'favorites' && path.includes('favorites')) return true;
+    if (key === 'userDashboard' && path.includes('dashboard') && !path.includes('vendor')) return true;
+    if (key === 'vendorDashboard' && path.includes('vendor-dashboard')) return true;
+    return false;
+  };
+
+  let currentUser = null;
+  try {
+    currentUser = JSON.parse(localStorage.getItem('eventora_user'));
+  } catch (e) {}
+
+  // Page protection guard for user-only modules and dashboards
+  const userOnlyPages = ['budget', 'checklist', 'guests', 'rsvp', 'favorites'];
+  const isUserOnlyPage = userOnlyPages.some(p => path.includes(p));
+
+  if (isUserOnlyPage) {
+    if (!currentUser) {
+      sessionStorage.setItem('eventora_redirect', window.location.pathname || window.location.href);
+      alert('This planning module (Checklist, Guests, Budget, Favorites) is available after registering or logging in. Please sign in or create an account.');
+      window.location.href = routes.register + '?mode=login';
+      return;
+    } else if (currentUser.role === 'vendor') {
+      alert('Vendor accounts cannot access customer planning modules. Redirecting to your Vendor Dashboard.');
+      window.location.href = routes.vendorDashboard;
+      return;
+    }
+  }
+
+  if (path.includes('vendor-dashboard')) {
+    if (!currentUser || currentUser.role !== 'vendor') {
+      alert('Please log in with a Vendor Partner account to access the Vendor Dashboard.');
+      window.location.href = routes.register + '?mode=login&role=vendor';
+      return;
+    }
+  }
+
+  if (path.includes('dashboard') && !path.includes('vendor')) {
+    if (!currentUser) {
+      sessionStorage.setItem('eventora_redirect', window.location.pathname || window.location.href);
+      alert('Please sign in to access your User Dashboard.');
+      window.location.href = routes.register + '?mode=login';
+      return;
+    } else if (currentUser.role === 'vendor') {
+      window.location.href = routes.vendorDashboard;
+      return;
+    }
+  }
+
+  let navHtml = '';
+
+  if (!currentUser) {
+    // ----------------------------------------------------
+    // 1. VISITOR / NOT LOGGED IN
+    // Home + basic modules visible; Checklist, Guests, Budget, Favorites hidden
+    // ----------------------------------------------------
+    navHtml = `
+      <a href="${routes.home}" class="${isActive('home') ? 'on' : ''}">Home</a>
+      <a href="${routes.venues}" class="${isActive('venues') ? 'on' : ''}">Venues &amp; Vendors</a>
+      <a href="${routes.ideas}" class="${isActive('ideas') ? 'on' : ''}">Ideas</a>
+      <a href="${routes.consultation}" class="${isActive('consultation') ? 'on' : ''}">Consultation</a>
+      <a href="${routes.invites}" class="${isActive('invites') ? 'on' : ''}">Invites</a>
+      <a href="${routes.chatbot}" class="${isActive('chatbot') ? 'on' : ''}">Chatbot</a>
+      <a class="btn sm ${isActive('register') ? 'on' : ''}" href="${routes.register}" id="nav-auth-btn">Login / Register</a>
+    `;
+  } else if (currentUser.role === 'vendor') {
+    // ----------------------------------------------------
+    // 2. VENDOR LOGIN
+    // Shows vendor dashboard, home, listings; user planning modules hidden
+    // ----------------------------------------------------
+    const vName = (currentUser.vendorDetails && currentUser.vendorDetails.businessName) || currentUser.name || 'Vendor';
+    navHtml = `
+      <a href="${routes.vendorDashboard}" class="${isActive('vendorDashboard') ? 'on' : ''}">Vendor Dashboard</a>
+      <a href="${routes.home}" class="${isActive('home') ? 'on' : ''}">Home</a>
+      <a href="${routes.ideas}" class="${isActive('ideas') ? 'on' : ''}">Ideas</a>
+      <a href="${routes.chatbot}" class="${isActive('chatbot') ? 'on' : ''}">Chatbot</a>
+      <span class="nav-user-badge" title="${esc(vName)}">🏢 ${esc(vName.length > 16 ? vName.slice(0, 14) + '...' : vName)}</span>
+      <button type="button" class="nav-logout-btn" id="nav-logout">Logout</button>
+    `;
+  } else {
+    // ----------------------------------------------------
+    // 3. LOGGED-IN CUSTOMER (USER)
+    // Access to Dashboard where personal planning tools reside
+    // ----------------------------------------------------
+    const uFirstName = (currentUser.name || 'User').split(' ')[0];
+    navHtml = `
+      <a href="${routes.home}" class="${isActive('home') ? 'on' : ''}">Home</a>
+      <a href="${routes.userDashboard}" class="${isActive('userDashboard') ? 'on' : ''}">Dashboard</a>
+      <a href="${routes.venues}" class="${isActive('venues') ? 'on' : ''}">Venues &amp; Vendors</a>
+      <a href="${routes.ideas}" class="${isActive('ideas') ? 'on' : ''}">Ideas</a>
+      <a href="${routes.consultation}" class="${isActive('consultation') ? 'on' : ''}">Consultation</a>
+      <a href="${routes.invites}" class="${isActive('invites') ? 'on' : ''}">Invites</a>
+      <a href="${routes.chatbot}" class="${isActive('chatbot') ? 'on' : ''}">Chatbot</a>
+      <span class="nav-user-badge" title="${esc(currentUser.name || '')}">👤 ${esc(uFirstName)}</span>
+      <button type="button" class="nav-logout-btn" id="nav-logout">Logout</button>
+    `;
+  }
+
+  linksContainer.innerHTML = navHtml;
+
+  // Handle Logout
+  const logoutBtn = document.getElementById('nav-logout');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', () => {
+      localStorage.removeItem('eventora_user');
+      window.location.href = routes.home;
+    });
+  }
+
+  // Handle Burger toggle
+  const burger = document.getElementById('burger');
+  if (burger && !burger._dynBound) {
+    burger._dynBound = true;
+    burger.onclick = () => {
+      const open = linksContainer.classList.toggle('open');
+      burger.setAttribute('aria-expanded', String(open));
+    };
+  }
+}
+
+window.initDynamicNavbar = initDynamicNavbar;
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initDynamicNavbar);
+} else {
+  initDynamicNavbar();
+}

@@ -38,9 +38,6 @@
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
     .panel { background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 28px; box-shadow: 0 4px 12px rgba(15,23,42,0.04); }
     .panel h2 { margin: 0 0 16px; font-size: 1.35rem; font-weight: 800; }
-    .feature-list { display: flex; flex-direction: column; gap: 12px; }
-    .feature-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; border-radius: 14px; background: var(--panel); border: 1px solid var(--line); text-decoration: none; color: inherit; font-weight: 600; transition: transform 0.15s ease, background 0.15s ease; }
-    .feature-item:hover { transform: translateX(4px); background: #EDE9FE; color: var(--purple-ac); }
     .progress-bar { height: 10px; border-radius: 999px; background: #E2E8F0; overflow: hidden; margin-top: 12px; }
     .progress-fill { height: 100%; width: 68%; background: var(--purple-ac); border-radius: 999px; }
   </style>
@@ -51,16 +48,7 @@
   <a class="brand" href="index.html"><img src="images/logo.png" alt="Eventora logo">Eventora</a>
   <button id="burger" aria-label="Open menu" aria-expanded="false">☰</button>
   <div class="links" id="links">
-    <a href="index.html">Home</a>
-    <a href="venues.html">Venues &amp; Vendors</a>
-    <a href="ideas.html">Ideas</a>
-    <a href="budget.html">Budget</a>
-    <a href="checklist.html">Checklist</a>
-    <a href="guests.html">Guests</a>
-    <a href="consultation.html">Consultation</a>
-    <a href="invites.html">Invites</a>
-    <a href="favorites.html">Favourites ♥</a>
-    <a class="btn sm" href="register.html">Register</a>
+    <a href="eventora-dashboard.html">Home</a>
   </div>
 </nav>
 
@@ -103,40 +91,6 @@
 
   <div class="grid">
     <div class="panel">
-      <h2>Quick Planning Tools</h2>
-      <div class="feature-list">
-        <a class="feature-item" href="venues.html">
-          <span>🏛️ Shortlist Heritage Mandaps &amp; Lawns</span>
-          <span>→</span>
-        </a>
-        <a class="feature-item" href="vendors.html">
-          <span>🎉 Book Caterers, Mehendi &amp; Dhol DJs</span>
-          <span>→</span>
-        </a>
-        <a class="feature-item" href="ideas.html">
-          <span>✨ Explore Haldi &amp; Sangeet Moodboards</span>
-          <span>→</span>
-        </a>
-        <a class="feature-item" href="budget.html">
-          <span>💰 Track Rupee Expenses &amp; Invoices</span>
-          <span>→</span>
-        </a>
-        <a class="feature-item" href="checklist.html">
-          <span>📋 Auspicious Rituals Checklist</span>
-          <span>→</span>
-        </a>
-        <a class="feature-item" href="guests.html">
-          <span>👥 Manage Atithi &amp; WhatsApp RSVPs</span>
-          <span>→</span>
-        </a>
-        <a class="feature-item" href="invites.html">
-          <span>💌 Design Digital WhatsApp Patrika</span>
-          <span>→</span>
-        </a>
-      </div>
-    </div>
-
-    <div class="panel">
       <h2>Upcoming Ceremonies &amp; Milestones</h2>
       <div style="display:flex; flex-direction:column; gap:16px;">
         <div style="padding:14px; background:#FEF3C7; border-radius:14px; border:1px solid #FDE68A;">
@@ -162,12 +116,13 @@
 <footer class="site-footer">
   <div><b>Eventora</b><br>Plan every royal Indian celebration, beautifully.</div>
   <div>
-    <a href="index.html">Home</a>
+    <a href="eventora-dashboard.html">Home</a>
     <a href="venues.html">Venues &amp; Vendors</a>
     <a href="ideas.html">Ideas</a>
     <a href="budget.html">Budget</a>
     <a href="checklist.html">Checklist</a>
     <a href="guests.html">Guests</a>
+    <a href="rsvp.html">RSVP</a>
     <a href="invites.html">Invites</a>
   </div>
 </footer>
@@ -193,6 +148,7 @@
   </div>
 </section>
 
+<script src="js/common.js"></script>
 <script src="js/ora.js"></script>
 </body>
 </html>

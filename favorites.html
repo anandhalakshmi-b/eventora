@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Favourites | Eventora</title>
+<link rel="icon" href="images/logo.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="css/venues.css">
+<link rel="stylesheet" href="css/navbar.css">
+<link rel="stylesheet" href="css/ora.css">
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="index.html"><img src="images/logo.png" alt="Eventora logo">Eventora</a>
+  <button id="burger" aria-label="Open menu" aria-expanded="false">☰</button>
+  <div class="links" id="links">
+    <a href="index.html">Home</a>
+    <a href="venues.html">Venues &amp; Vendors</a>
+    <a href="ideas.html">Ideas</a>
+    <a href="budget.html">Budget</a>
+    <a href="checklist.html">Checklist</a>
+    <a href="guests.html">Guests</a>
+    <a href="consultation.html">Consultation</a>
+    <a href="invites.html">Invites</a>
+    <a href="favorites.html" class="on">Favourites ♥</a>
+    <a class="btn sm" href="register.html">Register</a>
+  </div>
+</nav>
+
+<!-- Royal Video Hero -->
+<header class="hero">
+  <video class="hero-video" autoplay muted loop playsinline poster="images/venues/1.jpg" aria-hidden="true">
+    <source src="images/venues/venues.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-kicker">✦ SHORTLIST &amp; SAVED MASTERS ✦</p>
+    <h1>Your Shortlist &amp; Favourites ♥</h1>
+    <p>Your handpicked heritage venues, kalyana mandapams, and event masters all in one place.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="favorite-section">
+    <div class="directory-top"><div><h2>Saved venues</h2><p id="favorite-venue-count"></p></div></div>
+    <div id="favorite-venues"></div>
+  </section>
+  <section class="favorite-section">
+    <div class="directory-top"><div><h2>Saved vendors</h2><p id="favorite-vendor-count"></p></div></div>
+    <div id="favorite-vendors"></div>
+  </section>
+</main>
+
+<footer>
+  <div><b>Eventora</b><br>Plan every royal Indian celebration, beautifully.</div>
+  <div><a href="index.html">Home</a><a href="venues.html">Venues &amp; Vendors</a><a href="budget.html">Budget</a><a href="checklist.html">Checklist</a><a href="invites.html">Invites</a></div>
+</footer>
+
+<dialog id="dlg" aria-label="Venue details"><div id="dbody"></div></dialog>
+<dialog id="vendor-dialog" class="detail-dialog" aria-label="Vendor details"><div id="vendor-dialog-body"></div></dialog>
+<script src="js/common.js"></script>
+<script src="js/venues.js"></script>
+
+<!-- ===== ORA FLOATING CHAT ===== -->
+<button id="ora-fab" class="ora-fab" aria-label="Chat with Ora" aria-expanded="false">💬</button>
+<section id="ora-window" class="ora-window" hidden aria-label="Chat with Ora">
+  <header class="ora-head">
+    <strong>Ora</strong> · your planning buddy
+    <button id="ora-close" class="ora-x" aria-label="Close chat">×</button>
+  </header>
+  <div id="ora-log" class="ora-log" role="log" aria-live="polite"></div>
+  <div class="ora-quick">
+    <button data-q="Find venues">Find venues</button>
+    <button data-q="Set a budget">Set a budget</button>
+    <button data-q="Make an invite">Make an invite</button>
+    <button data-q="Talk to a human">Talk to a human</button>
+  </div>
+  <div class="ora-form">
+    <label for="ora-input" class="sr-only">Message Ora</label>
+    <input id="ora-input" type="text" maxlength="500" placeholder="Ask Ora anything..." autocomplete="off">
+    <button id="ora-send" class="ora-send">Send</button>
+  </div>
+</section>
+
+<script src="js/ora.js"></script>
+</body>
+</html>

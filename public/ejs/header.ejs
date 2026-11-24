@@ -3,14 +3,7 @@
   <button id="burger" aria-label="Open menu" aria-expanded="false">☰</button>
   <div class="links" id="links">
     <a href="/" class="<%= activePath === '/' ? 'on' : '' %>">Home</a>
-    <a href="/venues" class="<%= activePath === '/venues' ? 'on' : '' %>">Venues & Vendors</a>
-    <a href="/ideas" class="<%= activePath === '/ideas' ? 'on' : '' %>">Ideas</a>
-    <a href="/budget" class="<%= activePath === '/budget' ? 'on' : '' %>">Budget</a>
-    <a href="/checklist" class="<%= activePath === '/checklist' ? 'on' : '' %>">Checklist</a>
-    <a href="/guests" class="<%= activePath === '/guests' ? 'on' : '' %>">Guests</a>
-    <a href="/consultation" class="<%= activePath === '/consultation' ? 'on' : '' %>">Consultation</a>
-    <a href="/invites" class="<%= activePath === '/invites' ? 'on' : '' %>">Invites</a>
-    <a href="/favorites" class="<%= activePath === '/favorites' ? 'on' : '' %>">Favourites ♥</a>
-    <a class="btn sm" href="/register">Register</a>
+    <a href="/ora" class="<%= (activePath === '/ora' || activePath === '/chatbot') ? 'on' : '' %>">Chatbot</a>
+    <a class="btn sm" href="/register" id="nav-auth-btn">Login / Register</a>
   </div>
 </nav>

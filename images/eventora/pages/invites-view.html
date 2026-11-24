@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your Invite | Eventora</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Dancing+Script:wght@600&family=Playfair+Display:wght@600;800&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/theme.css">
+  <link rel="stylesheet" href="/css/ora.css">
+  <link rel="stylesheet" href="/css/invites.css">
+</head>
+<body>
+<!-- ===== SHARED TOP BAR: copy the same block in every page ===== -->
+<header class="topbar">
+  <a href="/" class="brand">Eventora</a>
+  <nav aria-label="Main">
+    <a href="/venues">Venues</a><a href="/ideas">Ideas</a><a href="/budget">Budget</a>
+    <a href="/consultation">Consultation</a><a href="/checklist">Checklist</a>
+    <a href="/guests">Guests</a><a href="/invites">Invites</a>
+  </nav>
+</header>
+<main class="container">
+  <div id="errors" class="alert" role="alert" hidden></div>
+  <div id="view-root" hidden>
+    <h1>Your invite is ready 🎉</h1>
+    <div class="two-col">
+      <div class="preview-wrap">
+        <article id="invite-card" class="invite-card" style="--bg:#FCE7F3;--fg:#DB2777;font-family:'Playfair Display',serif">
+          <div class="inv-lotus" aria-hidden="true">🪷</div>
+          <p class="inv-heading" data-field="heading"></p>
+          <img class="inv-photo" data-field="photo" alt="Event photo" hidden>
+          <h2 class="inv-title" data-field="title"></h2>
+          <p class="inv-hosts" data-field="hosts"></p>
+          <p class="inv-message" data-field="message"></p>
+          <div class="inv-details">
+            <p><strong>When:</strong> <span data-field="dateText"></span> <span data-field="time"></span></p>
+            <p><strong>Where:</strong> <span data-field="venue"></span> <span data-field="address"></span></p>
+            <p><strong>Dress code:</strong> <span data-field="dressCode"></span></p>
+            <p><strong>RSVP:</strong> <span data-field="rsvpContact"></span></p>
+          </div>
+          <p class="inv-brand">Made with Eventora</p>
+        </article>
+      </div>
+      <div class="card form-panel">
+        <h2>Share it</h2>
+        <p class="nav-row">
+          <button class="btn inv-btn" id="dl-png" type="button">Download PNG</button>
+          <button class="btn inv-btn" id="dl-pdf" type="button">Download PDF</button>
+        </p>
+        <label for="share-url">Shareable link (event website)</label>
+        <input id="share-url" readonly>
+        <p class="nav-row">
+          <button class="btn inv-btn-outline" id="copy-link" type="button">Copy link</button>
+          <a id="wa-link" class="btn inv-btn-outline" href="#" target="_blank" rel="noopener">Share on WhatsApp</a>
+          <a id="mail-link" class="btn inv-btn-outline" href="#">Share by email</a>
+          <a id="site-link" class="btn inv-btn-outline" href="#" target="_blank" rel="noopener">Open event website</a>
+        </p>
+        <p id="copy-msg" class="small" role="status"></p>
+
+        <div id="guest-wrap" hidden>
+          <h2>Send to guests</h2>
+          <ul id="guest-send" class="guest-send"></ul>
+        </div>
+        <p id="guest-note" class="small">Guest-wise sending appears here once your guest list is added in Guests &amp; RSVPs.</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer"><p>© Eventora · Plan every moment, beautifully.</p></footer>
+
+<!-- ===== ORA FLOATING CHAT (Module 9): paste this block + the script tag before </body> on EVERY page ===== -->
+<button id="ora-fab" class="ora-fab" aria-label="Chat with Ora" aria-expanded="false">💬</button>
+<section id="ora-window" class="ora-window" hidden aria-label="Chat with Ora">
+  <header class="ora-head"><strong>Ora</strong> · your planning buddy
+    <button id="ora-close" class="ora-x" aria-label="Close chat">×</button></header>
+  <div id="ora-log" class="ora-log" role="log" aria-live="polite"></div>
+  <div class="ora-quick">
+    <button data-q="Find venues">Find venues</button>
+    <button data-q="Set a budget">Set a budget</button>
+    <button data-q="Make an invite">Make an invite</button>
+    <button data-q="Talk to a human">Talk to a human</button>
+  </div>
+  <div class="ora-form">
+    <label for="ora-input" class="sr-only">Message Ora</label>
+    <input id="ora-input" type="text" maxlength="500" placeholder="Ask Ora anything..." autocomplete="off">
+    <button id="ora-send" class="ora-send">Send</button>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="/js/invites.js"></script>
+<script src="/js/ora.js"></script>
+</body>
+</html>

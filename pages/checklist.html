@@ -221,14 +221,12 @@
 <main id="main">
 
   <header class="hero">
-  <video class="hero-video" autoplay muted loop playsinline poster="images/venues/1.jpg" aria-hidden="true">
-    <source src="images/venues/venues.mp4" type="video/mp4">
-  </video>
+  <img class="hero-img" src="images/venues/1.jpg" alt="" aria-hidden="true">
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <p class="hero-kicker">✦ SHUBH VIVAH &amp; RITUAL TIMELINE ✦</p>
-    <h1>Aarav &amp; Meera's Grand Shaadi</h1>
-    <p>Auspicious muhurat dates, 3-day pre-wedding rituals, Sadya catering tastings, and baraat logistics organised with calm precision.</p>
+    <p class="hero-kicker" id="hero-kicker">✦ SHUBH VIVAH &amp; RITUAL TIMELINE ✦</p>
+    <h1 id="hero-title">Aarav &amp; Meera's Grand Shaadi</h1>
+    <p id="hero-sub">Auspicious muhurat dates, pre-wedding rituals, catering tastings, and vendor logistics organised with calm precision.</p>
     <div class="hero-actions">
       <button class="btn btn-solid" type="button" id="hero-add">+ Add new task</button>
       <a href="budget.html" class="btn btn-outline">Check Budget</a>
@@ -239,7 +237,7 @@
 <div class="container" style="padding-top:24px;">
   <section class="event-head" style="padding-top:0;">
     <div>
-      <h2 class="event-title" style="margin:0;">Aarav &amp; Meera's Grand Shaadi <span aria-hidden="true">▾</span></h2>
+      <h2 class="event-title" id="event-title" style="margin:0;">Aarav &amp; Meera's Grand Shaadi</h2>
       <p class="event-meta" id="event-meta"></p>
     </div>
     <span class="pill" id="days-pill"></span>
@@ -334,9 +332,10 @@
         <label for="f-group">Group</label>
         <select id="f-group"></select>
       </div>
-      <div class="field">
+      <div class="field" id="f-due-field">
         <label for="f-due">Due date</label>
         <input type="date" id="f-due">
+        <p class="error-text" id="f-due-error">Choose today or a future date.</p>
       </div>
     </div>
     <div class="field-row">
@@ -387,8 +386,48 @@
 </footer>
 
 <script>
-  // ---------- Event details (edit these to change the sample event) ----------
-  var EVENT = { title: "Aarav & Meera's Grand Shaadi", date: '2027-02-18', location: 'Coimbatore & Chennai', label: 'Shubh Vivah' };
+  // ---------- User profile & dynamic event details ----------
+  function getCurrentUser() {
+    try { return JSON.parse(localStorage.getItem('eventora_user')); } catch (e) { return null; }
+  }
+  function pickTemplateKey(eventType) {
+    var s = String(eventType || '').toLowerCase();
+    if (s.includes('engagement') || s.includes('roka')) return 'engagement';
+    if (s.includes('birthday')) return 'birthday';
+    if (s.includes('college') || s.includes('graduation') || s.includes('farewell')) return 'college';
+    if (s.includes('corporate') || s.includes('team') || s.includes('summit')) return 'corporate';
+    if (s.includes('baby') || s.includes('godh') || s.includes('seemantham')) return 'babyshower';
+    if (s.includes('house') || s.includes('griha')) return 'housewarming';
+    if (s.includes('anniversary')) return 'anniversary';
+    if (s.includes('naming') || s.includes('naamkaran')) return 'naming';
+    if (s.includes('festival') || s.includes('puja')) return 'festival';
+    return 'wedding';
+  }
+
+  var ACTIVE_USER = getCurrentUser();
+  var USER_KEY = ACTIVE_USER && (ACTIVE_USER.email || ACTIVE_USER.id)
+    ? String(ACTIVE_USER.email || ACTIVE_USER.id).toLowerCase().trim()
+    : '';
+  var DEFAULT_TEMPLATE = pickTemplateKey(ACTIVE_USER && ACTIVE_USER.eventType);
+  var EVENT = {
+    title: ACTIVE_USER && ACTIVE_USER.name
+      ? (ACTIVE_USER.name.split(' ')[0] + "'s " + (ACTIVE_USER.eventType || 'Celebration'))
+      : "Aarav & Meera's Grand Shaadi",
+    date: (ACTIVE_USER && ACTIVE_USER.eventDate && /^\d{4}-\d{2}-\d{2}$/.test(ACTIVE_USER.eventDate))
+      ? ACTIVE_USER.eventDate
+      : '2027-02-18',
+    location: (ACTIVE_USER && ACTIVE_USER.city) ? ACTIVE_USER.city : 'Coimbatore & Chennai',
+    label: (ACTIVE_USER && ACTIVE_USER.eventType) ? ACTIVE_USER.eventType : 'Shubh Vivah'
+  };
+
+  if (ACTIVE_USER && ACTIVE_USER.name) {
+    var hk = document.getElementById('hero-kicker');
+    var ht = document.getElementById('hero-title');
+    var et = document.getElementById('event-title');
+    if (hk) hk.textContent = '✦ ' + EVENT.label.toUpperCase() + ' TIMELINE ✦';
+    if (ht) ht.textContent = EVENT.title;
+    if (et) et.textContent = EVENT.title;
+  }
 
   var GROUPS = [
     { id: 'g1', name: 'Shubh Muhurat & Mandap', note: 'Auspicious dates, palace/kalyana mandapam & pandit' },
@@ -396,12 +435,15 @@
     { id: 'g3', name: 'Shaadi Day, Reception & Atithi', note: 'Baraat, Kanyadaan, Sadya feast & guest hospitality' }
   ];
 
-  var CATEGORIES = ['Muhurat & Puja', 'Mandap & Venue', 'Catering & Sadya', 'Decor & Flowers', 'Photography', 'Mehendi & Makeup', 'Dhol & Music', 'Patrika & Invites', 'Attire & Jewellery', 'Guest Care', 'Other'];
-  var ASSIGNEES = ['Everyone', 'Aarav (Groom)', 'Meera (Bride)', 'Family Elders', 'Both'];
+  var CATEGORIES = ['Muhurat & Puja', 'Mandap & Venue', 'Catering & Sadya', 'Decor & Flowers', 'Photography', 'Mehendi & Makeup', 'Dhol & Music', 'Patrika & Invites', 'Attire & Jewellery', 'Guest Care', 'Ideas', 'Other'];
+  var ASSIGNEES = ACTIVE_USER && ACTIVE_USER.name
+    ? ['Everyone', ACTIVE_USER.name, 'Family Elders', 'Both']
+    : ['Everyone', 'Aarav (Groom)', 'Meera (Bride)', 'Family Elders', 'Both'];
   var STATUSES = ['All tasks', 'To do', 'Completed'];
   var PRIORITY_RANK = { High: 0, Medium: 1, Low: 2 };
   var START_COUNT = 14, PAGE_SIZE = 10;
-  var STORAGE_KEY = 'eventora-checklist-shubh-v1';
+  var LEGACY_STORAGE_KEY = 'eventora-checklist-shubh-v1';
+  var STORAGE_KEY = USER_KEY ? ('eventora-checklist:' + USER_KEY) : LEGACY_STORAGE_KEY;
   var QUEUE_KEY = 'eventora-checklist-queue-v1';
 
   var SEED_ROWS = [
@@ -432,13 +474,17 @@
   // ---------- Date helpers (local time, YYYY-MM-DD) ----------
   function pad(n) { return (n < 10 ? '0' : '') + n; }
   function fmt(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
-  function parse(s) { var p = s.split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }
+  function parse(s) {
+    if (!s || !/^\d{4}-\d{2}-\d{2}$/.test(s)) return new Date();
+    var p = s.split('-');
+    return new Date(+p[0], +p[1] - 1, +p[2]);
+  }
   function todayStr() { return fmt(new Date()); }
   function minusDays(s, days) { var d = parse(s); d.setDate(d.getDate() - days); return fmt(d); }
   function daysBetween(a, b) { return Math.round((parse(b) - parse(a)) / 86400000); }
   function daysUntil(s) { return Math.round((parse(s) - parse(todayStr())) / 86400000); }
-  function prettyDate(s) { return parse(s).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }); }
-  function longDate(s) { return parse(s).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }); }
+  function prettyDate(s) { return s ? parse(s).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : 'No date'; }
+  function longDate(s) { return s ? parse(s).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : 'Date flexible'; }
   function isOverdue(t) { return !t.done && !!t.due && t.due < todayStr(); }
 
     // ---------- Templates (title, category, priority, days before the event) ----------
@@ -560,11 +606,25 @@
     assignee: 'Everyone',
     sort: 'due',
     limit: START_COUNT,
-    template: 'wedding',
+    template: DEFAULT_TEMPLATE,
     editingId: null
   };
 
   function seedTasks() {
+    if (DEFAULT_TEMPLATE !== 'wedding' && TEMPLATES[DEFAULT_TEMPLATE]) {
+      return TEMPLATES[DEFAULT_TEMPLATE].items.map(function (row, i) {
+        return {
+          id: i + 1,
+          title: row[0],
+          due: minusDays(EVENT.date, row[3]),
+          category: row[1],
+          priority: row[2],
+          assignee: 'Both',
+          group: groupFor(row[1]),
+          done: false
+        };
+      });
+    }
     return SEED_ROWS.map(function (r, i) {
       return { id: i + 1, title: r[0], due: r[1], category: r[2], priority: r[3], assignee: r[4], group: r[5], done: r[6] };
     });
@@ -573,6 +633,9 @@
   function load() {
     var data = null;
     try { data = JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch (e) { }
+    if (!data && USER_KEY && DEFAULT_TEMPLATE === 'wedding') {
+      try { data = JSON.parse(localStorage.getItem(LEGACY_STORAGE_KEY)); } catch (e) { }
+    }
     state.tasks = (data && Array.isArray(data.tasks)) ? data.tasks : seedTasks();
   }
 
@@ -614,7 +677,9 @@
     });
   }
   function groupFor(category) {
-    return (category === 'Invites' || category === 'Guests' || category === 'Other') ? 'g3' : 'g2';
+    if (category === 'Muhurat & Puja' || category === 'Mandap & Venue') return 'g1';
+    if (category === 'Patrika & Invites' || category === 'Guest Care' || category === 'Invites' || category === 'Guests' || category === 'Other') return 'g3';
+    return 'g2';
   }
 
   function toggleTask(id) {
@@ -816,6 +881,11 @@
 
     var fg = document.getElementById('f-group');
     fg.innerHTML = GROUPS.map(function (g) { return '<option value="' + g.id + '">' + escapeHtml(g.name) + '</option>'; }).join('');
+
+    var fa = document.getElementById('f-assignee');
+    fa.innerHTML = ASSIGNEES.filter(function (a) { return a !== 'Everyone'; })
+      .map(function (a) { return '<option value="' + escapeHtml(a) + '">' + escapeHtml(a) + '</option>'; })
+      .join('');
   }
 
   // ---------- Add and edit dialog ----------
@@ -824,18 +894,28 @@
   function openDialog(mode, id, groupId) {
     var t = mode === 'edit' ? find(id) : null;
     state.editingId = t ? t.id : null;
+    var today = todayStr();
+    var dueEl = document.getElementById('f-due');
     document.getElementById('dialog-heading').textContent = t ? 'Edit task' : 'Add a task';
     document.getElementById('f-title').value = t ? t.title : '';
     document.getElementById('f-group').value = t ? t.group : (groupId || 'g1');
-    document.getElementById('f-due').value = t ? t.due : '';
+    dueEl.min = (t && t.due && t.due < today) ? t.due : today;
+    dueEl.value = t ? t.due : '';
     document.getElementById('f-category').value = t ? t.category : 'Other';
     document.getElementById('f-priority').value = t ? t.priority : 'Medium';
     document.getElementById('f-assignee').value = t ? t.assignee : 'Both';
     document.getElementById('f-title-field').classList.remove('has-error');
     document.getElementById('f-title-error').classList.remove('is-visible');
+    document.getElementById('f-due-field').classList.remove('has-error');
+    document.getElementById('f-due-error').classList.remove('is-visible');
     dialog.showModal();
     document.getElementById('f-title').focus();
   }
+
+  document.getElementById('f-due').addEventListener('input', function () {
+    document.getElementById('f-due-field').classList.remove('has-error');
+    document.getElementById('f-due-error').classList.remove('is-visible');
+  });
 
   document.getElementById('task-form').addEventListener('submit', function (e) {
     e.preventDefault();
@@ -846,16 +926,25 @@
       document.getElementById('f-title').focus();
       return;
     }
+    var due = document.getElementById('f-due').value;
+    var existing = state.editingId !== null ? find(state.editingId) : null;
+    var today = todayStr();
+    if (due && due < today && (!existing || due !== existing.due)) {
+      document.getElementById('f-due-field').classList.add('has-error');
+      document.getElementById('f-due-error').classList.add('is-visible');
+      document.getElementById('f-due').focus();
+      return;
+    }
     var data = {
       title: title,
       group: document.getElementById('f-group').value,
-      due: document.getElementById('f-due').value,
+      due: due,
       category: document.getElementById('f-category').value,
       priority: document.getElementById('f-priority').value,
       assignee: document.getElementById('f-assignee').value
     };
     if (state.editingId !== null) {
-      var t = find(state.editingId);
+      var t = existing;
       if (t) Object.assign(t, data);
       toast('Task updated');
     } else {
@@ -985,13 +1074,6 @@
 
   // Add task buttons
   document.getElementById('hero-add').addEventListener('click', function () { openDialog('add', null, 'g1'); });
-
-  // Mobile menu
-  document.querySelector('.menu-toggle').addEventListener('click', function () {
-    var nav = document.getElementById('main-nav');
-    var open = nav.classList.toggle('is-open');
-    this.setAttribute('aria-expanded', String(open));
-  });
 
   // ---------- Start ----------
   load();

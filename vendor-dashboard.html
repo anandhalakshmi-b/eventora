@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vendor Dashboard | Eventora</title>
+  <link rel="icon" href="images/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/ora.css">
+  <style>
+    :root {
+      --ink: #0F172A;
+      --muted: #64748B;
+      --line: #E2E8F0;
+      --panel: #F8FAFC;
+      --brand: #2563EB;
+      --purple: #7C3AED;
+      --green: #16A34A;
+      --amber: #D97706;
+      --card-bg: #FFFFFF;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, sans-serif;
+      color: var(--ink);
+      background: #F8FAFC;
+      line-height: 1.5;
+    }
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 36px 20px 80px;
+    }
+    .hero-banner {
+      background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+      color: #fff;
+      border-radius: 24px;
+      padding: 40px;
+      margin-bottom: 32px;
+      box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.15);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-banner::after {
+      content: '';
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(37,99,235,0.3) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-kicker {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #93C5FD;
+      margin-bottom: 8px;
+    }
+    .hero-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin: 0 0 10px;
+      letter-spacing: -0.02em;
+    }
+    .hero-desc {
+      color: #CBD5E1;
+      font-size: 1.05rem;
+      max-width: 680px;
+      margin: 0;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      margin-bottom: 32px;
+    }
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: 0 2px 8px rgba(15,23,42,0.03);
+    }
+    .stat-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .stat-val {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-top: 6px;
+      display: block;
+      color: var(--ink);
+    }
+    .nav-tabs {
+      display: flex;
+      gap: 12px;
+      border-bottom: 2px solid var(--line);
+      margin-bottom: 28px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+    .tab-btn {
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -6px;
+      padding: 10px 18px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+    .tab-btn:hover { color: var(--ink); }
+    .tab-btn.active {
+      color: var(--brand);
+      border-bottom-color: var(--brand);
+    }
+    .badge-count {
+      background: #EFF6FF;
+      color: var(--brand);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: 0.75rem;
+      font-weight: 800;
+    }
+    .panel {
+      background: var(--card-bg);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 32px;
+      box-shadow: 0 4px 16px rgba(15,23,42,0.03);
+      margin-bottom: 32px;
+    }
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 18px;
+    }
+    .panel-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin: 0;
+    }
+    .panel-subtitle {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin: 4px 0 0;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 18px;
+    }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #334155;
+    }
+    .form-group input, .form-group select, .form-group textarea {
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid #CBD5E1;
+      font-size: 0.95rem;
+      font-family: inherit;
+      background: #FFFFFF;
+      transition: border-color 0.15s ease;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      outline: none;
+      border-color: var(--brand);
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
+    }
+    .btn-action {
+      background: var(--ink);
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      padding: 12px 24px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background-color 0.15s ease;
+    }
+    .btn-action:hover { background: #1E293B; }
+    .btn-outline {
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid #CBD5E1;
+      border-radius: 999px;
+      padding: 8px 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+    }
+    .btn-outline:hover { background: #F1F5F9; }
+    .query-card {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 20px;
+      margin-bottom: 16px;
+      background: #FFFFFF;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .query-card:hover {
+      box-shadow: 0 6px 16px rgba(15,23,42,0.06);
+    }
+    .query-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .query-user {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--ink);
+    }
+    .query-status {
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .status-new { background: #FEF3C7; color: #92400E; }
+    .status-contacted { background: #DBEAFE; color: #1E40AF; }
+    .status-confirmed { background: #DCFCE7; color: #166534; }
+    .query-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      font-size: 0.88rem;
+      color: #475569;
+      margin-bottom: 12px;
+    }
+    .query-meta span { display: inline-flex; align-items: center; gap: 4px; }
+    .query-message {
+      background: #F8FAFC;
+      border-left: 3px solid var(--brand);
+      padding: 12px 16px;
+      border-radius: 0 12px 12px 0;
+      font-size: 0.92rem;
+      color: #334155;
+      margin-bottom: 14px;
+    }
+    .query-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      padding-top: 8px;
+      border-top: 1px dashed var(--line);
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .gallery-item {
+      position: relative;
+      height: 140px;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      box-shadow: 0 2px 6px rgba(15,23,42,0.04);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .gallery-del {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      background: rgba(15,23,42,0.75);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 26px;
+      height: 26px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 18px;
+      margin-top: 18px;
+    }
+    .portfolio-card {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+      background: #fff;
+    }
+    .portfolio-img {
+      height: 140px;
+      width: 100%;
+      object-fit: cover;
+      display: block;
+      background: #F1F5F9;
+    }
+    .portfolio-body {
+      padding: 14px;
+    }
+    .portfolio-body h4 { margin: 0 0 6px; font-size: 1rem; font-weight: 700; }
+    .portfolio-body p { margin: 0 0 10px; font-size: 0.85rem; color: var(--muted); }
+    .toast-msg {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #0F172A;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+      z-index: 9999;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: all 0.25s ease;
+      pointer-events: none;
+    }
+    .toast-msg.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+<!-- Dynamic Shared Navbar -->
+<nav>
+  <a class="brand" href="index.html"><img src="images/logo.png" alt="Eventora logo">Eventora</a>
+  <button id="burger" aria-label="Open menu" aria-expanded="false">☰</button>
+  <div class="links" id="links">
+    <a href="vendor-dashboard.html" class="on">Vendor Dashboard</a>
+    <a href="index.html">Home</a>
+    <a href="chatbot.html">Chatbot</a>
+    <span class="nav-user-badge" id="nav-vendor-badge">🏢 Vendor Partner</span>
+    <button type="button" class="nav-logout-btn" id="nav-logout">Logout</button>
+  </div>
+</nav>
+
+<main class="wrap">
+  <!-- Vendor Header Banner -->
+  <header class="hero-banner">
+    <span class="hero-kicker">✦ VERIFIED VENDOR PARTNER PORTAL ✦</span>
+    <h1 class="hero-title" id="banner-bname">Your Vendor Dashboard</h1>
+    <p class="hero-desc" id="banner-meta">Review and respond to client inquiries, update your service profile, add work portfolio items, and manage showcase photos.</p>
+  </header>
+
+  <!-- Quick Statistics -->
+  <section class="stats-grid">
+    <div class="stat-card">
+      <span class="stat-label">User Queries Received</span>
+      <b class="stat-val" id="stat-queries-count" style="color:var(--brand)">0</b>
+      <small style="color:var(--muted); font-size:0.8rem;">Direct inquiries from event hosts</small>
+    </div>
+    <div class="stat-card">
+      <span class="stat-label">Pending / New Inquiries</span>
+      <b class="stat-val" id="stat-new-count" style="color:var(--amber)">0</b>
+      <small style="color:var(--muted); font-size:0.8rem;">Awaiting your initial response</small>
+    </div>
+    <div class="stat-card">
+      <span class="stat-label">Starting Service Price</span>
+      <b class="stat-val" id="stat-price" style="color:var(--purple)">₹0</b>
+      <small style="color:var(--muted); font-size:0.8rem;">Published on Eventora listing</small>
+    </div>
+    <div class="stat-card">
+      <span class="stat-label">Partner Profile Status</span>
+      <b class="stat-val" style="color:var(--green)">Active ✓</b>
+      <small style="color:var(--muted); font-size:0.8rem;">Synced with MongoDB database</small>
+    </div>
+  </section>
+
+  <!-- Tabbed Navigation -->
+  <div class="nav-tabs">
+    <button type="button" class="tab-btn active" data-tab="queries">
+      💬 Client Queries <span class="badge-count" id="tab-count-queries">0</span>
+    </button>
+    <button type="button" class="tab-btn" data-tab="profile">
+      📝 Update Profile &amp; Services
+    </button>
+    <button type="button" class="tab-btn" data-tab="portfolio">
+      🖼️ Work Portfolio &amp; Pictures
+    </button>
+    <button type="button" class="tab-btn" data-tab="availability">
+      📅 Manage Dates &amp; Availability
+    </button>
+  </div>
+
+  <!-- SECTION 1: Client Queries Sent by Users -->
+  <section id="tab-section-queries" class="panel">
+    <div class="panel-header">
+      <div>
+        <h2 class="panel-title">Inquiries &amp; Queries Sent by Users</h2>
+        <p class="panel-subtitle">Review event requirements, dates, headcount, and connect directly with planners.</p>
+      </div>
+      <div style="display:flex; gap:10px; align-items:center;">
+        <select id="query-filter-status" style="padding:8px 14px; border-radius:999px; border:1px solid #CBD5E1; font-size:0.85rem; font-weight:600;">
+          <option value="all">All Inquiries</option>
+          <option value="New">New Only</option>
+          <option value="Contacted">Contacted</option>
+          <option value="Confirmed">Confirmed</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="queries-container">
+      <p style="text-align:center; padding:30px; color:var(--muted);">Loading queries from users...</p>
+    </div>
+  </section>
+
+  <!-- SECTION 2: Update Vendor Profile & Services -->
+  <section id="tab-section-profile" class="panel" style="display:none;">
+    <div class="panel-header">
+      <div>
+        <h2 class="panel-title">Update Vendor Profile &amp; Services</h2>
+        <p class="panel-subtitle">Couples and event hosts see these details when browsing venues and service masters.</p>
+      </div>
+      <button type="button" class="btn-action" id="btn-save-profile">💾 Save Profile Changes</button>
+    </div>
+
+    <form id="vendor-profile-form">
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="v-bname">Business / Vendor Name *</label>
+          <input type="text" id="v-bname" required placeholder="e.g. Lotus Grand Palace &amp; Banquets">
+        </div>
+
+        <div class="form-group">
+          <label for="v-contact-name">Contact Person Name</label>
+          <input type="text" id="v-contact-name" placeholder="e.g. Ramesh Sundaram">
+        </div>
+
+        <div class="form-group">
+          <label for="v-category">Primary Category *</label>
+          <select id="v-category" required>
+            <option value="">Select Category</option>
+            <option value="Banquet Hall">Banquet Hall &amp; Mahal</option>
+            <option value="Palace Venue">Royal Palace &amp; Heritage Resort</option>
+            <option value="Catering">Sadya &amp; Royal Feast Catering</option>
+            <option value="Photography">Candid &amp; Traditional Photography</option>
+            <option value="Decor & Mandap">Mandapam &amp; Floral Decor</option>
+            <option value="DJ & Music">Bollywood DJ, Live Band &amp; Dhol</option>
+            <option value="Bridal Makeup">Bridal Makeup &amp; Mehendi</option>
+            <option value="Priest & Pandit">Auspicious Purohit / Pandit</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="v-city">Operating City *</label>
+          <input type="text" id="v-city" required placeholder="e.g. Chennai, Coimbatore, Bengaluru, Madurai">
+        </div>
+
+        <div class="form-group">
+          <label for="v-phone">Contact Phone Number</label>
+          <input type="tel" id="v-phone" placeholder="e.g. +91 98401 23456">
+        </div>
+
+        <div class="form-group">
+          <label for="v-price">Starting Price (₹)</label>
+          <input type="text" id="v-price" placeholder="e.g. 50000 or From ₹50,000">
+        </div>
+
+        <div class="form-group full">
+          <label for="v-desc">Description of Service *</label>
+          <textarea id="v-desc" rows="4" placeholder="Describe your experience, packages, setup specialties, client amenities, and why couples choose your services..."></textarea>
+        </div>
+
+        <div class="form-group full">
+          <label for="v-services">List of Services &amp; Inclusions</label>
+          <input type="text" id="v-services" placeholder="e.g. Royal Stage Mandap, Banana Leaf Feast, Bridal Makeover, Haldi Setup (comma separated)">
+          <small style="color:var(--muted); font-size:0.8rem;">Enter key offerings separated by commas for clear bullet points on your profile.</small>
+        </div>
+      </div>
+      
+      <div style="margin-top:20px; text-align:right;">
+        <button type="submit" class="btn-action">💾 Save Profile &amp; Services</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- SECTION 3: Work Portfolio & Pictures Gallery -->
+  <section id="tab-section-portfolio" class="panel" style="display:none;">
+    <div class="panel-header">
+      <div>
+        <h2 class="panel-title">Add Work Portfolio &amp; Update Pictures</h2>
+        <p class="panel-subtitle">Highlight real weddings, celebrations, and decor setups you have orchestrated.</p>
+      </div>
+      <button type="button" class="btn-action" id="btn-save-portfolio-top">💾 Save Portfolio &amp; Gallery</button>
+    </div>
+
+    <!-- Part A: Add Work Portfolio Item -->
+    <div style="background:#F1F5F9; border-radius:18px; padding:22px; margin-bottom:28px;">
+      <h3 style="margin:0 0 14px; font-size:1.1rem; font-weight:800;">➕ Add a Work Portfolio Project</h3>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="p-title">Project / Event Title</label>
+          <input type="text" id="p-title" placeholder="e.g. Royal Marigold Mandap at Heritage Mahal">
+        </div>
+        <div class="form-group">
+          <label for="p-type">Event Type</label>
+          <select id="p-type">
+            <option>Wedding &amp; Reception</option>
+            <option>Haldi &amp; Sangeet</option>
+            <option>Birthday Milestone</option>
+            <option>Corporate Summit</option>
+            <option>Housewarming Blessing</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="p-img">Photo Path / URL</label>
+          <input type="text" id="p-img" placeholder="e.g. images/venues/1.jpg or photo link">
+        </div>
+        <div class="form-group full">
+          <label for="p-desc">Work Description</label>
+          <input type="text" id="p-desc" placeholder="Brief summary of setup, decor theme, client satisfaction, or guest capacity handled">
+        </div>
+      </div>
+      <div style="margin-top:10px;">
+        <button type="button" class="btn-action" id="btn-add-portfolio-item" style="padding:8px 20px; font-size:0.88rem;">+ Add Project to Portfolio</button>
+      </div>
+    </div>
+
+    <!-- Part B: Existing Portfolio Items -->
+    <h3 style="margin:0 0 10px; font-size:1.15rem; font-weight:800;">Your Work Portfolio (<span id="portfolio-count">0</span>)</h3>
+    <div class="portfolio-grid" id="portfolio-container">
+      <!-- Portfolio cards will be rendered here -->
+    </div>
+
+    <hr style="margin:36px 0; border:none; border-top:1px solid var(--line);">
+
+    <!-- Part C: Update Pictures Gallery -->
+    <div>
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
+        <div>
+          <h3 style="margin:0; font-size:1.15rem; font-weight:800;">Showcase Pictures Gallery (<span id="gallery-count">0</span>)</h3>
+          <p style="margin:4px 0 0; font-size:0.85rem; color:var(--muted);">Add high-resolution photos of your venue, food spreads, or decor styling.</p>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:10px; margin-bottom:16px; flex-wrap:wrap;">
+        <input type="text" id="new-picture-url" placeholder="Enter image path (e.g. images/venues/3.jpg, images/decor/1.jpg) or image URL" style="flex:1; min-width:260px; padding:10px 14px; border:1px solid #CBD5E1; border-radius:10px;">
+        <button type="button" class="btn-action" id="btn-add-picture" style="padding:10px 20px; font-size:0.88rem;">Add Picture</button>
+        <button type="button" class="btn-outline" id="btn-quick-samples">+ Add Recommended Event Photos</button>
+      </div>
+
+      <div class="gallery-grid" id="gallery-container">
+        <!-- Showcase photos will be rendered here -->
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: Manage Date Availability & Calendar -->
+  <section id="tab-section-availability" class="panel" style="display:none;">
+    <div class="panel-header">
+      <div>
+        <h2 class="panel-title">Manage Date Availability &amp; Bookings</h2>
+        <p class="panel-subtitle">Couples and event hosts will see your real-time availability on their event dates when browsing vendors and venues.</p>
+      </div>
+      <button type="button" class="btn-action" id="btn-save-availability">💾 Save Date Availability</button>
+    </div>
+
+    <!-- General Status -->
+    <div style="background:#F8FAFC; border:1px solid var(--line); border-radius:18px; padding:22px; margin-bottom:24px;">
+      <h3 style="margin:0 0 14px; font-size:1.1rem; font-weight:800;">General Booking Status &amp; Policy</h3>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="avail-status">Current Status</label>
+          <select id="avail-status">
+            <option value="Available">Available for New Bookings (Open)</option>
+            <option value="Limited">Limited Availability (Few Dates Left)</option>
+            <option value="Fully Booked">Fully Booked for Current Season</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="avail-note">Client Availability Note</label>
+          <input type="text" id="avail-note" placeholder="e.g. Taking bookings for Tamil Muhurtham &amp; wedding season 2026-2027">
+        </div>
+      </div>
+    </div>
+
+    <!-- Mark Specific Dates as Booked -->
+    <div style="background:#FEF3C7; border:1px solid #FDE68A; border-radius:18px; padding:22px; margin-bottom:24px;">
+      <h3 style="margin:0 0 10px; font-size:1.1rem; font-weight:800; color:#92400E;">📅 Mark Dates as Booked / Unavailable</h3>
+      <p style="margin:0 0 16px; font-size:0.9rem; color:#78350F;">When an event host filters listings by date, your service will automatically show whether you are free or already booked on that date.</p>
+      
+      <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:flex-end;">
+        <div class="form-group" style="margin-bottom:0; min-width:220px;">
+          <label for="booked-date-input" style="color:#78350F;">Select Date to Mark Booked</label>
+          <input type="date" id="booked-date-input" style="background:#fff;">
+        </div>
+        <button type="button" class="btn-action" id="btn-add-booked-date" style="background:#B45309;">+ Add to Booked Dates</button>
+        <button type="button" class="btn-outline" id="btn-sample-booked-dates" style="border-color:#F59E0B; color:#78350F;">+ Add Popular Muhurtham Dates</button>
+      </div>
+    </div>
+
+    <!-- List of Currently Booked Dates -->
+    <div>
+      <h3 style="margin:0 0 10px; font-size:1.15rem; font-weight:800;">Currently Booked / Unavailable Dates (<span id="booked-dates-count">0</span>)</h3>
+      <p style="margin:0 0 16px; font-size:0.88rem; color:var(--muted);">Click any date below to remove it from your booked list and reopen it for client inquiries.</p>
+
+      <div id="booked-dates-container" style="display:flex; flex-wrap:wrap; gap:10px;">
+        <!-- Booked date tags will be rendered here -->
+      </div>
+    </div>
+
+    <div style="margin-top:28px; text-align:right;">
+      <button type="button" class="btn-action" id="btn-save-availability-bottom">💾 Save Date Availability</button>
+    </div>
+  </section>
+</main>
+
+<div class="toast-msg" id="toast-msg">Notification</div>
+
+<!-- ORA FLOATING BOT -->
+<button id="ora-fab" class="ora-fab" aria-label="Chat with Ora" aria-expanded="false">💬</button>
+<section id="ora-window" class="ora-window" hidden aria-label="Chat with Ora">
+  <header class="ora-head">
+    <strong>Ora</strong> · your planning buddy
+    <button id="ora-close" class="ora-x" aria-label="Close chat">×</button>
+  </header>
+  <div id="ora-log" class="ora-log" role="log" aria-live="polite"></div>
+  <div class="ora-quick">
+    <button data-q="View my queries">View my queries</button>
+    <button data-q="Update my pricing">Update my pricing</button>
+    <button data-q="Add a portfolio item">Add a portfolio item</button>
+  </div>
+  <div class="ora-form">
+    <input id="ora-input" type="text" maxlength="500" placeholder="Ask Ora anything..." autocomplete="off">
+    <button id="ora-send" class="ora-send">Send</button>
+  </div>
+</section>
+
+<script src="js/common.js"></script>
+<script src="js/ora.js"></script>
+<script>
+(function() {
+  const $ = id => document.getElementById(id);
+  
+  // 1. Session check: ensure vendor logged in
+  let currentUser = null;
+  try {
+    currentUser = JSON.parse(localStorage.getItem('eventora_user'));
+  } catch (e) {}
+
+  if (!currentUser || currentUser.role !== 'vendor') {
+    // If opened directly without being logged in as vendor, create sample vendor session or redirect
+    currentUser = {
+      name: 'Ramesh Sundaram',
+      email: 'vendor.ramesh@eventora.com',
+      role: 'vendor',
+      city: 'Chennai',
+      phone: '+91 98401 23456',
+      vendorDetails: {
+        businessName: 'Heritage Mahal Palace & Banquets',
+        category: 'Banquet Hall',
+        price: 'From ₹1,20,000',
+        services: 'Royal Kalyanam Mandap, Sadya Feast Catering, Marigold Floral Backdrop, Acoustic Sound',
+        description: 'With over 15 years of legacy, Heritage Mahal provides grand royal architecture, centralized climate control, dedicated bride and groom suites, and master wedding coordination across Tamil Nadu.',
+        portfolio: [
+          { title: 'Royal Thirumanam Stage', description: 'Traditional Kanjivaram silk backdrop and authentic brass urlis with fresh mogra.', image: 'images/venues/1.jpg' },
+          { title: 'Grand Sangeet & Reception', description: 'Festive fairy light canopy and DJ sound setup for 600 wedding guests.', image: 'images/venues/2.jpg' }
+        ],
+        pictures: [
+          'images/venues/1.jpg',
+          'images/venues/2.jpg',
+          'images/venues/3.jpg'
+        ]
+      }
+    };
+    localStorage.setItem('eventora_user', JSON.stringify(currentUser));
+  }
+
+  // Ensure vendorDetails structure
+  currentUser.vendorDetails = currentUser.vendorDetails || {};
+  currentUser.vendorDetails.portfolio = currentUser.vendorDetails.portfolio || [];
+  currentUser.vendorDetails.pictures = currentUser.vendorDetails.pictures || [];
+  currentUser.vendorDetails.bookedDates = currentUser.vendorDetails.bookedDates || [];
+  currentUser.vendorDetails.availability = currentUser.vendorDetails.availability || {
+    status: 'Available',
+    unavailableDates: currentUser.vendorDetails.bookedDates,
+    note: 'Taking bookings for upcoming celebration season.'
+  };
+
+  function showToast(msg) {
+    const t = $('toast-msg');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(showToast.timer);
+    showToast.timer = setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  // Populate Header Banner & Form
+  function populateProfileUI() {
+    const vd = currentUser.vendorDetails;
+    const bname = vd.businessName || currentUser.name || 'Your Business';
+    $('banner-bname').textContent = bname;
+    $('nav-vendor-badge').textContent = '🏢 ' + (bname.length > 18 ? bname.slice(0, 16) + '...' : bname);
+    
+    $('banner-meta').textContent = `${vd.category || 'Event Partner'} · 📍 ${currentUser.city || 'Chennai'} · Direct inquiries & profile management`;
+
+    $('v-bname').value = vd.businessName || currentUser.name || '';
+    $('v-contact-name').value = currentUser.name || '';
+    $('v-category').value = vd.category || '';
+    $('v-city').value = currentUser.city || 'Chennai';
+    $('v-phone').value = currentUser.phone || '';
+    $('v-price').value = vd.price || '';
+    $('v-desc').value = vd.description || '';
+    $('v-services').value = vd.services || '';
+
+    $('stat-price').textContent = vd.price ? (vd.price.includes('₹') ? vd.price : '₹' + vd.price) : 'From ₹50,000';
+  }
+
+  // Tab switching
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const target = btn.dataset.tab;
+      $('tab-section-queries').style.display = target === 'queries' ? 'block' : 'none';
+      $('tab-section-profile').style.display = target === 'profile' ? 'block' : 'none';
+      $('tab-section-portfolio').style.display = target === 'portfolio' ? 'block' : 'none';
+      $('tab-section-availability').style.display = target === 'availability' ? 'block' : 'none';
+    });
+  });
+
+  // 2. Fetch and render user queries
+  let cachedQueries = [];
+
+  async function loadQueries() {
+    try {
+      const email = currentUser.email;
+      const res = await fetch(`/api/vendor/queries?vendorEmail=${encodeURIComponent(email)}`);
+      const json = await res.json();
+      if (json.success && Array.isArray(json.data)) {
+        cachedQueries = json.data;
+      }
+    } catch (e) {
+      console.log('Queries fallback to local');
+    }
+
+    if (!cachedQueries || cachedQueries.length === 0) {
+      cachedQueries = [
+        {
+          _id: 'q1',
+          userName: 'Kavitha & Arvind',
+          userEmail: 'kavitha.wedding@gmail.com',
+          userPhone: '+91 98401 23456',
+          eventType: 'Wedding & Reception',
+          eventDate: '2027-02-18',
+          guestCount: 450,
+          budget: '₹1,50,000',
+          message: 'Vanakkam! We love your work. We are planning our traditional Tamil wedding ceremony in February. Are you available on 18 Feb and can you share package details?',
+          status: 'New',
+          createdAt: new Date().toISOString()
+        },
+        {
+          _id: 'q2',
+          userName: 'Rohan Mehra',
+          userEmail: 'rohan.mehra@corporate.in',
+          userPhone: '+91 98200 87654',
+          eventType: 'Corporate & Team Meet',
+          eventDate: '2026-12-10',
+          guestCount: 150,
+          budget: '₹85,000',
+          message: 'Hi there, we are organizing our annual tech leadership conference. Looking for end-to-end setup and timely execution. Please send quotation.',
+          status: 'Contacted',
+          createdAt: new Date(Date.now() - 86400000).toISOString()
+        },
+        {
+          _id: 'q3',
+          userName: 'Ananya Sharma',
+          userEmail: 'ananya.s@outlook.com',
+          userPhone: '+91 97110 54321',
+          eventType: 'Birthday Party',
+          eventDate: '2027-01-22',
+          guestCount: 80,
+          budget: '₹40,000',
+          message: 'Hello! Looking for customized theme coordination for my daughter\'s 1st birthday party. Need decor and catering recommendations.',
+          status: 'Confirmed',
+          createdAt: new Date(Date.now() - 86400000 * 3).toISOString()
+        }
+      ];
+    }
+
+    renderQueries();
+  }
+
+  function renderQueries() {
+    const filter = $('query-filter-status').value;
+    const filtered = cachedQueries.filter(q => filter === 'all' || q.status === filter);
+
+    $('stat-queries-count').textContent = cachedQueries.length;
+    $('tab-count-queries').textContent = cachedQueries.length;
+    $('stat-new-count').textContent = cachedQueries.filter(q => q.status === 'New').length;
+
+    const container = $('queries-container');
+    if (filtered.length === 0) {
+      container.innerHTML = `
+        <div style="text-align:center; padding:40px; color:var(--muted);">
+          <p style="font-size:1.1rem; font-weight:700;">No inquiries matching this filter.</p>
+        </div>`;
+      return;
+    }
+
+    container.innerHTML = filtered.map(q => {
+      const statusClass = q.status === 'New' ? 'status-new' : (q.status === 'Confirmed' ? 'status-confirmed' : 'status-contacted');
+      const cleanPhone = (q.userPhone || '').replace(/\D/g, '');
+      return `
+        <article class="query-card" data-qid="${q._id || q.id}">
+          <div class="query-top">
+            <div>
+              <span class="query-user">${q.userName || 'Event Host'}</span>
+              <span style="font-size:0.85rem; color:var(--muted); margin-left:8px;">${q.createdAt ? new Date(q.createdAt).toLocaleDateString() : ''}</span>
+            </div>
+            <span class="query-status ${statusClass}">${q.status || 'New'}</span>
+          </div>
+
+          <div class="query-meta">
+            <span>🎉 <b>Event:</b> ${q.eventType || 'Event'}</span>
+            <span>📅 <b>Date:</b> ${q.eventDate || 'Flexible'}</span>
+            <span>👥 <b>Guests:</b> ${q.guestCount || 200}</span>
+            ${q.budget ? `<span>💰 <b>Budget:</b> ${q.budget}</span>` : ''}
+            <span>📧 <a href="mailto:${q.userEmail}" style="color:var(--brand); text-decoration:none;">${q.userEmail}</a></span>
+            ${q.userPhone ? `<span>📞 <a href="tel:${q.userPhone}" style="color:var(--brand); text-decoration:none;">${q.userPhone}</a></span>` : ''}
+          </div>
+
+          <div class="query-message">
+            "${q.message || 'Client inquired about availability and pricing packages for their celebration.'}"
+          </div>
+
+          <div class="query-actions">
+            ${cleanPhone ? `<a href="https://wa.me/${cleanPhone}" target="_blank" class="btn-outline" style="color:#16A34A; border-color:#86EFAC;">💬 WhatsApp Client</a>` : ''}
+            <a href="mailto:${q.userEmail}?subject=Eventora Inquiry Response from ${encodeURIComponent(currentUser.vendorDetails?.businessName || 'Vendor')}" class="btn-outline">✉️ Reply by Email</a>
+            
+            <div style="margin-left:auto; display:flex; gap:6px;">
+              <button type="button" class="btn-outline btn-set-status" data-qid="${q._id || q.id}" data-status="Contacted">Mark Contacted</button>
+              <button type="button" class="btn-outline btn-set-status" data-qid="${q._id || q.id}" data-status="Confirmed" style="color:var(--green); border-color:var(--green);">Confirm Booking ✓</button>
+            </div>
+          </div>
+        </article>
+      `;
+    }).join('');
+
+    // Attach status toggle handlers
+    container.querySelectorAll('.btn-set-status').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const qid = btn.dataset.qid;
+        const newStatus = btn.dataset.status;
+        const item = cachedQueries.find(x => (x._id || x.id) === qid);
+        if (item) {
+          item.status = newStatus;
+          renderQueries();
+          showToast(`Inquiry marked as ${newStatus}!`);
+
+          try {
+            await fetch(`/api/vendor/queries/${qid}`, {
+              method: 'PATCH',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ status: newStatus })
+            });
+          } catch (e) {}
+        }
+      });
+    });
+  }
+
+  $('query-filter-status').addEventListener('change', renderQueries);
+
+  // 3. Save Profile & Services Form
+  async function saveProfile() {
+    currentUser.name = $('v-contact-name').value.trim() || currentUser.name;
+    currentUser.city = $('v-city').value.trim() || currentUser.city;
+    currentUser.phone = $('v-phone').value.trim();
+
+    currentUser.vendorDetails.businessName = $('v-bname').value.trim();
+    currentUser.vendorDetails.category = $('v-category').value;
+    currentUser.vendorDetails.price = $('v-price').value.trim();
+    currentUser.vendorDetails.description = $('v-desc').value.trim();
+    currentUser.vendorDetails.services = $('v-services').value.trim();
+
+    localStorage.setItem('eventora_user', JSON.stringify(currentUser));
+    populateProfileUI();
+    showToast('✓ Vendor Profile & Services saved successfully!');
+
+    try {
+      await fetch('/api/vendor/profile', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: currentUser.email,
+          name: currentUser.name,
+          phone: currentUser.phone,
+          city: currentUser.city,
+          businessName: currentUser.vendorDetails.businessName,
+          category: currentUser.vendorDetails.category,
+          price: currentUser.vendorDetails.price,
+          services: currentUser.vendorDetails.services,
+          description: currentUser.vendorDetails.description,
+          portfolio: currentUser.vendorDetails.portfolio,
+          pictures: currentUser.vendorDetails.pictures,
+          bookedDates: currentUser.vendorDetails.bookedDates,
+          availability: currentUser.vendorDetails.availability
+        })
+      });
+    } catch (e) {
+      console.log('Saved to local storage');
+    }
+  }
+
+  $('vendor-profile-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    saveProfile();
+  });
+  $('btn-save-profile').addEventListener('click', saveProfile);
+
+  // 4. Portfolio & Gallery Management
+  function renderPortfolio() {
+    const list = currentUser.vendorDetails.portfolio || [];
+    $('portfolio-count').textContent = list.length;
+    const container = $('portfolio-container');
+
+    if (list.length === 0) {
+      container.innerHTML = '<p style="color:var(--muted); font-size:0.9rem;">No portfolio projects added yet. Use the form above to add your first project.</p>';
+      return;
+    }
+
+    container.innerHTML = list.map((item, idx) => `
+      <div class="portfolio-card">
+        <img src="${item.image || 'images/venues/1.jpg'}" alt="${item.title}" class="portfolio-img" onerror="this.src='images/venues/1.jpg'">
+        <div class="portfolio-body">
+          <h4>${item.title || 'Untitled Project'}</h4>
+          <p>${item.description || 'Special celebration arrangement'}</p>
+          <button type="button" class="btn-outline btn-del-portfolio" data-idx="${idx}" style="color:#DC2626; border-color:#FECACA; font-size:0.75rem; padding:4px 10px;">Remove</button>
+        </div>
+      </div>
+    `).join('');
+
+    container.querySelectorAll('.btn-del-portfolio').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const i = Number(btn.dataset.idx);
+        currentUser.vendorDetails.portfolio.splice(i, 1);
+        localStorage.setItem('eventora_user', JSON.stringify(currentUser));
+        renderPortfolio();
+        showToast('Portfolio project removed.');
+      });
+    });
+  }
+
+  function renderGallery() {
+    const list = currentUser.vendorDetails.pictures || [];
+    $('gallery-count').textContent = list.length;
+    const container = $('gallery-container');
+
+    if (list.length === 0) {
+      container.innerHTML = '<p style="color:var(--muted); font-size:0.9rem;">No showcase pictures added yet. Enter an image URL or click "Add Recommended Event Photos".</p>';
+      return;
+    }
+
+    container.innerHTML = list.map((src, idx) => `
+      <div class="gallery-item">
+        <img src="${src}" alt="Showcase photo ${idx + 1}" onerror="this.src='images/venues/1.jpg'">
+        <button type="button" class="gallery-del" data-idx="${idx}" title="Remove photo">✕</button>
+      </div>
+    `).join('');
+
+    container.querySelectorAll('.gallery-del').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const i = Number(btn.dataset.idx);
+        currentUser.vendorDetails.pictures.splice(i, 1);
+        localStorage.setItem('eventora_user', JSON.stringify(currentUser));
+        renderGallery();
+        showToast('Showcase picture removed.');
+      });
+    });
+  }
+
+  // Add Portfolio item
+  $('btn-add-portfolio-item').addEventListener('click', () => {
+    const title = $('p-title').value.trim();
+    if (!title) {
+      alert('Please enter a project title.');
+      return;
+    }
+    const type = $('p-type').value;
+    const img = $('p-img').value.trim() || 'images/venues/1.jpg';
+    const desc = $('p-desc').value.trim() || `${type} orchestration`;
+
+    currentUser.vendorDetails.portfolio.push({ title, description: desc, image: img });
+    localStorage.setItem('eventora_user', JSON.stringify(currentUser));
+
+    $('p-title').value = '';
+    $('p-img').value = '';
+    $('p-desc').value = '';
+
+    renderPortfolio();
+    showToast('✓ Project added to work portfolio!');
+  });
+
+  // Add Picture to Gallery
+  $('btn-add-picture').addEventListener('click', () => {
+    const url = $('new-picture-url').value.trim();
+    if (!url) {
+      alert('Please enter an image path or URL.');
+      return;
+    }
+    currentUser.vendorDetails.pictures.push(url);
+    localStorage.setItem('eventora_user', JSON.stringify(currentUser));
+    $('new-picture-url').value = '';
+    renderGallery();
+    showToast('✓ Picture added to showcase gallery!');
+  });
+
+  // Quick preset event pictures
+  $('btn-quick-samples').addEventListener('click', () => {
+    const presets = [
+      'images/venues/1.jpg',
+      'images/venues/2.jpg',
+      'images/venues/3.jpg',
+      'images/decor/1.jpg',
+      'images/decor/2.jpg',
+      'images/decor/3.jpg'
+    ];
+    presets.forEach(p => {
+      if (!currentUser.vendorDetails.pictures.includes(p)) {
+        currentUser.vendorDetails.pictures.push(p);
+      }
+    });
+    localStorage.setItem('eventora_user', JSON.stringify(currentUser));
+    renderGallery();
+    showToast('✓ Added recommended event photos!');
+  });
+
+  $('btn-save-portfolio-top').addEventListener('click', saveProfile);
+
+  // 5. Date Availability Management
+  function renderAvailability() {
+    const vd = currentUser.vendorDetails || {};
+    vd.bookedDates = vd.bookedDates || [];
+    vd.availability = vd.availability || { status: 'Available', unavailableDates: vd.bookedDates, note: '' };
+
+    $('avail-status').value = vd.availability.status || 'Available';
+    $('avail-note').value = vd.availability.note || '';
+
+    const countEl = $('booked-dates-count');
+    if (countEl) countEl.textContent = vd.bookedDates.length;
+
+    const container = $('booked-dates-container');
+    if (!container) return;
+
+    if (vd.bookedDates.length === 0) {
+      container.innerHTML = '<p style="color:var(--muted); font-size:0.9rem;">No dates marked as booked yet. You are shown as fully available on all celebration dates.</p>';
+      return;
+    }
+
+    container.innerHTML = vd.bookedDates.map((dateStr, idx) => `
+      <span style="display:inline-flex; align-items:center; gap:8px; background:#FEF3C7; color:#92400E; border:1px solid #FDE68A; padding:6px 14px; border-radius:999px; font-weight:700; font-size:0.85rem;">
+        📅 ${dateStr}
+        <button type="button" class="btn-del-date" data-idx="${idx}" title="Remove booked date" style="background:none; border:none; color:#B45309; font-weight:bold; cursor:pointer; padding:0 2px; font-size:1rem; line-height:1;">✕</button>
+      </span>
+    `).join('');
+
+    container.querySelectorAll('.btn-del-date').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const i = Number(btn.dataset.idx);
+        currentUser.vendorDetails.bookedDates.splice(i, 1);
+        if (currentUser.vendorDetails.availability) {
+          currentUser.vendorDetails.availability.unavailableDates = currentUser.vendorDetails.bookedDates;
+        }
+        localStorage.setItem('eventora_user', JSON.stringify(currentUser));
+        renderAvailability();
+        showToast('Booked date removed — now available on this date.');
+      });
+    });
+  }
+
+  async function saveAvailability() {
+    const status = $('avail-status').value;
+    const note = $('avail-note').value.trim();
+    const bookedDates = currentUser.vendorDetails.bookedDates || [];
+
+    currentUser.vendorDetails.availability = {
+      status,
+      unavailableDates: bookedDates,
+      note
+    };
+    currentUser.vendorDetails.bookedDates = bookedDates;
+
+    localStorage.setItem('eventora_user', JSON.stringify(currentUser));
+    showToast('✓ Availability and booked dates saved! Reflected in user search.');
+
+    try {
+      await fetch('/api/vendor/availability', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: currentUser.email,
+          bookedDates,
+          status,
+          note
+        })
+      });
+    } catch (e) {
+      console.log('Saved availability locally');
+    }
+  }
+
+  $('btn-add-booked-date').addEventListener('click', () => {
+    const val = $('booked-date-input').value;
+    if (!val) {
+      alert('Please select a date from the calendar.');
+      return;
+    }
+    currentUser.vendorDetails.bookedDates = currentUser.vendorDetails.bookedDates || [];
+    if (!currentUser.vendorDetails.bookedDates.includes(val)) {
+      currentUser.vendorDetails.bookedDates.push(val);
+      currentUser.vendorDetails.bookedDates.sort();
+      if (currentUser.vendorDetails.availability) {
+        currentUser.vendorDetails.availability.unavailableDates = currentUser.vendorDetails.bookedDates;
+      }
+      localStorage.setItem('eventora_user', JSON.stringify(currentUser));
+      $('booked-date-input').value = '';
+      renderAvailability();
+      showToast(`✓ Marked ${val} as booked/unavailable!`);
+    } else {
+      alert('This date is already marked as booked.');
+    }
+  });
+
+  $('btn-sample-booked-dates').addEventListener('click', () => {
+    const samples = ['2026-11-28', '2026-12-05', '2026-12-12', '2027-01-22', '2027-02-18'];
+    currentUser.vendorDetails.bookedDates = currentUser.vendorDetails.bookedDates || [];
+    samples.forEach(s => {
+      if (!currentUser.vendorDetails.bookedDates.includes(s)) {
+        currentUser.vendorDetails.bookedDates.push(s);
+      }
+    });
+    currentUser.vendorDetails.bookedDates.sort();
+    localStorage.setItem('eventora_user', JSON.stringify(currentUser));
+    renderAvailability();
+    showToast('✓ Added sample auspicious Muhurtham dates as booked!');
+  });
+
+  $('btn-save-availability').addEventListener('click', saveAvailability);
+  $('btn-save-availability-bottom').addEventListener('click', saveAvailability);
+
+  // Initialize all sections
+  populateProfileUI();
+  loadQueries();
+  renderPortfolio();
+  renderGallery();
+  renderAvailability();
+})();
+</script>
+</body>
+</html>

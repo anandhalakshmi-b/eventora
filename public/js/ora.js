@@ -164,12 +164,199 @@
     }
   }
 
+  function renderDynamicNavbar() {
+    const linksContainer = document.getElementById('links');
+    if (!linksContainer) return;
+
+    const path = window.location.pathname.toLowerCase();
+    const isFile = window.location.protocol === 'file:' || path.endsWith('.html');
+    const u = (clean, file) => isFile ? file : clean;
+
+    const routes = {
+      home: u('/', 'index.html'),
+      chatbot: u('/ora', 'chatbot.html'),
+      register: u('/register', 'register.html'),
+      venues: u('/venues', 'venues.html'),
+      ideas: u('/ideas', 'ideas.html'),
+      budget: u('/budget', 'budget.html'),
+      checklist: u('/checklist', 'checklist.html'),
+      guests: u('/guests', 'guests.html'),
+      rsvp: u('/rsvp', 'rsvp.html'),
+      consultation: u('/consultation', 'consultation.html'),
+      invites: u('/invites', 'invites.html'),
+      favorites: u('/favorites', 'favorites.html'),
+      userDashboard: u('/dashboard', 'eventora-dashboard.html'),
+      vendorDashboard: u('/vendor-dashboard', 'vendor-dashboard.html')
+    };
+
+    const isActive = (key) => {
+      if (key === 'home' && (path === '/' || path.endsWith('/index.html') || path.endsWith('/home.html') || path === '')) return true;
+      if (key === 'chatbot' && (path.includes('ora') || path.includes('chatbot'))) return true;
+      if (key === 'register' && path.includes('register')) return true;
+      if (key === 'venues' && (path.includes('venues') || path.includes('vendors'))) return true;
+      if (key === 'ideas' && path.includes('ideas')) return true;
+      if (key === 'budget' && path.includes('budget')) return true;
+      if (key === 'checklist' && path.includes('checklist')) return true;
+      if (key === 'guests' && path.includes('guests')) return true;
+      if (key === 'rsvp' && path.includes('rsvp')) return true;
+      if (key === 'consultation' && path.includes('consultation')) return true;
+      if (key === 'invites' && path.includes('invites')) return true;
+      if (key === 'favorites' && path.includes('favorites')) return true;
+      if (key === 'userDashboard' && path.includes('dashboard') && !path.includes('vendor')) return true;
+      if (key === 'vendorDashboard' && path.includes('vendor-dashboard')) return true;
+      return false;
+    };
+
+    let currentUser = null;
+    try {
+      currentUser = JSON.parse(localStorage.getItem('eventora_user'));
+    } catch (e) {}
+
+    let navHtml = '';
+
+    if (!currentUser) {
+      // 1. VISITOR / NOT LOGGED IN
+      // "first when the website is opened the home page chatbot login/register page should be visible"
+      navHtml = `
+        <a href="${routes.home}" class="${isActive('home') ? 'on' : ''}">Home</a>
+        <a href="${routes.chatbot}" class="${isActive('chatbot') ? 'on' : ''}">Chatbot</a>
+        <a class="btn sm ${isActive('register') ? 'on' : ''}" href="${routes.register}" id="nav-auth-btn">Login / Register</a>
+      `;
+    } else if (currentUser.role === 'vendor') {
+      // 2. VENDOR
+      // "so when the user logs in as vendor it should show vendor dashboard..."
+      const vName = (currentUser.vendorDetails && currentUser.vendorDetails.businessName) || currentUser.name || 'Vendor';
+      navHtml = `
+        <a href="${routes.vendorDashboard}" class="${isActive('vendorDashboard') ? 'on' : ''}">Vendor Dashboard</a>
+        <a href="${routes.home}" class="${isActive('home') ? 'on' : ''}">Home</a>
+        <a href="${routes.chatbot}" class="${isActive('chatbot') ? 'on' : ''}">Chatbot</a>
+        <span class="nav-user-badge" title="${vName}">🏢 ${vName.length > 16 ? vName.slice(0, 14) + '...' : vName}</span>
+        <button type="button" class="nav-logout-btn" id="nav-logout">Logout</button>
+      `;
+    } else {
+      // 3. CUSTOMER (USER)
+      const uFirstName = (currentUser.name || 'User').split(' ')[0];
+      navHtml = `
+        <a href="${routes.userDashboard}" class="${isActive('userDashboard') ? 'on' : ''}">Home</a>
+        <span class="nav-user-badge" title="${currentUser.name || ''}">👤 ${uFirstName}</span>
+        <button type="button" class="nav-logout-btn" id="nav-logout">Logout</button>
+      `;
+    }
+
+    linksContainer.innerHTML = navHtml;
+
+    const logoutBtn = document.getElementById('nav-logout');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', () => {
+        localStorage.removeItem('eventora_user');
+        window.location.href = routes.home;
+      });
+    }
+  }
+
+  function renderUserPageNavigation() {
+    let currentUser = null;
+    try {
+      currentUser = JSON.parse(localStorage.getItem('eventora_user'));
+    } catch (e) {}
+
+    if (!currentUser || currentUser.role === 'vendor') return;
+
+    const path = window.location.pathname.toLowerCase();
+    const isFile = window.location.protocol === 'file:' || path.endsWith('.html');
+    const route = (clean, file) => isFile ? file : clean;
+    const items = [
+      { key: 'overview', label: 'Overview', href: route('/dashboard', 'eventora-dashboard.html') },
+      { key: 'venues', label: 'Venues & Vendors', href: route('/venues', 'venues.html') },
+      { key: 'budget', label: 'Budget', href: route('/budget', 'budget.html') },
+      { key: 'checklist', label: 'Checklist', href: route('/checklist', 'checklist.html') },
+      { key: 'guests', label: 'Guests & RSVPs', href: route('/guests', 'guests.html') },
+      { key: 'invites', label: 'Invites', href: route('/invites', 'invites.html') },
+      { key: 'favorites', label: 'Favourites', href: route('/favorites', 'favorites.html') },
+      { key: 'consultation', label: 'AI Consultation', href: route('/consultation', 'consultation.html') }
+    ];
+    const isActive = (key) => {
+      if (key === 'overview') return path.includes('dashboard') && !path.includes('vendor');
+      if (key === 'venues') return path.includes('venues') || path.includes('vendors');
+      if (key === 'budget') return path.includes('budget');
+      if (key === 'checklist') return path.includes('checklist');
+      if (key === 'guests') return path.includes('guests') || path.includes('rsvp');
+      if (key === 'invites') return path.includes('invites');
+      if (key === 'favorites') return path.includes('favorites');
+      if (key === 'consultation') return path.includes('consultation');
+      return false;
+    };
+
+    const sectionNav = document.createElement('nav');
+    sectionNav.className = 'eventora-user-nav';
+    sectionNav.setAttribute('aria-label', 'Dashboard sections');
+    sectionNav.innerHTML = items.map((item) =>
+      `<a href="${item.href}"${isActive(item.key) ? ' aria-current="page"' : ''}>${item.label}</a>`
+    ).join('');
+
+    const existingTabs = document.querySelector('.event-tabs[aria-label="Event sections"]');
+    if (existingTabs) {
+      existingTabs.replaceWith(sectionNav);
+      return;
+    }
+
+    const hero = document.querySelector('header.hero');
+    if (hero) {
+      hero.insertAdjacentElement('afterend', sectionNav);
+      return;
+    }
+
+    const main = document.querySelector('main');
+    if (main) {
+      main.insertAdjacentElement('beforebegin', sectionNav);
+      return;
+    }
+
+    const topNav = document.querySelector('body > nav');
+    if (topNav) topNav.insertAdjacentElement('afterend', sectionNav);
+  }
+
+  function setupHomePageLinkProtection() {
+    const path = window.location.pathname.toLowerCase();
+    const isHome = path === '/' || path.endsWith('/index.html') || path.endsWith('/home.html') || path.endsWith('/eventora-home.html') || path === '';
+    if (!isHome) return;
+
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest('a');
+      if (!a) return;
+
+      const href = a.getAttribute('href');
+      if (!href) return;
+      if (href.startsWith('#') || href.startsWith('tel:') || href.startsWith('mailto:') || href.startsWith('javascript:')) return;
+
+      let user = null;
+      try {
+        user = JSON.parse(localStorage.getItem('eventora_user'));
+      } catch (err) {}
+
+      if (user) return;
+
+      if (a.classList.contains('brand')) return;
+      if (href === '/' || href === 'index.html' || href.endsWith('/index.html')) return;
+      if (href.includes('chatbot') || href.includes('ora') || href.includes('register')) return;
+
+      e.preventDefault();
+      const isFile = window.location.protocol === 'file:' || path.endsWith('.html');
+      const target = isFile ? 'register.html' : '/register';
+      window.location.href = target;
+    });
+  }
+
   // Initialize once DOM is ready
   function init() {
+    renderDynamicNavbar();
+    renderUserPageNavigation();
+    setupHomePageLinkProtection();
+
     // 1. Mobile menu toggle for shared navigation bar
     const burger = document.getElementById('burger');
     const links = document.getElementById('links');
-    if (burger && links && !burger._oraBound) {
+    if (burger && links && !burger._oraBound && !burger._dynBound && !burger._navBound) {
       burger._oraBound = true;
       burger.addEventListener('click', function () {
         const isOpen = links.classList.toggle('open');
