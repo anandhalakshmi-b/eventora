@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Register · Eventora</title>
+  <title>Register &amp; Sign In · Eventora</title>
   <link rel="icon" href="images/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,141 +32,106 @@
     a { color: inherit; }
     h1, h2, h3, p, ul { margin: 0; padding: 0; }
     ul { list-style: none; }
-    button, input, select { font: inherit; color: inherit; }
-    :focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+    button, input, select, textarea { font: inherit; color: inherit; }
+    :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
     [hidden] { display: none !important; }
     .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
     .skip-link { position: absolute; left: 16px; top: -48px; background: var(--ink); color: var(--white); padding: 8px 16px; border-radius: 999px; z-index: 100; }
     .skip-link:focus { top: 16px; }
     .container { width: 100%; max-width: 1150px; margin: 0 auto; padding: 0 24px; }
 
-    /* ---------- Top bar ---------- */
-    .topbar { position: sticky; top: 0; z-index: 50; background: var(--white); border-bottom: 1px solid var(--slate-200); }
-    .topbar-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 72px; flex-wrap: wrap; }
-    .brand { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; }
-    .brand-name { font-weight: 800; font-size: 20px; }
-    .main-nav { display: none; width: 100%; }
-    .main-nav.is-open { display: block; }
-    .nav-links { display: flex; flex-wrap: wrap; gap: 4px 8px; padding: 8px 0; }
-    .nav-link { display: inline-block; padding: 8px 12px; border-radius: 999px; font-size: 14px; font-weight: 600; text-decoration: none; background: none; border: none; cursor: pointer; }
-    .nav-link:hover { background: var(--slate-50); }
-    .auth-controls { display: flex; align-items: center; gap: 12px; padding: 8px 0 16px; flex-wrap: wrap; }
-    .menu-toggle { display: block; width: 44px; height: 44px; border: 1px solid var(--slate-200); border-radius: 12px; background: var(--white); cursor: pointer; position: relative; }
-    .menu-bars, .menu-bars::before, .menu-bars::after { display: block; position: absolute; left: 12px; right: 12px; height: 2px; background: var(--ink); border-radius: 2px; content: ''; }
-    .menu-bars { top: 50%; transform: translateY(-1px); }
-    .menu-bars::before { top: -6px; }
-    .menu-bars::after { top: 6px; }
-
     /* ---------- Buttons ---------- */
     .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 10px 20px; border-radius: 999px; border: 2px solid transparent; font-size: 15px; font-weight: 600; line-height: 1.2; text-decoration: none; cursor: pointer; white-space: nowrap; background: transparent; }
     .btn-solid { background: var(--ink); color: var(--white); }
     .btn-solid:hover { background: #1E293B; }
+    .btn-solid:disabled { opacity: 0.65; cursor: not-allowed; }
     .btn-ghost { border-color: var(--slate-200); background: var(--white); }
     .btn-ghost:hover { background: var(--slate-50); }
     .btn-block { width: 100%; padding: 14px 20px; }
-    .text-link { background: none; border: none; padding: 0; cursor: pointer; font-size: 13px; text-decoration: underline; color: var(--ink); }
+    .text-link { background: none; border: none; padding: 0; cursor: pointer; font-size: 13px; text-decoration: underline; color: var(--focus); font-weight: 600; }
 
     /* ---------- Layout ---------- */
-    .reg-layout { display: grid; grid-template-columns: 1fr 1.1fr; gap: 24px; align-items: start; margin: 24px auto 56px; }
+    .reg-layout { display: grid; grid-template-columns: 1fr 1.1fr; gap: 24px; align-items: start; margin: 32px auto 56px; }
 
-    /* Left panel (green module) */
-    .side { background: var(--green-bg); border-radius: 24px; padding: 40px; }
+    /* Left panel */
+    .side { background: var(--green-bg); border-radius: 24px; padding: 36px; }
     .chip { display: inline-block; background: var(--white); color: var(--ok); padding: 5px 12px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
-    .side h1 { font-size: 44px; font-weight: 800; line-height: 1.08; letter-spacing: -0.02em; margin-top: 20px; }
-    .side p.lead { margin-top: 16px; color: var(--muted); font-size: 16px; }
-    .side-photo { margin-top: 28px; height: 280px; border-radius: 18px; background: url('images/venues/1.jpg') center/cover no-repeat; position: relative; overflow: hidden; box-shadow: 0 8px 20px rgba(15,23,42,0.12); }
-    .side-logo { display: flex; align-items: center; gap: 12px; margin-top: 24px; }
+    .side h1 { font-size: 40px; font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; margin-top: 18px; }
+    .side p.lead { margin-top: 14px; color: var(--muted); font-size: 15px; }
+    .side-photo { margin-top: 24px; height: 240px; border-radius: 18px; background: url('images/venues/1.jpg') center/cover no-repeat; box-shadow: 0 6px 16px rgba(15,23,42,0.1); }
+    .side-logo { display: flex; align-items: center; gap: 12px; margin-top: 22px; }
     .side-logo img { width: 40px; height: 40px; object-fit: contain; background: var(--white); border-radius: 12px; padding: 4px; }
     .side-logo strong { display: block; font-size: 14px; }
     .side-logo span { font-size: 12px; color: var(--muted); }
 
     /* Right column */
-    .seg { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
-    .seg button { padding: 14px; border-radius: 999px; border: 1px solid var(--slate-200); background: var(--white); font-weight: 600; cursor: pointer; font-size: 15px; }
+    .seg { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+    .seg button { padding: 12px 16px; border-radius: 999px; border: 1px solid var(--slate-200); background: var(--white); font-weight: 600; cursor: pointer; font-size: 15px; }
     .seg button[aria-selected="true"] { background: var(--ink); border-color: var(--ink); color: var(--white); }
 
-    .card { background: var(--white); border: 1px solid var(--slate-200); border-radius: 24px; padding: 36px; box-shadow: 0 6px 18px rgba(15,23,42,0.04); }
-    .card h2 { font-size: 32px; font-weight: 800; line-height: 1.15; letter-spacing: -0.01em; }
+    .card { background: var(--white); border: 1px solid var(--slate-200); border-radius: 24px; padding: 32px; box-shadow: 0 4px 14px rgba(15,23,42,0.04); }
+    .card h2 { font-size: 30px; font-weight: 800; line-height: 1.15; letter-spacing: -0.01em; }
     .already { margin-top: 8px; font-size: 14px; color: var(--muted); }
     .already a { color: var(--ink); font-weight: 600; }
 
-    .pill-error { display: inline-block; margin-top: 18px; background: var(--error-bg); color: var(--error); padding: 6px 14px; border-radius: 999px; font-size: 13px; font-weight: 600; }
+    .pill-error { display: inline-block; margin-top: 14px; background: var(--error-bg); color: var(--error); padding: 8px 14px; border-radius: 12px; font-size: 13px; font-weight: 600; }
     .pill-error[hidden] { display: none; }
 
     /* Fields */
-    form { margin-top: 20px; }
+    form { margin-top: 18px; }
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     .field { margin-bottom: 14px; }
-    .field label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 4px; }
-    .field input[type="text"], .field input[type="email"], .field input[type="password"], .field input[type="tel"], .field select {
-      width: 100%; padding: 12px 14px; border: 1px solid var(--slate-200); border-radius: 12px; background: var(--white); font-size: 15px;
+    .field label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); margin-bottom: 4px; }
+    .field input[type="text"], .field input[type="email"], .field input[type="password"], .field input[type="tel"], .field select, .field textarea {
+      width: 100%; padding: 11px 14px; border: 1px solid var(--slate-200); border-radius: 12px; background: var(--white); font-size: 15px;
     }
-    .field input:focus, .field select:focus { border-color: var(--focus); outline: none; box-shadow: 0 0 0 3px rgba(37,99,235,0.2); }
-    .field.is-invalid input, .field.is-invalid select { border-color: var(--error); background: #FFF7F7; }
-    .field.is-valid input { border-color: #BBF7D0; }
-    .msg { display: none; font-size: 12px; margin-top: 6px; }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--focus); outline: none; box-shadow: 0 0 0 3px rgba(37,99,235,0.18); }
+    .field.is-invalid input, .field.is-invalid select, .field.is-invalid textarea { border-color: var(--error); background: #FFF7F7; }
+    .field.is-valid input, .field.is-valid select { border-color: #86EFAC; }
+    .msg { display: none; font-size: 12px; margin-top: 5px; }
     .msg.is-error { display: block; color: var(--error); }
     .msg.is-ok { display: block; color: var(--ok); }
     .pw-wrap { position: relative; }
-    .pw-wrap input { padding-right: 52px; }
+    .pw-wrap input { padding-right: 56px; }
     .pw-toggle { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 13px; color: var(--muted); padding: 6px; }
 
     .rules { display: flex; gap: 8px; flex-wrap: wrap; margin: -4px 0 14px; }
     .rule { font-size: 12px; padding: 4px 10px; border-radius: 999px; background: var(--slate-50); border: 1px solid var(--slate-200); color: var(--muted); }
-    .rule.is-pass { background: var(--green-bg); border-color: #BBF7D0; color: var(--ok); }
+    .rule.is-pass { background: var(--green-bg); border-color: #86EFAC; color: var(--ok); }
 
     /* Portfolio upload */
-    .upload { border: 1.5px dashed #86EFAC; background: var(--green-bg); border-radius: 16px; padding: 18px; margin-bottom: 14px; }
+    .upload { border: 1.5px dashed #86EFAC; background: var(--green-bg); border-radius: 16px; padding: 16px; margin-bottom: 14px; position: relative; }
     .upload strong { font-size: 14px; }
     .upload p { font-size: 12px; color: var(--muted); margin-top: 2px; }
     .upload label.choose { display: inline-block; margin-top: 10px; background: var(--white); border: 1px solid var(--slate-200); padding: 8px 14px; border-radius: 999px; font-size: 13px; font-weight: 600; cursor: pointer; }
-    .upload input[type="file"] { position: absolute; width: 1px; height: 1px; opacity: 0; }
+    .upload input[type="file"] { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
     .file-chip { display: inline-block; margin-top: 10px; margin-left: 8px; background: var(--white); padding: 4px 12px; border-radius: 999px; font-size: 12px; font-weight: 600; color: var(--ok); }
 
-    .terms { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: var(--muted); margin: 16px 0 6px; }
+    .terms { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: var(--muted); margin: 12px 0 6px; }
     .terms input { margin-top: 3px; accent-color: var(--ink); }
     .terms-msg { display: none; font-size: 12px; color: var(--error); margin-bottom: 8px; }
     .terms-msg.is-error { display: block; }
-    .sample-note { margin-top: 14px; font-size: 12px; color: var(--muted); text-align: left; }
 
-    /* Success state */
-    .success-chip { display: inline-block; background: var(--green-bg); color: var(--ok); padding: 5px 12px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
-    .success h2 { margin-top: 14px; }
-    .success > p.lead { margin-top: 10px; color: var(--muted); font-size: 15px; }
-    .preview { margin-top: 22px; background: var(--pink-bg); border-radius: 20px; padding: 20px; }
-    .preview-photo { height: 180px; border-radius: 14px; background: linear-gradient(135deg, #FED7AA 0%, #FBCFE8 50%, #D9F99D 100%); }
-    .preview h3 { font-size: 22px; font-weight: 800; margin-top: 16px; }
-    .preview .meta { font-size: 14px; color: var(--muted); margin-top: 4px; }
-    .preview .tag { display: inline-block; margin-top: 12px; background: var(--white); color: var(--pink-accent); padding: 4px 12px; border-radius: 999px; font-size: 12px; font-weight: 600; }
-    .success-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
-    .success-note { margin-top: 14px; font-size: 12px; color: var(--muted); }
+    .demo-box { margin-top: 18px; padding: 14px 16px; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 14px; font-size: 13px; color: var(--muted); }
+    .demo-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+    .demo-pill { padding: 6px 12px; border-radius: 999px; border: 1px solid #CBD5E1; background: #FFFFFF; font-size: 12px; font-weight: 600; cursor: pointer; }
+    .demo-pill:hover { background: #EFF6FF; border-color: var(--focus); color: var(--focus); }
 
-    .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(120px); background: var(--ink); color: var(--white); padding: 12px 20px; border-radius: 999px; font-weight: 600; transition: transform 0.3s ease; z-index: 90; }
+    .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(120px); background: var(--ink); color: var(--white); padding: 12px 20px; border-radius: 999px; font-weight: 600; transition: transform 0.2s ease; z-index: 90; }
     .toast.is-visible { transform: translateX(-50%) translateY(0); }
 
-    /* Footer and Ora */
-    .site-footer { border-top: 1px solid var(--slate-200); background: var(--white); padding: 24px 0; }
-    .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
-    .footer-inner p, .footer-inner a { font-size: 13px; color: var(--muted); text-decoration: none; }
-    .footer-links { display: flex; gap: 16px; flex-wrap: wrap; }
-    .ora-fab { position: fixed; right: 24px; bottom: 24px; z-index: 60; width: 56px; height: 56px; border-radius: 999px; display: flex; align-items: center; justify-content: center; background: var(--gradient-bg); color: #9333EA; font-size: 24px; text-decoration: none; box-shadow: 0 8px 20px rgba(147, 51, 234, 0.25); }
+    .hero.hero-compact { min-height: 240px; }
+    .hero.hero-compact .hero-content { padding: 40px 0; }
 
-    /* Responsive */
-    @media (min-width: 900px) {
-      .menu-toggle { display: none; }
-      .main-nav { display: flex; flex: 1; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
-      .nav-links { flex: 1; justify-content: flex-end; }
-    }
-    @media (max-width: 899px) { .main-nav { border-top: 1px solid var(--slate-200); } }
     @media (max-width: 860px) {
       .reg-layout { grid-template-columns: 1fr; }
-      .side h1 { font-size: 34px; }
-      .side-photo { height: 220px; }
+      .side h1 { font-size: 32px; }
+      .side-photo { height: 200px; }
     }
     @media (max-width: 560px) {
-      .side, .card { padding: 24px; }
+      .side, .card { padding: 22px; }
       .side h1 { font-size: 28px; }
-      .card h2 { font-size: 26px; }
+      .card h2 { font-size: 24px; }
       .grid-2 { grid-template-columns: 1fr; }
     }
     @media (prefers-reduced-motion: reduce) {
@@ -184,39 +149,28 @@
   <button id="burger" aria-label="Open menu" aria-expanded="false">☰</button>
   <div class="links" id="links">
     <a href="index.html">Home</a>
-    <a href="venues.html">Venues & Vendors</a>
-    <a href="ideas.html">Ideas</a>
-    <a href="budget.html">Budget</a>
-    <a href="checklist.html">Checklist</a>
-    <a href="guests.html">Guests</a>
-    <a href="consultation.html">Consultation</a>
-    <a href="invites.html">Invites</a>
-    <a href="favorites.html">Favourites ♥</a>
-    <a class="btn sm on" href="register.html">Register</a>
+    <a href="chatbot.html">Chatbot</a>
+    <a class="btn sm on" href="register.html">Login / Register</a>
   </div>
 </nav>
 
-<!-- Royal Video Hero -->
-<header class="hero">
-  <video class="hero-video" autoplay muted loop playsinline poster="images/venues/1.jpg" aria-hidden="true">
-    <source src="images/venues/venues.mp4" type="video/mp4">
-  </video>
+<header class="hero hero-compact">
+  <img class="hero-img" src="images/venues/1.jpg" alt="" aria-hidden="true">
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <p class="hero-kicker">✦ JOIN THE EVENTORA CELEBRATION COMMUNITY ✦</p>
-    <h1>Create Your Eventora Account</h1>
-    <p>Sign up to plan your royal Indian celebration or showcase your vendor services to thousands of hosts.</p>
+    <h1>Create Your Account or Sign In</h1>
+    <p>Register as a celebration host or vendor partner — saved securely with MongoDB and instant dashboard access.</p>
   </div>
 </header>
 
-<main id="main" class="container reg-layout" style="margin-top:40px;">
+<main id="main" class="container reg-layout">
 
-  <!-- Left panel -->
   <section class="side" aria-labelledby="side-title">
-    <span class="chip">Your next chapter starts here</span>
+    <span class="chip" id="side-chip">Customer Account</span>
     <h1 id="side-title">A little account.<br>A world of possibilities.</h1>
-    <p class="lead" id="side-lead">Your plans, people and favourite ideas, together in one thoughtful space. Let's make something wonderful.</p>
-    <div class="side-photo" role="img" aria-label="Guests laughing and toasting at a garden dinner table with peach flowers"></div>
+    <p class="lead" id="side-lead">Your plans, people and favourite ideas, together in one thoughtful space. Let’s make something wonderful.</p>
+    <div class="side-photo" role="img" aria-label="Celebration banquet setup"></div>
     <div class="side-logo">
       <img src="images/logo.png" alt="Eventora lotus symbol">
       <div>
@@ -226,44 +180,52 @@
     </div>
   </section>
 
-  <!-- Right column -->
-  <section aria-label="Registration">
-    <div class="seg" role="tablist" aria-label="Account type">
-      <button type="button" role="tab" id="tab-user" aria-selected="true" aria-controls="panel" data-tab="user">Register as User</button>
-      <button type="button" role="tab" id="tab-vendor" aria-selected="false" aria-controls="panel" data-tab="vendor">Register as Vendor</button>
+  <section aria-label="Account Access">
+    <div class="seg" role="tablist" aria-label="Account mode">
+      <button type="button" role="tab" id="mode-tab-reg" class="mode-btn" aria-selected="true">Create Account (Register)</button>
+      <button type="button" role="tab" id="mode-tab-login" class="mode-btn" aria-selected="false">Sign In (Login)</button>
     </div>
 
-    <div class="card" id="panel" role="tabpanel" aria-labelledby="tab-user">
+    <div class="seg" id="reg-tabs" role="tablist" aria-label="Account type">
+      <button type="button" role="tab" id="tab-user" aria-selected="true" aria-controls="panel" data-tab="user">Customer (User)</button>
+      <button type="button" role="tab" id="tab-vendor" aria-selected="false" aria-controls="panel" data-tab="vendor">Vendor Partner</button>
+    </div>
 
-      <!-- Form area -->
+    <div class="card" id="panel" role="tabpanel" aria-labelledby="user-heading">
       <div id="form-area">
 
-        <!-- User form -->
         <form id="user-form" novalidate>
           <h2 id="user-heading">Make room for your next big day.</h2>
-          <p class="already">Already part of Eventora? <a href="#">Log in ↗</a></p>
-          <p class="pill-error" id="user-summary" role="alert" hidden>Password needs attention</p>
+          <p class="already">Already part of Eventora? <a href="#" class="to-login-link">Log in ↗</a></p>
+          <p class="pill-error" id="user-summary" role="alert" hidden></p>
 
           <div class="grid-2">
-            <div class="field" data-field="first">
+            <div class="field" id="f-u-first">
               <label for="u-first">First name</label>
-              <input type="text" id="u-first" autocomplete="given-name">
+              <input type="text" id="u-first" autocomplete="given-name" placeholder="Aarav">
               <p class="msg" id="u-first-msg"></p>
             </div>
-            <div class="field" data-field="last">
+            <div class="field" id="f-u-last">
               <label for="u-last">Last name</label>
-              <input type="text" id="u-last" autocomplete="family-name">
+              <input type="text" id="u-last" autocomplete="family-name" placeholder="Sharma">
               <p class="msg" id="u-last-msg"></p>
             </div>
           </div>
 
-          <div class="field" data-field="email">
-            <label for="u-email">Email address</label>
-            <input type="email" id="u-email" autocomplete="email">
-            <p class="msg" id="u-email-msg"></p>
+          <div class="grid-2">
+            <div class="field" id="f-u-email">
+              <label for="u-email">Email address</label>
+              <input type="email" id="u-email" autocomplete="email" placeholder="aarav@example.com">
+              <p class="msg" id="u-email-msg"></p>
+            </div>
+            <div class="field" id="f-u-phone">
+              <label for="u-phone">Phone (optional)</label>
+              <input type="tel" id="u-phone" autocomplete="tel" placeholder="+91 98765 43210">
+              <p class="msg" id="u-phone-msg"></p>
+            </div>
           </div>
 
-          <div class="field" data-field="password">
+          <div class="field" id="f-u-password">
             <label for="u-password">Create password</label>
             <div class="pw-wrap">
               <input type="password" id="u-password" autocomplete="new-password">
@@ -271,8 +233,13 @@
             </div>
             <p class="msg" id="u-password-msg"></p>
           </div>
+          <div class="rules" aria-live="polite">
+            <span class="rule" id="ur-length">8+ characters</span>
+            <span class="rule" id="ur-number">Number</span>
+            <span class="rule" id="ur-special">Special character</span>
+          </div>
 
-          <div class="field" data-field="confirm">
+          <div class="field" id="f-u-confirm">
             <label for="u-confirm">Confirm password</label>
             <div class="pw-wrap">
               <input type="password" id="u-confirm" autocomplete="new-password">
@@ -291,87 +258,85 @@
           </div>
           <p class="terms-msg" id="u-terms-msg">Please accept the terms to continue.</p>
 
-          <button type="submit" class="btn btn-solid btn-block">Create my account →</button>
-          <p class="sample-note">Sample registration design. No details are submitted or saved.</p>
+          <button type="submit" class="btn btn-solid btn-block">Create customer account →</button>
         </form>
 
-        <!-- Vendor form -->
         <form id="vendor-form" novalidate hidden>
-          <h2 id="vendor-heading">Let's meet your business.</h2>
-          <p class="already">Already part of Eventora? <a href="#">Log in ↗</a></p>
-          <p class="pill-error" id="vendor-summary" role="alert" hidden>Some details need attention</p>
+          <h2 id="vendor-heading">Let’s meet your business.</h2>
+          <p class="already">Already part of Eventora? <a href="#" class="to-login-link">Log in ↗</a></p>
+          <p class="pill-error" id="vendor-summary" role="alert" hidden></p>
 
-          <div class="field" data-field="bname">
+          <div class="field" id="f-v-bname">
             <label for="v-bname">Business name</label>
-            <input type="text" id="v-bname" autocomplete="organization">
+            <input type="text" id="v-bname" autocomplete="organization" placeholder="Glow by Meera Studio">
             <p class="msg" id="v-bname-msg"></p>
           </div>
 
           <div class="grid-2">
-            <div class="field" data-field="category">
+            <div class="field" id="f-v-category">
               <label for="v-category">Category</label>
               <select id="v-category">
                 <option value="">Choose a category</option>
-                <option>Banquet &amp; Mandap Venue</option>
-                <option>Traditional Caterer &amp; Sweets</option>
-                <option>Wedding Decorator &amp; Florist</option>
-                <option>Bridal Makeup &amp; Mehendi Artist</option>
-                <option>Candid Photographer &amp; Drone Video</option>
-                <option>Dhol, DJ &amp; Live Band</option>
-                <option>Anchor, Emcee &amp; Host</option>
-                <option>Pandit &amp; Puja Samagri</option>
+                <option value="Catering">Catering</option>
+                <option value="Decor">Decor</option>
+                <option value="Makeup &amp; Styling">Makeup &amp; Styling</option>
+                <option value="Photography &amp; Video">Photography &amp; Video</option>
+                <option value="Host &amp; Anchor">Host &amp; Anchor</option>
+                <option value="DJ &amp; Music">DJ &amp; Music</option>
+                <option value="Florist">Florist</option>
+                <option value="Banquet &amp; Mandap Venue">Banquet &amp; Mandap Venue</option>
               </select>
               <p class="msg" id="v-category-msg"></p>
             </div>
-            <div class="field" data-field="city">
+            <div class="field" id="f-v-city">
               <label for="v-city">City</label>
-              <input type="text" id="v-city" autocomplete="address-level2">
+              <input type="text" id="v-city" autocomplete="address-level2" placeholder="Coimbatore">
               <p class="msg" id="v-city-msg"></p>
             </div>
           </div>
 
-          <div class="field" data-field="services">
+          <div class="field" id="f-v-services">
             <label for="v-services">Services offered</label>
-            <input type="text" id="v-services">
+            <input type="text" id="v-services" placeholder="e.g. Bridal makeup, Hair styling, Saree draping">
             <p class="msg" id="v-services-msg"></p>
           </div>
 
           <div class="grid-2">
-            <div class="field" data-field="price">
+            <div class="field" id="f-v-price">
               <label for="v-price">Starting price (₹ INR)</label>
-              <input type="text" id="v-price" inputmode="decimal" placeholder="e.g. 25000">
+              <input type="text" id="v-price" inputmode="decimal" placeholder="e.g. 8000">
               <p class="msg" id="v-price-msg"></p>
             </div>
-            <div class="field" data-field="contact">
-              <label for="v-contact">Contact name</label>
-              <input type="text" id="v-contact" autocomplete="name">
+            <div class="field" id="f-v-contact">
+              <label for="v-contact">Contact person name</label>
+              <input type="text" id="v-contact" autocomplete="name" placeholder="Meera Nair">
               <p class="msg" id="v-contact-msg"></p>
             </div>
           </div>
 
           <div class="grid-2">
-            <div class="field" data-field="vemail">
+            <div class="field" id="f-v-email">
               <label for="v-email">Business email</label>
-              <input type="email" id="v-email" autocomplete="email">
+              <input type="email" id="v-email" autocomplete="email" placeholder="hello@glowbymeera.in">
               <p class="msg" id="v-email-msg"></p>
             </div>
-            <div class="field" data-field="phone">
+            <div class="field" id="f-v-phone">
               <label for="v-phone">Phone</label>
-              <input type="tel" id="v-phone" autocomplete="tel">
+              <input type="tel" id="v-phone" autocomplete="tel" placeholder="+91 98765 43210">
               <p class="msg" id="v-phone-msg"></p>
             </div>
           </div>
 
           <div class="upload">
-            <strong>↑ Upload your portfolio</strong>
-            <p>JPG, PNG or PDF · Up to 10 MB each</p>
-            <label class="choose" for="v-portfolio">Choose files</label>
+            <strong>↑ Upload initial portfolio sample (optional)</strong>
+            <p>JPG, PNG or PDF · Up to 10 MB · Add more anytime in your Vendor Dashboard</p>
+            <label class="choose" for="v-portfolio">Choose file</label>
             <input type="file" id="v-portfolio" accept=".jpg,.jpeg,.png,.pdf,image/jpeg,image/png,application/pdf">
             <span class="file-chip" id="file-chip" hidden></span>
             <p class="msg" id="v-portfolio-msg"></p>
           </div>
 
-          <div class="field" data-field="vpassword">
+          <div class="field" id="f-v-password">
             <label for="v-password">Create password</label>
             <div class="pw-wrap">
               <input type="password" id="v-password" autocomplete="new-password">
@@ -391,41 +356,46 @@
           </div>
           <div class="terms">
             <input type="checkbox" id="v-news">
-            <label for="v-news">Send me occasional inspiration and planning tips.</label>
+            <label for="v-news">Send me vendor leads and platform updates.</label>
           </div>
           <p class="terms-msg" id="v-terms-msg">Please accept the terms to continue.</p>
 
           <button type="submit" class="btn btn-solid btn-block">Create vendor profile →</button>
-          <p class="sample-note">Sample registration design. No details are submitted or saved.</p>
+        </form>
+
+        <form id="login-form" novalidate hidden>
+          <h2 id="login-heading">Sign in to Eventora</h2>
+          <p class="already">New to Eventora? <a href="#" id="link-to-register">Create an account ↗</a></p>
+          <p class="pill-error" id="login-summary" role="alert" hidden></p>
+
+          <div class="field" id="f-l-email">
+            <label for="l-email">Email address</label>
+            <input type="email" id="l-email" required autocomplete="username" placeholder="name@example.com">
+            <p class="msg" id="l-email-msg"></p>
+          </div>
+
+          <div class="field" id="f-l-password">
+            <label for="l-password">Password</label>
+            <div class="pw-wrap">
+              <input type="password" id="l-password" required autocomplete="current-password" placeholder="Enter your password">
+              <button type="button" class="pw-toggle" data-toggle="l-password" aria-label="Show password">Show</button>
+            </div>
+            <p class="msg" id="l-password-msg"></p>
+          </div>
+
+          <button type="submit" class="btn btn-solid btn-block" id="btn-login-submit" style="margin-top:16px;">Sign In to Eventora →</button>
+
+          <div class="demo-box">
+            <strong>Quick Demo Access:</strong>
+            <div class="demo-actions">
+              <button type="button" class="demo-pill" id="fill-demo-user">Use Demo Customer (demo@eventora.com)</button>
+              <button type="button" class="demo-pill" id="fill-demo-vendor">Use Demo Vendor (vendor.demo@eventora.com)</button>
+            </div>
+          </div>
         </form>
 
       </div>
-
-      <!-- Success state (shown after a valid submit) -->
-      <div class="success" id="success" hidden aria-live="polite">
-        <span class="success-chip">✓ Success state preview</span>
-        <h2 id="success-heading">Your next great connection starts here.</h2>
-        <p class="lead" id="success-lead"></p>
-
-        <div class="preview" id="vendor-preview" hidden>
-          <div class="preview-photo" role="img" aria-label="Florist arranging peach and white flowers in a vase"></div>
-          <h3 id="pv-name"></h3>
-          <p class="meta" id="pv-meta"></p>
-          <span class="tag">Draft profile preview</span>
-        </div>
-
-        <div class="success-actions">
-          <button type="button" class="btn btn-solid" id="success-primary">Preview my listing →</button>
-          <button type="button" class="btn btn-ghost" id="success-back">Edit details</button>
-        </div>
-        <p class="success-note">Illustrative success state only. No account is created and no profile information is stored.</p>
-      </div>
-
     </div>
-
-    <p style="margin-top:12px; font-size:12px; color:var(--muted); text-align:center;">
-      <button type="button" class="text-link" id="show-success">See the success state</button>
-    </p>
   </section>
 
 </main>
@@ -438,15 +408,22 @@
 </footer>
 
 <script>
-  // ---------- Copy for each tab ----------
+(function () {
   var COPY = {
     user: {
+      chip: 'Customer Account',
       title: 'A little account.<br>A world of possibilities.',
       lead: "Your plans, people and favourite ideas, together in one thoughtful space. Let's make something wonderful."
     },
     vendor: {
+      chip: 'Vendor Partner Portal',
       title: "Bring your craft.<br>We'll bring the possibilities.",
-      lead: 'For the venues, makers and talented people behind unforgettable gatherings. Let your work do the talking.'
+      lead: 'Manage your listings, showcase your portfolio, and receive direct customer inquiries in your Vendor Dashboard.'
+    },
+    login: {
+      chip: 'Welcome Back',
+      title: 'Welcome back.<br>Let’s continue planning.',
+      lead: 'Sign in to access your Eventora celebration dashboard or vendor partner portal.'
     }
   };
 
@@ -457,33 +434,46 @@
   var SPECIAL_RE = /[^A-Za-z0-9]/;
 
   var currentTab = 'user';
-  var lastSubmitted = null;   // 'user' or 'vendor' after a valid submit
+  var currentMode = 'register';
+  var uploadedPortfolioName = '';
 
-  // ---------- Helpers ----------
   function $(id) { return document.getElementById(id); }
 
-  function escapeHtml(s) {
-    return String(s).replace(/[&<>"']/g, function (c) {
-      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
-    });
-  }
+  var EL = {
+    modeReg: $('mode-tab-reg'),
+    modeLogin: $('mode-tab-login'),
+    regTabs: $('reg-tabs'),
+    tabUser: $('tab-user'),
+    tabVendor: $('tab-vendor'),
+    userForm: $('user-form'),
+    vendorForm: $('vendor-form'),
+    loginForm: $('login-form'),
+    panel: $('panel'),
+    sideChip: $('side-chip'),
+    sideTitle: $('side-title'),
+    sideLead: $('side-lead'),
+    toast: $('toast'),
+    uSummary: $('user-summary'),
+    vSummary: $('vendor-summary'),
+    lSummary: $('login-summary')
+  };
 
-  // Shows or clears a field's message and state
-  function setField(fieldEl, msgEl, error, okText) {
+  function setFieldState(fieldEl, msgEl, error, okText) {
+    if (!fieldEl || !msgEl) return;
     if (error) {
-      fieldEl.classList.add('is-invalid');
+      if (!fieldEl.classList.contains('is-invalid')) fieldEl.classList.add('is-invalid');
       fieldEl.classList.remove('is-valid');
-      msgEl.textContent = error;
-      msgEl.className = 'msg is-error';
+      if (msgEl.textContent !== error) msgEl.textContent = error;
+      if (msgEl.className !== 'msg is-error') msgEl.className = 'msg is-error';
     } else if (okText) {
       fieldEl.classList.remove('is-invalid');
-      fieldEl.classList.add('is-valid');
-      msgEl.textContent = okText;
-      msgEl.className = 'msg is-ok';
+      if (!fieldEl.classList.contains('is-valid')) fieldEl.classList.add('is-valid');
+      if (msgEl.textContent !== okText) msgEl.textContent = okText;
+      if (msgEl.className !== 'msg is-ok') msgEl.className = 'msg is-ok';
     } else {
       fieldEl.classList.remove('is-invalid', 'is-valid');
-      msgEl.textContent = '';
-      msgEl.className = 'msg';
+      if (msgEl.textContent !== '') msgEl.textContent = '';
+      if (msgEl.className !== 'msg') msgEl.className = 'msg';
     }
   }
 
@@ -501,129 +491,213 @@
     return (c.length && c.number && c.special) ? null : PASSWORD_HINT;
   }
 
-  function updateRules(pw) {
+  function updateRules(pw, prefix) {
     var c = passwordChecks(pw);
-    $('r-length').classList.toggle('is-pass', c.length);
-    $('r-number').classList.toggle('is-pass', c.number);
-    $('r-special').classList.toggle('is-pass', c.special);
+    $(prefix + '-length').classList.toggle('is-pass', c.length);
+    $(prefix + '-number').classList.toggle('is-pass', c.number);
+    $(prefix + '-special').classList.toggle('is-pass', c.special);
   }
 
   function showToast(message) {
-    var el = $('toast');
-    el.textContent = message;
-    el.classList.add('is-visible');
+    EL.toast.textContent = message;
+    EL.toast.classList.add('is-visible');
     clearTimeout(showToast.timer);
-    showToast.timer = setTimeout(function () { el.classList.remove('is-visible'); }, 2400);
+    showToast.timer = setTimeout(function () { EL.toast.classList.remove('is-visible'); }, 2200);
   }
 
-  // ---------- User form validation ----------
-  function validateUser(showAll) {
+  var USER_FIELDS = {
+    first: {
+      input: $('u-first'), field: $('f-u-first'), msg: $('u-first-msg'),
+      check: function (v) { return v.trim() ? null : 'Enter your first name.'; }
+    },
+    last: {
+      input: $('u-last'), field: $('f-u-last'), msg: $('u-last-msg'),
+      check: function (v) { return v.trim() ? null : 'Enter your last name.'; }
+    },
+    email: {
+      input: $('u-email'), field: $('f-u-email'), msg: $('u-email-msg'), ok: '✓ Valid email format',
+      check: function (v) { var t = v.trim(); return !t ? 'Enter your email address.' : (EMAIL_RE.test(t) ? null : 'Enter a valid email address.'); }
+    },
+    password: {
+      input: $('u-password'), field: $('f-u-password'), msg: $('u-password-msg'), ok: '✓ Password meets the rules',
+      check: function (v) { return passwordError(v); }
+    },
+    confirm: {
+      input: $('u-confirm'), field: $('f-u-confirm'), msg: $('u-confirm-msg'), ok: '✓ Passwords match',
+      check: function (v) { return !v ? 'Confirm your password.' : (v === $('u-password').value ? null : 'Passwords do not match.'); }
+    }
+  };
+
+  function validateSingle(map, key, forceShow) {
+    var cfg = map[key];
+    var val = cfg.input.value;
+    if (!forceShow && !val) {
+      setFieldState(cfg.field, cfg.msg, null, null);
+      return false;
+    }
+    var err = cfg.check(val);
+    setFieldState(cfg.field, cfg.msg, err, (!err && cfg.ok && val) ? cfg.ok : null);
+    return !!err;
+  }
+
+  function validateUserAll() {
     var errors = 0;
-    var first = $('u-first').value.trim();
-    var last = $('u-last').value.trim();
-    var email = $('u-email').value.trim();
-    var pw = $('u-password').value;
-    var confirm = $('u-confirm').value;
-
-    var fFirst = $('u-first').closest('.field');
-    var fLast = $('u-last').closest('.field');
-    var fEmail = $('u-email').closest('.field');
-    var fPw = $('u-password').closest('.field');
-    var fConfirm = $('u-confirm').closest('.field');
-
-    var eFirst = first ? null : 'Enter your first name.';
-    var eLast = last ? null : 'Enter your last name.';
-    var eEmail = !email ? 'Enter your email address.' : (EMAIL_RE.test(email) ? null : 'Enter a valid email address.');
-    var ePw = passwordError(pw);
-    var eConfirm = !confirm ? 'Confirm your password.' : (confirm === pw ? null : 'Passwords do not match.');
-
-    if (showAll || $('u-first').value) setField(fFirst, $('u-first-msg'), eFirst);
-    if (showAll || $('u-last').value) setField(fLast, $('u-last-msg'), eLast);
-    if (showAll || $('u-email').value) setField(fEmail, $('u-email-msg'), eEmail, (!eEmail && email) ? '✓ Valid email format' : null);
-    if (showAll || pw) setField(fPw, $('u-password-msg'), ePw, (!ePw && pw) ? '✓ Password meets the rules' : null);
-    if (showAll || confirm) setField(fConfirm, $('u-confirm-msg'), eConfirm, (!eConfirm && confirm) ? '✓ Passwords match' : null);
-
-    [eFirst, eLast, eEmail, ePw, eConfirm].forEach(function (e) { if (e) errors++; });
-
-    if (showAll && !$('u-terms').checked) {
+    Object.keys(USER_FIELDS).forEach(function (k) {
+      if (validateSingle(USER_FIELDS, k, true)) errors++;
+    });
+    if (!$('u-terms').checked) {
       $('u-terms-msg').classList.add('is-error');
       errors++;
     } else {
       $('u-terms-msg').classList.remove('is-error');
     }
-
-    $('user-summary').hidden = !(showAll && ePw);
+    if (errors > 0) {
+      EL.uSummary.textContent = 'Please fix the highlighted fields below.';
+      EL.uSummary.hidden = false;
+    } else {
+      EL.uSummary.hidden = true;
+    }
     return errors;
   }
 
-  // ---------- Vendor form validation ----------
-  function validateVendor(showAll) {
-    var errors = 0;
-    var checks = [];
-
-    function check(id, fieldId, msgId, error, touched) {
-      if (showAll || touched) setField($(fieldId), $(msgId), error);
-      if (error) errors++;
+  var VENDOR_FIELDS = {
+    bname: {
+      input: $('v-bname'), field: $('f-v-bname'), msg: $('v-bname-msg'),
+      check: function (v) { return v.trim() ? null : 'Enter your business name.'; }
+    },
+    category: {
+      input: $('v-category'), field: $('f-v-category'), msg: $('v-category-msg'),
+      check: function (v) { return v ? null : 'Choose a category.'; }
+    },
+    city: {
+      input: $('v-city'), field: $('f-v-city'), msg: $('v-city-msg'),
+      check: function (v) { return v.trim() ? null : 'Enter your city.'; }
+    },
+    services: {
+      input: $('v-services'), field: $('f-v-services'), msg: $('v-services-msg'),
+      check: function (v) { return v.trim() ? null : 'List the services you offer.'; }
+    },
+    price: {
+      input: $('v-price'), field: $('f-v-price'), msg: $('v-price-msg'),
+      check: function (v) {
+        var t = v.trim();
+        return !t ? 'Enter a starting price.' : (/^[₹$]?\d[\d,]*(\.\d{1,2})?$/.test(t) ? null : 'Enter a valid number, for example 8000.');
+      }
+    },
+    contact: {
+      input: $('v-contact'), field: $('f-v-contact'), msg: $('v-contact-msg'),
+      check: function (v) { return v.trim() ? null : 'Enter a contact name.'; }
+    },
+    email: {
+      input: $('v-email'), field: $('f-v-email'), msg: $('v-email-msg'),
+      check: function (v) { var t = v.trim(); return !t ? 'Enter your business email.' : (EMAIL_RE.test(t) ? null : 'Enter a valid email address.'); }
+    },
+    phone: {
+      input: $('v-phone'), field: $('f-v-phone'), msg: $('v-phone-msg'),
+      check: function (v) { var t = v.trim(); return !t ? 'Enter a phone number.' : (t.replace(/\D/g, '').length >= 7 ? null : 'Enter a valid phone number.'); }
+    },
+    password: {
+      input: $('v-password'), field: $('f-v-password'), msg: $('v-password-msg'), ok: '✓ Password meets the rules',
+      check: function (v) { return passwordError(v); }
     }
+  };
 
-    var bname = $('v-bname').value.trim();
-    var category = $('v-category').value;
-    var city = $('v-city').value.trim();
-    var services = $('v-services').value.trim();
-    var price = $('v-price').value.trim();
-    var contact = $('v-contact').value.trim();
-    var email = $('v-email').value.trim();
-    var phone = $('v-phone').value.trim();
-    var pw = $('v-password').value;
-
-    check('bname', 'v-bname', 'v-bname-msg', bname ? null : 'Enter your business name.', !!bname || showAll);
-    check('category', 'v-category', 'v-category-msg', category ? null : 'Choose a category.', !!category || showAll);
-    check('city', 'v-city', 'v-city-msg', city ? null : 'Enter your city.', !!city || showAll);
-    check('services', 'v-services', 'v-services-msg', services ? null : 'List the services you offer.', !!services || showAll);
-    var priceErr = !price ? 'Enter a starting price.' : (/^\$?\d[\d,]*(\.\d{1,2})?$/.test(price) ? null : 'Enter a price as a number, for example 1200.');
-    check('price', 'v-price', 'v-price-msg', priceErr, !!price || showAll);
-    check('contact', 'v-contact', 'v-contact-msg', contact ? null : 'Enter a contact name.', !!contact || showAll);
-    var emailErr = !email ? 'Enter your business email.' : (EMAIL_RE.test(email) ? null : 'Enter a valid email address.');
-    check('vemail', 'v-email', 'v-email-msg', emailErr, !!email || showAll);
-    var phoneErr = !phone ? 'Enter a phone number.' : (phone.replace(/\D/g, '').length >= 7 ? null : 'Enter a valid phone number.');
-    check('phone', 'v-phone', 'v-phone-msg', phoneErr, !!phone || showAll);
-
-    var ePw = passwordError(pw);
-    if (showAll || pw) setField($('v-password').closest('.field'), $('v-password-msg'), ePw, (!ePw && pw) ? '✓ Password meets the rules' : null);
-    if (ePw) errors++;
-
-    if (showAll && !$('v-terms').checked) {
+  function validateVendorAll() {
+    var errors = 0;
+    Object.keys(VENDOR_FIELDS).forEach(function (k) {
+      if (validateSingle(VENDOR_FIELDS, k, true)) errors++;
+    });
+    if (!$('v-terms').checked) {
       $('v-terms-msg').classList.add('is-error');
       errors++;
     } else {
       $('v-terms-msg').classList.remove('is-error');
     }
-
-    $('vendor-summary').hidden = !(showAll && errors > 0);
+    if (errors > 0) {
+      EL.vSummary.textContent = 'Some details need attention.';
+      EL.vSummary.hidden = false;
+    } else {
+      EL.vSummary.hidden = true;
+    }
     return errors;
   }
 
-  // ---------- Tabs ----------
-  function setTab(tab) {
-    currentTab = tab;
-    document.querySelectorAll('[data-tab]').forEach(function (b) {
-      var active = b.dataset.tab === tab;
-      b.setAttribute('aria-selected', String(active));
+  Object.keys(USER_FIELDS).forEach(function (k) {
+    var input = USER_FIELDS[k].input;
+    input.addEventListener('input', function () {
+      if (k === 'password') {
+        updateRules(input.value, 'ur');
+        if (USER_FIELDS.confirm.input.value) validateSingle(USER_FIELDS, 'confirm', false);
+      }
+      validateSingle(USER_FIELDS, k, false);
     });
-    $('user-form').hidden = tab !== 'user';
-    $('vendor-form').hidden = tab !== 'vendor';
-    $('form-area').hidden = false;
-    $('success').hidden = true;
-    $('side-title').innerHTML = COPY[tab].title;
-    $('side-lead').textContent = COPY[tab].lead;
-    $('panel').setAttribute('aria-labelledby', tab === 'user' ? 'tab-user' : 'tab-vendor');
-  }
-
-  document.querySelectorAll('[data-tab]').forEach(function (b) {
-    b.addEventListener('click', function () { setTab(b.dataset.tab); });
+    input.addEventListener('blur', function () { validateSingle(USER_FIELDS, k, false); });
+  });
+  $('u-terms').addEventListener('change', function () {
+    if (this.checked) $('u-terms-msg').classList.remove('is-error');
   });
 
-  // ---------- Show or hide password ----------
+  Object.keys(VENDOR_FIELDS).forEach(function (k) {
+    var input = VENDOR_FIELDS[k].input;
+    var evt = input.tagName === 'SELECT' ? 'change' : 'input';
+    input.addEventListener(evt, function () {
+      if (k === 'password') updateRules(input.value, 'r');
+      validateSingle(VENDOR_FIELDS, k, false);
+    });
+    input.addEventListener('blur', function () { validateSingle(VENDOR_FIELDS, k, false); });
+  });
+  $('v-terms').addEventListener('change', function () {
+    if (this.checked) $('v-terms-msg').classList.remove('is-error');
+  });
+
+  function setMode(mode) {
+    currentMode = mode;
+    var isReg = mode === 'register';
+    EL.modeReg.setAttribute('aria-selected', String(isReg));
+    EL.modeLogin.setAttribute('aria-selected', String(!isReg));
+    EL.regTabs.hidden = !isReg;
+    EL.loginForm.hidden = isReg;
+
+    if (isReg) {
+      setTab(currentTab);
+    } else {
+      EL.userForm.hidden = true;
+      EL.vendorForm.hidden = true;
+      EL.sideChip.textContent = COPY.login.chip;
+      EL.sideTitle.innerHTML = COPY.login.title;
+      EL.sideLead.textContent = COPY.login.lead;
+      EL.panel.setAttribute('aria-labelledby', 'login-heading');
+    }
+  }
+
+  function setTab(tab) {
+    currentTab = tab;
+    EL.tabUser.setAttribute('aria-selected', String(tab === 'user'));
+    EL.tabVendor.setAttribute('aria-selected', String(tab === 'vendor'));
+    if (currentMode === 'register') {
+      EL.userForm.hidden = tab !== 'user';
+      EL.vendorForm.hidden = tab !== 'vendor';
+      EL.loginForm.hidden = true;
+      EL.sideChip.textContent = COPY[tab].chip;
+      EL.sideTitle.innerHTML = COPY[tab].title;
+      EL.sideLead.textContent = COPY[tab].lead;
+      EL.panel.setAttribute('aria-labelledby', tab === 'user' ? 'user-heading' : 'vendor-heading');
+    }
+  }
+
+  EL.modeReg.addEventListener('click', function () { setMode('register'); });
+  EL.modeLogin.addEventListener('click', function () { setMode('login'); });
+  EL.tabUser.addEventListener('click', function () { setTab('user'); });
+  EL.tabVendor.addEventListener('click', function () { setTab('vendor'); });
+
+  document.querySelectorAll('.to-login-link').forEach(function (link) {
+    link.addEventListener('click', function (e) { e.preventDefault(); setMode('login'); });
+  });
+  var linkToReg = $('link-to-register');
+  if (linkToReg) {
+    linkToReg.addEventListener('click', function (e) { e.preventDefault(); setMode('register'); });
+  }
+
   document.querySelectorAll('[data-toggle]').forEach(function (btn) {
     btn.addEventListener('click', function () {
       var input = $(btn.dataset.toggle);
@@ -634,29 +708,13 @@
     });
   });
 
-  // ---------- Live and blur validation ----------
-  ['u-first', 'u-last', 'u-email', 'u-password', 'u-confirm'].forEach(function (id) {
-    $(id).addEventListener('input', function () { validateUser(false); });
-    $(id).addEventListener('blur', function () { validateUser(false); });
-  });
-  $('u-terms').addEventListener('change', function () { validateUser(false); });
-
-  ['v-bname', 'v-category', 'v-city', 'v-services', 'v-price', 'v-contact', 'v-email', 'v-phone', 'v-password'].forEach(function (id) {
-    var el = $(id);
-    el.addEventListener('input', function () { validateVendor(false); });
-    el.addEventListener('change', function () { validateVendor(false); });
-    el.addEventListener('blur', function () { validateVendor(false); });
-  });
-  $('v-password').addEventListener('input', function () { updateRules(this.value); });
-  $('v-terms').addEventListener('change', function () { validateVendor(false); });
-
-  // ---------- Portfolio upload ----------
   $('v-portfolio').addEventListener('change', function () {
     var file = this.files[0];
     var msg = $('v-portfolio-msg');
     var chip = $('file-chip');
     chip.hidden = true;
     msg.className = 'msg';
+    uploadedPortfolioName = '';
     if (!file) return;
     if (ALLOWED_TYPES.indexOf(file.type) === -1) {
       msg.textContent = 'Upload a JPG, PNG or PDF file.';
@@ -670,202 +728,176 @@
       this.value = '';
       return;
     }
+    uploadedPortfolioName = file.name;
     chip.textContent = '✓ ' + file.name + ' · ' + (file.size / (1024 * 1024)).toFixed(1) + ' MB';
     chip.hidden = false;
   });
 
-  // ---------- Submit with MongoDB Database Connection ----------
-  $('user-form').addEventListener('submit', async function (e) {
+  function redirectAfterAuth(user) {
+    var target = user && user.role === 'vendor' ? 'vendor-dashboard.html' : 'eventora-dashboard.html';
+    if (user && user.role !== 'vendor') {
+      try {
+        var savedRedirect = sessionStorage.getItem('eventora_redirect');
+        if (savedRedirect) {
+          sessionStorage.removeItem('eventora_redirect');
+          target = savedRedirect;
+        }
+      } catch (e) {}
+    }
+    window.location.href = target;
+  }
+
+  async function submitAuth(url, payload, submitBtn, loadingLabel, summaryEl, successToast) {
+    var origText = submitBtn.textContent;
+    summaryEl.hidden = true;
+    submitBtn.textContent = loadingLabel;
+    submitBtn.disabled = true;
+
+    var controller = new AbortController();
+    var timer = setTimeout(function () { controller.abort(); }, 8000);
+
+    try {
+      var res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        signal: controller.signal
+      });
+      clearTimeout(timer);
+      var result = await res.json();
+      if (result.success && result.user) {
+        localStorage.setItem('eventora_user', JSON.stringify(result.user));
+        showToast(successToast);
+        setTimeout(function () { redirectAfterAuth(result.user); }, 180);
+      } else {
+        summaryEl.textContent = result.message || 'Authentication failed.';
+        summaryEl.hidden = false;
+      }
+    } catch (err) {
+      clearTimeout(timer);
+      summaryEl.textContent = err.name === 'AbortError'
+        ? 'Request timed out. Please try again.'
+        : 'Could not reach the server. Check that Eventora server is running.';
+      summaryEl.hidden = false;
+    } finally {
+      submitBtn.textContent = origText;
+      submitBtn.disabled = false;
+    }
+  }
+
+  EL.userForm.addEventListener('submit', function (e) {
     e.preventDefault();
-    if (validateUser(true) > 0) {
-      var first = document.querySelector('#user-form .is-invalid input');
-      if (first) first.focus();
+    if (validateUserAll() > 0) {
+      var firstInvalid = EL.userForm.querySelector('.is-invalid input');
+      if (firstInvalid) firstInvalid.focus();
       return;
     }
-    var submitBtn = document.querySelector('#user-form button[type="submit"]');
-    var originalText = submitBtn ? submitBtn.textContent : '';
-    if (submitBtn) submitBtn.textContent = 'Saving to MongoDB...';
-
+    var phoneEl = $('u-phone');
     var payload = {
       name: ($('u-first').value.trim() + ' ' + $('u-last').value.trim()).trim(),
       email: $('u-email').value.trim(),
       password: $('u-password').value,
-      phone: $('u-phone').value.trim(),
+      phone: phoneEl ? phoneEl.value.trim() : '',
       role: 'user',
-      eventDate: $('u-date') ? $('u-date').value : '',
       eventType: 'Tamil Thirumanam & Celebration'
     };
-
-    try {
-      var res = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-      var result = await res.json();
-      if (result.success) {
-        localStorage.setItem('eventora_user', JSON.stringify(result.user));
-        lastSubmitted = 'user';
-        showSuccess('user', result.user);
-      } else {
-        var summary = $('user-summary');
-        summary.textContent = result.message || 'Registration failed.';
-        summary.hidden = false;
-        summary.scrollIntoView({ behavior: 'smooth' });
-      }
-    } catch (err) {
-      console.error('Registration error:', err);
-      var mockUser = { name: payload.name, email: payload.email, role: 'user' };
-      localStorage.setItem('eventora_user', JSON.stringify(mockUser));
-      lastSubmitted = 'user';
-      showSuccess('user', mockUser);
-    } finally {
-      if (submitBtn) submitBtn.textContent = originalText;
-    }
+    submitAuth(
+      '/api/auth/register',
+      payload,
+      EL.userForm.querySelector('button[type="submit"]'),
+      'Creating account...',
+      EL.uSummary,
+      '✓ Account created! Opening dashboard...'
+    );
   });
 
-  $('vendor-form').addEventListener('submit', async function (e) {
+  EL.vendorForm.addEventListener('submit', function (e) {
     e.preventDefault();
-    if (validateVendor(true) > 0) {
-      var first = document.querySelector('#vendor-form .is-invalid input, #vendor-form .is-invalid select');
-      if (first) first.focus();
+    if (validateVendorAll() > 0) {
+      var firstInvalid = EL.vendorForm.querySelector('.is-invalid input, .is-invalid select');
+      if (firstInvalid) firstInvalid.focus();
       return;
     }
-    var submitBtn = document.querySelector('#vendor-form button[type="submit"]');
-    var originalText = submitBtn ? submitBtn.textContent : '';
-    if (submitBtn) submitBtn.textContent = 'Registering in MongoDB...';
-
+    var bname = $('v-bname').value.trim();
+    var category = $('v-category').value;
+    var services = $('v-services').value.trim();
+    var city = $('v-city').value.trim();
     var payload = {
-      name: $('v-contact') && $('v-contact').value.trim() ? $('v-contact').value.trim() : $('v-bname').value.trim(),
-      businessName: $('v-bname').value.trim(),
-      services: $('v-services').value.trim(),
-      city: $('v-city').value.trim(),
+      name: $('v-contact').value.trim() || bname,
+      businessName: bname,
+      category: category,
+      services: services,
+      city: city,
       price: $('v-price').value.trim(),
       phone: $('v-phone').value.trim(),
       email: $('v-email').value.trim(),
       password: $('v-password').value,
+      description: bname + ' — ' + category + ' in ' + city + ' (' + services + ')',
+      portfolio: uploadedPortfolioName ? [{ title: uploadedPortfolioName, description: 'Initial portfolio upload', image: '' }] : [],
       role: 'vendor'
     };
-
-    try {
-      var res = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-      var result = await res.json();
-      if (result.success) {
-        localStorage.setItem('eventora_user', JSON.stringify(result.user));
-        lastSubmitted = 'vendor';
-        showSuccess('vendor', result.user);
-      } else {
-        var summary = $('vendor-summary');
-        summary.textContent = result.message || 'Registration failed.';
-        summary.hidden = false;
-        summary.scrollIntoView({ behavior: 'smooth' });
-      }
-    } catch (err) {
-      console.error('Vendor registration error:', err);
-      var mockUser = { name: payload.businessName, email: payload.email, role: 'vendor' };
-      localStorage.setItem('eventora_user', JSON.stringify(mockUser));
-      lastSubmitted = 'vendor';
-      showSuccess('vendor', mockUser);
-    } finally {
-      if (submitBtn) submitBtn.textContent = originalText;
-    }
+    submitAuth(
+      '/api/auth/register',
+      payload,
+      EL.vendorForm.querySelector('button[type="submit"]'),
+      'Creating vendor profile...',
+      EL.vSummary,
+      '✓ Vendor registered! Opening dashboard...'
+    );
   });
 
-  // ---------- Success state ----------
-  function showSuccess(kind, user) {
-    $('form-area').hidden = true;
-    $('success').hidden = false;
-    var isVendor = kind === 'vendor';
+  EL.loginForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var email = $('l-email').value.trim();
+    var password = $('l-password').value;
+    var eErr = !email ? 'Enter your email address.' : (EMAIL_RE.test(email) ? null : 'Enter a valid email address.');
+    var pErr = !password ? 'Enter your password.' : null;
+    setFieldState($('f-l-email'), $('l-email-msg'), eErr);
+    setFieldState($('f-l-password'), $('l-password-msg'), pErr);
+    if (eErr || pErr) return;
 
-    if (isVendor) {
-      $('success-heading').textContent = 'Vanakkam! Your vendor account is saved in MongoDB.';
-      $('success-lead').textContent = 'Your business profile is now securely registered. Couples and planners can find your services, view your pricing, and book your team.';
-      $('vendor-preview').hidden = false;
-      var name = $('v-bname').value.trim() || 'Your business';
-      var services = $('v-services').value.trim() || 'Event services';
-      var city = $('v-city').value.trim() || 'Your city';
-      var price = $('v-price').value.trim().replace(/^₹/, '').replace(/^\$/, '');
-      var email = $('v-email').value.trim();
-      $('pv-name').textContent = name;
-      $('pv-meta').textContent = services + ' · ' + city + ' · From ₹' + price + ' · ' + email;
-      $('success-primary').textContent = 'View Vendors Directory →';
-      $('success-primary').onclick = function() { window.location.href = 'vendors.html'; };
-    } else {
-      var firstName = user && user.name ? user.name.split(' ')[0] : ($('u-first').value.trim() || 'friend');
-      $('success-heading').textContent = 'Vanakkam, ' + firstName + '! Your account is saved in MongoDB.';
-      $('success-lead').textContent = 'Your profile is ready in the database. Design your digital Shahi Patrika, customize Tamil wedding checklists, and track guest RSVPs.';
-      $('vendor-preview').hidden = true;
-      $('success-primary').textContent = 'Design Shahi & Tamil Patrika →';
-      $('success-primary').onclick = function() { window.location.href = 'invites.html'; };
-    }
-    $('success-back').textContent = 'Edit details';
-    $('success-heading').setAttribute('tabindex', '-1');
-    $('success-heading').focus();
+    submitAuth(
+      '/api/auth/login',
+      { email: email, password: password },
+      $('btn-login-submit'),
+      'Signing in...',
+      EL.lSummary,
+      '✓ Signed in! Redirecting...'
+    );
+  });
+
+  $('fill-demo-user').addEventListener('click', function () {
+    $('l-email').value = 'demo@eventora.com';
+    $('l-password').value = 'Eventora123!';
+    EL.lSummary.hidden = true;
+  });
+  $('fill-demo-vendor').addEventListener('click', function () {
+    $('l-email').value = 'vendor.demo@eventora.com';
+    $('l-password').value = 'Vendor123!';
+    EL.lSummary.hidden = true;
+  });
+
+  var params = new URLSearchParams(window.location.search);
+  if (params.get('role') === 'vendor') {
+    currentTab = 'vendor';
+  }
+  if (params.get('mode') === 'login' || params.get('login') === 'true') {
+    setMode('login');
+  } else {
+    setMode('register');
   }
 
-  $('success-back').addEventListener('click', function () {
-    $('success').hidden = true;
-    $('form-area').hidden = false;
-  });
-
-  // Quick Sign In handling
-  document.querySelectorAll('.already a').forEach(function(link) {
-    link.addEventListener('click', async function(e) {
-      e.preventDefault();
-      var email = prompt('Enter your registered email address:');
-      if (!email) return;
-      var password = prompt('Enter your password:');
-      if (!password) return;
-
-      try {
-        var res = await fetch('/api/auth/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: email, password: password })
-        });
-        var result = await res.json();
-        if (result.success) {
-          localStorage.setItem('eventora_user', JSON.stringify(result.user));
-          alert('Vanakkam, ' + result.user.name + '! Login successful.');
-          window.location.href = 'eventora-dashboard.html';
-        } else {
-          alert(result.message || 'Invalid credentials.');
-        }
-      } catch (err) {
-        alert('Could not authenticate. Please check connection.');
-      }
-    });
-  });
-
-  // Demo link to see the success state without filling the form
-  $('show-success').addEventListener('click', function () {
-    lastSubmitted = currentTab;
-    // Fill sample values so the preview reads naturally
-    if (currentTab === 'vendor') {
-      if (!$('v-bname').value) $('v-bname').value = 'Petal Pursuit Mandap & Decor';
-      if (!$('v-services').value) $('v-services').value = 'Royal Mandapam, Haldi Urlis & Floral Arches';
-      if (!$('v-city').value) $('v-city').value = 'Coimbatore & Chennai';
-      if (!$('v-price').value) $('v-price').value = '25000';
-      if (!$('v-email').value) $('v-email').value = 'contact@petalpursuit.example';
-    }
-    showSuccess(currentTab);
-  });
-
-  // Mobile menu
-  document.querySelector('.menu-toggle').addEventListener('click', function () {
-    var nav = $('main-nav');
-    var open = nav.classList.toggle('is-open');
+  var burger = $('burger');
+  burger._dynBound = true;
+  burger.onclick = function () {
+    var nav = $('links');
+    var open = nav.classList.toggle('open');
     this.setAttribute('aria-expanded', String(open));
-  });
-
-  setTab('user');
+    this.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  };
+})();
 </script>
 
-<!-- ===== ORA FLOATING CHAT ===== -->
 <button id="ora-fab" class="ora-fab" aria-label="Chat with Ora" aria-expanded="false">💬</button>
 <section id="ora-window" class="ora-window" hidden aria-label="Chat with Ora">
   <header class="ora-head">

@@ -36,18 +36,20 @@
   </video>
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <p class="hero-kicker">✦ TRUSTED INDIAN WEDDING &amp; EVENT MASTERS ✦</p>
-    <h1>Event Vendors &amp; Masters</h1>
-    <p>Discover award-winning traditional caterers, bridal Mehendi artists, Punjabi dhol players, pandits, and photographers across India.</p>
+    <p class="hero-kicker" id="vendors-hero-kicker">✦ TRUSTED INDIAN WEDDING &amp; EVENT MASTERS ✦</p>
+    <h1 id="vendors-hero-title">Event Vendors &amp; Masters</h1>
+    <p id="vendors-hero-desc">Discover award-winning traditional caterers, bridal makeup &amp; Mehendi artists, decorators, DJs, anchors, florists, and photographers across India.</p>
   </div>
 </header>
 
 <main class="wrap">
-  <a id="category-back" class="btn alt sm" href="venues.html" hidden>← All vendor categories</a>
+  <a id="category-back" class="btn alt sm" href="venues.html?tab=vendors" hidden>← All vendor categories</a>
+  <div id="vchips" class="chips" style="margin-top:14px;"></div>
   <div class="directory-top">
     <div><h2 id="directory-heading">All Event Vendors</h2><p id="directory-intro"></p></div>
     <div class="directory-controls">
       <input id="vendor-search" type="search" placeholder="Search vendors or services" aria-label="Search vendors">
+      <select id="vendor-service" aria-label="Filter by specialty" hidden></select>
       <select id="vendor-city" aria-label="Filter by location"></select>
       <select id="vendor-sort" aria-label="Sort vendors">
         <option value="rating">Top rated</option>
@@ -66,6 +68,7 @@
 </footer>
 
 <dialog id="vendor-dialog" class="detail-dialog" aria-label="Vendor details"><div id="vendor-dialog-body"></div></dialog>
+<script src="js/common.js"></script>
 <script src="js/venues.js"></script>
 
 <!-- ===== ORA FLOATING CHAT ===== -->

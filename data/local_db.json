@@ -62,33 +62,369 @@
         "portfolioUrl": ""
       },
       "createdAt": "2026-11-15T20:04:23.245Z"
+    },
+    {
+      "_id": "user_1795109557374_g5it1",
+      "id": "user_1795109557374_g5it1",
+      "name": "Ramesh Mandap Masters",
+      "email": "ramesh_test_vendor@example.com",
+      "password": "0ace4f1254cdd63c382365d2e3904310:744672993156beafa0a594f33ecf1f2eaac2013923e4437d554cb97a68014e5fbe2d82cd8c1b81dd3108d876667cf13e8953b283272ad0836ab57f1bbbbac841",
+      "phone": "9840199999",
+      "role": "vendor",
+      "city": "Chennai",
+      "eventType": "Tamil Thirumanam",
+      "eventDate": "",
+      "guestCount": 200,
+      "vendorDetails": {
+        "businessName": "Ramesh Mandap & Royal Palace Decor",
+        "category": "Decor & Mandap",
+        "price": "80000",
+        "services": "Royal Stage Mandap, Flower Arches, Urli Setups, Fairy Light Canopy",
+        "description": "Updated description with over 20 years of royal mandap experience.",
+        "portfolioUrl": "",
+        "portfolio": [
+          {
+            "title": "Royal Mandap at Taj",
+            "description": "Red silk & gold mandap",
+            "image": "images/venues/1.jpg"
+          }
+        ],
+        "pictures": [
+          "images/venues/1.jpg",
+          "images/venues/2.jpg"
+        ]
+      },
+      "createdAt": "2026-11-19T17:32:37.386Z"
+    },
+    {
+      "_id": "user_1795109623976_ikfho",
+      "id": "user_1795109623976_ikfho",
+      "name": "Kavitha Sundaram",
+      "email": "kavitha_test_cust@example.com",
+      "password": "32e026696a1c5761dd767c9b5ffd6928:61d1ca64906b6ae018fdbe85c7ca435986065d086da22173d9f8f43389e55d97fb8ad11d502a46dc448e3f039eb534f587a502d7b3ea93a009733017b7e53b6f",
+      "phone": "9840111111",
+      "role": "user",
+      "city": "Chennai",
+      "eventType": "Tamil Thirumanam",
+      "eventDate": "",
+      "guestCount": 200,
+      "vendorDetails": {
+        "businessName": "Kavitha Sundaram",
+        "category": "",
+        "price": "",
+        "services": "",
+        "description": "",
+        "portfolioUrl": "",
+        "portfolio": [],
+        "pictures": []
+      },
+      "createdAt": "2026-11-19T17:33:43.977Z"
+    },
+    {
+      "_id": "user_1795110189463_ehfgu",
+      "id": "user_1795110189463_ehfgu",
+      "name": "Test User",
+      "email": "test_1795110189299@example.com",
+      "password": "cbf67d7640b91230a8902e030aac047e:6d6974f369d85aeaa368188b134e423bd0c6a09874cfba0d130c32cb70fa3d949f034132a1c152a0da86f1a237fdab2fbedc2d205179c75a222d0420ad993e9c",
+      "phone": "1234567890",
+      "role": "user",
+      "city": "Chennai",
+      "eventType": "Tamil Thirumanam",
+      "eventDate": "",
+      "guestCount": 200,
+      "vendorDetails": {
+        "businessName": "Test User",
+        "category": "",
+        "price": "",
+        "services": "",
+        "description": "",
+        "portfolioUrl": "",
+        "portfolio": [],
+        "pictures": []
+      },
+      "createdAt": "2026-11-19T17:43:09.474Z"
+    },
+    {
+      "_id": "user_1795442935092_94h2w",
+      "id": "user_1795442935092_94h2w",
+      "name": "Test Customer",
+      "email": "cust_1795442934936@example.com",
+      "password": "642e92b632f49130382ca64ee776cf46:bb111b225cb6d514d689a962e437537465ab6df46b913343452ba32df03eac6a936f059dc4f56bc247a2b03c2825427efdf3c073a213039d50caf150e117c9bd",
+      "phone": "9876543210",
+      "role": "user",
+      "city": "Mumbai",
+      "eventType": "Wedding",
+      "eventDate": "",
+      "guestCount": 200,
+      "vendorDetails": {
+        "businessName": "Test Customer",
+        "category": "",
+        "price": "",
+        "services": "",
+        "description": "",
+        "portfolioUrl": "",
+        "portfolio": [],
+        "pictures": [],
+        "bookedDates": [],
+        "availability": {
+          "status": "Available",
+          "unavailableDates": [],
+          "note": ""
+        }
+      },
+      "createdAt": "2026-11-23T14:08:55.107Z"
+    },
+    {
+      "_id": "user_1795442935145_ltp77",
+      "id": "user_1795442935145_ltp77",
+      "name": "Test Vendor Owner",
+      "email": "vend_1795442935134@example.com",
+      "password": "16eb377e641b1eadb783fd2e18732416:f97ab4900a3bd5e7af3140a0a29939dd7da79f470fc26c468f62dea1460b3a9b97bdf4d94f93a3cddfd5bd871e038a3fb8d939d09d75cc51d9d9d25970728c6f",
+      "phone": "9876543211",
+      "role": "vendor",
+      "city": "Delhi",
+      "eventType": "Tamil Thirumanam",
+      "eventDate": "",
+      "guestCount": 200,
+      "vendorDetails": {
+        "businessName": "Royal Catering Services",
+        "category": "Catering",
+        "price": "",
+        "services": "",
+        "description": "",
+        "portfolioUrl": "",
+        "portfolio": [
+          {
+            "title": "Grand Delhi Wedding",
+            "description": "500 guests buffet",
+            "imageUrl": "images/catering1.jpg"
+          }
+        ],
+        "pictures": [],
+        "bookedDates": [
+          "2026-12-25",
+          "2026-12-31",
+          "2027-01-01"
+        ],
+        "availability": {
+          "status": "fully_booked",
+          "unavailableDates": [
+            "2026-12-25",
+            "2026-12-31",
+            "2027-01-01"
+          ],
+          "note": "All weekend slots filled"
+        }
+      },
+      "createdAt": "2026-11-23T14:08:55.147Z"
+    },
+    {
+      "_id": "user_1795455981908_tlc3p",
+      "id": "user_1795455981908_tlc3p",
+      "name": "Time Test User",
+      "email": "timetest_1795455981701@test.com",
+      "password": "34cc9a99f5707d8efc274f1ae773104c:5cb272807f1c2f6021a75b4089439c4c9daa6172e8cd92521adb515fb88f7dc3fdf4f30c21a4d1d04f1e0337ed951fc0bfbd6be7832b25ea076c1de67ad384e7",
+      "phone": "9876543210",
+      "role": "user",
+      "city": "Chennai",
+      "eventType": "Tamil Thirumanam",
+      "eventDate": "",
+      "guestCount": 200,
+      "vendorDetails": {
+        "businessName": "Time Test User",
+        "category": "",
+        "price": "",
+        "services": "",
+        "description": "",
+        "portfolioUrl": "",
+        "portfolio": [],
+        "pictures": [],
+        "bookedDates": [],
+        "availability": {
+          "status": "Available",
+          "unavailableDates": [],
+          "note": ""
+        }
+      },
+      "createdAt": "2026-11-23T17:46:21.910Z"
+    },
+    {
+      "id": "u1",
+      "name": "Quick Test",
+      "email": "instant_1795457307618@test.com",
+      "password": "fd085abe2997ef448a97fd5c8d9efca3:1d3f19a9c92617627a225c0ab1c6076836f3a0c38f2f44f8e7ad446b2dd536b7761b151e9dc933da39adaa7b03449f22771f73457e654ff86d8a70b926bd8b16",
+      "role": "user"
+    },
+    {
+      "_id": "user_1795457341708_xumz9",
+      "id": "user_1795457341708_xumz9",
+      "name": "Priya Sundaram",
+      "email": "formtest_1795457341557@test.com",
+      "password": "c22cc2aa4b3de01ac309eb28521e258a:32e043115c675a58cdf46756ec2a388e820ad8cc40f843dda0264ab5fc01683c0c6cec4afe52f70bab3b8242789625c4f04c1d650405db8b16fb932f0dd100a6",
+      "phone": "9876543210",
+      "role": "user",
+      "city": "Chennai",
+      "eventType": "Tamil Thirumanam & Celebration",
+      "eventDate": "2027-02-15",
+      "guestCount": 200,
+      "vendorDetails": {
+        "businessName": "Priya Sundaram",
+        "category": "",
+        "price": "",
+        "services": "",
+        "description": "",
+        "portfolioUrl": "",
+        "portfolio": [],
+        "pictures": [],
+        "bookedDates": [],
+        "availability": {
+          "status": "Available",
+          "unavailableDates": [],
+          "note": ""
+        }
+      },
+      "createdAt": "2026-11-23T18:09:01.710Z"
+    },
+    {
+      "_id": "user_1795457341743_qpyh2",
+      "id": "user_1795457341743_qpyh2",
+      "name": "Ravi Kumar",
+      "email": "vendortest_1795457341731@test.com",
+      "password": "d9bf153e83e30b3ea4c23b20817de2fa:82334caebc15bcabd16c00431e9278d4cbf9238f0d9628ed010bcb49720403d7477cc98a326a9c13b00510b3d19b0cafdb5c6f06c4bff483485fbca671b84787",
+      "phone": "9876543299",
+      "role": "vendor",
+      "city": "Chennai",
+      "eventType": "Tamil Thirumanam",
+      "eventDate": "",
+      "guestCount": 200,
+      "vendorDetails": {
+        "businessName": "Ravi Royal Decor",
+        "category": "Decor",
+        "price": "25000",
+        "services": "Stage decor, Floral arrangements, Lighting",
+        "description": "",
+        "portfolioUrl": "",
+        "portfolio": [],
+        "pictures": [],
+        "bookedDates": [],
+        "availability": {
+          "status": "Available",
+          "unavailableDates": [],
+          "note": ""
+        }
+      },
+      "createdAt": "2026-11-23T18:09:01.745Z"
+    },
+    {
+      "_id": "user_1795457619620_ulv65",
+      "id": "user_1795457619620_ulv65",
+      "name": "Test User",
+      "email": "u_1795457619475@test.com",
+      "password": "62caeb108540780f9b1999fae2dbd0da:379b22662c61a02caa354e2d3bd072f7a85c595460665630242b52fbe80c3ac32c0c2d83f31864522e420c7be90cf07fb0f968de8b130b70e7361b8db814b214",
+      "phone": "",
+      "role": "user",
+      "city": "Chennai",
+      "eventType": "Tamil Thirumanam",
+      "eventDate": "",
+      "guestCount": 200,
+      "vendorDetails": {
+        "businessName": "Test User",
+        "category": "",
+        "price": "",
+        "services": "",
+        "description": "",
+        "portfolioUrl": "",
+        "portfolio": [],
+        "pictures": [],
+        "bookedDates": [],
+        "availability": {
+          "status": "Available",
+          "unavailableDates": [],
+          "note": ""
+        }
+      },
+      "createdAt": "2026-11-23T18:13:39.622Z"
+    },
+    {
+      "_id": "user_1795457619658_f0391",
+      "id": "user_1795457619658_f0391",
+      "name": "Vendor Owner",
+      "email": "v_1795457619645@test.com",
+      "password": "d06f52d0846c681700819f1502d8a35a:b7de1880bc8967e9ad449454c83996b305941f799f9ffd4d6c019341000215790aa215d96df39df02ceaa664b254319f5a8ff2da68bb5af32c004f27fdb95f5d",
+      "phone": "",
+      "role": "vendor",
+      "city": "Chennai",
+      "eventType": "Tamil Thirumanam",
+      "eventDate": "",
+      "guestCount": 200,
+      "vendorDetails": {
+        "businessName": "Test Catering",
+        "category": "Catering",
+        "price": "",
+        "services": "",
+        "description": "",
+        "portfolioUrl": "",
+        "portfolio": [],
+        "pictures": [],
+        "bookedDates": [],
+        "availability": {
+          "status": "Available",
+          "unavailableDates": [],
+          "note": ""
+        }
+      },
+      "createdAt": "2026-11-23T18:13:39.660Z"
+    },
+    {
+      "_id": "user_1795541491479_mz7wt",
+      "id": "user_1795541491479_mz7wt",
+      "name": "26MX229 M",
+      "email": "26mx229@psgtech.ac.in",
+      "password": "0e9f1753b5122f9f3816ce360de3eaa2:0a9bc8c393b487b732655bfab513e7b3981fcedaad56625e1add4f25be2d4529d353e4d2542c496206917e441ba2f3216843f4974d60a9bfff08199485699241",
+      "phone": "",
+      "role": "user",
+      "city": "Chennai",
+      "eventType": "Tamil Thirumanam & Celebration",
+      "eventDate": "",
+      "guestCount": 200,
+      "vendorDetails": {
+        "businessName": "26MX229 M",
+        "category": "",
+        "price": "",
+        "services": "",
+        "description": "",
+        "portfolioUrl": "",
+        "portfolio": [],
+        "pictures": []
+      },
+      "createdAt": "2026-11-24T17:31:31.480Z"
+    },
+    {
+      "_id": "user_1795541671068_gunhk",
+      "id": "user_1795541671068_gunhk",
+      "name": "Vijaya",
+      "email": "26mx202@psgtech.ac.in",
+      "password": "36c243565db4715cbc934164128ab19d:5f897c803a608a988c5d637762f0bd8588202ea5a8eecbdfd5d8e28a190f9d4acdc2ffdaa669deaccef63d0d491c2fe830cfdd0e6d7412ac1097770783e2ba0b",
+      "phone": "9045826426",
+      "role": "vendor",
+      "city": "Coimbatore",
+      "eventType": "Tamil Thirumanam",
+      "eventDate": "",
+      "guestCount": 200,
+      "vendorDetails": {
+        "businessName": "Eventora",
+        "category": "Decor",
+        "price": "9000",
+        "services": "Event decoration",
+        "description": "Eventora — Decor in Coimbatore (Event decoration)",
+        "portfolioUrl": "",
+        "portfolio": [],
+        "pictures": []
+      },
+      "createdAt": "2026-11-24T17:34:31.068Z"
     }
   ],
   "invites": [
-    {
-      "_id": "inv_1794773063266",
-      "id": "inv_1794773063266",
-      "slug": "patrika-mwi9jiow-9ci8",
-      "userId": "guest",
-      "template": "kanjivaram",
-      "heading": "॥ ஓம் ஸ்ரீ கணேசாய நமஹ ॥",
-      "title": "Anandhan & Meenakshi Thirumanam",
-      "hosts": "The Sundaram & Ramanathan Families",
-      "date": "Sunday, 14 February 2027",
-      "time": "6:00 AM – 7:30 AM",
-      "venue": "Sri Raja Rajeswari Kalyana Mandapam",
-      "address": "Mylapore, Chennai",
-      "message": "Cordially invite you to our wedding.",
-      "dressCode": "Traditional Pattu Veshti / Kanjivaram Silk",
-      "rsvpContact": "",
-      "feastDetails": "Traditional Banana Leaf Kalyana Virundhu & Filter Kaapi",
-      "compliments": "With Best Compliments from Family & Friends",
-      "accent": "#D4AF37",
-      "bg": "#7F1D1D",
-      "fontFamily": "Playfair Display",
-      "photoUrl": "",
-      "createdAt": "2026-11-15T20:04:23.266Z"
-    },
     {
       "_id": "inv_1794772127781",
       "id": "inv_1794772127781",
@@ -136,6 +472,63 @@
       "fontFamily": "Playfair Display",
       "photoUrl": "",
       "createdAt": "2026-11-15T19:33:46.263Z"
+    }
+  ],
+  "queries": [
+    {
+      "_id": "q_1795109655303",
+      "id": "q_1795109655303",
+      "vendorId": "",
+      "vendorEmail": "ramesh_test_vendor@example.com",
+      "userName": "Priya & Karthik",
+      "userEmail": "priya.karthik@example.com",
+      "userPhone": "+91 98401 55555",
+      "eventType": "Wedding",
+      "eventDate": "2027-02-14",
+      "guestCount": 500,
+      "budget": "?2,00,000",
+      "message": "Can you coordinate the mandap and floral setup for our wedding at Heritage Mahal?",
+      "status": "New",
+      "createdAt": "2026-11-19T17:34:15.303Z"
+    },
+    {
+      "_id": "q_sample_1",
+      "userName": "Kavitha & Arvind",
+      "userEmail": "kavitha.wedding@gmail.com",
+      "userPhone": "+91 98401 23456",
+      "eventType": "Wedding & Reception",
+      "eventDate": "2027-02-18",
+      "guestCount": 450,
+      "budget": "₹1,50,000",
+      "message": "Vanakkam! We love your work. We are planning our traditional wedding ceremony in February. Are you available on 18 Feb and can you share package details?",
+      "status": "Confirmed",
+      "createdAt": "2026-11-19T15:29:25.866Z"
+    },
+    {
+      "_id": "q_sample_2",
+      "userName": "Rohan Mehra",
+      "userEmail": "rohan.mehra@corporate.in",
+      "userPhone": "+91 98200 87654",
+      "eventType": "Corporate & Team Meet",
+      "eventDate": "2026-12-10",
+      "guestCount": 150,
+      "budget": "₹85,000",
+      "message": "Hi there, we are organizing our annual tech leadership summit. Looking for quality setup and timely execution. Please share a quotation.",
+      "status": "Contacted",
+      "createdAt": "2026-11-18T17:29:25.868Z"
+    },
+    {
+      "_id": "q_sample_3",
+      "userName": "Ananya Sharma",
+      "userEmail": "ananya.s@outlook.com",
+      "userPhone": "+91 97110 54321",
+      "eventType": "Birthday Party",
+      "eventDate": "2027-01-22",
+      "guestCount": 80,
+      "budget": "₹40,000",
+      "message": "Hello! Looking for customized theme coordination for my daughter's 1st birthday party. Need decor and catering recommendations.",
+      "status": "Confirmed",
+      "createdAt": "2026-11-16T17:29:25.868Z"
     }
   ]
 }

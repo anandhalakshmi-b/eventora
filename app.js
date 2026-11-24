@@ -159,7 +159,9 @@ const pages = [
   { route: '/invites',            file: 'invites.html',            aliases: ['invites.html'] },
   { route: '/invites/view',       file: 'invites-view.html',       aliases: ['invites-view.html'] },
   { route: '/event',              file: 'event.html',              aliases: ['event.html'] },
-  { route: '/dashboard',          file: 'eventora-dashboard.html', aliases: ['eventora-dashboard.html', 'dashboard.html'] }
+  { route: '/dashboard',          file: 'eventora-dashboard.html', aliases: ['eventora-dashboard.html', 'dashboard.html'] },
+  { route: '/vendor-dashboard',   file: 'vendor-dashboard.html',   aliases: ['vendor-dashboard.html'] },
+  { route: '/chatbot',            file: 'chatbot.html',            aliases: ['chatbot.html'] }
 ];
 
 pages.forEach((page) => {

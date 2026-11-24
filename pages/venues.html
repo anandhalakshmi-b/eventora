@@ -74,6 +74,11 @@
         <select id="vtype"></select>
       </div>
 
+      <div class="vendor-spec-only" id="vspec-wrap" hidden>
+        <label for="vspec" id="vspec-label">Service specialty</label>
+        <select id="vspec"></select>
+      </div>
+
       <label for="price">Price: <b id="pout"></b></label>
       <input id="price" type="range">
 
@@ -91,6 +96,7 @@
 
     <section id="results" aria-live="polite">
       <div id="vchips" class="chips" hidden></div>
+      <div id="vbanner" class="cat-banner" hidden></div>
       <p id="count" class="count"></p>
       <div id="list"></div>
     </section>
@@ -103,7 +109,9 @@
 </footer>
 
 <dialog id="dlg" aria-label="Details"><div id="dbody"></div></dialog>
+<dialog id="vendor-dialog" class="detail-dialog" aria-label="Vendor details"><div id="vendor-dialog-body"></div></dialog>
 
+<script src="js/common.js"></script>
 <script src="js/venues.js"></script>
 
 <!-- ===== ORA FLOATING CHAT ===== -->

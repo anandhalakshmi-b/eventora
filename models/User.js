@@ -50,7 +50,15 @@ const UserSchema = new mongoose.Schema({
     category: { type: String, default: '' },
     price: { type: String, default: '' },
     services: { type: String, default: '' },
-    portfolioUrl: { type: String, default: '' }
+    description: { type: String, default: '' },
+    portfolioUrl: { type: String, default: '' },
+    portfolio: [{
+      title: { type: String, default: '' },
+      description: { type: String, default: '' },
+      image: { type: String, default: '' },
+      link: { type: String, default: '' }
+    }],
+    pictures: [{ type: String }]
   },
   createdAt: {
     type: Date,
@@ -71,10 +79,33 @@ function verifyPassword(password, storedHash) {
   return hash === originalHash;
 }
 
+function hashPasswordAsync(password) {
+  return new Promise((resolve, reject) => {
+    const salt = crypto.randomBytes(16).toString('hex');
+    crypto.pbkdf2(password, salt, 1000, 64, 'sha512', (err, derivedKey) => {
+      if (err) return reject(err);
+      resolve(`${salt}:${derivedKey.toString('hex')}`);
+    });
+  });
+}
+
+function verifyPasswordAsync(password, storedHash) {
+  return new Promise((resolve) => {
+    if (!storedHash || !storedHash.includes(':')) return resolve(false);
+    const [salt, originalHash] = storedHash.split(':');
+    crypto.pbkdf2(password, salt, 1000, 64, 'sha512', (err, derivedKey) => {
+      if (err) return resolve(false);
+      resolve(derivedKey.toString('hex') === originalHash);
+    });
+  });
+}
+
 const User = mongoose.models.User || mongoose.model('User', UserSchema);
 
 module.exports = {
   User,
   hashPassword,
-  verifyPassword
+  verifyPassword,
+  hashPasswordAsync,
+  verifyPasswordAsync
 };

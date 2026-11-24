@@ -122,8 +122,12 @@ small{display:block;color:#64748B;font-size:.78rem;margin-top:4px}
 .booking-form{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px}
 .booking-form .full{grid-column:1/-1}
 .booking-form .acts{grid-column:1/-1}
-.vendors-mode .layout{display:block}
-.vendors-mode #ftoggle,.vendors-mode #filters{display:none}
+.cat-banner{background:var(--bg,#F8FAFC);color:var(--ac,var(--ink));border-radius:18px;padding:18px 22px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+.cat-banner h2{margin:0;font-size:1.45rem;font-weight:800}
+.cat-banner p{margin:4px 0 0;color:#334155;font-size:.92rem}
+.cat-banner .cat-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.cat-banner .cat-badge{background:#fff;color:var(--ac,var(--ink));padding:5px 12px;border-radius:999px;font-size:.8rem;font-weight:700}
+.category-card{cursor:pointer;text-align:left;font:inherit;width:100%}
 .message-note{margin:0;padding:12px 14px;border-radius:12px;background:#FEF3C7;color:#92400E;font-size:.9rem}
 
 .empty{background:var(--panel);border:2px dashed var(--line);border-radius:20px;padding:40px;text-align:center}

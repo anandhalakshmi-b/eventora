@@ -1,0 +1,17 @@
+{
+  "name": "eventora-modules-5-9-10",
+  "version": "1.1.0",
+  "description": "Eventora - Consultation, Ora chatbot, Invites & Websites (plain HTML pages + Express/MongoDB API)",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node --watch app.js",
+    "seed": "node scripts/seed.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.5.0",
+    "multer": "^1.4.5-lts.1"
+  }
+}

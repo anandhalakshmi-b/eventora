@@ -102,12 +102,56 @@ const PRESETS = {
   }
 };
 
-let B = load(KEY, null);
-if (!B || !B.items || !B.items.length) {
-  B = {
-    total: PRESETS.classic.total,
-    items: PRESETS.classic.items.map(i => ({ id: uid(), ...i }))
+function getCurrentUser() {
+  try { return JSON.parse(localStorage.getItem('eventora_user')); } catch (e) { return null; }
+}
+
+const ACTIVE_USER = getCurrentUser();
+const USER_KEY = ACTIVE_USER && (ACTIVE_USER.email || ACTIVE_USER.id)
+  ? String(ACTIVE_USER.email || ACTIVE_USER.id).toLowerCase().trim()
+  : '';
+const STORAGE_KEY = USER_KEY ? `${KEY}:${USER_KEY}` : KEY;
+
+function pickPresetKey(eventType) {
+  const s = String(eventType || '').toLowerCase();
+  if (s.includes('birthday')) return 'birthday';
+  if (s.includes('college') || s.includes('graduation') || s.includes('farewell')) return 'college';
+  if (s.includes('corporate') || s.includes('team') || s.includes('summit')) return 'corporate';
+  if (s.includes('baby') || s.includes('godh') || s.includes('seemantham')) return 'babyshower';
+  if (s.includes('house') || s.includes('griha')) return 'housewarming';
+  if (s.includes('anniversary')) return 'anniversary';
+  if (s.includes('festival') || s.includes('puja')) return 'festival';
+  return 'wedding';
+}
+
+function buildPresetBudget(presetKey) {
+  const preset = PRESETS[presetKey] || PRESETS.wedding;
+  return {
+    total: preset.total,
+    items: preset.items.map(i => ({ id: uid(), ...i }))
   };
+}
+
+let B = load(STORAGE_KEY, null);
+if (!B || typeof B !== 'object' || !Array.isArray(B.items)) {
+  const legacy = USER_KEY ? load(KEY, null) : null;
+  if (legacy && Array.isArray(legacy.items)) {
+    B = legacy;
+  } else {
+    B = buildPresetBudget(pickPresetKey(ACTIVE_USER && ACTIVE_USER.eventType));
+  }
+}
+
+if (ACTIVE_USER && ACTIVE_USER.name) {
+  const heroTitle = document.querySelector('.hero-content h1');
+  const heroKicker = document.querySelector('.hero-kicker');
+  if (heroTitle) {
+    const first = ACTIVE_USER.name.split(' ')[0];
+    heroTitle.textContent = `${first}'s Celebration Budget Tracker`;
+  }
+  if (heroKicker && ACTIVE_USER.eventType) {
+    heroKicker.textContent = `✦ ${ACTIVE_USER.eventType.toUpperCase()} BUDGET ✦`;
+  }
 }
 
 let editing = null;
@@ -121,7 +165,8 @@ function group(key) {
 const colourFor = c => COL[(CATS.includes(c) ? CATS.indexOf(c) : CATS.length - 1)];
 
 function draw() {
-  const est = B.items.reduce((s, i) => s + i.est, 0), act = B.items.reduce((s, i) => s + i.act, 0);
+  const est = B.items.reduce((s, i) => s + (+i.est || 0), 0);
+  const act = B.items.reduce((s, i) => s + (+i.act || 0), 0);
   const left = B.total - act, pct = B.total ? Math.min(100, act / B.total * 100) : 0;
   $('total').value = B.total || '';
 
@@ -139,7 +184,7 @@ function draw() {
 
   /* table */
   $('rows').innerHTML = B.items.map(i => {
-    const d = i.act - i.est;
+    const d = (+i.act || 0) - (+i.est || 0);
     return `<tr><td><b>${esc(i.cat)}</b></td><td>${rupee(i.est)}</td><td>${rupee(i.act)}</td>
       <td style="color:${d > 0 ? '#DC2626' : '#16A34A'};font-weight:700">${i.act ? (d > 0 ? '+' : '') + rupee(d).replace('₹-', '-₹') : '-'}</td>
       <td><button class="btn alt" data-edit="${i.id}">Edit</button><button class="btn alt" data-del="${i.id}">Delete</button></td></tr>`;
@@ -158,7 +203,7 @@ function draw() {
     <em><i class="est" style="width:${g[k] / max * 70}%"></i>${rupee(g[k])}</em>
     <em><i class="act" style="width:${(ga[k] || 0) / max * 70}%"></i>${rupee(ga[k] || 0)}</em></div>`).join('')
     + (keys.length ? '<p style="font-size:.8rem;margin:0"><span style="color:#FCA5A5">■</span> Estimated &nbsp; <span style="color:#DC2626">■</span> Actual</p>' : '<p class="empty">Add expenses to see the chart.</p>');
-  save(KEY, B);
+  save(STORAGE_KEY, B);
 }
 
 /* add / edit */
@@ -180,10 +225,7 @@ document.querySelectorAll('[data-preset]').forEach(btn => {
     const pKey = btn.getAttribute('data-preset');
     const preset = PRESETS[pKey];
     if (preset && confirm(`Load the ${btn.textContent.trim()} preset? This will set standard Indian expense allocations.`)) {
-      B = {
-        total: preset.total,
-        items: preset.items.map(i => ({ id: uid(), ...i }))
-      };
+      B = buildPresetBudget(pKey);
       resetForm();
       draw();
     }

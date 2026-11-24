@@ -220,6 +220,78 @@ nav .btn.on {
   color: #0F172A !important;
 }
 
+.nav-user-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #F1F5F9;
+  border: 1px solid #E2E8F0;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #0F172A;
+}
+
+.nav-logout-btn {
+  background: transparent;
+  border: 1px solid #CBD5E1;
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #64748B;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.nav-logout-btn:hover {
+  background: #FEE2E2;
+  border-color: #EF4444;
+  color: #DC2626;
+}
+
+.eventora-user-nav {
+  position: static;
+  top: auto;
+  z-index: auto;
+  width: min(1100px, 90%);
+  margin: 16px auto 24px;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 4px;
+  overflow-x: auto;
+  background: #ffffff;
+  border: 1px solid #E5E7EB;
+  border-radius: 999px;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  box-sizing: border-box;
+}
+
+.eventora-user-nav a {
+  flex: 0 0 auto;
+  padding: 8px 16px;
+  border-radius: 999px;
+  color: #475569;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.eventora-user-nav a:hover {
+  color: #0F172A;
+  background: #F8FAFC;
+}
+
+.eventora-user-nav a[aria-current="page"] {
+  color: #EA580C;
+  background: #FFEDD5;
+}
+
 /* ========================================================
    Eventora Shared Dark Footer
    ======================================================== */

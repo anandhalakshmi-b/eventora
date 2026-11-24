@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | Eventora</title>
+  <link rel="icon" href="images/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/ora.css">
+  <style>
+    :root {
+      --ink: #0F172A;
+      --line: #E5E7EB;
+      --panel: #F8FAFC;
+      --blue-bg: #DBEAFE;
+      --blue-ac: #2563EB;
+      --purple-bg: #F3E8FF;
+      --purple-ac: #9333EA;
+      --pink-bg: #FCE7F3;
+      --pink-ac: #DB2777;
+      --green-bg: #DCFCE7;
+      --green-ac: #16A34A;
+      --yellow-bg: #FEF9C3;
+      --yellow-ac: #CA8A04;
+      --orange-bg: #FFEDD5;
+      --orange-ac: #EA580C;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: 'Inter', system-ui, sans-serif; color: var(--ink); background: #FAF5FF; line-height: 1.5; }
+    .wrap { max-width: 1250px; margin: 0 auto; padding: 40px 5%; }
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 36px; }
+    .stat-card { background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 24px; box-shadow: 0 4px 12px rgba(15,23,42,0.04); }
+    .stat-card span { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #64748B; }
+    .stat-card b { display: block; font-size: 2.2rem; font-weight: 800; margin-top: 6px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
+    .panel { background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 28px; box-shadow: 0 4px 12px rgba(15,23,42,0.04); }
+    .panel h2 { margin: 0 0 16px; font-size: 1.35rem; font-weight: 800; }
+    .progress-bar { height: 10px; border-radius: 999px; background: #E2E8F0; overflow: hidden; margin-top: 12px; }
+    .progress-fill { height: 100%; width: 68%; background: var(--purple-ac); border-radius: 999px; }
+
+    .tool-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-bottom: 32px; }
+    .tool-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--ink);
+      box-shadow: 0 4px 12px rgba(15,23,42,0.03);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .tool-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(15,23,42,0.08); }
+    .tool-icon { font-size: 2.2rem; margin-bottom: 4px; }
+    .tool-title { font-size: 1.2rem; font-weight: 800; margin: 0; }
+    .tool-desc { font-size: 0.9rem; color: #64748B; margin: 0; flex: 1; }
+    .tool-link { font-size: 0.88rem; font-weight: 700; color: var(--blue-ac); margin-top: 12px; display: inline-flex; align-items: center; gap: 4px; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="index.html"><img src="images/logo.png" alt="Eventora logo">Eventora</a>
+  <button id="burger" aria-label="Open menu" aria-expanded="false">☰</button>
+  <div class="links" id="links">
+    <a href="index.html">Home</a>
+    <a href="eventora-dashboard.html" class="on">Dashboard</a>
+    <a href="venues.html">Venues &amp; Vendors</a>
+    <a href="ideas.html">Ideas</a>
+    <a href="consultation.html">Consultation</a>
+    <a href="invites.html">Invites</a>
+    <a href="chatbot.html">Chatbot</a>
+    <span class="nav-user-badge" id="nav-user-badge">👤 User</span>
+    <button type="button" class="nav-logout-btn" id="nav-logout-btn">Logout</button>
+  </div>
+</nav>
+
+<!-- Royal Video Hero -->
+<header class="hero">
+  <video class="hero-video" autoplay muted loop playsinline poster="images/venues/1.jpg" aria-hidden="true">
+    <source src="images/venues/venues.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-kicker" id="hero-kicker">✦ SHUBH VIVAH PLANNING HUB ✦</p>
+    <h1 id="hero-title">Your Celebration Planning Dashboard</h1>
+    <p id="hero-desc">Everything you need to orchestrate your event, manage your budget, track guest RSVPs, and coordinate with vendors in one calm place.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <!-- Exclusive User Planning Modules Suite -->
+  <section style="margin-bottom:36px;">
+    <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
+      <div>
+        <h2 style="font-size:1.6rem; font-weight:800; margin:0;">Your Event Planning Suite</h2>
+        <p style="color:#64748B; margin:4px 0 0; font-size:0.95rem;">Exclusive tools unlocked for your customer account to organize every aspect of your celebration.</p>
+      </div>
+    </div>
+
+    <div class="tool-grid">
+      <!-- 1: Checklist -->
+      <a href="checklist.html" class="tool-card" style="border-top:4px solid var(--orange-ac);">
+        <span class="tool-icon">📋</span>
+        <h3 class="tool-title">Event Checklist</h3>
+        <p class="tool-desc">Milestone timelines, ceremony tasks, vendor booking deadlines, and custom to-do lists.</p>
+        <span class="tool-link">Open Checklist →</span>
+      </a>
+
+      <!-- 2: Guests & RSVP -->
+      <a href="guests.html" class="tool-card" style="border-top:4px solid var(--yellow-ac);">
+        <span class="tool-icon">👥</span>
+        <h3 class="tool-title">Guests &amp; RSVPs</h3>
+        <p class="tool-desc">Headcount tracking, dietary requirements, family side grouping, and WhatsApp reply links.</p>
+        <span class="tool-link">Manage Guests →</span>
+      </a>
+
+      <!-- 3: Budget Calculator -->
+      <a href="budget.html" class="tool-card" style="border-top:4px solid var(--blue-ac);">
+        <span class="tool-icon">💰</span>
+        <h3 class="tool-title">Budget Calculator &amp; Tracker</h3>
+        <p class="tool-desc">Set spending limits in Lakhs &amp; Crores, record payments made, and avoid overshooting your budget.</p>
+        <span class="tool-link">Track Budget →</span>
+      </a>
+
+      <!-- 4: Shortlisted Favourites -->
+      <a href="favorites.html" class="tool-card" style="border-top:4px solid var(--pink-ac);">
+        <span class="tool-icon">♥</span>
+        <h3 class="tool-title">Shortlisted Favourites</h3>
+        <p class="tool-desc">Your saved banquet halls, lawns, decorators, caterers, makeup artists, and photographers.</p>
+        <span class="tool-link">View Favourites →</span>
+      </a>
+
+      <!-- 5: Venues & Vendors Directory -->
+      <a href="venues.html" class="tool-card" style="border-top:4px solid var(--green-ac);">
+        <span class="tool-icon">🏛️</span>
+        <h3 class="tool-title">Venues &amp; Verified Vendors</h3>
+        <p class="tool-desc">Discover and book verified venues, caterers, decorators, and entertainment masters across India.</p>
+        <span class="tool-link">Explore Listings →</span>
+      </a>
+
+      <!-- 6: Digital Invites -->
+      <a href="invites.html" class="tool-card" style="border-top:4px solid var(--purple-ac);">
+        <span class="tool-icon">💌</span>
+        <h3 class="tool-title">Digital Invites &amp; Websites</h3>
+        <p class="tool-desc">Design traditional Shahi Patrika, modern wedding e-cards, and share your celebration link.</p>
+        <span class="tool-link">Design Invites →</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Overview Stats -->
+  <div class="stats">
+    <div class="stat-card">
+      <span>Event Status</span>
+      <b style="color:var(--purple-ac)" id="stat-event-type">Tamil Thirumanam</b>
+      <small style="color:#64748B; font-weight:600;" id="stat-event-meta">Upcoming · Chennai</small>
+    </div>
+    <div class="stat-card">
+      <span>Checklist Progress</span>
+      <b style="color:var(--green-ac)">14 / 22 Tasks</b>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </div>
+    <div class="stat-card">
+      <span>Shaadi Budget Spent</span>
+      <b style="color:var(--blue-ac)">₹14,50,000</b>
+      <small style="color:#64748B; font-weight:600;">of ₹25,00,000 total allocation</small>
+    </div>
+    <div class="stat-card">
+      <span>Atithi RSVPs Confirmed</span>
+      <b style="color:var(--orange-ac)">420 Heads</b>
+      <small style="color:#64748B; font-weight:600;">Ladkewale &amp; Ladkiwale</small>
+    </div>
+  </div>
+
+  <!-- Bookings & Timeline -->
+  <div class="grid">
+    <div class="panel">
+      <h2>My Venue &amp; Vendor Booking Requests</h2>
+      <div id="user-bookings-container">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Upcoming Ceremonies &amp; Milestones</h2>
+      <div style="display:flex; flex-direction:column; gap:16px;">
+        <div style="padding:14px; background:#FEF3C7; border-radius:14px; border:1px solid #FDE68A;">
+          <span style="font-size:0.75rem; font-weight:800; color:#B45309; text-transform:uppercase; letter-spacing:0.08em;">Day 1</span>
+          <h3 style="margin:4px 0; font-size:1.15rem;">Marigold Sunshine Haldi &amp; Phoolon Ki Holi</h3>
+          <p style="margin:0; font-size:0.9rem; color:#78350F;">Palm Garden Lawn · 10:00 AM</p>
+        </div>
+        <div style="padding:14px; background:#F3E8FF; border-radius:14px; border:1px solid #E9D5FF;">
+          <span style="font-size:0.75rem; font-weight:800; color:#7E22CE; text-transform:uppercase; letter-spacing:0.08em;">Day 2</span>
+          <h3 style="margin:4px 0; font-size:1.15rem;">Bollywood Sangeet &amp; Live Dhol Night</h3>
+          <p style="margin:0; font-size:0.9rem; color:#581C87;">Lotus Grand Banquet · 7:00 PM onwards</p>
+        </div>
+        <div style="padding:14px; background:#FEE2E2; border-radius:14px; border:1px solid #FECACA;">
+          <span style="font-size:0.75rem; font-weight:800; color:#B91C1C; text-transform:uppercase; letter-spacing:0.08em;">Day 3</span>
+          <h3 style="margin:4px 0; font-size:1.15rem;">Shubh Muhurat Pheras &amp; Kalyanam</h3>
+          <p style="margin:0; font-size:0.9rem; color:#7F1D1D;">Heritage Mahal · Auspicious Lagna: 9:15 AM</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div><b>Eventora</b><br>Plan every royal Indian celebration, beautifully.</div>
+  <div>
+    <a href="eventora-dashboard.html">Home</a>
+    <a href="venues.html">Venues &amp; Vendors</a>
+    <a href="ideas.html">Ideas</a>
+    <a href="budget.html">Budget</a>
+    <a href="checklist.html">Checklist</a>
+    <a href="guests.html">Guests</a>
+    <a href="rsvp.html">RSVP</a>
+    <a href="invites.html">Invites</a>
+  </div>
+</footer>
+
+<!-- ===== ORA FLOATING CHAT ===== -->
+<button id="ora-fab" class="ora-fab" aria-label="Chat with Ora" aria-expanded="false">💬</button>
+<section id="ora-window" class="ora-window" hidden aria-label="Chat with Ora">
+  <header class="ora-head">
+    <strong>Ora</strong> · your planning buddy
+    <button id="ora-close" class="ora-x" aria-label="Close chat">×</button>
+  </header>
+  <div id="ora-log" class="ora-log" role="log" aria-live="polite"></div>
+  <div class="ora-quick">
+    <button data-q="Find venues">Find venues</button>
+    <button data-q="Set a budget">Set a budget</button>
+    <button data-q="Make an invite">Make an invite</button>
+    <button data-q="Talk to a human">Talk to a human</button>
+  </div>
+  <div class="ora-form">
+    <label for="ora-input" class="sr-only">Message Ora</label>
+    <input id="ora-input" type="text" maxlength="500" placeholder="Ask Ora anything..." autocomplete="off">
+    <button id="ora-send" class="ora-send">Send</button>
+  </div>
+</section>
+
+<script src="js/common.js"></script>
+<script src="js/ora.js"></script>
+<script>
+(function() {
+  const user = JSON.parse(localStorage.getItem('eventora_user') || 'null');
+  if (!user) {
+    sessionStorage.setItem('eventora_redirect', 'eventora-dashboard.html');
+    alert('Please sign in or register as a user to access the user dashboard.');
+    window.location.href = 'register.html?mode=login';
+    return;
+  }
+  if (user.role === 'vendor') {
+    alert('Vendor accounts cannot access customer event planning tools. Redirecting to Vendor Dashboard.');
+    window.location.href = 'vendor-dashboard.html';
+    return;
+  }
+
+  // Populate dynamic header & stats
+  const firstName = (user.name || 'Friend').split(' ')[0];
+  const eventName = user.eventType || 'Celebration';
+  const heroKicker = document.getElementById('hero-kicker');
+  const heroTitle = document.getElementById('hero-title');
+  const navUserBadge = document.getElementById('nav-user-badge');
+  const statEventType = document.getElementById('stat-event-type');
+  const statEventMeta = document.getElementById('stat-event-meta');
+
+  if (heroKicker) heroKicker.textContent = `✦ ${eventName.toUpperCase()} PLANNING HUB ✦`;
+  if (heroTitle) heroTitle.textContent = `${user.name || 'Your'}'s Celebration Dashboard`;
+  if (navUserBadge) navUserBadge.textContent = `👤 ${firstName}`;
+  if (statEventType) statEventType.textContent = eventName;
+  if (statEventMeta) statEventMeta.textContent = `${user.eventDate || 'Upcoming'} · ${user.city || 'Chennai'}`;
+
+  // Populate recent booking inquiries
+  const bookingsContainer = document.getElementById('user-bookings-container');
+  if (bookingsContainer) {
+    let bookings = [];
+    try {
+      bookings = JSON.parse(localStorage.getItem('eventora-booking-requests') || '[]');
+    } catch(e) {}
+
+    if (!bookings || bookings.length === 0) {
+      bookingsContainer.innerHTML = `
+        <div style="padding:20px; background:#F8FAFC; border-radius:14px; border:1px dashed #CBD5E1; text-align:center;">
+          <p style="color:#64748B; margin:0 0 10px; font-size:0.95rem;">You have not sent any venue or vendor booking inquiries yet.</p>
+          <a href="venues.html" class="btn btn-solid sm" style="font-size:0.85rem; padding:8px 16px;">Browse Venues &amp; Vendors →</a>
+        </div>
+      `;
+    } else {
+      bookingsContainer.innerHTML = bookings.slice(0, 5).map(b => `
+        <div style="padding:14px; background:#F8FAFC; border-radius:14px; border:1px solid #E2E8F0; margin-bottom:12px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <strong style="font-size:1rem; color:#0F172A;">${b.vendorName || 'Venue / Vendor Booking'}</strong>
+            <span style="font-size:0.75rem; background:#DCFCE7; color:#166534; padding:3px 10px; border-radius:999px; font-weight:700;">REQUEST SENT</span>
+          </div>
+          <p style="margin:0 0 6px; font-size:0.85rem; color:#64748B;">📅 Date: ${b.date || 'Flexible'} · ${b.event || 'Celebration'}</p>
+          <p style="margin:0; font-size:0.88rem; color:#334155;">"${b.details || 'Inquiry sent'}"</p>
+        </div>
+      `).join('');
+    }
+  }
+
+  // Logout button
+  const logoutBtn = document.getElementById('nav-logout-btn');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', () => {
+      localStorage.removeItem('eventora_user');
+      window.location.href = 'index.html';
+    });
+  }
+})();
+</script>
+</body>
+</html>
