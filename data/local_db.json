@@ -315,6 +315,246 @@
         "pictures": []
       },
       "createdAt": "2026-11-25T09:20:54.566Z"
+    },
+    {
+      "_id": "user_1795615578250_jqo30",
+      "id": "user_1795615578250_jqo30",
+      "name": "Varsha",
+      "email": "mangalakshatha@gmail.com",
+      "password": "963a60458ac7201b010d053df6b4aa4a:bd4c8dec03eab17ac7346010eeb8b056f057942c010b998c94e0986e545ca58c1ac1c9f31654b4630011c00ead2293f5c10e5b699f7460ddae2d2d3b0a4ed88c",
+      "phone": "7788569876",
+      "role": "vendor",
+      "city": "Coimbatore",
+      "eventType": "Tamil Thirumanam",
+      "eventDate": "",
+      "guestCount": 200,
+      "vendorDetails": {
+        "businessName": "Mangal Akshatha Wedding Hall",
+        "category": "Banquet & Mandap Venue",
+        "price": "3,00,000",
+        "services": "Hall",
+        "description": "Mangal Akshatha Wedding Hall — Banquet & Mandap Venue in Coimbatore (Hall)",
+        "portfolioUrl": "",
+        "portfolio": [
+          {
+            "title": "4.jpg",
+            "description": "Initial portfolio upload",
+            "image": ""
+          }
+        ],
+        "pictures": []
+      },
+      "createdAt": "2026-11-25T14:06:18.250Z"
+    },
+    {
+      "_id": "user_1795615756801_57ghc",
+      "id": "user_1795615756801_57ghc",
+      "name": "Rathna",
+      "email": "suluparty@gmail.com",
+      "password": "66f63805e2536eb09357aa3ac064c09f:9f70b50e0e1ba33fc0696513c0083adc98d6d36ce473bc94e0a9f182c343946a70a6cbd9e28ce5acd9537a3f19d3bd752019deef88621410b247906a5c4a3ab4",
+      "phone": "9894202444",
+      "role": "vendor",
+      "city": "Coimbatore",
+      "eventType": "Tamil Thirumanam",
+      "eventDate": "",
+      "guestCount": 200,
+      "vendorDetails": {
+        "businessName": "Sulu’s Party Hall",
+        "category": "Banquet & Mandap Venue",
+        "price": "1,00,000",
+        "services": "Hall",
+        "description": "Sulu’s Party Hall — Banquet & Mandap Venue in Coimbatore (Hall)",
+        "portfolioUrl": "",
+        "portfolio": [
+          {
+            "title": "3.jpg",
+            "description": "Initial portfolio upload",
+            "image": ""
+          }
+        ],
+        "pictures": []
+      },
+      "createdAt": "2026-11-25T14:09:16.801Z"
+    },
+    {
+      "_id": "user_1795632363989_p1fk6",
+      "id": "user_1795632363989_p1fk6",
+      "name": "Agalya",
+      "email": "banyan@gmail.com",
+      "password": "dcf3aa58c48f8214a0f574b3a958985f:cf53fb0196bcd4ac47823476b948b01584ffcb81105cca50d4930f2a35710b4716c37a5313c8a1d9038dac58486bc873389d2af45d5adcae3bf7673d92095dd7",
+      "phone": "989766543",
+      "role": "vendor",
+      "city": "Pollachi",
+      "eventType": "Tamil Thirumanam",
+      "eventDate": "",
+      "guestCount": 200,
+      "vendorDetails": {
+        "businessName": "The Banyan Meadows",
+        "category": "Banquet & Mandap Venue",
+        "price": "5,00,000",
+        "services": "Hall",
+        "description": "The Banyan Meadows — Banquet & Mandap Venue in Pollachi (Hall)",
+        "portfolioUrl": "",
+        "portfolio": [
+          {
+            "title": "2.jpg",
+            "description": "Initial portfolio upload",
+            "image": ""
+          }
+        ],
+        "pictures": []
+      },
+      "createdAt": "2026-11-25T18:46:03.989Z"
+    },
+    {
+      "_id": "user_1795632570772_3grev",
+      "id": "user_1795632570772_3grev",
+      "name": "Niranjan",
+      "email": "djnix@gmail.com",
+      "password": "3ecc2064c40d67a06b796a098d9069ae:41091d27b7ce5a1d575fe9f2f7401cbe80aa8f1f5f25ef46635799ca1ee3c1d5a6f4f8167c525d08fe4b725b427294dd44cce8fb1d0fe18e9f37c33161a491dc",
+      "phone": "9943575975",
+      "role": "vendor",
+      "city": "Coimbatore",
+      "eventType": "Tamil Thirumanam",
+      "eventDate": "",
+      "guestCount": 200,
+      "vendorDetails": {
+        "businessName": "DJ NIX",
+        "category": "DJ & Music",
+        "price": "25,000",
+        "services": "DJ & Music",
+        "description": "DJ NIX — DJ & Music in Coimbatore (DJ & Music)",
+        "portfolioUrl": "",
+        "portfolio": [
+          {
+            "title": "3.jpg",
+            "description": "Initial portfolio upload",
+            "image": ""
+          }
+        ],
+        "pictures": []
+      },
+      "createdAt": "2026-11-25T18:49:30.772Z"
+    },
+    {
+      "_id": "user_1795632760453_8i1pc",
+      "id": "user_1795632760453_8i1pc",
+      "name": "Tessa",
+      "email": "djtessa@gmail.com",
+      "password": "1ef82fb5f19c95d7c06d7f02fc030da2:b531c36b7c9bed655e34f8dfa04b746488763559a0ddfb7199a029f3d2806d404e346eaf933ca8c32733b0e31fb9aee7d008246de9679847fce93b62f6754ee5",
+      "phone": "8438861762",
+      "role": "vendor",
+      "city": "Coimbatore",
+      "eventType": "Tamil Thirumanam",
+      "eventDate": "",
+      "guestCount": 200,
+      "vendorDetails": {
+        "businessName": "DJ Tessa",
+        "category": "DJ & Music",
+        "price": "22,000",
+        "services": "DJ & Music",
+        "description": "DJ Tessa — DJ & Music in Coimbatore (DJ & Music)",
+        "portfolioUrl": "",
+        "portfolio": [
+          {
+            "title": "7.jpg",
+            "description": "Initial portfolio upload",
+            "image": ""
+          }
+        ],
+        "pictures": []
+      },
+      "createdAt": "2026-11-25T18:52:40.453Z"
+    },
+    {
+      "_id": "user_1795632899854_f5b6m",
+      "id": "user_1795632899854_f5b6m",
+      "name": "Sundaresan Ramesh",
+      "email": "djsundar@gmail.com",
+      "password": "b9550576684efc57b61e71164bc69027:cc4a2befe1771ce288ad9ef16433f2ca6f22c1ef52e2f0c753b16182319d1f77054fdfed6c3cf1d09af9e1920fd2742a57bafba4c02bc8ba3e2e472c7ff1f8fb",
+      "phone": "9894409121",
+      "role": "vendor",
+      "city": "Coimbatore",
+      "eventType": "Tamil Thirumanam",
+      "eventDate": "",
+      "guestCount": 200,
+      "vendorDetails": {
+        "businessName": "DJ Sundar",
+        "category": "DJ & Music",
+        "price": "30,000",
+        "services": "DJ & Music",
+        "description": "DJ Sundar — DJ & Music in Coimbatore (DJ & Music)",
+        "portfolioUrl": "",
+        "portfolio": [
+          {
+            "title": "4.jpg",
+            "description": "Initial portfolio upload",
+            "image": ""
+          }
+        ],
+        "pictures": []
+      },
+      "createdAt": "2026-11-25T18:54:59.854Z"
+    },
+    {
+      "_id": "user_1795633007634_a5dkn",
+      "id": "user_1795633007634_a5dkn",
+      "name": "Jax",
+      "email": "djjax@gmail.com",
+      "password": "afed865cc4d2df6749db13d42514273d:ad08fa6387dae2d3ee70f217d328f9129a8ef423d520d72d660ae269ce713dfecf588b8c6165159e0887f4279927a5b9d5193717fa198c6bb82cc4dfd9f5c10e",
+      "phone": "7709402137",
+      "role": "vendor",
+      "city": "Pollachi",
+      "eventType": "Tamil Thirumanam",
+      "eventDate": "",
+      "guestCount": 200,
+      "vendorDetails": {
+        "businessName": "DJ JAX",
+        "category": "DJ & Music",
+        "price": "27,000",
+        "services": "DJ & Music",
+        "description": "DJ JAX — DJ & Music in Pollachi (DJ & Music)",
+        "portfolioUrl": "",
+        "portfolio": [
+          {
+            "title": "3.jpg",
+            "description": "Initial portfolio upload",
+            "image": ""
+          }
+        ],
+        "pictures": []
+      },
+      "createdAt": "2026-11-25T18:56:47.634Z"
+    },
+    {
+      "_id": "user_1795633204411_k9nqz",
+      "id": "user_1795633204411_k9nqz",
+      "name": "Rithick",
+      "email": "rithick@gmail.com",
+      "password": "2ef16fd415863780fb86ce68ffc2480c:f07ae67fc8c3902f3bf01fa8340f12477f6143504de547449e0562c206607d9b55961f53771642eef36135563d50352b7eb428b236e1c8fe9ef2be032419907c",
+      "phone": "8015993125",
+      "role": "vendor",
+      "city": "Coimbatore",
+      "eventType": "Tamil Thirumanam",
+      "eventDate": "",
+      "guestCount": 200,
+      "vendorDetails": {
+        "businessName": "Mr.R' s Super Kitchen",
+        "category": "Catering",
+        "price": "50,000",
+        "services": "Catering",
+        "description": "Mr.R' s Super Kitchen — Catering in Coimbatore (Catering)",
+        "portfolioUrl": "",
+        "portfolio": [
+          {
+            "title": "2.jpg",
+            "description": "Initial portfolio upload",
+            "image": ""
+          }
+        ],
+        "pictures": []
+      },
+      "createdAt": "2026-11-25T19:00:04.411Z"
     }
   ],
   "invites": [
