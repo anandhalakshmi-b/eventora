@@ -285,6 +285,36 @@
         "pictures": []
       },
       "createdAt": "2026-11-25T08:34:12.822Z"
+    },
+    {
+      "_id": "user_1795598454566_qdsmq",
+      "id": "user_1795598454566_qdsmq",
+      "name": "Suresh",
+      "email": "gphall@gmail.com",
+      "password": "6f1e1453f42ccdf745fb5f25992c8221:4e1cafa86b1e10e059dc1fbee2f19219504cb60fbe33ad11bef5e9a69044e9e30b61b1c216d9d3df79ab4a59606f34a6bd709e8ac87bca508c7226bb2456a237",
+      "phone": "9894303111",
+      "role": "vendor",
+      "city": "Coimbatore",
+      "eventType": "Tamil Thirumanam",
+      "eventDate": "",
+      "guestCount": 200,
+      "vendorDetails": {
+        "businessName": "GP Grand Galaxy",
+        "category": "Banquet & Mandap Venue",
+        "price": "2,00,000",
+        "services": "Hall",
+        "description": "GP Grand Galaxy — Banquet & Mandap Venue in Coimbatore (Hall)",
+        "portfolioUrl": "",
+        "portfolio": [
+          {
+            "title": "1.jpg",
+            "description": "Initial portfolio upload",
+            "image": ""
+          }
+        ],
+        "pictures": []
+      },
+      "createdAt": "2026-11-25T09:20:54.566Z"
     }
   ],
   "invites": [
