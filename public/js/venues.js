@@ -4,48 +4,7 @@
   const CITIES = ['Coimbatore', 'Chennai', 'Bengaluru', 'Madurai', 'Pondicherry', 'Kochi'];
   const VTYPES = ['Banquet hall', 'Outdoor lawn', 'Rooftop', 'Resort', 'Conference centre'];
 
-  const VENUES = [
-    {
-      id: 'v1', name: 'Lotus Grand Banquet', city: 'Coimbatore', type: 'Banquet hall', cap: 600, price: 90000, rating: 4.8, tone: 'pink', e: '🏛️', image: 'images/venues/1.jpg',
-      ev: ['Wedding', 'Engagement', 'Anniversary', 'Corporate & Team', 'Festival'], booked: ['2026-11-14', '2026-11-15', '2026-12-06'],
-      desc: 'Air-conditioned hall with a grand stage, in-house kitchen and a bridal suite.', am: ['AC hall', 'Stage and lighting', 'Parking for 150 cars', 'Bridal suite']
-    },
-    {
-      id: 'v2', name: 'Palm Garden Lawn', city: 'Coimbatore', type: 'Outdoor lawn', cap: 400, price: 65000, rating: 4.6, tone: 'green', e: '🌴', image: 'images/venues/2.jpg', imagePosition: 'center 84%',
-      ev: ['Wedding', 'Birthday', 'Festival', 'Engagement', 'Anniversary'], booked: ['2026-11-08', '2026-12-12'],
-      desc: 'A green open lawn with fairy-light setup. Best for evening receptions and garden parties.', am: ['Open lawn', 'Fairy lights', 'Generator backup', 'Outside catering allowed']
-    },
-    {
-      id: 'v3', name: 'Skyline Terrace', city: 'Chennai', type: 'Rooftop', cap: 150, price: 45000, rating: 4.5, tone: 'purple', e: '🌆', image: 'images/venues/3.jpg',
-      ev: ['Birthday', 'Anniversary', 'Baby Shower', 'Corporate & Team', 'Naming Ceremony'], booked: ['2026-11-21', '2026-11-22'],
-      desc: 'Rooftop venue with city views, a lounge corner and a DJ platform.', am: ['City view', 'DJ platform', 'Lounge seating', 'Lift access']
-    },
-    {
-      id: 'v4', name: 'Heritage Mahal', city: 'Madurai', type: 'Banquet hall', cap: 800, price: 120000, rating: 4.7, tone: 'orange', e: '🕌', image: 'images/venues/4.jpg',
-      ev: ['Wedding', 'Engagement', 'Housewarming', 'Naming Ceremony', 'Anniversary'], booked: ['2026-12-05', '2026-12-06', '2026-12-13'],
-      desc: 'Traditional pillared hall with a dining area for 500 and rooms for family.', am: ['Dining for 500', 'Guest rooms', 'Mandap stage', 'Valet parking']
-    },
-    {
-      id: 'v5', name: 'Bloom Conference Centre', city: 'Bengaluru', type: 'Conference centre', cap: 250, price: 70000, rating: 4.4, tone: 'cyan', e: '💼', image: 'images/venues/5.jpg', imagePosition: 'center 76%',
-      ev: ['Corporate & Team', 'College & Graduation'], booked: ['2026-11-10', '2026-11-11'],
-      desc: 'Projector, sound system and break-out rooms for meets, launches and seminars.', am: ['Projector and screen', 'Fast Wi-Fi', 'Break-out rooms', 'Tea and coffee area']
-    },
-    {
-      id: 'v6', name: 'Seaside Resort Lawn', city: 'Pondicherry', type: 'Resort', cap: 300, price: 110000, rating: 4.9, tone: 'yellow', e: '🌊', image: 'images/venues/6.jpg',
-      ev: ['Wedding', 'Anniversary', 'Birthday', 'Festival', 'Corporate & Team'], booked: ['2026-12-19', '2026-12-20'],
-      desc: 'Beachfront lawn with rooms for guests and sunset ceremony spots.', am: ['Beachfront', '60 guest rooms', 'Sunset deck', 'Pool area']
-    },
-    {
-      id: 'v7', name: 'Little Star Party Hall', city: 'Kochi', type: 'Banquet hall', cap: 120, price: 28000, rating: 4.3, tone: 'red', e: '🎈', image: 'images/venues/7.jpg',
-      ev: ['Birthday', 'Baby Shower', 'Naming Ceremony', 'Housewarming'], booked: ['2026-11-15'],
-      desc: 'A cheerful small hall with a kids corner, cake table and balloon-friendly ceilings.', am: ['Kids corner', 'Cake table', 'Sound system', 'Parking']
-    },
-    {
-      id: 'v8', name: 'Campus Green Auditorium', city: 'Chennai', type: 'Conference centre', cap: 500, price: 55000, rating: 4.2, tone: 'cyan', e: '🎓', image: 'images/venues/8.jpg',
-      ev: ['College & Graduation', 'Corporate & Team'], booked: ['2026-12-02'],
-      desc: 'Large auditorium with tiered seating, ideal for convocations and annual days.', am: ['Tiered seating', 'Stage', 'Green room', 'Live-stream corner']
-    }
-  ];
+  const VENUES = [];
 
   const CATS = [
     { k: 'catering', n: 'Catering', c: 'orange', e: '🍽️', image: 'images/catering/1.jpg', about: 'Menus and service teams to make your celebration delicious.' },
@@ -147,22 +106,7 @@
     }
   };
 
-  const VENDORS = [
-    { id: 'd1', cat: 'catering', name: 'Spice Route Caterers', city: 'Coimbatore', from: 350, unit: 'per plate', rating: 4.7, ev: ['Wedding', 'Birthday', 'Corporate & Team', 'Engagement', 'Housewarming', 'Festival'], sv: ['South Indian', 'North Indian', 'Live counters'], image: 'images/catering/1.jpg', desc: 'Veg and non-veg menus for 50 to 2,000 guests, prepared by an experienced kitchen team. Choose regional favourites, multi-course spreads and live counters, with service staff available for the full event.' },
-    { id: 'd2', cat: 'catering', name: 'Sweet Bites & Co', city: 'Chennai', from: 250, unit: 'per plate', rating: 4.4, ev: ['Birthday', 'Baby Shower', 'College & Graduation', 'Naming Ceremony'], sv: ['Snacks', 'Desserts', 'Cake table'], image: 'images/catering/2.jpg', desc: 'A small-event catering team serving fresh snacks, dessert tables and custom cakes. Menus can be tailored for birthdays, showers and intimate celebrations.' },
-    { id: 'd3', cat: 'decor', name: 'Petal Pursuit Decor', city: 'Coimbatore', from: 25000, unit: 'per event', rating: 4.8, ev: ['Wedding', 'Engagement', 'Anniversary', 'Baby Shower', 'Housewarming'], sv: ['Stage', 'Floral', 'Theme decor'], image: 'images/decor/1.jpg', desc: 'A creative decor studio designing coordinated stages, entrances and tables in soft pastel themes. The team works with you on a concept and setup plan to suit your venue and celebration.' },
-    { id: 'd4', cat: 'decor', name: 'Balloon Bazaar', city: 'Kochi', from: 6000, unit: 'per event', rating: 4.5, ev: ['Birthday', 'Baby Shower', 'College & Graduation', 'Naming Ceremony'], sv: ['Balloon arches', 'Backdrops', 'Props'], image: 'images/decor/2.jpg', desc: 'Colourful balloon arches, backdrops and playful props for birthdays, baby showers and graduation parties. Packages can be adapted to your theme and event space.' },
-    { id: 'd5', cat: 'makeup', name: 'Glow by Meera', city: 'Madurai', from: 8000, unit: 'per person', rating: 4.9, ev: ['Wedding', 'Engagement', 'Anniversary', 'College & Graduation'], sv: ['Bridal makeup', 'Hair styling', 'Saree draping'], image: 'images/makeup/1.jpg', desc: 'Bridal and occasion makeup with a personal consultation and trial session. Services include hair styling and saree draping, with looks tailored to your outfit and event.' },
-    { id: 'd6', cat: 'makeup', name: 'Studio Shine', city: 'Bengaluru', from: 3000, unit: 'per person', rating: 4.3, ev: ['Birthday', 'College & Graduation', 'Corporate & Team', 'Anniversary'], sv: ['Party makeup', 'Hair styling'], image: 'images/makeup/2.jpg', desc: 'A beauty team creating quick, natural makeup and polished hairstyles for parties, graduations and photoshoots. Share your schedule to plan a relaxed getting-ready session.' },
-    { id: 'd7', cat: 'photo', name: 'Frame & Flame Studio', city: 'Chennai', from: 40000, unit: 'per event', rating: 4.8, ev: ['Wedding', 'Engagement', 'Anniversary', 'Corporate & Team', 'College & Graduation'], sv: ['Candid', 'Drone', 'Albums', 'Video'], image: 'images/photo/1.jpg', desc: 'A wedding and event photography studio focused on candid storytelling, ceremony coverage and cinematic video. Packages can include drone coverage and printed albums, with a preview gallery delivered the same week.' },
-    { id: 'd8', cat: 'photo', name: 'Click Cafe', city: 'Pondicherry', from: 12000, unit: 'per event', rating: 4.5, ev: ['Birthday', 'Baby Shower', 'College & Graduation', 'Naming Ceremony'], sv: ['Photos', 'Reels', 'Photo booth'], image: 'images/photo/2.jpg', desc: 'Fun, fast photo and video coverage for birthdays and small events. Choose candid photos, short social-ready reels or a photo booth to give guests a keepsake.' },
-    { id: 'd9', cat: 'host', name: 'Arjun the Anchor', city: 'Coimbatore', from: 15000, unit: 'per event', rating: 4.7, ev: ['Wedding', 'Corporate & Team', 'Anniversary', 'College & Graduation', 'Festival'], sv: ['English', 'Tamil', 'Games and quizzes'], image: 'images/emcee/1.JPG', desc: 'An energetic bilingual emcee for stage shows, weddings and award nights. Event run-of-show planning, audience games and announcements are coordinated with your team.' },
-    { id: 'd10', cat: 'host', name: 'Priya Events Host', city: 'Bengaluru', from: 10000, unit: 'per event', rating: 4.4, ev: ['Birthday', 'Baby Shower', 'Engagement', 'Naming Ceremony', 'Festival'], sv: ['English', 'Hindi', 'Kannada'], image: 'images/emcee/2.jpg', desc: 'A warm, multilingual host for family functions, kids parties and engagement celebrations. The programme is tailored to your guests, schedule and preferred languages.' },
-    { id: 'd11', cat: 'dj', name: 'BeatBox DJ', city: 'Bengaluru', from: 15000, unit: 'per event', rating: 4.6, ev: ['Birthday', 'Wedding', 'Corporate & Team', 'College & Graduation', 'Festival'], sv: ['DJ', 'Sound', 'Lights'], image: 'images/dj/1.jpg', desc: 'A DJ and production setup with club-quality sound, lighting and playlists for crowds of different sizes. Share your venue and music preferences to plan the right setup.' },
-    { id: 'd12', cat: 'dj', name: 'Raga & Rhythm Band', city: 'Madurai', from: 30000, unit: 'per event', rating: 4.8, ev: ['Wedding', 'Engagement', 'Anniversary', 'Housewarming', 'Festival'], sv: ['Live band', 'Nadaswaram', 'Singers'], image: 'images/dj/2.jpg', desc: 'Live performers bringing together classical music, film favourites and traditional wedding music. Set lists and performance timings can be planned around your ceremony.' },
-    { id: 'd13', cat: 'florist', name: 'Bloom & Co', city: 'Kochi', from: 5000, unit: 'per event', rating: 4.5, ev: ['Wedding', 'Birthday', 'Anniversary', 'Baby Shower', 'Corporate & Team'], sv: ['Bouquets', 'Garlands', 'Flower arches'], image: 'images/decor/3.jpg', desc: 'Fresh flowers sourced daily for bouquets, garlands and flower arches. The team coordinates delivery and setup to complement your event colours and venue.' },
-    { id: 'd14', cat: 'florist', name: 'Jasmine Lane', city: 'Madurai', from: 4000, unit: 'per event', rating: 4.6, ev: ['Wedding', 'Engagement', 'Baby Shower', 'Housewarming', 'Naming Ceremony'], sv: ['Garlands', 'Mandap flowers', 'Hair flowers'], image: 'images/decor/4.jpg', desc: 'Traditional garlands, mandap flowers and hair flowers arranged with fresh seasonal blooms. Share your ceremony style and quantities for a tailored estimate.' }
-  ];
+  const VENDORS = [];
 
   /* ---------- helpers ---------- */
   const el = id => document.getElementById(id);
