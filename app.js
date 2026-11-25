@@ -97,11 +97,7 @@ const quotes = [
   { text: 'Booked Bloom Conference Centre and executive buffet catering for our 150-person corporate offsite. The WhatsApp RSVP links saved hours.', by: 'Deepa R. · Corporate Summit, Bengaluru' }
 ];
 
-const featuredVendors = [
-  { name: 'Lotus Grand Banquet', city: 'Coimbatore', category: 'Banquet Hall', price: 'From ₹90,000' },
-  { name: 'Heritage Mahal Banquet', city: 'Madurai', category: 'Palace Venue', price: 'From ₹1,20,000' },
-  { name: 'Bloom Conference Centre', city: 'Bengaluru', category: 'Conference Centre', price: 'From ₹70,000' }
-];
+const featuredVendors = [];
 
 // Every page gets the same layout data and the logged-in user
 app.use((req, res, next) => {

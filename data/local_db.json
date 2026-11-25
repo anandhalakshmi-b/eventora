@@ -64,39 +64,6 @@
       "createdAt": "2026-11-15T20:04:23.245Z"
     },
     {
-      "_id": "user_1795109557374_g5it1",
-      "id": "user_1795109557374_g5it1",
-      "name": "Ramesh Mandap Masters",
-      "email": "ramesh_test_vendor@example.com",
-      "password": "0ace4f1254cdd63c382365d2e3904310:744672993156beafa0a594f33ecf1f2eaac2013923e4437d554cb97a68014e5fbe2d82cd8c1b81dd3108d876667cf13e8953b283272ad0836ab57f1bbbbac841",
-      "phone": "9840199999",
-      "role": "vendor",
-      "city": "Chennai",
-      "eventType": "Tamil Thirumanam",
-      "eventDate": "",
-      "guestCount": 200,
-      "vendorDetails": {
-        "businessName": "Ramesh Mandap & Royal Palace Decor",
-        "category": "Decor & Mandap",
-        "price": "80000",
-        "services": "Royal Stage Mandap, Flower Arches, Urli Setups, Fairy Light Canopy",
-        "description": "Updated description with over 20 years of royal mandap experience.",
-        "portfolioUrl": "",
-        "portfolio": [
-          {
-            "title": "Royal Mandap at Taj",
-            "description": "Red silk & gold mandap",
-            "image": "images/venues/1.jpg"
-          }
-        ],
-        "pictures": [
-          "images/venues/1.jpg",
-          "images/venues/2.jpg"
-        ]
-      },
-      "createdAt": "2026-11-19T17:32:37.386Z"
-    },
-    {
       "_id": "user_1795109623976_ikfho",
       "id": "user_1795109623976_ikfho",
       "name": "Kavitha Sundaram",
@@ -175,50 +142,6 @@
       "createdAt": "2026-11-23T14:08:55.107Z"
     },
     {
-      "_id": "user_1795442935145_ltp77",
-      "id": "user_1795442935145_ltp77",
-      "name": "Test Vendor Owner",
-      "email": "vend_1795442935134@example.com",
-      "password": "16eb377e641b1eadb783fd2e18732416:f97ab4900a3bd5e7af3140a0a29939dd7da79f470fc26c468f62dea1460b3a9b97bdf4d94f93a3cddfd5bd871e038a3fb8d939d09d75cc51d9d9d25970728c6f",
-      "phone": "9876543211",
-      "role": "vendor",
-      "city": "Delhi",
-      "eventType": "Tamil Thirumanam",
-      "eventDate": "",
-      "guestCount": 200,
-      "vendorDetails": {
-        "businessName": "Royal Catering Services",
-        "category": "Catering",
-        "price": "",
-        "services": "",
-        "description": "",
-        "portfolioUrl": "",
-        "portfolio": [
-          {
-            "title": "Grand Delhi Wedding",
-            "description": "500 guests buffet",
-            "imageUrl": "images/catering1.jpg"
-          }
-        ],
-        "pictures": [],
-        "bookedDates": [
-          "2026-12-25",
-          "2026-12-31",
-          "2027-01-01"
-        ],
-        "availability": {
-          "status": "fully_booked",
-          "unavailableDates": [
-            "2026-12-25",
-            "2026-12-31",
-            "2027-01-01"
-          ],
-          "note": "All weekend slots filled"
-        }
-      },
-      "createdAt": "2026-11-23T14:08:55.147Z"
-    },
-    {
       "_id": "user_1795455981908_tlc3p",
       "id": "user_1795455981908_tlc3p",
       "name": "Time Test User",
@@ -286,36 +209,6 @@
       "createdAt": "2026-11-23T18:09:01.710Z"
     },
     {
-      "_id": "user_1795457341743_qpyh2",
-      "id": "user_1795457341743_qpyh2",
-      "name": "Ravi Kumar",
-      "email": "vendortest_1795457341731@test.com",
-      "password": "d9bf153e83e30b3ea4c23b20817de2fa:82334caebc15bcabd16c00431e9278d4cbf9238f0d9628ed010bcb49720403d7477cc98a326a9c13b00510b3d19b0cafdb5c6f06c4bff483485fbca671b84787",
-      "phone": "9876543299",
-      "role": "vendor",
-      "city": "Chennai",
-      "eventType": "Tamil Thirumanam",
-      "eventDate": "",
-      "guestCount": 200,
-      "vendorDetails": {
-        "businessName": "Ravi Royal Decor",
-        "category": "Decor",
-        "price": "25000",
-        "services": "Stage decor, Floral arrangements, Lighting",
-        "description": "",
-        "portfolioUrl": "",
-        "portfolio": [],
-        "pictures": [],
-        "bookedDates": [],
-        "availability": {
-          "status": "Available",
-          "unavailableDates": [],
-          "note": ""
-        }
-      },
-      "createdAt": "2026-11-23T18:09:01.745Z"
-    },
-    {
       "_id": "user_1795457619620_ulv65",
       "id": "user_1795457619620_ulv65",
       "name": "Test User",
@@ -346,36 +239,6 @@
       "createdAt": "2026-11-23T18:13:39.622Z"
     },
     {
-      "_id": "user_1795457619658_f0391",
-      "id": "user_1795457619658_f0391",
-      "name": "Vendor Owner",
-      "email": "v_1795457619645@test.com",
-      "password": "d06f52d0846c681700819f1502d8a35a:b7de1880bc8967e9ad449454c83996b305941f799f9ffd4d6c019341000215790aa215d96df39df02ceaa664b254319f5a8ff2da68bb5af32c004f27fdb95f5d",
-      "phone": "",
-      "role": "vendor",
-      "city": "Chennai",
-      "eventType": "Tamil Thirumanam",
-      "eventDate": "",
-      "guestCount": 200,
-      "vendorDetails": {
-        "businessName": "Test Catering",
-        "category": "Catering",
-        "price": "",
-        "services": "",
-        "description": "",
-        "portfolioUrl": "",
-        "portfolio": [],
-        "pictures": [],
-        "bookedDates": [],
-        "availability": {
-          "status": "Available",
-          "unavailableDates": [],
-          "note": ""
-        }
-      },
-      "createdAt": "2026-11-23T18:13:39.660Z"
-    },
-    {
       "_id": "user_1795541491479_mz7wt",
       "id": "user_1795541491479_mz7wt",
       "name": "26MX229 M",
@@ -400,28 +263,28 @@
       "createdAt": "2026-11-24T17:31:31.480Z"
     },
     {
-      "_id": "user_1795541671068_gunhk",
-      "id": "user_1795541671068_gunhk",
-      "name": "Vijaya",
-      "email": "26mx202@psgtech.ac.in",
-      "password": "36c243565db4715cbc934164128ab19d:5f897c803a608a988c5d637762f0bd8588202ea5a8eecbdfd5d8e28a190f9d4acdc2ffdaa669deaccef63d0d491c2fe830cfdd0e6d7412ac1097770783e2ba0b",
-      "phone": "9045826426",
-      "role": "vendor",
-      "city": "Coimbatore",
-      "eventType": "Tamil Thirumanam",
+      "_id": "user_1795595652822_usox4",
+      "id": "user_1795595652822_usox4",
+      "name": "MAYUKA S",
+      "email": "mayukasundararaj@gmail.com",
+      "password": "bf7d98ced5e8db03077c2ee1b64d9833:d3313d629eded33d80962ae4546d2e99d8929a76237e787400bad40a10e3d915d5bf5dcb1528c3db00b679b2cced18988cf8750ce771b5801255ff3bb44f93f9",
+      "phone": "7708302147",
+      "role": "user",
+      "city": "Chennai",
+      "eventType": "Tamil Thirumanam & Celebration",
       "eventDate": "",
       "guestCount": 200,
       "vendorDetails": {
-        "businessName": "Eventora",
-        "category": "Decor",
-        "price": "9000",
-        "services": "Event decoration",
-        "description": "Eventora — Decor in Coimbatore (Event decoration)",
+        "businessName": "MAYUKA S",
+        "category": "",
+        "price": "",
+        "services": "",
+        "description": "",
         "portfolioUrl": "",
         "portfolio": [],
         "pictures": []
       },
-      "createdAt": "2026-11-24T17:34:31.068Z"
+      "createdAt": "2026-11-25T08:34:12.822Z"
     }
   ],
   "invites": [
