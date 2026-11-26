@@ -115,9 +115,33 @@
 
   let tab = 'venues';
   let cat = 'all'; // 'all' (categories view), 'all-list' (all vendors list), or a category key ('makeup', 'catering', ...)
+  const heartSvg = (on) => `<svg viewBox="0 0 24 24" width="18" height="18" fill="${on ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`;
+  const getFavKey = () => {
+    try {
+      const u = JSON.parse(localStorage.getItem('eventora_user') || 'null');
+      const uk = u && (u.email || u.id) ? String(u.email || u.id).toLowerCase().trim() : '';
+      return uk ? `eventora-fav:${uk}` : 'eventora-fav';
+    } catch (e) {
+      return 'eventora-fav';
+    }
+  };
+  const FAV_KEY = getFavKey();
   let fav = new Set();
-  try { fav = new Set(JSON.parse(localStorage.getItem('eventora-fav') || '[]')); } catch (e) {}
-  const saveFav = () => { try { localStorage.setItem('eventora-fav', JSON.stringify([...fav])); } catch (e) {} };
+  try {
+    const rawFav = localStorage.getItem(FAV_KEY);
+    if (rawFav !== null) {
+      fav = new Set(JSON.parse(rawFav || '[]'));
+    } else if (FAV_KEY !== 'eventora-fav' && localStorage.getItem('eventora-fav')) {
+      fav = new Set(JSON.parse(localStorage.getItem('eventora-fav') || '[]'));
+      localStorage.setItem(FAV_KEY, JSON.stringify([...fav]));
+      localStorage.removeItem('eventora-fav');
+    }
+  } catch (e) {}
+  const saveFav = () => {
+    try {
+      localStorage.setItem(FAV_KEY, JSON.stringify([...fav]));
+    } catch (e) {}
+  };
   const opts = (arr, first) => `<option value="">${escHtml(first)}</option>` + arr.map(x => `<option value="${escHtml(x)}">${escHtml(x)}</option>`).join('');
 
   function getUniqueServices(categoryKey) {
@@ -229,7 +253,7 @@
     const on = fav.has(v.id);
     return `<article class="card c-${v.tone}">
       <div class="banner"><img class="venue-image" src="${escHtml(v.image)}" alt="${escHtml(v.name)}" style="object-position:${v.imagePosition || 'center'}" loading="lazy" onerror="this.src='images/venues/1.jpg'">
-        <button class="heart" data-act="fav" data-id="${v.id}" aria-pressed="${on}" aria-label="Save ${escHtml(v.name)}">${on ? 'Saved' : 'Save'}</button></div>
+        <button class="heart" data-act="fav" data-id="${v.id}" aria-pressed="${on}" aria-label="${on ? 'Remove' : 'Save'} ${escHtml(v.name)} ${on ? 'from' : 'to'} favourites" title="${on ? 'Remove from favourites' : 'Add to favourites'}">${heartSvg(on)}</button></div>
       <div class="body">
         <h3>${escHtml(v.name)}</h3>
         <p class="meta">${escHtml(v.city)} · ${escHtml(v.type)}</p>
@@ -401,11 +425,16 @@
     }
 
     const u = auth.user;
+    const prefillDetails = [
+      u.eventName || u.eventType || '',
+      u.eventDate ? ('Date: ' + u.eventDate) : '',
+      u.city ? ('City: ' + u.city) : ''
+    ].filter(Boolean).join(' · ');
     el('dbody').innerHTML = `<div class="dtop ${colourOf(x)}"><h2>Contact &amp; Book ${escHtml(x.name)}</h2></div>
      <form class="dmain" id="cform">
       <label for="cn">Your name</label><input id="cn" value="${escHtml(u.name || '')}" required>
       <label for="cp">Phone</label><input id="cp" type="tel" value="${escHtml(u.phone || '')}" required>
-      <label for="cm">Event Details &amp; Date</label><textarea id="cm" rows="3" placeholder="Event type, date and guest headcount" required></textarea>
+      <label for="cm">Event Details &amp; Date</label><textarea id="cm" rows="3" placeholder="Event type, date and guest headcount" required>${escHtml(prefillDetails)}</textarea>
       <div class="acts"><button class="btn">Send booking request</button><button type="button" class="btn alt" data-act="close">Cancel</button></div></form>`;
     if (!el('dlg').open) el('dlg').showModal();
     el('cform').onsubmit = e => {
@@ -581,7 +610,7 @@
 
     return `<article class="card ${catObj ? 'c-' + catObj.c : ''}">
       <img class="vendor-image" src="${escHtml(d.image)}" alt="${escHtml(d.name)}" loading="lazy" onerror="this.src='images/venues/1.jpg'">
-      <button class="heart" data-vendor-act="favorite" data-id="${d.id}" aria-pressed="${on}" aria-label="${on ? 'Remove' : 'Add'} ${escHtml(d.name)} ${on ? 'from' : 'to'} favourites">${on ? 'Saved' : 'Save'}</button>
+      <button class="heart" data-vendor-act="favorite" data-id="${d.id}" aria-pressed="${on}" aria-label="${on ? 'Remove' : 'Add'} ${escHtml(d.name)} ${on ? 'from' : 'to'} favourites" title="${on ? 'Remove from favourites' : 'Add to favourites'}">${heartSvg(on)}</button>
       <div class="body">
         ${catTag}
         <button class="profile-link" data-vendor-act="details" data-id="${d.id}"><h3>${escHtml(d.name)}</h3></button>
@@ -694,13 +723,22 @@
     const category = CATS.find(c => c.k === d.cat) || { e: '', n: 'Vendor' };
     const cfg = CATEGORY_CONFIG[d.cat] || { unit: 'per event', bookingFields: [], bookingPlaceholder: 'Any specific preferences or notes' };
     const extraFieldsHtml = (cfg.bookingFields || []).map(renderBookingField).join('');
+    const todayIso = new Date().toISOString().slice(0, 10);
+    const defaultDate = (u.eventDate && /^\d{4}-\d{2}-\d{2}$/.test(u.eventDate) && u.eventDate >= todayIso) ? u.eventDate : '';
+    const minDate = (u.eventDate && u.eventDate < todayIso) ? u.eventDate : todayIso;
+    const userOccasion = String(u.eventType || u.eventName || '').trim();
+    const matchedOccasion = EVENTS.find(e => e.toLowerCase() === userOccasion.toLowerCase())
+      || EVENTS.find(e => userOccasion && userOccasion.toLowerCase().includes(e.toLowerCase()))
+      || '';
+    const occasionOptions = matchedOccasion ? EVENTS : (userOccasion ? [userOccasion, ...EVENTS] : EVENTS);
+    const selectedOccasion = matchedOccasion || userOccasion || '';
 
     el('vendor-dialog-body').innerHTML = `<div class="dtop ${colourOf(d)}"><h2>Book ${escHtml(d.name)}</h2><p>${escHtml(category.n)} · From ${rupee(d.from)} ${escHtml(d.unit || cfg.unit)}</p></div>
       <form class="dmain booking-form" id="booking-form">
         <label>Your name<input name="name" value="${escHtml(u.name || '')}" autocomplete="name" required></label>
         <label>Phone number<input name="phone" type="tel" value="${escHtml(u.phone || '')}" autocomplete="tel" required></label>
-        <label>Event date<input name="date" type="date" min="${new Date().toISOString().slice(0, 10)}" required></label>
-        <label>Occasion<select name="event" required><option value="">Choose occasion</option>${EVENTS.map(e => `<option>${escHtml(e)}</option>`).join('')}</select></label>
+        <label>Event date<input name="date" type="date" value="${escHtml(u.eventDate || defaultDate)}" min="${minDate}" required></label>
+        <label>Occasion<select name="event" required><option value="">Choose occasion</option>${occasionOptions.map(e => `<option${e === selectedOccasion ? ' selected' : ''}>${escHtml(e)}</option>`).join('')}</select></label>
         ${extraFieldsHtml}
         <label class="full">${escHtml(category.n)} notes<textarea name="details" rows="3" placeholder="${escHtml(cfg.bookingPlaceholder)}"></textarea></label>
         <div class="acts"><button class="btn">Send booking request</button><button class="btn alt" type="button" data-vendor-act="details" data-id="${id}">Back to profile</button><button class="btn alt" type="button" data-vendor-act="close">Cancel</button></div>
@@ -899,10 +937,14 @@
   /* ---------- load registered vendors & venues from backend ---------- */
   async function loadDynamicVendors() {
     try {
-      const [vendorsRes, venuesRes] = await Promise.all([
+      const [vendorsRes, venuesRes, meRes] = await Promise.all([
         fetch('/api/vendors', { cache: 'no-store' }).then(r => r.json()).catch(() => null),
-        fetch('/api/venues', { cache: 'no-store' }).then(r => r.json()).catch(() => null)
+        fetch('/api/venues', { cache: 'no-store' }).then(r => r.json()).catch(() => null),
+        fetch('/api/auth/me', { credentials: 'same-origin', cache: 'no-store' }).then(r => r.ok ? r.json() : null).catch(() => null)
       ]);
+      if (meRes && meRes.success && meRes.user) {
+        try { localStorage.setItem('eventora_user', JSON.stringify(meRes.user)); } catch (e) {}
+      }
       let changed = false;
 
       if (vendorsRes && vendorsRes.success && Array.isArray(vendorsRes.data) && vendorsRes.data.length > 0) {

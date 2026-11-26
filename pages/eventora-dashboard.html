@@ -107,6 +107,7 @@
         <div class="reg-field">
           <label for="dash-le-date">Date of the event</label>
           <input type="date" id="dash-le-date" required>
+          <small id="dash-le-date-hint" style="display:block; margin-top:4px; color:#64748B; font-size:0.78rem;">Select a date at least 2 days in the future.</small>
         </div>
         <div class="reg-field">
           <label for="dash-le-budget">Estimated Budget (₹ INR)</label>
@@ -242,6 +243,16 @@
   var closeBtn = document.getElementById('btn-close-register-event');
   var regForm = document.getElementById('dash-register-event-form');
 
+  function getMinEventDateStr() {
+    var dt = new Date();
+    dt.setHours(0, 0, 0, 0);
+    dt.setDate(dt.getDate() + 2);
+    var y = dt.getFullYear();
+    var m = String(dt.getMonth() + 1).padStart(2, '0');
+    var d = String(dt.getDate()).padStart(2, '0');
+    return y + '-' + m + '-' + d;
+  }
+
   function formatDisplayDate(raw) {
     if (!raw) return '';
     var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(raw).trim());
@@ -250,6 +261,16 @@
     if (isNaN(dt.getTime())) return String(raw);
     return dt.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
   }
+
+  (function initEventDateBounds() {
+    if (!dateInput) return;
+    var minStr = getMinEventDateStr();
+    dateInput.min = minStr;
+    var hintEl = document.getElementById('dash-le-date-hint');
+    if (hintEl) {
+      hintEl.textContent = 'Select a date at least 2 days in the future (' + formatDisplayDate(minStr) + ' or later).';
+    }
+  })();
 
   function formatRupee(n) {
     return '₹' + Number(n || 0).toLocaleString('en-IN');
@@ -446,6 +467,13 @@
     var eventDate = dateInput.value.trim();
     if (!eventDate) {
       regMsg.textContent = 'Please select the date of the event.';
+      regMsg.className = 'reg-status err';
+      regMsg.hidden = false;
+      return;
+    }
+    var minDateStr = getMinEventDateStr();
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(eventDate) || eventDate < minDateStr) {
+      regMsg.textContent = 'Event date must be at least 2 days in the future (' + formatDisplayDate(minDateStr) + ' or later).';
       regMsg.className = 'reg-status err';
       regMsg.hidden = false;
       return;

@@ -445,6 +445,16 @@ router.get('/auth/me', async (req, res) => {
   }
 });
 
+function getMinEventDateStr() {
+  const dt = new Date();
+  dt.setHours(0, 0, 0, 0);
+  dt.setDate(dt.getDate() + 2);
+  const y = dt.getFullYear();
+  const m = String(dt.getMonth() + 1).padStart(2, '0');
+  const d = String(dt.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
+}
+
 // Register or update event details for the logged-in customer
 router.put('/auth/event', async (req, res) => {
   try {
@@ -456,6 +466,15 @@ router.put('/auth/event', async (req, res) => {
     const normalizedEvent = normalizeRegisteredEvent(req.body);
     if (!normalizedEvent) {
       return res.status(400).json({ success: false, message: 'Event type and details are required.' });
+    }
+
+    const minDateStr = getMinEventDateStr();
+    const rawDate = String(normalizedEvent.eventDate || '').trim();
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(rawDate) || rawDate < minDateStr) {
+      return res.status(400).json({
+        success: false,
+        message: `Event date must be at least 2 days in the future (on or after ${minDateStr}).`
+      });
     }
 
     const budgetUpdate = {
@@ -477,6 +496,11 @@ router.put('/auth/event', async (req, res) => {
         { sessionId: session.sessionId },
         { $set: budgetUpdate }
       ).catch(() => {});
+
+      await Guest.updateMany(
+        { ownerEmail: session.email },
+        { $set: { eventName: normalizedEvent.eventName, eventDate: normalizedEvent.eventDate, updatedAt: new Date() } }
+      ).catch(() => {});
     }
 
     const db = getLocalDb();
@@ -486,6 +510,14 @@ router.put('/auth/event', async (req, res) => {
         Object.assign(localUser, budgetUpdate);
         updatedUser = localUser;
       }
+    }
+    if (Array.isArray(db.guests)) {
+      db.guests.forEach((g) => {
+        if ((g.ownerEmail || '').toLowerCase() === session.email) {
+          g.eventName = normalizedEvent.eventName;
+          g.eventDate = normalizedEvent.eventDate;
+        }
+      });
     }
     if (Array.isArray(db.sessions)) {
       db.sessions.forEach((s) => {
@@ -1352,23 +1384,33 @@ async function requireApiSession(req, res, next) {
 // Get guests for logged-in user
 router.get('/guests', requireApiSession, async (req, res) => {
   try {
+    res.setHeader('Cache-Control', 'no-store');
     const ownerEmail = req.session.email;
     const mongoReady = await ensureDB().catch(() => false);
     let list = [];
+    let userRec = null;
 
     if (mongoReady && isMongooseConnected()) {
-      list = await Guest.find({ ownerEmail }).sort({ createdAt: 1 }).lean();
+      [list, userRec] = await Promise.all([
+        Guest.find({ ownerEmail }).sort({ createdAt: 1 }).lean(),
+        User.findOne({ email: ownerEmail }).select('eventName eventType eventDate').lean()
+      ]);
     } else {
       const db = getLocalDb();
       list = (db.guests || []).filter((g) => (g.ownerEmail || '').toLowerCase() === ownerEmail);
+      userRec = (db.users || []).find((u) => (u.email || '').toLowerCase() === ownerEmail) || null;
     }
 
+    const regName = (userRec && (userRec.eventName || userRec.eventType)) || req.session.eventName || req.session.eventType || '';
+    const regDate = (userRec && userRec.eventDate) || req.session.eventDate || '';
     const firstWithEvent = list.find((g) => g.eventName || g.eventDate);
+    const fallbackName = (firstWithEvent && firstWithEvent.eventName && !firstWithEvent.eventName.includes('Aarav')) ? firstWithEvent.eventName : '';
+    const fallbackDate = (firstWithEvent && firstWithEvent.eventDate && firstWithEvent.eventDate !== '2027-02-18') ? firstWithEvent.eventDate : '';
     return res.json({
       success: true,
       event: {
-        name: (firstWithEvent && firstWithEvent.eventName) || "Aarav & Meera's Wedding",
-        date: (firstWithEvent && firstWithEvent.eventDate) || '2027-02-18'
+        name: regName || fallbackName,
+        date: regDate || fallbackDate
       },
       data: list.map(formatGuestDoc)
     });
@@ -1382,8 +1424,8 @@ router.get('/guests', requireApiSession, async (req, res) => {
 router.put('/guests/event', requireApiSession, async (req, res) => {
   try {
     const ownerEmail = req.session.email;
-    const eventName = String((req.body && req.body.name) || '').trim() || "Aarav & Meera's Wedding";
-    const eventDate = String((req.body && req.body.date) || '').trim();
+    const eventName = String((req.body && req.body.name) || req.session.eventName || '').trim();
+    const eventDate = String((req.body && req.body.date) || req.session.eventDate || '').trim();
     const mongoReady = await ensureDB().catch(() => false);
 
     if (mongoReady && isMongooseConnected()) {
@@ -1418,8 +1460,8 @@ router.post('/guests', requireApiSession, async (req, res) => {
 
     const doc = {
       ownerEmail: req.session.email,
-      eventName: String(body.eventName || "Aarav & Meera's Wedding").trim(),
-      eventDate: String(body.eventDate || '').trim(),
+      eventName: String(body.eventName || req.session.eventName || 'Eventora Celebration').trim(),
+      eventDate: String(body.eventDate || req.session.eventDate || '').trim(),
       name,
       email: String(body.email || '').toLowerCase().trim(),
       phone: String(body.phone || '').trim(),
@@ -1455,8 +1497,8 @@ router.post('/guests/import', requireApiSession, async (req, res) => {
   try {
     const items = Array.isArray(req.body && req.body.guests) ? req.body.guests : [];
     const ownerEmail = req.session.email;
-    const eventName = String((req.body && req.body.eventName) || "Aarav & Meera's Wedding").trim();
-    const eventDate = String((req.body && req.body.eventDate) || '').trim();
+    const eventName = String((req.body && req.body.eventName) || req.session.eventName || 'Eventora Celebration').trim();
+    const eventDate = String((req.body && req.body.eventDate) || req.session.eventDate || '').trim();
 
     const docs = items
       .filter((x) => x && String(x.name || '').trim())

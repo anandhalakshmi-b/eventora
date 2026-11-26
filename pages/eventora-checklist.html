@@ -179,6 +179,7 @@
       .layout { grid-template-columns: 1fr; }
       .hero-card { padding: 28px; }
       .hero-card .btn { position: static; }
+      #quick-task-form { grid-template-columns: 1fr !important; }
     }
     @media (max-width: 640px) {
       .hero-title { font-size: 28px; }
@@ -218,7 +219,7 @@
   <div class="hero-overlay"></div>
   <div class="hero-content"><p class="hero-kicker" id="hero-kicker">EVENT CHECKLIST</p>
     <h1 id="hero-title">Your Event Checklist</h1>
-    <p id="hero-sub">Add tasks for your celebration or load an event checklist template anytime.</p>
+    <p id="hero-sub">Add and track tasks for your celebration directly inside your checklist.</p>
     <div class="hero-actions"><button class="btn btn-solid" type="button" id="hero-add">+ Add new task</button>
       <a href="budget.html" class="btn btn-outline">Check Budget</a>
     </div>
@@ -251,23 +252,37 @@
           <p class="progress-msg" id="progress-msg"></p>
         </div>
 
-        <div class="panel"><h3 class="panel-heading">Event templates</h3>
-          <ul class="template-list" id="template-list"></ul>
-          <button class="btn btn-ghost btn-block" type="button" id="change-template">Change template</button>
-          <p class="hint">Changing the template adds suggested tasks without replacing yours.</p>
-        </div>
-
-        <div class="panel"><div class="field"><label for="filter-category">Filter by category</label>
-            <select id="filter-category"></select>
-          </div>
-          <div class="field" style="margin-bottom:0;"><label for="filter-assignee">Assigned to</label>
-            <select id="filter-assignee"></select>
-          </div>
-        </div>
       </aside>
 
       <!-- Main column -->
       <section aria-label="Tasks">
+        <div class="panel" style="margin-bottom:16px; padding:18px 20px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:12px;">
+            <h3 style="margin:0; font-size:17px; font-weight:800;">Add New To-Do Task</h3>
+            <button type="button" class="btn btn-ghost btn-small" id="inline-add-task">More task options</button>
+          </div>
+          <form id="quick-task-form" novalidate style="display:grid; grid-template-columns:2fr 1fr 1.2fr 0.9fr auto; gap:10px; align-items:end;">
+            <div class="field" style="margin:0;"><label for="qt-title">Task title *</label>
+              <input id="qt-title" type="text" placeholder="e.g. Confirm photographer or venue deposit" required>
+            </div>
+            <div class="field" style="margin:0;"><label for="qt-due">Due date</label>
+              <input id="qt-due" type="date">
+            </div>
+            <div class="field" style="margin:0;"><label for="qt-category">Category</label>
+              <select id="qt-category"></select>
+            </div>
+            <div class="field" style="margin:0;"><label for="qt-priority">Priority</label>
+              <select id="qt-priority">
+                <option value="High">High</option>
+                <option value="Medium" selected>Medium</option>
+                <option value="Low">Low</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-orange" style="height:42px; white-space:nowrap;">+ Add Task</button>
+          </form>
+          <p id="qt-error" style="display:none; margin:8px 0 0; font-size:13px; color:#DC2626; font-weight:600;"></p>
+        </div>
+
         <div class="toolbar"><div class="tabs" role="tablist" id="status-tabs"></div>
           <label class="sort">Sort:
             <select id="sort">
@@ -282,6 +297,7 @@
 
         <div class="empty" id="empty" role="status"><h3 id="empty-title"></h3>
           <p id="empty-text"></p>
+          <button type="button" class="btn btn-orange" id="empty-add-task" style="margin-top:14px;">+ Add New Task</button>
         </div>
 
         <div class="footer-note" id="footer-note"><p id="showing"></p>
@@ -299,35 +315,33 @@
 <dialog id="task-dialog" aria-labelledby="dialog-heading">
   <form id="task-form" novalidate>
     <h3 id="dialog-heading">Add a task</h3>
-    <div class="field" id="f-title-field"><label for="f-title">Task</label>
-      <input type="text" id="f-title" maxlength="120" autocomplete="off">
+    <div class="field" id="f-title-field"><label for="f-title">Task title</label>
+      <input type="text" id="f-title" maxlength="120" autocomplete="off" placeholder="e.g. Confirm photographer or venue deposit">
       <p class="error-text" id="f-title-error">Enter a task name.</p>
     </div>
-    <div class="field-row"><div class="field"><label for="f-group">Group</label>
-        <select id="f-group"></select>
-      </div>
-      <div class="field" id="f-due-field"><label for="f-due">Due date</label>
+    <div class="field-row"><div class="field" id="f-due-field"><label for="f-due">Due date</label>
         <input type="date" id="f-due">
         <p class="error-text" id="f-due-error">Choose today or a future date.</p>
       </div>
-    </div>
-    <div class="field-row"><div class="field"><label for="f-category">Category</label>
+      <div class="field"><label for="f-category">Category</label>
         <select id="f-category"></select>
       </div>
-      <div class="field"><label for="f-priority">Priority</label>
+    </div>
+    <div class="field-row"><div class="field"><label for="f-priority">Priority</label>
         <select id="f-priority">
           <option value="High">High</option>
-          <option value="Medium">Medium</option>
+          <option value="Medium" selected>Medium</option>
           <option value="Low">Low</option>
         </select>
+      </div>
+      <div class="field"><label for="f-group">Group</label>
+        <select id="f-group"></select>
       </div>
     </div>
     <div class="field"><label for="f-assignee">Assigned to</label>
       <select id="f-assignee">
-        <option value="Aarav (Groom)">Aarav (Groom)</option>
-        <option value="Meera (Bride)">Meera (Bride)</option>
-        <option value="Family Elders">Family Elders</option>
         <option value="Both">Both</option>
+        <option value="Family Elders">Family Elders</option>
       </select>
     </div>
     <div class="dialog-actions"><button type="button" class="btn btn-ghost" id="dialog-cancel">Cancel</button>
@@ -356,38 +370,57 @@
   function getCurrentUser() {
     try { return JSON.parse(localStorage.getItem('eventora_user')); } catch (e) { return null; }
   }
-  function pickTemplateKey(eventType) {
-    var s = String(eventType || '').toLowerCase();
-    if (s.includes('engagement') || s.includes('roka')) return 'engagement';
-    if (s.includes('birthday')) return 'birthday';
-    if (s.includes('college') || s.includes('graduation') || s.includes('farewell')) return 'college';
-    if (s.includes('corporate') || s.includes('team') || s.includes('summit')) return 'corporate';
-    if (s.includes('baby') || s.includes('godh') || s.includes('Baby Shower')) return 'babyshower';
-    if (s.includes('house') || s.includes('griha')) return 'housewarming';
-    if (s.includes('anniversary')) return 'anniversary';
-    if (s.includes('naming') || s.includes('naamkaran')) return 'naming';
-    if (s.includes('festival') || s.includes('Ceremony')) return 'festival';
-    return 'wedding';
+
+  function buildAssigneesList(user) {
+    var list = ['Everyone'];
+    if (user && user.name && String(user.name).trim()) {
+      list.push(String(user.name).trim());
+    }
+    list.push('Family Elders', 'Both');
+    return list;
   }
 
   var ACTIVE_USER = getCurrentUser();
   var USER_KEY = ACTIVE_USER && (ACTIVE_USER.email || ACTIVE_USER.id)
     ? String(ACTIVE_USER.email || ACTIVE_USER.id).toLowerCase().trim()
     : '';
-  var DEFAULT_TEMPLATE = pickTemplateKey(ACTIVE_USER && ACTIVE_USER.eventType);
-  var HAS_EVENT = !!(ACTIVE_USER && ((ACTIVE_USER.eventName && String(ACTIVE_USER.eventName).trim()) || (ACTIVE_USER.eventType && String(ACTIVE_USER.eventType).trim())));
+  var HAS_EVENT = false;
   var EVENT = {
-    title: HAS_EVENT
-      ? ((ACTIVE_USER.eventName && String(ACTIVE_USER.eventName).trim()) || (ACTIVE_USER.name ? ACTIVE_USER.name.split(' ')[0] + "'s " + ACTIVE_USER.eventType : ACTIVE_USER.eventType))
-      : (ACTIVE_USER && ACTIVE_USER.name ? ('Welcome, ' + ACTIVE_USER.name) : 'Your Event Checklist'),
-    date: (ACTIVE_USER && ACTIVE_USER.eventDate && /^\d{4}-\d{2}-\d{2}$/.test(ACTIVE_USER.eventDate))
-      ? ACTIVE_USER.eventDate
-      : new Date(Date.now() + 30 * 86400000).toISOString().slice(0, 10),
-    location: (ACTIVE_USER && ACTIVE_USER.city) ? ACTIVE_USER.city : '',
-    label: (ACTIVE_USER && ACTIVE_USER.eventType) ? ACTIVE_USER.eventType : 'Event Checklist'
+    title: 'Your Event Checklist',
+    date: new Date(Date.now() + 30 * 86400000).toISOString().slice(0, 10),
+    location: '',
+    label: 'Event Checklist'
   };
 
-  if (ACTIVE_USER) {
+  var GROUPS = [
+    { id: 'g1', name: 'Phase 1 · Dates, Venue & Key Bookings', note: 'Event dates, venue booking & core service confirmations' },
+    { id: 'g2', name: 'Phase 2 · Pre-Event Prep, Decor & Invites', note: 'Menu tasting, decor design, attire & guest invitations' },
+    { id: 'g3', name: 'Phase 3 · Final Coordination & Celebration Day', note: 'Guest hospitality, schedules & final arrangements' }
+  ];
+
+  var CATEGORIES = ['Auspicious Date & Ceremony', 'Ceremony Stage & Venue', 'Catering & Traditional Feast', 'Decor & Flowers', 'Photography', 'Henna & Makeup', 'Dhol & Music', 'Invitation & Invites', 'Attire & Jewellery', 'Guest Care', 'Ideas', 'Other'];
+  var ASSIGNEES = buildAssigneesList(ACTIVE_USER);
+
+  function applyUserToChecklist(u) {
+    if (!u) return;
+    ACTIVE_USER = u;
+    if (u.email || u.id) {
+      USER_KEY = String(u.email || u.id).toLowerCase().trim();
+      STORAGE_KEY = 'eventora-checklist:' + USER_KEY;
+    }
+    HAS_EVENT = !!((u.eventName && String(u.eventName).trim()) || (u.eventType && String(u.eventType).trim()));
+    EVENT = {
+      title: HAS_EVENT
+        ? ((u.eventName && String(u.eventName).trim()) || (u.name ? u.name.split(' ')[0] + "'s " + u.eventType : u.eventType))
+        : (u.name ? ('Welcome, ' + u.name) : 'Your Event Checklist'),
+      date: (u.eventDate && /^\d{4}-\d{2}-\d{2}$/.test(u.eventDate))
+        ? u.eventDate
+        : new Date(Date.now() + 30 * 86400000).toISOString().slice(0, 10),
+      location: u.city ? u.city : '',
+      label: u.eventType ? u.eventType : 'Event Checklist'
+    };
+    ASSIGNEES = buildAssigneesList(u);
+
     var hk = document.getElementById('hero-kicker');
     var ht = document.getElementById('hero-title');
     var et = document.getElementById('event-title');
@@ -396,47 +429,13 @@
     if (et) et.textContent = EVENT.title;
   }
 
-  var GROUPS = [
-    { id: 'g1', name: 'Ceremony Date & Ceremony Stage', note: 'Auspicious dates, palace/Wedding Hall & Officiant' },
-    { id: 'g2', name: 'Pre-Wedding Morning, Henna & Music &amp; Dance Night', note: 'Pre-wedding ceremonies, dhol DJs & festive attire' },
-    { id: 'g3', name: 'Wedding Day, Reception & Guest', note: 'Procession, Kanyadaan, Traditional Feast feast & guest hospitality' }
-  ];
-
-  var CATEGORIES = ['Auspicious Date & Ceremony', 'Ceremony Stage & Venue', 'Catering & Traditional Feast', 'Decor & Flowers', 'Photography', 'Henna & Makeup', 'Dhol & Music', 'Invitation & Invites', 'Attire & Jewellery', 'Guest Care', 'Ideas', 'Other'];
-  var ASSIGNEES = ACTIVE_USER && ACTIVE_USER.name
-    ? ['Everyone', ACTIVE_USER.name, 'Family Elders', 'Both']
-    : ['Everyone', 'Aarav (Groom)', 'Meera (Bride)', 'Family Elders', 'Both'];
+  if (ACTIVE_USER) applyUserToChecklist(ACTIVE_USER);
   var STATUSES = ['All tasks', 'To do', 'Completed'];
   var PRIORITY_RANK = { High: 0, Medium: 1, Low: 2 };
   var START_COUNT = 14, PAGE_SIZE = 10;
   var LEGACY_STORAGE_KEY = 'eventora-checklist-shubh-v1';
   var STORAGE_KEY = USER_KEY ? ('eventora-checklist:' + USER_KEY) : LEGACY_STORAGE_KEY;
   var QUEUE_KEY = 'eventora-checklist-queue-v1';
-
-  var SEED_ROWS = [
-    ['Consult family Officiant for Wedding Celebration Auspicious Date & Ceremony timings', '2026-10-15', 'Auspicious Date & Ceremony', 'High', 'Family Elders', 'g1', true],
-    ['Shortlist & book Wedding Hall / Heritage Palace', '2026-10-25', 'Ceremony Stage & Venue', 'High', 'Both', 'g1', true],
-    ['Finalise 3-day Wedding budget breakdown in Rupee allocations', '2026-10-28', 'Other', 'High', 'Both', 'g1', true],
-    ['Draft guest list for Groom and Bride families', '2026-11-05', 'Guest Care', 'High', 'Meera (Bride)', 'g1', true],
-    ['Sample traditional 24-course banana leaf Traditional Feast & Chaat menu', '2026-11-20', 'Catering & Traditional Feast', 'High', 'Aarav (Groom)', 'g1', false],
-    ['Book Master Caterer for multi-cuisine 3-day wedding feast', '2026-12-01', 'Catering & Traditional Feast', 'High', 'Family Elders', 'g1', false],
-    ['Book Candid Wedding Photographer & Cinematic Drone Filmmaker', '2026-12-10', 'Photography', 'High', 'Meera (Bride)', 'g1', false],
-    ['Book Bridal Henna artist for intricate bridal henna & lounge', '2026-12-18', 'Henna & Makeup', 'High', 'Meera (Bride)', 'g2', false],
-    ['Select Kanjeevaram wedding silks & designer Sherwani', '2027-01-05', 'Attire & Jewellery', 'Medium', 'Both', 'g2', false],
-    ['Book Live Punjabi Dhol troupe & Bollywood Music &amp; Dance Night DJ', '2027-01-12', 'Dhol & Music', 'High', 'Aarav (Groom)', 'g2', false],
-    ['Finalise Ceremony Stage floral stage & marigold entrance arches', '2027-01-18', 'Decor & Flowers', 'Medium', 'Meera (Bride)', 'g2', false],
-    ['Design & order gold-embossed digital WhatsApp Invitation & sweet boxes', '2027-01-22', 'Invitation & Invites', 'High', 'Aarav (Groom)', 'g3', false],
-    ['Send WhatsApp wedding invitations with Google Maps venue link', '2027-01-25', 'Invitation & Invites', 'High', 'Both', 'g3', false],
-    ['Block 40 AC rooms & airport transit cabs for out-of-town guests', '2027-01-28', 'Guest Care', 'High', 'Family Elders', 'g3', false],
-    ['Arrange Procession vintage car / Ghodi and safa tying specialist', '2027-02-05', 'Other', 'Medium', 'Aarav (Groom)', 'g3', false],
-    ['Purchase Ceremony Supplies, havan wood, coconuts & Ganga jal', '2027-02-10', 'Auspicious Date & Ceremony', 'High', 'Family Elders', 'g3', false],
-    ['Finalise Phoolon Ki Chaadar for bride entry & Varmala garlands', '2027-02-12', 'Decor & Flowers', 'Medium', 'Meera (Bride)', 'g3', false],
-    ['Order traditional Tamboolam / wedding return gift hampers', '2027-02-14', 'Guest Care', 'Medium', 'Family Elders', 'g3', false],
-    ['Conduct Pre-Wedding Morning ceremony with phoolon ki holi', '2027-02-16', 'Decor & Flowers', 'High', 'Both', 'g2', false],
-    ['Host Music &amp; Dance Night night with choreographed family performances', '2027-02-17', 'Dhol & Music', 'High', 'Both', 'g2', false],
-    ['Wedding Auspicious Date, Seven Vows & Mangalasutram ritual', '2027-02-18', 'Auspicious Date & Ceremony', 'High', 'Both', 'g3', false],
-    ['Grand Reception gala dinner with live sufi and dessert counters', '2027-02-18', 'Catering & Traditional Feast', 'High', 'Both', 'g3', false]
-  ];
 
   // ---------- Date helpers (local time, YYYY-MM-DD) ----------
   function pad(n) { return (n < 10 ? '0' : '') + n; }
@@ -447,123 +446,10 @@
     return new Date(+p[0], +p[1] - 1, +p[2]);
   }
   function todayStr() { return fmt(new Date()); }
-  function minusDays(s, days) { var d = parse(s); d.setDate(d.getDate() - days); return fmt(d); }
-  function daysBetween(a, b) { return Math.round((parse(b) - parse(a)) / 86400000); }
   function daysUntil(s) { return Math.round((parse(s) - parse(todayStr())) / 86400000); }
   function prettyDate(s) { return s ? parse(s).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : 'No date'; }
   function longDate(s) { return s ? parse(s).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : 'Date flexible'; }
   function isOverdue(t) { return !t.done && !!t.due && t.due < todayStr(); }
-
-    // ---------- Templates (title, category, priority, days before the event) ----------
-  var TEMPLATES = {
-    wedding: {
-      label: ' Wedding & Wedding Hall',
-      items: SEED_ROWS.map(function (r) { return [r[0], r[2], r[3], daysBetween(r[1], EVENT.date)]; })
-    },
-    engagement: {
-      label: ' Engagement & Roka',
-      items: [
-        ['Book intimate banquet or rooftop venue', 'Ceremony Stage & Venue', 'High', 45],
-        ['Select and engrave engagement rings', 'Attire & Jewellery', 'High', 30],
-        ['Book candid photographer & videographer', 'Photography', 'High', 25],
-        ['Design & send digital WhatsApp invitations', 'Invitation & Invites', 'Medium', 20],
-        ['Order floral backdrops & ring tray styling', 'Decor & Flowers', 'Medium', 15],
-        ['Finalise buffet menu & welcome mocktails', 'Catering & Traditional Feast', 'Medium', 10],
-        ['Order fresh rose ring varmalas & sweets', 'Auspicious Date & Ceremony', 'Low', 5]
-      ]
-    },
-    birthday: {
-      label: ' Birthday Milestone Party',
-      items: [
-        ['Book party hall, garden lawn, or cafe', 'Ceremony Stage & Venue', 'High', 30],
-        ['Choose theme & order custom designer cake', 'Catering & Traditional Feast', 'High', 20],
-        ['Book balloon artist and theme decorator', 'Decor & Flowers', 'High', 15],
-        ['Book party DJ, magician, or children’s anchor', 'Dhol & Music', 'Medium', 14],
-        ['Send digital birthday invites with RSVP link', 'Invitation & Invites', 'Medium', 12],
-        ['Plan interactive party games & return gift bags', 'Guest Care', 'Medium', 7],
-        ['Order finger foods, snacks & dessert spread', 'Catering & Traditional Feast', 'High', 5]
-      ]
-    },
-    college: {
-      label: ' College Fest & Farewell',
-      items: [
-        ['Reserve campus auditorium / convention hall', 'Ceremony Stage & Venue', 'High', 40],
-        ['Form student organising committee & budgets', 'Other', 'High', 35],
-        ['Book live sound system, stage lighting & DJ', 'Dhol & Music', 'High', 25],
-        ['Order custom batch hoodies, mementos & yearbooks', 'Guest Care', 'Medium', 20],
-        ['Design digital banners, passes & social flyers', 'Invitation & Invites', 'Medium', 15],
-        ['Arrange catering stalls & food truck counters', 'Catering & Traditional Feast', 'High', 10],
-        ['Book event photographer & live stream crew', 'Photography', 'Medium', 7]
-      ]
-    },
-    corporate: {
-      label: ' Corporate Gala & Offsite',
-      items: [
-        ['Book tech-enabled conference centre / resort', 'Ceremony Stage & Venue', 'High', 45],
-        ['Finalise AV setup, LED display & microphones', 'Ceremony Stage & Venue', 'High', 30],
-        ['Send calendar invites & registration links', 'Invitation & Invites', 'High', 25],
-        ['Arrange executive buffet catering & coffee breaks', 'Catering & Traditional Feast', 'High', 20],
-        ['Book corporate emcee / keynote speaker', 'Dhol & Music', 'Medium', 15],
-        ['Design awards, trophies & branded gift kits', 'Guest Care', 'Medium', 10],
-        ['Arrange delegate badges & airport transfers', 'Guest Care', 'Low', 5]
-      ]
-    },
-    babyshower: {
-      label: ' Baby Shower & Baby Shower',
-      items: [
-        ['Book cozy hall or prepare living room', 'Ceremony Stage & Venue', 'Medium', 30],
-        ['Order traditional silk attire / pastel gown', 'Attire & Jewellery', 'High', 20],
-        ['Arrange 7-variety rice traditional feast / brunch', 'Catering & Traditional Feast', 'High', 15],
-        ['Order fresh flower veni, garlands & cradle decor', 'Decor & Flowers', 'High', 10],
-        ['Send WhatsApp invitations to friends and elders', 'Invitation & Invites', 'Medium', 10],
-        ['Prepare return gift favours for women elders', 'Guest Care', 'Medium', 5]
-      ]
-    },
-    housewarming: {
-      label: ' Housewarming & Housewarming',
-      items: [
-        ['Consult family priest for Housewarming Auspicious Date', 'Auspicious Date & Ceremony', 'High', 30],
-        ['Purchase Ceremony supplies, flowers & brass milk pot', 'Auspicious Date & Ceremony', 'High', 15],
-        ['Book catering for traditional Satvik lunch / feast', 'Catering & Traditional Feast', 'High', 20],
-        ['Arrange fresh mango leaf toran & rangoli artists', 'Decor & Flowers', 'Medium', 5],
-        ['Send digital Housewarming invites to family', 'Invitation & Invites', 'Medium', 14],
-        ['Organise return sweet boxes & auspicious gifts', 'Guest Care', 'Medium', 4]
-      ]
-    },
-    anniversary: {
-      label: ' Anniversary Celebration',
-      items: [
-        ['Book romantic beachfront lawn / rooftop restaurant', 'Ceremony Stage & Venue', 'High', 30],
-        ['Book candid couple photographer for portraits', 'Photography', 'High', 20],
-        ['Order tiered anniversary cake & floral centerpieces', 'Decor & Flowers', 'Medium', 15],
-        ['Book acoustic live singers / relaxing music setup', 'Dhol & Music', 'Medium', 12],
-        ['Send digital invitations to family & friends', 'Invitation & Invites', 'Medium', 10],
-        ['Curate milestone photo slideshow / celebration reel', 'Other', 'Low', 5]
-      ]
-    },
-    naming: {
-      label: ' Naming Ceremony / Naamkaran',
-      items: [
-        ['Finalise auspicious baby name & horoscope', 'Auspicious Date & Ceremony', 'High', 25],
-        ['Book banquet hall / cradle ceremony space', 'Ceremony Stage & Venue', 'High', 20],
-        ['Decorate traditional cradle with fresh jasmine & silks', 'Decor & Flowers', 'High', 10],
-        ['Send digital WhatsApp naming announcement & invite', 'Invitation & Invites', 'Medium', 10],
-        ['Arrange grand feast and sweets for guests', 'Catering & Traditional Feast', 'High', 7],
-        ['Prepare baby gift hampers & keepsake souvenirs', 'Guest Care', 'Low', 4]
-      ]
-    },
-    festival: {
-      label: ' Festive Gathering & Ceremony',
-      items: [
-        ['Reserve community hall / temple grounds / garden', 'Ceremony Stage & Venue', 'High', 30],
-        ['Arrange festive stage, diyas, lights & festive decor', 'Decor & Flowers', 'High', 20],
-        ['Book traditional music / cultural troupe / live dhol', 'Dhol & Music', 'High', 15],
-        ['Organise community prasad & festive dinner spread', 'Catering & Traditional Feast', 'High', 12],
-        ['Send festival celebration invites & schedule flyers', 'Invitation & Invites', 'Medium', 10],
-        ['Coordinate volunteers for guest seating & prasad', 'Guest Care', 'Medium', 5]
-      ]
-    }
-  };
 
   // ---------- State and storage ----------
   var state = {
@@ -573,29 +459,8 @@
     assignee: 'Everyone',
     sort: 'due',
     limit: START_COUNT,
-    template: DEFAULT_TEMPLATE,
     editingId: null
   };
-
-  function seedTasks() {
-    if (DEFAULT_TEMPLATE !== 'wedding' && TEMPLATES[DEFAULT_TEMPLATE]) {
-      return TEMPLATES[DEFAULT_TEMPLATE].items.map(function (row, i) {
-        return {
-          id: i + 1,
-          title: row[0],
-          due: minusDays(EVENT.date, row[3]),
-          category: row[1],
-          priority: row[2],
-          assignee: 'Both',
-          group: groupFor(row[1]),
-          done: false
-        };
-      });
-    }
-    return SEED_ROWS.map(function (r, i) {
-      return { id: i + 1, title: r[0], due: r[1], category: r[2], priority: r[3], assignee: r[4], group: r[5], done: r[6] };
-    });
-  }
 
   function load() {
     try { localStorage.removeItem(LEGACY_STORAGE_KEY); } catch (e) {}
@@ -699,8 +564,6 @@
   function matches(t) {
     if (state.status === 'To do' && t.done) return false;
     if (state.status === 'Completed' && !t.done) return false;
-    if (state.category !== 'All categories' && t.category !== state.category) return false;
-    if (state.assignee !== 'Everyone' && t.assignee !== state.assignee && t.assignee !== 'Both') return false;
     return true;
   }
 
@@ -821,7 +684,9 @@
     var empty = document.getElementById('empty');
     empty.classList.toggle('is-visible', matched.length === 0);
     var emptyCopy = {
-      'All tasks': ['No tasks match these filters', 'Try a different category or assignee.'],
+      'All tasks': state.tasks.length === 0
+        ? ['No tasks added yet', 'Add a task in the form above or click + Add New Task to start building your checklist.']
+        : ['No tasks match these filters', 'Try a different category or assignee.'],
       'To do': ['Nothing left to do', 'Every task is complete. Well done!'],
       'Completed': ['Nothing completed yet', 'Tick a task when it is finished.']
     };
@@ -834,28 +699,16 @@
   }
 
   function buildControls() {
-    var cat = document.getElementById('filter-category');
-    cat.innerHTML = ['All categories'].concat(CATEGORIES).map(function (c) {
-      return '<option value="' + c + '">' + c + '</option>';
-    }).join('');
-
-    var asg = document.getElementById('filter-assignee');
-    asg.innerHTML = ASSIGNEES.map(function (a) {
-      return '<option value="' + a + '">' + a + '</option>';
-    }).join('');
-
-    var list = document.getElementById('template-list');
-    list.innerHTML = Object.keys(TEMPLATES).map(function (key) {
-      var tpl = TEMPLATES[key];
-      return '<li><label class="template-item">' +
-        '<input type="radio" name="template" value="' + key + '"' + (key === state.template ? ' checked' : '') + '>' +
-        '<span>' + tpl.label + '</span>' +
-        '<span class="count">' + tpl.items.length + ' tasks</span>' +
-      '</label></li>';
-    }).join('');
-
     var fc = document.getElementById('f-category');
     fc.innerHTML = CATEGORIES.map(function (c) { return '<option value="' + c + '">' + c + '</option>'; }).join('');
+
+    var qtc = document.getElementById('qt-category');
+    if (qtc) {
+      qtc.innerHTML = CATEGORIES.map(function (c) { return '<option value="' + c + '">' + c + '</option>'; }).join('');
+      qtc.value = 'Other';
+    }
+    var qtd = document.getElementById('qt-due');
+    if (qtd) qtd.min = todayStr();
 
     var fg = document.getElementById('f-group');
     fg.innerHTML = GROUPS.map(function (g) { return '<option value="' + g.id + '">' + escapeHtml(g.name) + '</option>'; }).join('');
@@ -869,19 +722,31 @@
   // ---------- Add and edit dialog ----------
   var dialog = document.getElementById('task-dialog');
 
-  function openDialog(mode, id, groupId) {
+  function openDialog(mode, id, groupId, prefillQuick) {
     var t = mode === 'edit' ? find(id) : null;
     state.editingId = t ? t.id : null;
     var today = todayStr();
     var dueEl = document.getElementById('f-due');
+    var defaultAssignee = (ACTIVE_USER && ACTIVE_USER.name && String(ACTIVE_USER.name).trim())
+      ? String(ACTIVE_USER.name).trim()
+      : 'Both';
+
+    var qtTitle = prefillQuick && document.getElementById('qt-title') ? document.getElementById('qt-title').value.trim() : '';
+    var qtDue = prefillQuick && document.getElementById('qt-due') ? document.getElementById('qt-due').value : '';
+    var qtCat = prefillQuick && document.getElementById('qt-category') ? document.getElementById('qt-category').value : '';
+    var qtPri = prefillQuick && document.getElementById('qt-priority') ? document.getElementById('qt-priority').value : '';
+
+    var chosenCategory = t ? t.category : (qtCat || 'Other');
+    var chosenGroup = t ? t.group : (qtCat ? groupFor(qtCat) : (groupId || 'g1'));
+
     document.getElementById('dialog-heading').textContent = t ? 'Edit task' : 'Add a task';
-    document.getElementById('f-title').value = t ? t.title : '';
-    document.getElementById('f-group').value = t ? t.group : (groupId || 'g1');
+    document.getElementById('f-title').value = t ? t.title : qtTitle;
     dueEl.min = (t && t.due && t.due < today) ? t.due : today;
-    dueEl.value = t ? t.due : '';
-    document.getElementById('f-category').value = t ? t.category : 'Other';
-    document.getElementById('f-priority').value = t ? t.priority : 'Medium';
-    document.getElementById('f-assignee').value = t ? t.assignee : 'Both';
+    dueEl.value = t ? t.due : qtDue;
+    document.getElementById('f-category').value = chosenCategory;
+    document.getElementById('f-priority').value = t ? t.priority : (qtPri || 'Medium');
+    document.getElementById('f-group').value = chosenGroup;
+    document.getElementById('f-assignee').value = t ? t.assignee : defaultAssignee;
     document.getElementById('f-title-field').classList.remove('has-error');
     document.getElementById('f-title-error').classList.remove('is-visible');
     document.getElementById('f-due-field').classList.remove('has-error');
@@ -934,24 +799,6 @@
   });
 
   document.getElementById('dialog-cancel').addEventListener('click', function () { dialog.close(); });
-
-  // ---------- Templates ----------
-  function applyTemplate() {
-    var tpl = TEMPLATES[state.template];
-    var added = 0;
-    tpl.items.forEach(function (row) {
-      var exists = state.tasks.some(function (t) { return t.title === row[0]; });
-      if (!exists) {
-        addTaskObject({
-          title: row[0], category: row[1], priority: row[2],
-          group: groupFor(row[1]), due: minusDays(EVENT.date, row[3]), assignee: 'Both'
-        });
-        added++;
-      }
-    });
-    save(); render();
-    toast(added ? 'Added ' + added + ' suggested tasks' : 'All ' + tpl.label + ' suggestions are already on your list');
-  }
 
   // ---------- Toast ----------
   var toastTimer;
@@ -1027,13 +874,7 @@
     render();
   });
 
-  // Filters and sort
-  document.getElementById('filter-category').addEventListener('change', function () {
-    state.category = this.value; state.limit = START_COUNT; render();
-  });
-  document.getElementById('filter-assignee').addEventListener('change', function () {
-    state.assignee = this.value; state.limit = START_COUNT; render();
-  });
+  // Sort
   document.getElementById('sort').addEventListener('change', function () {
     state.sort = this.value; render();
   });
@@ -1044,14 +885,57 @@
     render();
   });
 
-  // Templates
-  document.getElementById('template-list').addEventListener('change', function (e) {
-    if (e.target.name === 'template') state.template = e.target.value;
-  });
-  document.getElementById('change-template').addEventListener('click', applyTemplate);
-
   // Add task buttons
   document.getElementById('hero-add').addEventListener('click', function () { openDialog('add', null, 'g1'); });
+  var inlineAddBtn = document.getElementById('inline-add-task');
+  if (inlineAddBtn) inlineAddBtn.addEventListener('click', function () { openDialog('add', null, 'g1', true); });
+  var emptyAddBtn = document.getElementById('empty-add-task');
+  if (emptyAddBtn) emptyAddBtn.addEventListener('click', function () { openDialog('add', null, 'g1'); });
+
+  var quickTaskForm = document.getElementById('quick-task-form');
+  if (quickTaskForm) {
+    quickTaskForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var qtTitleEl = document.getElementById('qt-title');
+      var qtDueEl = document.getElementById('qt-due');
+      var qtCatEl = document.getElementById('qt-category');
+      var qtPriEl = document.getElementById('qt-priority');
+      var qtErrEl = document.getElementById('qt-error');
+
+      var title = (qtTitleEl ? qtTitleEl.value : '').trim();
+      var due = qtDueEl ? qtDueEl.value : '';
+      if (!title) {
+        if (qtErrEl) { qtErrEl.textContent = 'Please enter a task title.'; qtErrEl.style.display = 'block'; }
+        if (qtTitleEl) qtTitleEl.focus();
+        return;
+      }
+      if (due && due < todayStr()) {
+        if (qtErrEl) { qtErrEl.textContent = 'Due date cannot be in the past.'; qtErrEl.style.display = 'block'; }
+        if (qtDueEl) qtDueEl.focus();
+        return;
+      }
+      if (qtErrEl) qtErrEl.style.display = 'none';
+
+      var catVal = qtCatEl ? qtCatEl.value : 'Other';
+      var priVal = qtPriEl ? qtPriEl.value : 'Medium';
+      var assigneeVal = (ACTIVE_USER && ACTIVE_USER.name && String(ACTIVE_USER.name).trim())
+        ? String(ACTIVE_USER.name).trim()
+        : 'Both';
+      addTaskObject({
+        title: title,
+        due: due,
+        category: catVal,
+        priority: priVal,
+        group: groupFor(catVal),
+        assignee: assigneeVal
+      });
+      if (qtTitleEl) qtTitleEl.value = '';
+      if (qtDueEl) qtDueEl.value = '';
+      save();
+      render();
+      toast('Task added');
+    });
+  }
 
   // ---------- Start ----------
   load();
@@ -1059,19 +943,26 @@
   buildControls();
   render();
 
-  if (USER_KEY) {
-    fetch('/api/checklist', { credentials: 'same-origin' })
-      .then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (res) {
-        if (res && res.success && res.data && Array.isArray(res.data.tasks)) {
-          state.tasks = res.data.tasks;
-          try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ tasks: state.tasks })); } catch (e) {}
-          buildControls();
-          render();
-        }
-      })
-      .catch(function () {});
-  }
+  Promise.all([
+    fetch('/api/auth/me', { credentials: 'same-origin', cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }),
+    fetch('/api/checklist', { credentials: 'same-origin', cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; })
+  ]).then(function (results) {
+    var meRes = results[0];
+    var ckRes = results[1];
+    if (meRes && meRes.success && meRes.user) {
+      try { localStorage.setItem('eventora_user', JSON.stringify(meRes.user)); } catch (e) {}
+      applyUserToChecklist(meRes.user);
+      if (!ckRes && USER_KEY) {
+        load();
+      }
+    }
+    if (ckRes && ckRes.success && ckRes.data && Array.isArray(ckRes.data.tasks)) {
+      state.tasks = ckRes.data.tasks;
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ tasks: state.tasks })); } catch (e) {}
+    }
+    buildControls();
+    render();
+  }).catch(function () {});
 </script>
 
 <!-- ===== ORA FLOATING CHAT ===== -->

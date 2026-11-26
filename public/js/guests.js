@@ -1,10 +1,27 @@
 /* Guests & RSVPs – synced with /api/guests (MongoDB + local fallback) */
-const GK = 'eventora-guests-v2';
-const EK = 'eventora-event-v2';
+function getGuestUser() {
+  try { return JSON.parse(localStorage.getItem('eventora_user')); } catch (e) { return null; }
+}
+function getGuestOwnerKey() {
+  const u = getGuestUser();
+  return u && (u.email || u.id) ? String(u.email || u.id).toLowerCase().trim() : '';
+}
+const GUEST_USER_KEY = getGuestOwnerKey();
+const GK = GUEST_USER_KEY ? `eventora-guests:${GUEST_USER_KEY}` : 'eventora-guests-v2';
+const EK = GUEST_USER_KEY ? `eventora-event:${GUEST_USER_KEY}` : 'eventora-event-v2';
 const STATUSES = ['Pending', 'Accepted', 'Declined'];
 
+function buildDefaultGuestEvent(u) {
+  return {
+    name: (u && (u.eventName || u.eventType)) || '',
+    date: (u && u.eventDate) || '',
+    whatsapp: (u && u.phone) || ''
+  };
+}
+
 let G = [];
-let EV = load(EK, { name: "Aarav & Meera's Wedding", date: '2027-02-18', whatsapp: '' });
+let EV = load(EK, null) || buildDefaultGuestEvent(getGuestUser());
+if (!EV.name && !EV.date) EV = buildDefaultGuestEvent(getGuestUser());
 let fStatus = 'All';
 let editing = null;
 
@@ -19,12 +36,8 @@ function cleanWaDigits(num) {
 }
 
 function getOwnerEmail() {
-  try {
-    const u = JSON.parse(localStorage.getItem('eventora_user'));
-    return (u && u.email) ? String(u.email).toLowerCase().trim() : '';
-  } catch (e) {
-    return '';
-  }
+  const u = getGuestUser();
+  return (u && u.email) ? String(u.email).toLowerCase().trim() : '';
 }
 
 const rsvpLink = () => {
@@ -149,20 +162,41 @@ function draw() {
 
 async function loadGuestsFromServer() {
   try {
-    const res = await fetch('/api/guests', { credentials: 'same-origin' });
+    const [res, meRes] = await Promise.all([
+      fetch('/api/guests', { credentials: 'same-origin', cache: 'no-store' }),
+      fetch('/api/auth/me', { credentials: 'same-origin', cache: 'no-store' }).catch(() => null)
+    ]);
     if (res.status === 401) {
       window.location.href = '/register?mode=login&redirect=' + encodeURIComponent('/guests');
       return;
     }
+    let meUser = null;
+    if (meRes && meRes.ok) {
+      const meJson = await meRes.json().catch(() => null);
+      if (meJson && meJson.success && meJson.user) {
+        meUser = meJson.user;
+        try {
+          localStorage.setItem('eventora_user', JSON.stringify(meUser));
+        } catch (e) {}
+      }
+    }
     const result = await res.json();
     if (result && result.success) {
       G = Array.isArray(result.data) ? result.data : [];
-      if (result.event) {
-        EV = { name: result.event.name || EV.name, date: result.event.date || EV.date };
-        $('ename').value = EV.name;
-        $('edate').value = EV.date;
+      const registeredName = meUser ? (meUser.eventName || meUser.eventType || '') : '';
+      const registeredDate = meUser && meUser.eventDate ? meUser.eventDate : '';
+      const nextName = registeredName || (result.event && result.event.name) || EV.name;
+      const nextDate = registeredDate || (result.event && result.event.date) || EV.date;
+      if (nextName || nextDate) {
+        EV = { name: nextName, date: nextDate };
+        if ($('ename')) $('ename').value = EV.name;
+        if ($('edate')) $('edate').value = EV.date;
         save(EK, EV);
       }
+      if (meUser && meUser.phone && $('ewa') && !$('ewa').value.trim()) {
+        $('ewa').value = meUser.phone;
+      }
+      if (typeof syncWhatsAppButton === 'function') syncWhatsAppButton();
       draw();
       return;
     }

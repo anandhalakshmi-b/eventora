@@ -193,43 +193,30 @@
     };
   }
 
-  // ---------- Action Handlers (Save, PNG, PDF, WhatsApp) ----------
-  const btnSaveMongo = $('btn-save-mongo');
-  const saveStatus = $('save-status');
-
-  if (btnSaveMongo) {
-    btnSaveMongo.addEventListener('click', async () => {
-      const payload = getInvitePayload();
-      btnSaveMongo.textContent = 'Saving...';
-      btnSaveMongo.disabled = true;
-
-      try {
-        const res = await fetch('/api/invites', {
-          method: 'POST',
-          credentials: 'same-origin',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-        const result = await res.json();
-
-        if (result.success) {
-          if (saveStatus) {
-            saveStatus.textContent = 'Saved to your MongoDB database successfully.';
-            saveStatus.style.display = 'block';
-            setTimeout(() => { saveStatus.style.display = 'none'; }, 5000);
-          }
-          loadSavedInvites();
-        } else {
-          alert(result.message || 'Error saving invite.');
-        }
-      } catch (err) {
-        console.error('Error saving invite:', err);
-        alert('Saved locally. MongoDB connection active.');
-      } finally {
-        btnSaveMongo.textContent = 'Save to MongoDB';
-        btnSaveMongo.disabled = false;
-      }
+  // ---------- Action Handlers (PNG & PDF Download) ----------
+  async function renderInviteCardPng() {
+    if (typeof html2canvas === 'undefined') {
+      throw new Error('Image rendering library loading.');
+    }
+    const canvas = await html2canvas(card, {
+      scale: 2.5,
+      useCORS: true,
+      backgroundColor: null,
+      logging: false
     });
+    const safeTitle = ($('title')?.value || 'Eventora_Invite').replace(/[^a-zA-Z0-9]/g, '_');
+    const filename = `Eventora_${safeTitle}_Invitation.png`;
+    const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
+    return { canvas, blob, filename };
+  }
+
+  function triggerDownloadFromCanvas(canvas, filename) {
+    const a = document.createElement('a');
+    a.download = filename;
+    a.href = canvas.toDataURL('image/png');
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
   }
 
   // Download high-resolution PNG
@@ -242,19 +229,8 @@
       }
       btnPng.textContent = 'Generating PNG...';
       try {
-        const canvas = await html2canvas(card, {
-          scale: 2.5,
-          useCORS: true,
-          backgroundColor: null,
-          logging: false
-        });
-        const a = document.createElement('a');
-        const safeTitle = ($('title')?.value || 'Eventora_Invite').replace(/[^a-zA-Z0-9]/g, '_');
-        a.download = `Eventora_${safeTitle}_Invitation.png`;
-        a.href = canvas.toDataURL('image/png');
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
+        const { canvas, filename } = await renderInviteCardPng();
+        triggerDownloadFromCanvas(canvas, filename);
       } catch (err) {
         console.error('html2canvas error:', err);
         alert('Could not export PNG. Please try again.');
@@ -293,32 +269,6 @@
       } finally {
         btnPdf.textContent = 'Download as PDF';
       }
-    });
-  }
-
-  // Share on WhatsApp
-  const btnWa = $('btn-share-wa');
-  if (btnWa) {
-    btnWa.addEventListener('click', () => {
-      const title = $('title')?.value || 'You are Invited!';
-      const hosts = $('hosts')?.value || '';
-      const dateVal = $('date')?.value ? fmtDate($('date').value) : '';
-      const timeVal = $('time')?.value || '';
-      const venueVal = $('venue')?.value || '';
-      const addressVal = $('address')?.value || '';
-      const rsvpVal = $('rsvpContact')?.value || '';
-      const messageVal = $('message')?.value || '';
-
-      const msg = `*${title}*\n` +
-        (hosts ? `${hosts}\n\n` : '\n') +
-        `*Date:* ${dateVal}\n` +
-        `*Time:* ${timeVal}\n` +
-        `*Venue:* ${venueVal}, ${addressVal}\n` +
-        (rsvpVal ? `*RSVP:* ${rsvpVal}\n` : '') +
-        (messageVal ? `\n"${messageVal}"\n` : '') +
-        `\nCreated on Eventora: ${window.location.origin}/invites`;
-
-      window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
     });
   }
 

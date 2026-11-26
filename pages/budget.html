@@ -45,32 +45,14 @@
   <div class="bar" id="bar" aria-hidden="true"><i id="fill"></i></div>
 
   <section class="budget-setup-panel">
-    <h2>Budget Limit &amp; Event Templates</h2>
-    <p class="budget-sub">Set your overall spending target or start from a standard celebration template.</p>
-    <div class="budget-split-row">
-      <div class="budget-inline-field">
-        <div>
-          <label for="total">Estimated Budget (₹)</label>
-          <input id="total" type="number" min="0" step="1000" placeholder="e.g. 500000">
-        </div>
-        <button class="btn main" id="setTotal" type="button">Set budget</button>
+    <h2>Budget Limit</h2>
+    <p class="budget-sub">Set your overall spending target in Indian Rupees and add your own expense categories below.</p>
+    <div class="budget-inline-field">
+      <div>
+        <label for="total">Estimated Budget (₹)</label>
+        <input id="total" type="number" min="0" step="1000" placeholder="e.g. 500000">
       </div>
-      <div class="budget-inline-field">
-        <div>
-          <label for="presetSelect">Event budget template</label>
-          <select id="presetSelect">
-            <option value="wedding">Wedding (₹15 Lakhs)</option>
-            <option value="birthday">Birthday Party (₹75,000)</option>
-            <option value="college">College &amp; Graduation (₹2 Lakhs)</option>
-            <option value="corporate">Corporate Team Event (₹4.5 Lakhs)</option>
-            <option value="babyshower">Baby Shower (₹1.8 Lakhs)</option>
-            <option value="housewarming">Housewarming (₹1.5 Lakhs)</option>
-            <option value="anniversary">Anniversary (₹2.5 Lakhs)</option>
-            <option value="festival">Festival Gathering (₹1.2 Lakhs)</option>
-          </select>
-        </div>
-        <button class="btn alt" id="applyPreset" type="button">Load template</button>
-      </div>
+      <button class="btn main" id="setTotal" type="button">Set budget</button>
     </div>
   </section>
 

@@ -15,92 +15,6 @@ const CATS = [
 ];
 const COL = ['#2563EB','#EA580C','#9333EA','#0891B2','#DB2777','#DC2626','#CA8A04','#16A34A','#D97706','#4F46E5','#64748B'];
 
-const PRESETS = {
-  wedding: {
-    total: 1500000,
-    items: [
-      { cat: 'Ceremony Venue & Hall', est: 450000, act: 420000 },
-      { cat: 'Traditional Catering & Sweets', est: 400000, act: 380000 },
-      { cat: 'Decor & Fresh Flowers', est: 200000, act: 190000 },
-      { cat: 'Jewellery & Attire', est: 180000, act: 175000 },
-      { cat: 'Candid Photography & Film', est: 120000, act: 120000 },
-      { cat: 'Music, DJ & Sound', est: 60000, act: 55000 },
-      { cat: 'Bridal Makeup & Styling', est: 40000, act: 35000 },
-      { cat: 'Ceremony Arrangements', est: 20000, act: 18000 },
-      { cat: 'Invitations & Gift Boxes', est: 30000, act: 28000 }
-    ]
-  },
-  birthday: {
-    total: 75000,
-    items: [
-      { cat: 'Ceremony Venue & Hall', est: 25000, act: 22000 },
-      { cat: 'Traditional Catering & Sweets', est: 25000, act: 24000 },
-      { cat: 'Decor & Fresh Flowers', est: 12000, act: 10000 },
-      { cat: 'Music, DJ & Sound', est: 8000, act: 8000 },
-      { cat: 'Candid Photography & Film', est: 5000, act: 5000 }
-    ]
-  },
-  college: {
-    total: 200000,
-    items: [
-      { cat: 'Ceremony Venue & Hall', est: 60000, act: 55000 },
-      { cat: 'Music, DJ & Sound', est: 45000, act: 40000 },
-      { cat: 'Traditional Catering & Sweets', est: 50000, act: 48000 },
-      { cat: 'Decor & Fresh Flowers', est: 25000, act: 22000 },
-      { cat: 'Candid Photography & Film', est: 20000, act: 20000 }
-    ]
-  },
-  corporate: {
-    total: 450000,
-    items: [
-      { cat: 'Ceremony Venue & Hall', est: 180000, act: 170000 },
-      { cat: 'Traditional Catering & Sweets', est: 140000, act: 135000 },
-      { cat: 'Decor & Fresh Flowers', est: 50000, act: 45000 },
-      { cat: 'Music, DJ & Sound', est: 40000, act: 38000 },
-      { cat: 'Candid Photography & Film', est: 40000, act: 40000 }
-    ]
-  },
-  babyshower: {
-    total: 180000,
-    items: [
-      { cat: 'Traditional Catering & Sweets', est: 80000, act: 75000 },
-      { cat: 'Decor & Fresh Flowers', est: 40000, act: 36000 },
-      { cat: 'Jewellery & Attire', est: 25000, act: 22000 },
-      { cat: 'Candid Photography & Film', est: 20000, act: 20000 },
-      { cat: 'Ceremony Arrangements', est: 15000, act: 12000 }
-    ]
-  },
-  housewarming: {
-    total: 150000,
-    items: [
-      { cat: 'Traditional Catering & Sweets', est: 65000, act: 60000 },
-      { cat: 'Decor & Fresh Flowers', est: 35000, act: 30000 },
-      { cat: 'Ceremony Arrangements', est: 25000, act: 22000 },
-      { cat: 'Invitations & Gift Boxes', est: 15000, act: 12000 },
-      { cat: 'Candid Photography & Film', est: 10000, act: 10000 }
-    ]
-  },
-  anniversary: {
-    total: 250000,
-    items: [
-      { cat: 'Ceremony Venue & Hall', est: 85000, act: 80000 },
-      { cat: 'Traditional Catering & Sweets', est: 80000, act: 75000 },
-      { cat: 'Decor & Fresh Flowers', est: 35000, act: 30000 },
-      { cat: 'Music, DJ & Sound', est: 25000, act: 22000 },
-      { cat: 'Candid Photography & Film', est: 25000, act: 25000 }
-    ]
-  },
-  festival: {
-    total: 120000,
-    items: [
-      { cat: 'Traditional Catering & Sweets', est: 50000, act: 48000 },
-      { cat: 'Decor & Fresh Flowers', est: 35000, act: 30000 },
-      { cat: 'Invitations & Gift Boxes', est: 20000, act: 18000 },
-      { cat: 'Music, DJ & Sound', est: 15000, act: 12000 }
-    ]
-  }
-};
-
 function getCurrentUser() {
   try { return JSON.parse(localStorage.getItem('eventora_user')); } catch (e) { return null; }
 }
@@ -111,31 +25,6 @@ const USER_KEY = ACTIVE_USER && (ACTIVE_USER.email || ACTIVE_USER.id)
   : '';
 const STORAGE_KEY = USER_KEY ? `${KEY}:${USER_KEY}` : KEY;
 
-function pickPresetKey(eventType) {
-  const s = String(eventType || '').toLowerCase();
-  if (s.includes('birthday')) return 'birthday';
-  if (s.includes('college') || s.includes('graduation') || s.includes('farewell')) return 'college';
-  if (s.includes('corporate') || s.includes('team') || s.includes('summit')) return 'corporate';
-  if (s.includes('baby') || s.includes('shower')) return 'babyshower';
-  if (s.includes('house')) return 'housewarming';
-  if (s.includes('anniversary')) return 'anniversary';
-  if (s.includes('festival')) return 'festival';
-  return 'wedding';
-}
-
-function buildPresetBudget(presetKey) {
-  const preset = PRESETS[presetKey] || PRESETS.wedding;
-  return {
-    total: preset.total,
-    items: preset.items.map((i) => ({ id: uid(), ...i }))
-  };
-}
-
-const initialPresetKey = pickPresetKey(ACTIVE_USER && ACTIVE_USER.eventType);
-if ($('presetSelect')) {
-  $('presetSelect').value = initialPresetKey;
-}
-
 try { localStorage.removeItem('eventora-budget'); } catch (e) {}
 
 let B = USER_KEY ? load(STORAGE_KEY, null) : null;
@@ -145,22 +34,33 @@ if (!B || typeof B !== 'object' || !Array.isArray(B.items)) {
   B.total = Number(ACTIVE_USER.eventBudget);
 }
 
-if (ACTIVE_USER) {
+function applyBudgetHeroUser(u) {
+  if (!u) return;
   const heroTitle = document.querySelector('.hero-content h1');
   const heroKicker = document.querySelector('.hero-kicker');
+  const heroDesc = document.querySelector('.hero-content p:not(.hero-kicker)');
   if (heroTitle) {
-    if (ACTIVE_USER.eventName) {
-      heroTitle.textContent = `${ACTIVE_USER.eventName} Budget`;
-    } else if (ACTIVE_USER.name) {
-      const first = ACTIVE_USER.name.split(' ')[0];
+    if (u.eventName) {
+      heroTitle.textContent = `${u.eventName} Budget`;
+    } else if (u.name) {
+      const first = u.name.split(' ')[0];
       heroTitle.textContent = `${first}'s Event Budget Tracker`;
     }
   }
   if (heroKicker) {
-    heroKicker.textContent = ACTIVE_USER.eventType
-      ? `${ACTIVE_USER.eventType.toUpperCase()} BUDGET`
+    heroKicker.textContent = u.eventType
+      ? `${u.eventType.toUpperCase()} BUDGET`
       : 'FINANCES & EVENT PLANNING';
   }
+  if (heroDesc && u.eventDate) {
+    const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(u.eventDate));
+    const dateLabel = m ? new Date(+m[1], +m[2] - 1, +m[3]).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }) : u.eventDate;
+    heroDesc.textContent = `Tracking expenses for ${u.eventName || u.eventType || 'your event'} on ${dateLabel}.`;
+  }
+}
+
+if (ACTIVE_USER) {
+  applyBudgetHeroUser(ACTIVE_USER);
 }
 
 let editing = null;
@@ -302,31 +202,6 @@ $('setTotal').onclick = () => {
   draw(true);
 };
 
-if ($('applyPreset') && $('presetSelect')) {
-  $('applyPreset').onclick = () => {
-    const sel = $('presetSelect');
-    const pKey = sel.value;
-    const label = sel.options[sel.selectedIndex].textContent;
-    if (PRESETS[pKey] && (!B.items.length || confirm(`Load the ${label} template? This will replace your current line items.`))) {
-      B = buildPresetBudget(pKey);
-      resetForm();
-      draw(true);
-    }
-  };
-}
-
-document.querySelectorAll('[data-preset]').forEach((btn) => {
-  btn.onclick = () => {
-    const pKey = btn.getAttribute('data-preset');
-    const preset = PRESETS[pKey];
-    if (preset && (!B.items.length || confirm(`Load the ${btn.textContent.trim()} template? This will replace your current line items.`))) {
-      B = buildPresetBudget(pKey);
-      resetForm();
-      draw(true);
-    }
-  };
-});
-
 $('rows').onclick = (e) => {
   const ed = e.target.dataset.edit;
   const del = e.target.dataset.del;
@@ -366,9 +241,15 @@ $('csv').onclick = () => {
 
 draw(false);
 
-fetch('/api/budget', { credentials: 'same-origin' })
-  .then((r) => (r.ok ? r.json() : null))
-  .then((res) => {
+Promise.all([
+  fetch('/api/budget', { credentials: 'same-origin', cache: 'no-store' }).then((r) => (r.ok ? r.json() : null)).catch(() => null),
+  fetch('/api/auth/me', { credentials: 'same-origin', cache: 'no-store' }).then((r) => (r.ok ? r.json() : null)).catch(() => null)
+])
+  .then(([res, meRes]) => {
+    if (meRes && meRes.authenticated && meRes.user) {
+      localStorage.setItem('eventora_user', JSON.stringify(meRes.user));
+      applyBudgetHeroUser(meRes.user);
+    }
     if (res && res.success && res.data) {
       const serverItems = Array.isArray(res.data.items) ? res.data.items : [];
       const serverTotal = res.data.total !== undefined ? (Number(res.data.total) || 0) : (Number(res.eventBudget) || 0);

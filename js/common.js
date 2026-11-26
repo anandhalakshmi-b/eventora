@@ -93,7 +93,6 @@ function initDynamicNavbar() {
     navHtml = `
       <a href="${routes.vendorDashboard}" class="${isActive('vendorDashboard') ? 'on' : ''}">Vendor Dashboard</a>
       <a href="${routes.home}" class="${isActive('home') ? 'on' : ''}">Home</a>
-      <a href="${routes.chatbot}" class="${isActive('chatbot') ? 'on' : ''}">Chatbot</a>
       <span class="nav-user-badge" title="${esc(vName)}">${esc(vName.length > 16 ? vName.slice(0, 14) + '...' : vName)}</span>
       <button type="button" class="nav-logout-btn" id="nav-logout">Logout</button>
     `;

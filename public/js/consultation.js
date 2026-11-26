@@ -5,7 +5,52 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   setupConsultationForm();
+  syncConsultationWithRegisteredUser();
 });
+
+function applyUserToConsultationFields(user) {
+  if (!user) return;
+  const eventTypeEl = document.getElementById('eventType') || document.getElementById('consult-event-type');
+  const eventDateEl = document.getElementById('eventDate');
+  const budgetEl = document.getElementById('budget') || document.getElementById('consult-budget');
+  const cityEl = document.getElementById('city') || document.getElementById('consult-city');
+
+  if (eventTypeEl && !eventTypeEl.value && user.eventType) {
+    const target = String(user.eventType).toLowerCase().trim();
+    const matched = Array.from(eventTypeEl.options).find(opt => {
+      const val = String(opt.value || '').toLowerCase();
+      const txt = String(opt.textContent || '').toLowerCase();
+      return val && (val === target || target.includes(val) || txt.includes(target));
+    });
+    if (matched) eventTypeEl.value = matched.value;
+  }
+  if (eventDateEl && !eventDateEl.value && user.eventDate && /^\d{4}-\d{2}-\d{2}$/.test(user.eventDate)) {
+    eventDateEl.value = user.eventDate;
+  }
+  if (budgetEl && !budgetEl.value && Number(user.eventBudget) > 0) {
+    budgetEl.value = String(Number(user.eventBudget));
+  }
+  if (cityEl && !cityEl.value && user.city) {
+    cityEl.value = user.city;
+  }
+}
+
+async function syncConsultationWithRegisteredUser() {
+  try {
+    const cached = JSON.parse(localStorage.getItem('eventora_user'));
+    if (cached) applyUserToConsultationFields(cached);
+  } catch (e) {}
+
+  try {
+    const res = await fetch('/api/auth/me', { credentials: 'same-origin', cache: 'no-store' });
+    if (!res.ok) return;
+    const json = await res.json();
+    if (json && json.success && json.user) {
+      try { localStorage.setItem('eventora_user', JSON.stringify(json.user)); } catch (e) {}
+      applyUserToConsultationFields(json.user);
+    }
+  } catch (e) {}
+}
 
 function formatINR(val) {
   if (isNaN(val)) return '₹0';

@@ -115,11 +115,41 @@ document.addEventListener('DOMContentLoaded', async () => {
           setField('dateText', d.toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }));
         }
 
-        // WhatsApp Link
+        // WhatsApp Link + Image Copy/Share
         const waLink = document.getElementById('wa-link');
         if (waLink) {
-          const msg = ` *${inv.title}*\n${inv.hosts}\n\n *When:* ${inv.date} ${inv.time}\n *Where:* ${inv.venue}, ${inv.address}\n\n"${inv.message}"\n\nView Digital Card: ${window.location.href}`;
+          const loc = [inv.venue, inv.address].filter(Boolean).join(', ');
+          const waLines = [`*${inv.title}*`];
+          if (inv.hosts) waLines.push(inv.hosts);
+          waLines.push('');
+          if (inv.date) waLines.push(`*When:* ${[inv.date, inv.time].filter(Boolean).join(' ')}`);
+          if (loc) waLines.push(`*Where:* ${loc}`);
+          if (inv.message) {
+            waLines.push('');
+            waLines.push(`"${inv.message}"`);
+          }
+          waLines.push('');
+          waLines.push(`View Digital Card: ${window.location.href}`);
+          const msg = waLines.join('\n');
           waLink.href = `https://wa.me/?text=${encodeURIComponent(msg)}`;
+          waLink.addEventListener('click', async (ev) => {
+            if (typeof html2canvas === 'undefined') return;
+            ev.preventDefault();
+            const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent || '');
+            try {
+              const canvas = await html2canvas(card, { scale: 2.5, useCORS: true, backgroundColor: null });
+              const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
+              const file = blob ? new File([blob], 'Eventora_Invitation.png', { type: 'image/png' }) : null;
+              if (isMobile && file && navigator.canShare && navigator.canShare({ files: [file] })) {
+                await navigator.share({ files: [file], title: inv.title || 'Event Invitation', text: msg });
+                return;
+              }
+              if (blob && navigator.clipboard && typeof ClipboardItem !== 'undefined') {
+                await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]).catch(() => {});
+              }
+            } catch (_) {}
+            window.open(waLink.href, '_blank', 'noopener');
+          });
         }
       }
     } catch (e) {

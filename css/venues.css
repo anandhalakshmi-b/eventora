@@ -76,8 +76,9 @@ small{display:block;color:#64748B;font-size:.78rem;margin-top:4px}
 .card:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(15,23,42,.1)}
 .banner{background:var(--bg);color:var(--ac);height:190px;display:flex;align-items:center;justify-content:center;font-size:3.6rem;position:relative}
 .venue-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.heart{position:absolute;top:10px;right:10px;width:38px;height:38px;border-radius:50%;border:0;background:#fff;color:var(--ac);font-size:1.2rem;cursor:pointer}
-.heart[aria-pressed=true]{background:var(--ac);color:#fff}
+.heart{position:absolute;top:10px;right:10px;width:38px;height:38px;border-radius:50%;border:1px solid rgba(15,23,42,.12);background:rgba(255,255,255,.95);color:#475569;display:inline-flex;align-items:center;justify-content:center;padding:0;cursor:pointer;box-shadow:0 2px 8px rgba(15,23,42,.12);z-index:2;transition:transform .15s,background .15s,color .15s}
+.heart:hover{transform:scale(1.06);color:#E11D48}
+.heart[aria-pressed=true]{background:#E11D48;border-color:#E11D48;color:#fff}
 .body{padding:18px;display:flex;flex-direction:column;gap:6px;flex:1}
 .body h3{margin:0;font-size:1.3rem;line-height:1.2;font-weight:800;letter-spacing:-.01em}
 .meta{color:#475569;font-size:.9rem;margin:0}
