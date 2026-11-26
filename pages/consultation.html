@@ -4,19 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Free Consultation | Eventora</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Dancing+Script:wght@600&family=Playfair+Display:wght@600;800&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/theme.css">
-  <link rel="stylesheet" href="css/consultation.css">
-  <link rel="stylesheet" href="css/navbar.css">
-  <link rel="stylesheet" href="css/ora.css">
-</head>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Dancing+Script:wght@600&family=Playfair+Display:wght@600;800&family=Poppins:wght@400;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/theme.css"><link rel="stylesheet" href="css/consultation.css"><link rel="stylesheet" href="css/navbar.css"><link rel="stylesheet" href="css/ora.css"></head>
 <body>
 <!-- ===== SHARED TOP BAR ===== -->
 <nav>
   <a class="brand" href="index.html"><img src="images/logo.png" alt="Eventora logo">Eventora</a>
-  <button id="burger" aria-label="Open menu" aria-expanded="false">☰</button>
-  <div class="links" id="links">
-    <a href="index.html">Home</a>
+  <button id="burger" aria-label="Open menu" aria-expanded="false"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+  <div class="links" id="links"><a href="index.html">Home</a>
     <a href="venues.html">Venues &amp; Vendors</a>
     <a href="ideas.html">Ideas</a>
     <a href="budget.html">Budget</a>
@@ -24,7 +18,7 @@
     <a href="guests.html">Guests</a>
     <a href="consultation.html" class="on">Consultation</a>
     <a href="invites.html">Invites</a>
-    <a href="favorites.html">Favourites ♥</a>
+    <a href="favorites.html">Favourites</a>
     <a class="btn sm" href="register.html">Register</a>
   </div>
 </nav>
@@ -35,8 +29,7 @@
     <source src="images/venues/venues.mp4" type="video/mp4">
   </video>
   <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <p class="hero-kicker">✦ FREE INSTANT STARTER BLUEPRINT ✦</p>
+  <div class="hero-content"><p class="hero-kicker">FREE INSTANT STARTER BLUEPRINT </p>
     <h1>Free Event Planning Consultation</h1>
     <p>Tell us about your celebration—whether a wedding, birthday, college fest, baby shower, or corporate summit—and receive a tailored plan, budget estimate, and vendor milestones in seconds.</p>
   </div>
@@ -52,9 +45,9 @@
         <option value="wedding">Wedding (Hindu / Christian / Muslim / Sikh)</option>
         <option value="engagement">Engagement / Roka / Sagai</option>
         <option value="birthday">Birthday Party</option>
-        <option value="housewarming">Griha Pravesh / Housewarming</option>
-        <option value="babyshower">Baby Shower / Godh Bharai / Seemantham</option>
-        <option value="naming">Naming Ceremony / Namkaran</option>
+        <option value="housewarming">Housewarming Celebration</option>
+        <option value="babyshower">Baby Shower / Family Blessings</option>
+        <option value="naming">Naming Ceremony / Naming Ceremony</option>
         <option value="festival">Festival Party (Diwali / Ganesh Chaturthi / Navratri / Eid / Christmas)</option>
         <option value="corporate">Corporate Event / Annual Day / Conference</option>
         <option value="anniversary">Anniversary</option>
@@ -94,21 +87,17 @@
 <script src="js/consultation.js"></script>
 
 <!-- ===== ORA FLOATING CHAT ===== -->
-<button id="ora-fab" class="ora-fab" aria-label="Chat with Ora" aria-expanded="false">💬</button>
+<button id="ora-fab" class="ora-fab" aria-label="Chat with Ora" aria-expanded="false"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
 <section id="ora-window" class="ora-window" hidden aria-label="Chat with Ora">
   <header class="ora-head">
-    <strong>Ora</strong> · your planning buddy
+    <strong>Ora</strong> · your planning assistant
     <button id="ora-close" class="ora-x" aria-label="Close chat">×</button>
   </header>
   <div id="ora-log" class="ora-log" role="log" aria-live="polite"></div>
-  <div class="ora-quick">
-    <button data-q="Find venues">Find venues</button>
+  <div class="ora-quick"><button data-q="Find venues">Find venues</button>
     <button data-q="Set a budget">Set a budget</button>
-    <button data-q="Make an invite">Make an invite</button>
-    <button data-q="Talk to a human">Talk to a human</button>
-  </div>
-  <div class="ora-form">
-    <label for="ora-input" class="sr-only">Message Ora</label>
+    <button data-q="Make an invite">Make an invite</button>  </div>
+  <div class="ora-form"><label for="ora-input" class="sr-only">Message Ora</label>
     <input id="ora-input" type="text" maxlength="500" placeholder="Ask Ora anything..." autocomplete="off">
     <button id="ora-send" class="ora-send">Send</button>
   </div>

@@ -56,41 +56,54 @@
     let navHtml = '';
 
     if (!currentUser) {
-      // VISITOR (NOT LOGGED IN)
-      // "first when the website is opened the home page chatbot login/register page should be visible"
       navHtml = `
         <a href="${routes.home}" class="${isActive('home') ? 'on' : ''}">Home</a>
         <a href="${routes.chatbot}" class="${isActive('chatbot') ? 'on' : ''}">Chatbot</a>
         <a class="btn sm ${isActive('register') ? 'on' : ''}" href="${routes.register}" id="nav-auth-btn">Login / Register</a>
       `;
     } else if (currentUser.role === 'vendor') {
-      // VENDOR
-      // "so when the user logs in as vendor it should show vendor dashboard..."
       const vName = (currentUser.vendorDetails && currentUser.vendorDetails.businessName) || currentUser.name || 'Vendor';
       navHtml = `
         <a href="${routes.vendorDashboard}" class="${isActive('vendorDashboard') ? 'on' : ''}">Vendor Dashboard</a>
         <a href="${routes.home}" class="${isActive('home') ? 'on' : ''}">Home</a>
         <a href="${routes.chatbot}" class="${isActive('chatbot') ? 'on' : ''}">Chatbot</a>
-        <span class="nav-user-badge" title="${vName}">🏢 ${vName.length > 16 ? vName.slice(0, 14) + '...' : vName}</span>
+        <span class="nav-user-badge" title="${vName}">${vName.length > 16 ? vName.slice(0, 14) + '...' : vName}</span>
         <button type="button" class="nav-logout-btn" id="nav-logout">Logout</button>
       `;
     } else {
-      // CUSTOMER (USER)
       const uFirstName = (currentUser.name || 'User').split(' ')[0];
       navHtml = `
         <a href="${routes.userDashboard}" class="${isActive('userDashboard') ? 'on' : ''}">Home</a>
-        <span class="nav-user-badge" title="${currentUser.name || ''}">👤 ${uFirstName}</span>
+        <a href="${routes.userDashboard}?registerEvent=1#register-event-section" id="nav-register-event">Register New Event</a>
+        <span class="nav-user-badge" title="${currentUser.name || ''}">${uFirstName}</span>
         <button type="button" class="nav-logout-btn" id="nav-logout">Logout</button>
       `;
     }
 
     linksContainer.innerHTML = navHtml;
 
-    // Logout event
+    const regEvLink = document.getElementById('nav-register-event');
+    if (regEvLink) {
+      regEvLink.addEventListener('click', (e) => {
+        if (typeof window.openRegisterEventPanel === 'function') {
+          e.preventDefault();
+          window.openRegisterEventPanel();
+        }
+      });
+    }
+
+    // Logout event (clear server cookie + local state)
     const logoutBtn = document.getElementById('nav-logout');
     if (logoutBtn) {
-      logoutBtn.addEventListener('click', () => {
+      logoutBtn.addEventListener('click', async () => {
+        try {
+          await fetch('/api/auth/logout', { method: 'POST', credentials: 'same-origin' });
+        } catch (e) {}
         localStorage.removeItem('eventora_user');
+        localStorage.removeItem('oraSession');
+        localStorage.removeItem('eventora-budget');
+        localStorage.removeItem('eventora-checklist-shubh-v1');
+        localStorage.removeItem('eventora-checklist-queue-v1');
         window.location.href = routes.home;
       });
     }
@@ -104,6 +117,42 @@
         burger.setAttribute('aria-expanded', String(open));
       };
     }
+  }
+
+  async function syncAuthSession() {
+    if (window.location.protocol === 'file:' || window._eventoraSessionSynced) return;
+    window._eventoraSessionSynced = true;
+
+    const p = window.location.pathname.toLowerCase();
+    const isPublic =
+      p === '/' ||
+      p === '' ||
+      p.includes('index') ||
+      p.includes('home') ||
+      p.includes('register') ||
+      p.includes('chatbot') ||
+      p.includes('ora') ||
+      p.includes('rsvp') ||
+      p.includes('invites-view') ||
+      p.includes('invites/view');
+
+    try {
+      const res = await fetch('/api/auth/me', { credentials: 'same-origin' });
+      if (res.ok) {
+        const data = await res.json();
+        if (data && data.authenticated && data.user) {
+          localStorage.setItem('eventora_user', JSON.stringify(data.user));
+          init();
+          return;
+        }
+      }
+      localStorage.removeItem('eventora_user');
+      localStorage.removeItem('oraSession');
+      init();
+      if (!isPublic) {
+        window.location.href = '/register?mode=login&redirect=' + encodeURIComponent(window.location.pathname + window.location.search);
+      }
+    } catch (e) {}
   }
 
   // If visitor is on Home page and clicks any content link, redirect to login / signup page
@@ -146,10 +195,12 @@
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
       init();
+      syncAuthSession();
       setupHomePageLinkProtection();
     });
   } else {
     init();
+    syncAuthSession();
     setupHomePageLinkProtection();
   }
 })();

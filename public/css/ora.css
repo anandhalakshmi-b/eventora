@@ -128,6 +128,7 @@
   font-size: 14px;
   line-height: 1.45;
   word-wrap: break-word;
+  white-space: pre-line;
 }
 
 .bubble.ora {

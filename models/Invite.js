@@ -16,7 +16,7 @@ const InviteSchema = new mongoose.Schema({
   },
   heading: {
     type: String,
-    default: '॥ ஓம் ஸ்ரீ கணேசாய நமஹ ॥'
+    default: 'Wedding Invitation'
   },
   title: {
     type: String,
@@ -48,7 +48,7 @@ const InviteSchema = new mongoose.Schema({
   },
   dressCode: {
     type: String,
-    default: 'Traditional Pattu Veshti / Kanjivaram Silk'
+    default: 'Traditional Festive or Formal Attire'
   },
   rsvpContact: {
     type: String,
@@ -56,7 +56,7 @@ const InviteSchema = new mongoose.Schema({
   },
   feastDetails: {
     type: String,
-    default: 'Traditional Banana Leaf Kalyana Virundhu & Filter Kaapi'
+    default: 'Traditional Celebration Banquet & Refreshments'
   },
   compliments: {
     type: String,

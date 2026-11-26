@@ -4,13 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard | Eventora</title>
-  <link rel="icon" href="images/logo.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/navbar.css">
-  <link rel="stylesheet" href="css/ora.css">
-  <style>
+  <link rel="icon" href="images/logo.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/navbar.css"><link rel="stylesheet" href="css/ora.css"><style>
     :root {
       --ink: #0F172A;
       --line: #E5E7EB;
@@ -34,21 +28,38 @@
     .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 36px; }
     .stat-card { background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 24px; box-shadow: 0 4px 12px rgba(15,23,42,0.04); }
     .stat-card span { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #64748B; }
-    .stat-card b { display: block; font-size: 2.2rem; font-weight: 800; margin-top: 6px; }
+    .stat-card b { display: block; font-size: 2rem; font-weight: 800; margin-top: 6px; }
+    .stat-link { display: inline-block; margin-top: 10px; font-size: 0.85rem; font-weight: 700; color: var(--purple-ac); text-decoration: none; }
+    .stat-link:hover { text-decoration: underline; }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
     .panel { background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 28px; box-shadow: 0 4px 12px rgba(15,23,42,0.04); }
-    .panel h2 { margin: 0 0 16px; font-size: 1.35rem; font-weight: 800; }
+    .panel h2 { margin: 0 0 12px; font-size: 1.35rem; font-weight: 800; }
     .progress-bar { height: 10px; border-radius: 999px; background: #E2E8F0; overflow: hidden; margin-top: 12px; }
-    .progress-fill { height: 100%; width: 68%; background: var(--purple-ac); border-radius: 999px; }
+    .progress-fill { height: 100%; width: 0%; background: var(--purple-ac); border-radius: 999px; transition: width 0.25s ease; }
+    .hero-btn { margin-top: 16px; display: inline-flex; align-items: center; gap: 8px; padding: 11px 22px; border-radius: 999px; border: none; background: #fff; color: var(--ink); font-weight: 700; font-size: 0.95rem; cursor: pointer; box-shadow: 0 6px 16px rgba(15,23,42,0.16); }
+    .hero-btn:hover { background: #F8FAFC; }
+    .reg-panel { margin-bottom: 30px; border: 2px solid #E9D5FF; }
+    .reg-panel-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+    .reg-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+    .reg-field label { display: block; font-size: 0.82rem; font-weight: 700; color: #475569; margin-bottom: 5px; }
+    .reg-field input, .reg-field select { width: 100%; padding: 11px 14px; border: 1px solid #CBD5E1; border-radius: 12px; font-size: 0.95rem; font-family: inherit; background: #fff; }
+    .reg-field input:focus, .reg-field select:focus { outline: none; border-color: var(--purple-ac); box-shadow: 0 0 0 3px rgba(147,51,234,0.14); }
+    .reg-actions { display: flex; align-items: center; gap: 12px; margin-top: 18px; flex-wrap: wrap; }
+    .btn-primary { padding: 11px 22px; border-radius: 999px; border: none; background: var(--ink); color: #fff; font-weight: 700; font-size: 0.95rem; cursor: pointer; }
+    .btn-primary:hover { background: #1E293B; }
+    .btn-ghost { padding: 10px 18px; border-radius: 999px; border: 1px solid #CBD5E1; background: #fff; color: var(--ink); font-weight: 600; font-size: 0.9rem; cursor: pointer; text-decoration: none; display: inline-block; }
+    .reg-status { font-size: 0.9rem; font-weight: 600; margin-top: 10px; }
+    .reg-status.err { color: #DC2626; }
+    .reg-status.ok { color: #16A34A; }
+    .quick-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
   </style>
 </head>
 <body>
 
 <nav>
   <a class="brand" href="index.html"><img src="images/logo.png" alt="Eventora logo">Eventora</a>
-  <button id="burger" aria-label="Open menu" aria-expanded="false">☰</button>
-  <div class="links" id="links">
-    <a href="eventora-dashboard.html">Home</a>
+  <button id="burger" aria-label="Open menu" aria-expanded="false"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+  <div class="links" id="links"><a href="eventora-dashboard.html">Home</a>
   </div>
 </nav>
 
@@ -58,56 +69,90 @@
     <source src="images/venues/venues.mp4" type="video/mp4">
   </video>
   <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <p class="hero-kicker">✦ SHUBH VIVAH PLANNING HUB ✦</p>
-    <h1>Aarav &amp; Meera's Wedding Dashboard</h1>
-    <p>Everything you need to orchestrate your multi-day Indian celebration, all in one calm place.</p>
+  <div class="hero-content"><p class="hero-kicker" id="dash-hero-kicker">EVENT PLANNING HUB</p>
+    <h1 id="dash-event-title">Welcome to Eventora</h1>
+    <p id="dash-user-tagline" style="font-weight:700; margin-top:6px;">Customer</p>
+    <p id="dash-hero-sub" style="margin-top:8px;">Register a new event to set your event type, celebration names, and date.</p>
+    <button type="button" class="hero-btn" id="btn-open-register-event">Register New Event</button>
   </div>
 </header>
 
 <main class="wrap">
+  <section id="register-event-section" class="panel reg-panel" hidden>
+    <div class="reg-panel-head">
+      <div>
+        <h2>Register New Event</h2>
+        <p style="margin:0; font-size:0.92rem; color:#475569;">Select your event type, enter the event details, and set the celebration date.</p>
+      </div>
+      <button type="button" class="btn-ghost" id="btn-close-register-event">Close</button>
+    </div>
+    <form id="dash-register-event-form" novalidate>
+      <div class="reg-grid">
+        <div class="reg-field">
+          <label for="dash-le-type">Event type</label>
+          <select id="dash-le-type">
+            <option value="Wedding">Wedding</option>
+            <option value="Engagement">Engagement</option>
+            <option value="Birthday">Birthday</option>
+            <option value="Anniversary">Anniversary</option>
+            <option value="Baby Shower">Baby Shower</option>
+            <option value="Naming Ceremony">Naming Ceremony</option>
+            <option value="Housewarming">Housewarming</option>
+            <option value="Corporate &amp; Team">Corporate &amp; Team</option>
+            <option value="College &amp; Graduation">College &amp; Graduation</option>
+            <option value="Festival">Festival</option>
+          </select>
+        </div>
+        <div id="dash-le-dynamic" class="reg-grid" style="grid-column: span 2;"></div>
+        <div class="reg-field">
+          <label for="dash-le-date">Date of the event</label>
+          <input type="date" id="dash-le-date" required>
+        </div>
+        <div class="reg-field">
+          <label for="dash-le-budget">Estimated Budget (₹ INR)</label>
+          <input type="number" id="dash-le-budget" min="0" step="1000" placeholder="e.g. 500000" required>
+        </div>
+      </div>
+      <p id="dash-reg-msg" class="reg-status" hidden></p>
+      <div class="reg-actions">
+        <button type="submit" class="btn-primary" id="btn-save-dash-event">Save Event Details</button>
+      </div>
+    </form>
+  </section>
+
   <div class="stats">
-    <div class="stat-card">
-      <span>Event Status</span>
-      <b style="color:var(--purple-ac)">Shubh Vivah</b>
-      <small style="color:#64748B; font-weight:600;">18 February 2027 · Coimbatore</small>
+    <div class="stat-card"><span>Event Status</span>
+      <b id="dash-stat-type" style="color:var(--purple-ac)">No Event Selected</b>
+      <small id="dash-stat-date" style="color:#64748B; font-weight:600;">Click Register New Event to get started</small>
     </div>
-    <div class="stat-card">
-      <span>Checklist Progress</span>
-      <b style="color:var(--green-ac)">14 / 22 Tasks</b>
-      <div class="progress-bar"><div class="progress-fill"></div></div>
+    <div class="stat-card"><span>Checklist Progress</span>
+      <b id="dash-stat-tasks" style="color:var(--green-ac)">0 / 0 Tasks</b>
+      <div class="progress-bar"><div class="progress-fill" id="dash-progress-fill"></div></div>
+      <a class="stat-link" href="checklist.html">Open Checklist →</a>
     </div>
-    <div class="stat-card">
-      <span>Shaadi Budget Spent</span>
-      <b style="color:var(--blue-ac)">₹14,50,000</b>
-      <small style="color:#64748B; font-weight:600;">of ₹25,00,000 total allocation</small>
+    <div class="stat-card"><span>Event Budget</span>
+      <b id="dash-stat-spent" style="color:var(--blue-ac)">₹0</b>
+      <small id="dash-stat-total" style="color:#64748B; font-weight:600;">of ₹0 total allocation</small><br>
+      <a class="stat-link" href="budget.html">Open Budget →</a>
     </div>
-    <div class="stat-card">
-      <span>Atithi RSVPs Confirmed</span>
-      <b style="color:var(--orange-ac)">420 Heads</b>
-      <small style="color:#64748B; font-weight:600;">Ladkewale &amp; Ladkiwale</small>
+    <div class="stat-card"><span>Guest RSVPs Confirmed</span>
+      <b id="dash-stat-guests" style="color:var(--orange-ac)">0 Heads</b>
+      <small id="dash-stat-guests-sub" style="color:#64748B; font-weight:600;">Track invitations &amp; responses</small><br>
+      <a class="stat-link" href="guests.html">Manage Guests →</a>
     </div>
   </div>
 
   <div class="grid">
     <div class="panel">
-      <h2>Upcoming Ceremonies &amp; Milestones</h2>
-      <div style="display:flex; flex-direction:column; gap:16px;">
-        <div style="padding:14px; background:#FEF3C7; border-radius:14px; border:1px solid #FDE68A;">
-          <span style="font-size:0.75rem; font-weight:800; color:#B45309; text-transform:uppercase; letter-spacing:0.08em;">Day 1 · 16 Feb 2027</span>
-          <h3 style="margin:4px 0; font-size:1.15rem;">Marigold Sunshine Haldi &amp; Phoolon Ki Holi</h3>
-          <p style="margin:0; font-size:0.9rem; color:#78350F;">Palm Garden Lawn · 10:00 AM</p>
-        </div>
-        <div style="padding:14px; background:#F3E8FF; border-radius:14px; border:1px solid #E9D5FF;">
-          <span style="font-size:0.75rem; font-weight:800; color:#7E22CE; text-transform:uppercase; letter-spacing:0.08em;">Day 2 · 17 Feb 2027</span>
-          <h3 style="margin:4px 0; font-size:1.15rem;">Bollywood Sangeet &amp; Live Dhol Night</h3>
-          <p style="margin:0; font-size:0.9rem; color:#581C87;">Lotus Grand Banquet · 7:00 PM onwards</p>
-        </div>
-        <div style="padding:14px; background:#FEE2E2; border-radius:14px; border:1px solid #FECACA;">
-          <span style="font-size:0.75rem; font-weight:800; color:#B91C1C; text-transform:uppercase; letter-spacing:0.08em;">Day 3 · 18 Feb 2027</span>
-          <h3 style="margin:4px 0; font-size:1.15rem;">Shubh Muhurat Pheras &amp; Kalyanam</h3>
-          <p style="margin:0; font-size:0.9rem; color:#7F1D1D;">Heritage Mahal · Auspicious Lagna: 9:15 AM</p>
-        </div>
+      <h2 id="dash-milestones-title">Your Planning Progress</h2>
+      <div id="dash-milestones-list" style="display:flex; flex-direction:column; gap:14px;">
+        <p style="margin:0; color:#475569;">No tasks or budget expenses added yet. Once your event is set, add items in Checklist or Budget as needed.</p>
+      </div>
+      <div class="quick-actions">
+        <a class="btn-ghost" href="venues.html">Explore Venues &amp; Vendors</a>
+        <a class="btn-ghost" href="budget.html">Add Budget Items</a>
+        <a class="btn-ghost" href="checklist.html">Add Checklist Tasks</a>
+        <a class="btn-ghost" href="invites.html">Design Invites</a>
       </div>
     </div>
   </div>
@@ -115,8 +160,7 @@
 
 <footer class="site-footer">
   <div><b>Eventora</b><br>Plan every royal Indian celebration, beautifully.</div>
-  <div>
-    <a href="eventora-dashboard.html">Home</a>
+  <div><a href="eventora-dashboard.html">Home</a>
     <a href="venues.html">Venues &amp; Vendors</a>
     <a href="ideas.html">Ideas</a>
     <a href="budget.html">Budget</a>
@@ -128,27 +172,381 @@
 </footer>
 
 <!-- ===== ORA FLOATING CHAT ===== -->
-<button id="ora-fab" class="ora-fab" aria-label="Chat with Ora" aria-expanded="false">💬</button>
+<button id="ora-fab" class="ora-fab" aria-label="Chat with Ora" aria-expanded="false"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
 <section id="ora-window" class="ora-window" hidden aria-label="Chat with Ora">
   <header class="ora-head">
-    <strong>Ora</strong> · your planning buddy
+    <strong>Ora</strong> · your planning assistant
     <button id="ora-close" class="ora-x" aria-label="Close chat">×</button>
   </header>
   <div id="ora-log" class="ora-log" role="log" aria-live="polite"></div>
-  <div class="ora-quick">
-    <button data-q="Find venues">Find venues</button>
+  <div class="ora-quick"><button data-q="Find venues">Find venues</button>
     <button data-q="Set a budget">Set a budget</button>
-    <button data-q="Make an invite">Make an invite</button>
-    <button data-q="Talk to a human">Talk to a human</button>
-  </div>
-  <div class="ora-form">
-    <label for="ora-input" class="sr-only">Message Ora</label>
+    <button data-q="Make an invite">Make an invite</button>  </div>
+  <div class="ora-form"><label for="ora-input" class="sr-only">Message Ora</label>
     <input id="ora-input" type="text" maxlength="500" placeholder="Ask Ora anything..." autocomplete="off">
     <button id="ora-send" class="ora-send">Send</button>
   </div>
 </section>
 
 <script src="js/common.js"></script>
+<script>
+(function () {
+  var EVENT_TYPE_CONFIG = {
+    'Wedding': [
+      { key: 'brideName', id: 'dash-le-bride', label: "Bride's name", placeholder: 'Meera Nair', required: true },
+      { key: 'groomName', id: 'dash-le-groom', label: "Groom's name", placeholder: 'Aarav Sharma', required: true }
+    ],
+    'Engagement': [
+      { key: 'brideName', id: 'dash-le-bride', label: "Bride's name", placeholder: 'Meera Nair', required: true },
+      { key: 'groomName', id: 'dash-le-groom', label: "Groom's name", placeholder: 'Aarav Sharma', required: true }
+    ],
+    'Anniversary': [
+      { key: 'partner1Name', id: 'dash-le-p1', label: 'Partner 1 name', placeholder: 'Ananya', required: true },
+      { key: 'partner2Name', id: 'dash-le-p2', label: 'Partner 2 name', placeholder: 'Vikram', required: true }
+    ],
+    'Birthday': [
+      { key: 'honoreeName', id: 'dash-le-honoree', label: "Birthday person's name", placeholder: 'Riya', required: true },
+      { key: 'milestone', id: 'dash-le-milestone', label: 'Milestone / age (optional)', placeholder: '1st, 25th, 50th', required: false }
+    ],
+    'Baby Shower': [
+      { key: 'honoreeName', id: 'dash-le-honoree', label: "Mom-to-be / parents' name", placeholder: 'Kavya & Arjun', required: true }
+    ],
+    'Naming Ceremony': [
+      { key: 'babyName', id: 'dash-le-baby', label: "Baby's name", placeholder: 'Aadvik', required: true },
+      { key: 'parentsName', id: 'dash-le-parents', label: "Parents' names (optional)", placeholder: 'Neha & Rohan', required: false }
+    ],
+    'Housewarming': [
+      { key: 'hostName', id: 'dash-le-host', label: 'Host / family name', placeholder: 'Iyer Family', required: true }
+    ],
+    'Corporate & Team': [
+      { key: 'companyName', id: 'dash-le-company', label: 'Company / team name', placeholder: 'Acme India', required: true },
+      { key: 'eventTitle', id: 'dash-le-title', label: 'Event title', placeholder: 'Annual Summit', required: true }
+    ],
+    'College & Graduation': [
+      { key: 'collegeName', id: 'dash-le-college', label: 'College / batch name', placeholder: 'Batch of 2026', required: true },
+      { key: 'eventTitle', id: 'dash-le-title', label: 'Event title', placeholder: 'Annual Fest', required: true }
+    ],
+    'Festival': [
+      { key: 'eventTitle', id: 'dash-le-title', label: 'Celebration title', placeholder: 'Spring Cultural Night', required: true },
+      { key: 'hostName', id: 'dash-le-host', label: 'Community / host name', placeholder: 'Resident Association', required: false }
+    ]
+  };
+
+  var regSection = document.getElementById('register-event-section');
+  var typeSel = document.getElementById('dash-le-type');
+  var dynWrap = document.getElementById('dash-le-dynamic');
+  var dateInput = document.getElementById('dash-le-date');
+  var budgetInput = document.getElementById('dash-le-budget');
+  var regMsg = document.getElementById('dash-reg-msg');
+  var openBtn = document.getElementById('btn-open-register-event');
+  var closeBtn = document.getElementById('btn-close-register-event');
+  var regForm = document.getElementById('dash-register-event-form');
+
+  function formatDisplayDate(raw) {
+    if (!raw) return '';
+    var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(raw).trim());
+    if (!m) return String(raw);
+    var dt = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+    if (isNaN(dt.getTime())) return String(raw);
+    return dt.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+  }
+
+  function formatRupee(n) {
+    return '₹' + Number(n || 0).toLocaleString('en-IN');
+  }
+
+  function hasRegisteredEvent(user) {
+    return !!(user && ((user.eventName && String(user.eventName).trim()) || (user.eventType && String(user.eventType).trim())));
+  }
+
+  function resolveEventTitle(user) {
+    if (user.eventName && String(user.eventName).trim()) {
+      return String(user.eventName).trim();
+    }
+    var d = user.eventDetails || {};
+    var type = user.eventType || 'Celebration';
+    if (d.brideName && d.groomName) return d.brideName + ' & ' + d.groomName + "'s " + type;
+    if (d.partner1Name && d.partner2Name) return d.partner1Name + ' & ' + d.partner2Name + "'s " + type;
+    if (d.honoreeName) return d.honoreeName + "'s " + type;
+    if (d.babyName) return d.babyName + "'s " + type;
+    if (d.hostName) return d.hostName + "'s " + type;
+    if (d.eventTitle) return d.eventTitle;
+    return type;
+  }
+
+  function renderDynamicEventFields(prefill) {
+    var type = typeSel.value || 'Wedding';
+    var specs = EVENT_TYPE_CONFIG[type] || EVENT_TYPE_CONFIG['Wedding'];
+    var values = prefill || {};
+    dynWrap.innerHTML = '';
+    specs.forEach(function (spec) {
+      var box = document.createElement('div');
+      box.className = 'reg-field';
+      var lbl = document.createElement('label');
+      lbl.setAttribute('for', spec.id);
+      lbl.textContent = spec.label;
+      var inp = document.createElement('input');
+      inp.type = 'text';
+      inp.id = spec.id;
+      inp.placeholder = spec.placeholder;
+      if (values[spec.key]) inp.value = values[spec.key];
+      box.appendChild(lbl);
+      box.appendChild(inp);
+      dynWrap.appendChild(box);
+    });
+  }
+
+  function openRegisterEventPanel() {
+    regSection.hidden = false;
+    regMsg.hidden = true;
+    regSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  window.openRegisterEventPanel = openRegisterEventPanel;
+
+  openBtn.addEventListener('click', openRegisterEventPanel);
+  closeBtn.addEventListener('click', function () { regSection.hidden = true; });
+  typeSel.addEventListener('change', function () { renderDynamicEventFields({}); });
+  renderDynamicEventFields({});
+
+  function updateUserMetrics(user) {
+    var userKey = user && (user.email || user.id) ? String(user.email || user.id).toLowerCase().trim() : '';
+
+    // Budget summary strictly scoped to user's own login ID
+    var budgetTotal = Number(user && user.eventBudget) || 0;
+    var budgetSpent = 0;
+    try {
+      if (userKey) {
+        var bData = JSON.parse(localStorage.getItem('eventora-budget:' + userKey) || 'null');
+        if (bData && typeof bData === 'object') {
+          if (bData.total !== undefined) budgetTotal = Number(bData.total) || 0;
+          if (Array.isArray(bData.items)) {
+            budgetSpent = bData.items.reduce(function (s, i) { return s + (Number(i.act) || 0); }, 0);
+          }
+        }
+      }
+    } catch (e) {}
+    document.getElementById('dash-stat-spent').textContent = formatRupee(budgetSpent);
+    document.getElementById('dash-stat-total').textContent = 'of ' + formatRupee(budgetTotal) + ' estimated budget';
+
+    // Checklist summary strictly scoped to user's own login ID
+    var tasks = [];
+    try {
+      if (userKey) {
+        var cData = JSON.parse(localStorage.getItem('eventora-checklist:' + userKey) || 'null');
+        if (cData && Array.isArray(cData.tasks)) tasks = cData.tasks;
+      }
+    } catch (e) {}
+    var doneCount = tasks.filter(function (t) { return !!t.done; }).length;
+    var totalTasks = tasks.length;
+    document.getElementById('dash-stat-tasks').textContent = doneCount + ' / ' + totalTasks + ' Tasks';
+    document.getElementById('dash-progress-fill').style.width = (totalTasks ? Math.round((doneCount / totalTasks) * 100) : 0) + '%';
+
+    // Upcoming user-added tasks in milestones panel (no hardcoded sample events)
+    var listEl = document.getElementById('dash-milestones-list');
+    var upcoming = tasks.filter(function (t) { return !t.done; }).slice(0, 4);
+    listEl.innerHTML = '';
+    if (upcoming.length === 0) {
+      var emptyMsg = document.createElement('p');
+      emptyMsg.style.margin = '0';
+      emptyMsg.style.color = '#475569';
+      emptyMsg.textContent = hasRegisteredEvent(user)
+        ? 'Your event workspace is ready. Add budget expenses or checklist tasks whenever needed.'
+        : 'Register a new event above to personalize your planner, then add budget items and checklist tasks as needed.';
+      listEl.appendChild(emptyMsg);
+    } else {
+      upcoming.forEach(function (t) {
+        var row = document.createElement('div');
+        row.style.cssText = 'padding:14px; background:#F8FAFC; border-radius:14px; border:1px solid #E2E8F0;';
+        var meta = document.createElement('span');
+        meta.style.cssText = 'font-size:0.75rem; font-weight:800; color:#7E22CE; text-transform:uppercase; letter-spacing:0.06em;';
+        meta.textContent = (t.category || 'Task') + (t.due ? (' · ' + formatDisplayDate(t.due)) : '');
+        var h3 = document.createElement('h3');
+        h3.style.cssText = 'margin:4px 0 0; font-size:1.05rem;';
+        h3.textContent = t.title || 'Untitled task';
+        row.appendChild(meta);
+        row.appendChild(h3);
+        listEl.appendChild(row);
+      });
+    }
+  }
+
+  function applyDashboardUser(user) {
+    if (!user) return;
+    var titleEl = document.getElementById('dash-event-title');
+    var tagEl = document.getElementById('dash-user-tagline');
+    var kickerEl = document.getElementById('dash-hero-kicker');
+    var subEl = document.getElementById('dash-hero-sub');
+    var statTypeEl = document.getElementById('dash-stat-type');
+    var statDateEl = document.getElementById('dash-stat-date');
+
+    var userTypeLabel = user.role === 'vendor' ? 'Vendor Partner' : 'Customer';
+    var registered = hasRegisteredEvent(user);
+
+    if (registered) {
+      var eventTitle = resolveEventTitle(user);
+      var eventTypeLabel = (user.eventType || '').trim();
+      var fDate = formatDisplayDate(user.eventDate);
+      if (kickerEl) kickerEl.textContent = (eventTypeLabel ? eventTypeLabel.toUpperCase() + ' ' : '') + 'PLANNING HUB';
+      if (titleEl) titleEl.textContent = eventTitle;
+      if (tagEl) tagEl.textContent = eventTypeLabel ? (userTypeLabel + ' · ' + eventTypeLabel) : userTypeLabel;
+      if (subEl) {
+        subEl.textContent = fDate
+          ? ('Scheduled for ' + fDate + '. Add your budget items, checklist tasks, venues, and guest RSVPs when needed.')
+          : 'Add your budget items, checklist tasks, venues, and guest RSVPs when needed.';
+      }
+      if (statTypeEl) statTypeEl.textContent = eventTypeLabel || 'Active Event';
+      if (statDateEl) {
+        var parts = [];
+        if (fDate) parts.push(fDate);
+        if (user.city) parts.push(user.city);
+        statDateEl.textContent = parts.length ? parts.join(' · ') : 'Date not set';
+      }
+      openBtn.textContent = 'Update / Register New Event';
+
+      if (user.eventType && Array.from(typeSel.options).some(function (o) { return o.value === user.eventType; })) {
+        typeSel.value = user.eventType;
+      }
+      renderDynamicEventFields(user.eventDetails || {});
+      if (user.eventDate) dateInput.value = user.eventDate;
+      if (budgetInput && Number(user.eventBudget) > 0) budgetInput.value = String(user.eventBudget);
+    } else {
+      if (kickerEl) kickerEl.textContent = 'EVENT PLANNING HUB';
+      if (titleEl) titleEl.textContent = user.name ? ('Welcome, ' + user.name) : 'Welcome';
+      if (tagEl) tagEl.textContent = userTypeLabel;
+      if (subEl) subEl.textContent = 'Select or register a new event to personalize your event dashboard, budget, and checklist.';
+      if (statTypeEl) statTypeEl.textContent = 'No Event Selected';
+      if (statDateEl) statDateEl.textContent = 'Click Register New Event to set event type, date, and budget';
+      openBtn.textContent = 'Register New Event';
+    }
+
+    var params = new URLSearchParams(window.location.search);
+    if (!registered || params.get('registerEvent') === '1' || window.location.hash === '#register-event-section') {
+      regSection.hidden = false;
+    }
+
+    updateUserMetrics(user);
+  }
+
+  regForm.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    var type = typeSel.value || 'Wedding';
+    var specs = EVENT_TYPE_CONFIG[type] || [];
+    var details = {};
+    for (var i = 0; i < specs.length; i++) {
+      var spec = specs[i];
+      var val = (document.getElementById(spec.id) ? document.getElementById(spec.id).value : '').trim();
+      if (spec.required && !val) {
+        regMsg.textContent = 'Please enter ' + spec.label.toLowerCase() + '.';
+        regMsg.className = 'reg-status err';
+        regMsg.hidden = false;
+        return;
+      }
+      if (val) details[spec.key] = val;
+    }
+    var eventDate = dateInput.value.trim();
+    if (!eventDate) {
+      regMsg.textContent = 'Please select the date of the event.';
+      regMsg.className = 'reg-status err';
+      regMsg.hidden = false;
+      return;
+    }
+    var rawBudgetStr = budgetInput ? budgetInput.value.trim() : '';
+    var eventBudget = Number(rawBudgetStr);
+    if (rawBudgetStr === '' || isNaN(eventBudget) || eventBudget < 0) {
+      regMsg.textContent = 'Please enter a valid estimated budget (0 or more).';
+      regMsg.className = 'reg-status err';
+      regMsg.hidden = false;
+      return;
+    }
+
+    regMsg.hidden = true;
+    var saveBtn = document.getElementById('btn-save-dash-event');
+    var orig = saveBtn.textContent;
+    saveBtn.textContent = 'Saving event...';
+    saveBtn.disabled = true;
+
+    try {
+      var res = await fetch('/api/auth/event', {
+        method: 'PUT',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ eventType: type, eventDate: eventDate, eventDetails: details, eventBudget: eventBudget })
+      });
+      var data = await res.json();
+      if (res.ok && data && data.success && data.user) {
+        localStorage.setItem('eventora_user', JSON.stringify(data.user));
+        var uKey = (data.user.email || data.user.id || '').toLowerCase().trim();
+        if (uKey) {
+          localStorage.setItem('eventora-budget:' + uKey, JSON.stringify({ total: Number(data.user.eventBudget) || 0, items: [] }));
+        }
+        applyDashboardUser(data.user);
+        regSection.hidden = true;
+        regMsg.hidden = true;
+      } else {
+        regMsg.textContent = (data && data.message) || 'Could not save event details.';
+        regMsg.className = 'reg-status err';
+        regMsg.hidden = false;
+      }
+    } catch (err) {
+      regMsg.textContent = 'Network error while saving event.';
+      regMsg.className = 'reg-status err';
+      regMsg.hidden = false;
+    } finally {
+      saveBtn.textContent = orig;
+      saveBtn.disabled = false;
+    }
+  });
+
+  try {
+    localStorage.removeItem('eventora-budget');
+    localStorage.removeItem('eventora-checklist-shubh-v1');
+    localStorage.removeItem('eventora-checklist-queue-v1');
+  } catch (e) {}
+
+  try {
+    var cached = JSON.parse(localStorage.getItem('eventora_user'));
+    if (cached) applyDashboardUser(cached);
+  } catch (e) {}
+
+  fetch('/api/auth/me', { credentials: 'same-origin' })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (data) {
+      if (data && data.authenticated && data.user) {
+        localStorage.setItem('eventora_user', JSON.stringify(data.user));
+        var uKey = (data.user.email || data.user.id || '').toLowerCase().trim();
+        applyDashboardUser(data.user);
+
+        Promise.all([
+          fetch('/api/budget', { credentials: 'same-origin' }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }),
+          fetch('/api/checklist', { credentials: 'same-origin' }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; })
+        ]).then(function (results) {
+          var bRes = results[0];
+          var cRes = results[1];
+          if (uKey && bRes && bRes.success && bRes.data) {
+            localStorage.setItem('eventora-budget:' + uKey, JSON.stringify(bRes.data));
+          }
+          if (uKey && cRes && cRes.success && cRes.data) {
+            localStorage.setItem('eventora-checklist:' + uKey, JSON.stringify(cRes.data));
+          }
+          updateUserMetrics(data.user);
+        });
+      }
+    })
+    .catch(function () {});
+
+  fetch('/api/guests', { credentials: 'same-origin' })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (res) {
+      if (res && res.success && Array.isArray(res.data)) {
+        var accepted = res.data.filter(function (g) { return g.status === 'Accepted'; });
+        var heads = accepted.reduce(function (s, g) { return s + 1 + (Number(g.plus) || 0); }, 0);
+        document.getElementById('dash-stat-guests').textContent = heads + ' Heads';
+        document.getElementById('dash-stat-guests-sub').textContent = accepted.length + ' confirmed of ' + res.data.length + ' invited';
+      }
+    })
+    .catch(function () {});
+})();
+</script>
 <script src="js/ora.js"></script>
 </body>
 </html>

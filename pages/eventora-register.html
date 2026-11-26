@@ -4,11 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Register &amp; Sign In · Eventora</title>
-  <link rel="icon" href="images/logo.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <style>
+  <link rel="icon" href="images/logo.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"><style>
     :root {
       --ink: #0F172A;
       --muted: #475569;
@@ -82,7 +78,7 @@
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     .field { margin-bottom: 14px; }
     .field label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); margin-bottom: 4px; }
-    .field input[type="text"], .field input[type="email"], .field input[type="password"], .field input[type="tel"], .field select, .field textarea {
+    .field input[type="text"], .field input[type="email"], .field input[type="password"], .field input[type="tel"], .field input[type="date"], .field select, .field textarea {
       width: 100%; padding: 11px 14px; border: 1px solid var(--slate-200); border-radius: 12px; background: var(--white); font-size: 15px;
     }
     .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--focus); outline: none; box-shadow: 0 0 0 3px rgba(37,99,235,0.18); }
@@ -112,6 +108,11 @@
     .terms-msg { display: none; font-size: 12px; color: var(--error); margin-bottom: 8px; }
     .terms-msg.is-error { display: block; }
 
+    .event-reg-box { margin-top: 14px; padding: 14px 16px; background: #FAF5FF; border: 1px solid #E9D5FF; border-radius: 16px; }
+    .event-reg-toggle { width: 100%; display: flex; align-items: center; justify-content: space-between; background: none; border: none; padding: 0; cursor: pointer; font-weight: 700; font-size: 14px; color: var(--ink); text-align: left; }
+    .event-reg-badge { font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: var(--white); border: 1px solid #D8B4FE; color: #7E22CE; }
+    #reg-event-fields { margin-top: 14px; padding-top: 14px; border-top: 1px solid #E9D5FF; }
+
     .demo-box { margin-top: 18px; padding: 14px 16px; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 14px; font-size: 13px; color: var(--muted); }
     .demo-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
     .demo-pill { padding: 6px 12px; border-radius: 999px; border: 1px solid #CBD5E1; background: #FFFFFF; font-size: 12px; font-weight: 600; cursor: pointer; }
@@ -138,17 +139,14 @@
       *, *::before, *::after { transition: none !important; animation: none !important; }
     }
   </style>
-  <link rel="stylesheet" href="css/navbar.css">
-  <link rel="stylesheet" href="css/ora.css">
-</head>
+  <link rel="stylesheet" href="css/navbar.css"><link rel="stylesheet" href="css/ora.css"></head>
 <body>
 <a href="#main" class="skip-link">Skip to content</a>
 
 <nav>
   <a class="brand" href="index.html"><img src="images/logo.png" alt="Eventora logo">Eventora</a>
-  <button id="burger" aria-label="Open menu" aria-expanded="false">☰</button>
-  <div class="links" id="links">
-    <a href="index.html">Home</a>
+  <button id="burger" aria-label="Open menu" aria-expanded="false"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+  <div class="links" id="links"><a href="index.html">Home</a>
     <a href="chatbot.html">Chatbot</a>
     <a class="btn sm on" href="register.html">Login / Register</a>
   </div>
@@ -158,8 +156,7 @@
 <header class="hero hero-compact">
   <img class="hero-img" src="images/venues/1.jpg" alt="" aria-hidden="true">
   <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <p class="hero-kicker">✦ JOIN THE EVENTORA CELEBRATION COMMUNITY ✦</p>
+  <div class="hero-content"><p class="hero-kicker">JOIN THE EVENTORA CELEBRATION COMMUNITY </p>
     <h1>Create Your Account or Sign In</h1>
     <p>Register as a celebration host or vendor partner — saved securely with MongoDB and instant dashboard access.</p>
   </div>
@@ -173,10 +170,8 @@
     <h1 id="side-title">A little account.<br>A world of possibilities.</h1>
     <p class="lead" id="side-lead">Your plans, people and favourite ideas, together in one thoughtful space. Let’s make something wonderful.</p>
     <div class="side-photo" role="img" aria-label="Celebration banquet setup"></div>
-    <div class="side-logo">
-      <img src="images/logo.png" alt="Eventora lotus symbol">
-      <div>
-        <strong>A small symbol for big moments.</strong>
+    <div class="side-logo"><img src="images/logo.png" alt="Eventora lotus symbol">
+      <div><strong>A small symbol for big moments.</strong>
         <span>Eventora lotus symbol</span>
       </div>
     </div>
@@ -185,84 +180,58 @@
   <!-- Right column -->
   <section aria-label="Account Access">
     <!-- Top Mode Selection -->
-    <div class="seg" role="tablist" aria-label="Account mode">
-      <button type="button" role="tab" id="mode-tab-reg" class="mode-btn" aria-selected="true">Create Account (Register)</button>
+    <div class="seg" role="tablist" aria-label="Account mode"><button type="button" role="tab" id="mode-tab-reg" class="mode-btn" aria-selected="true">Create Account (Register)</button>
       <button type="button" role="tab" id="mode-tab-login" class="mode-btn" aria-selected="false">Sign In (Login)</button>
     </div>
 
     <!-- Sub-tabs for Registration: Customer vs Vendor -->
-    <div class="seg" id="reg-tabs" role="tablist" aria-label="Account type">
-      <button type="button" role="tab" id="tab-user" aria-selected="true" aria-controls="panel" data-tab="user">Customer (User)</button>
+    <div class="seg" id="reg-tabs" role="tablist" aria-label="Account type"><button type="button" role="tab" id="tab-user" aria-selected="true" aria-controls="panel" data-tab="user">Customer (User)</button>
       <button type="button" role="tab" id="tab-vendor" aria-selected="false" aria-controls="panel" data-tab="vendor">Vendor Partner</button>
     </div>
 
-    <div class="card" id="panel" role="tabpanel" aria-labelledby="user-heading">
-      <div id="form-area">
-
-        <!-- User Registration Form -->
+    <div class="card" id="panel" role="tabpanel" aria-labelledby="user-heading"><div id="form-area"><!-- User Registration Form -->
         <form id="user-form" novalidate>
           <h2 id="user-heading">Make room for your next big day.</h2>
           <p class="already">Already part of Eventora? <a href="#" class="to-login-link">Log in ↗</a></p>
           <p class="pill-error" id="user-summary" role="alert" hidden></p>
 
-          <div class="grid-2">
-            <div class="field" id="f-u-first">
-              <label for="u-first">First name</label>
+          <div class="grid-2"><div class="field" id="f-u-first"><label for="u-first">First name</label>
               <input type="text" id="u-first" autocomplete="given-name" placeholder="Aarav">
               <p class="msg" id="u-first-msg"></p>
             </div>
-            <div class="field" id="f-u-last">
-              <label for="u-last">Last name</label>
+            <div class="field" id="f-u-last"><label for="u-last">Last name</label>
               <input type="text" id="u-last" autocomplete="family-name" placeholder="Sharma">
               <p class="msg" id="u-last-msg"></p>
             </div>
           </div>
 
-          <div class="grid-2">
-            <div class="field" id="f-u-email">
-              <label for="u-email">Email address</label>
+          <div class="grid-2"><div class="field" id="f-u-email"><label for="u-email">Email address</label>
               <input type="email" id="u-email" autocomplete="email" placeholder="aarav@example.com">
               <p class="msg" id="u-email-msg"></p>
             </div>
-            <div class="field" id="f-u-phone">
-              <label for="u-phone">Phone (optional)</label>
+            <div class="field" id="f-u-phone"><label for="u-phone">Phone (optional)</label>
               <input type="tel" id="u-phone" autocomplete="tel" placeholder="+91 98765 43210">
               <p class="msg" id="u-phone-msg"></p>
             </div>
           </div>
 
-          <div class="field" id="f-u-password">
-            <label for="u-password">Create password</label>
-            <div class="pw-wrap">
-              <input type="password" id="u-password" autocomplete="new-password">
+          <div class="field" id="f-u-password"><label for="u-password">Create password</label>
+            <div class="pw-wrap"><input type="password" id="u-password" autocomplete="new-password">
               <button type="button" class="pw-toggle" data-toggle="u-password" aria-label="Show password">Show</button>
             </div>
             <p class="msg" id="u-password-msg"></p>
           </div>
-          <div class="rules" aria-live="polite">
-            <span class="rule" id="ur-length">8+ characters</span>
+          <div class="rules" aria-live="polite"><span class="rule" id="ur-length">8+ characters</span>
             <span class="rule" id="ur-number">Number</span>
             <span class="rule" id="ur-special">Special character</span>
           </div>
 
-          <div class="field" id="f-u-confirm">
-            <label for="u-confirm">Confirm password</label>
-            <div class="pw-wrap">
-              <input type="password" id="u-confirm" autocomplete="new-password">
+          <div class="field" id="f-u-confirm"><label for="u-confirm">Confirm password</label>
+            <div class="pw-wrap"><input type="password" id="u-confirm" autocomplete="new-password">
               <button type="button" class="pw-toggle" data-toggle="u-confirm" aria-label="Show password">Show</button>
             </div>
             <p class="msg" id="u-confirm-msg"></p>
           </div>
-
-          <div class="terms">
-            <input type="checkbox" id="u-terms">
-            <label for="u-terms">I agree to the Terms of Service and Privacy Policy.</label>
-          </div>
-          <div class="terms">
-            <input type="checkbox" id="u-news">
-            <label for="u-news">Send me occasional inspiration and planning tips.</label>
-          </div>
-          <p class="terms-msg" id="u-terms-msg">Please accept the terms to continue.</p>
 
           <button type="submit" class="btn btn-solid btn-block">Create customer account →</button>
         </form>
@@ -273,15 +242,12 @@
           <p class="already">Already part of Eventora? <a href="#" class="to-login-link">Log in ↗</a></p>
           <p class="pill-error" id="vendor-summary" role="alert" hidden></p>
 
-          <div class="field" id="f-v-bname">
-            <label for="v-bname">Business name</label>
+          <div class="field" id="f-v-bname"><label for="v-bname">Business name</label>
             <input type="text" id="v-bname" autocomplete="organization" placeholder="Glow by Meera Studio">
             <p class="msg" id="v-bname-msg"></p>
           </div>
 
-          <div class="grid-2">
-            <div class="field" id="f-v-category">
-              <label for="v-category">Category</label>
+          <div class="grid-2"><div class="field" id="f-v-category"><label for="v-category">Category</label>
               <select id="v-category">
                 <option value="">Choose a category</option>
                 <option value="Catering">Catering</option>
@@ -291,81 +257,59 @@
                 <option value="Host &amp; Anchor">Host &amp; Anchor</option>
                 <option value="DJ &amp; Music">DJ &amp; Music</option>
                 <option value="Florist">Florist</option>
-                <option value="Banquet &amp; Mandap Venue">Banquet &amp; Mandap Venue</option>
+                <option value="Banquet &amp; Ceremony Stage Venue">Banquet &amp; Ceremony Stage Venue</option>
               </select>
               <p class="msg" id="v-category-msg"></p>
             </div>
-            <div class="field" id="f-v-city">
-              <label for="v-city">City</label>
+            <div class="field" id="f-v-city"><label for="v-city">City</label>
               <input type="text" id="v-city" autocomplete="address-level2" placeholder="Coimbatore">
               <p class="msg" id="v-city-msg"></p>
             </div>
           </div>
 
-          <div class="field" id="f-v-services">
-            <label for="v-services">Services offered</label>
+          <div class="field" id="f-v-services"><label for="v-services">Services offered</label>
             <input type="text" id="v-services" placeholder="e.g. Bridal makeup, Hair styling, Saree draping">
             <p class="msg" id="v-services-msg"></p>
           </div>
 
-          <div class="grid-2">
-            <div class="field" id="f-v-price">
-              <label for="v-price">Starting price (₹ INR)</label>
+          <div class="grid-2"><div class="field" id="f-v-price"><label for="v-price">Starting price (₹ INR)</label>
               <input type="text" id="v-price" inputmode="decimal" placeholder="e.g. 8000">
               <p class="msg" id="v-price-msg"></p>
             </div>
-            <div class="field" id="f-v-contact">
-              <label for="v-contact">Contact person name</label>
+            <div class="field" id="f-v-contact"><label for="v-contact">Contact person name</label>
               <input type="text" id="v-contact" autocomplete="name" placeholder="Meera Nair">
               <p class="msg" id="v-contact-msg"></p>
             </div>
           </div>
 
-          <div class="grid-2">
-            <div class="field" id="f-v-email">
-              <label for="v-email">Business email</label>
+          <div class="grid-2"><div class="field" id="f-v-email"><label for="v-email">Business email</label>
               <input type="email" id="v-email" autocomplete="email" placeholder="hello@glowbymeera.in">
               <p class="msg" id="v-email-msg"></p>
             </div>
-            <div class="field" id="f-v-phone">
-              <label for="v-phone">Phone</label>
+            <div class="field" id="f-v-phone"><label for="v-phone">Phone</label>
               <input type="tel" id="v-phone" autocomplete="tel" placeholder="+91 98765 43210">
               <p class="msg" id="v-phone-msg"></p>
             </div>
           </div>
 
-          <div class="upload">
-            <strong>↑ Upload initial portfolio sample (optional)</strong>
-            <p>JPG, PNG or PDF · Up to 10 MB · Add more anytime in your Vendor Dashboard</p>
-            <label class="choose" for="v-portfolio">Choose file</label>
-            <input type="file" id="v-portfolio" accept=".jpg,.jpeg,.png,.pdf,image/jpeg,image/png,application/pdf">
+          <div class="upload"><strong>↑ User Profile *</strong>
+            <p>Required · JPG, PNG or WebP image · Up to 10 MB · Reflected directly in your Vendor Profile</p>
+            <label class="choose" for="v-portfolio">Choose image</label>
+            <input type="file" id="v-portfolio" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" required>
             <span class="file-chip" id="file-chip" hidden></span>
             <p class="msg" id="v-portfolio-msg"></p>
           </div>
 
-          <div class="field" id="f-v-password">
-            <label for="v-password">Create password</label>
-            <div class="pw-wrap">
-              <input type="password" id="v-password" autocomplete="new-password">
+          <div class="field" id="f-v-password"><label for="v-password">Create password</label>
+            <div class="pw-wrap"><input type="password" id="v-password" autocomplete="new-password">
               <button type="button" class="pw-toggle" data-toggle="v-password" aria-label="Show password">Show</button>
             </div>
             <p class="msg" id="v-password-msg"></p>
           </div>
-          <div class="rules" aria-live="polite">
-            <span class="rule" id="r-length">8+ characters</span>
+          <div class="rules" aria-live="polite"><span class="rule" id="r-length">8+ characters</span>
             <span class="rule" id="r-number">Number</span>
             <span class="rule" id="r-special">Special character</span>
           </div>
-
-          <div class="terms">
-            <input type="checkbox" id="v-terms">
-            <label for="v-terms">I agree to the Terms of Service and Privacy Policy.</label>
-          </div>
-          <div class="terms">
-            <input type="checkbox" id="v-news">
-            <label for="v-news">Send me vendor leads and platform updates.</label>
-          </div>
-          <p class="terms-msg" id="v-terms-msg">Please accept the terms to continue.</p>
 
           <button type="submit" class="btn btn-solid btn-block">Create vendor profile →</button>
         </form>
@@ -376,16 +320,13 @@
           <p class="already">New to Eventora? <a href="#" id="link-to-register">Create an account ↗</a></p>
           <p class="pill-error" id="login-summary" role="alert" hidden></p>
 
-          <div class="field" id="f-l-email">
-            <label for="l-email">Email address</label>
+          <div class="field" id="f-l-email"><label for="l-email">Email address</label>
             <input type="email" id="l-email" required autocomplete="username" placeholder="name@example.com">
             <p class="msg" id="l-email-msg"></p>
           </div>
 
-          <div class="field" id="f-l-password">
-            <label for="l-password">Password</label>
-            <div class="pw-wrap">
-              <input type="password" id="l-password" required autocomplete="current-password" placeholder="Enter your password">
+          <div class="field" id="f-l-password"><label for="l-password">Password</label>
+            <div class="pw-wrap"><input type="password" id="l-password" required autocomplete="current-password" placeholder="Enter your password">
               <button type="button" class="pw-toggle" data-toggle="l-password" aria-label="Show password">Show</button>
             </div>
             <p class="msg" id="l-password-msg"></p>
@@ -393,10 +334,8 @@
 
           <button type="submit" class="btn btn-solid btn-block" id="btn-login-submit" style="margin-top:16px;">Sign In to Eventora →</button>
 
-          <div class="demo-box">
-            <strong>Quick Demo Access:</strong>
-            <div class="demo-actions">
-              <button type="button" class="demo-pill" id="fill-demo-user">Use Demo Customer (demo@eventora.com)</button>
+          <div class="demo-box"><strong>Quick Demo Access:</strong>
+            <div class="demo-actions"><button type="button" class="demo-pill" id="fill-demo-user">Use Demo Customer (demo@eventora.com)</button>
               <button type="button" class="demo-pill" id="fill-demo-vendor">Use Demo Vendor (vendor.demo@eventora.com)</button>
             </div>
           </div>
@@ -437,13 +376,14 @@
 
   var PASSWORD_HINT = 'Use at least 8 characters, including a number and a special character.';
   var MAX_FILE_MB = 10;
-  var ALLOWED_TYPES = ['image/jpeg', 'image/png', 'application/pdf'];
+  var ALLOWED_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
   var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   var SPECIAL_RE = /[^A-Za-z0-9]/;
 
   var currentTab = 'user';
   var currentMode = 'register';
   var uploadedPortfolioName = '';
+  var portfolioReadPromise = null;
 
   function $(id) { return document.getElementById(id); }
 
@@ -525,15 +465,15 @@
       check: function (v) { return v.trim() ? null : 'Enter your last name.'; }
     },
     email: {
-      input: $('u-email'), field: $('f-u-email'), msg: $('u-email-msg'), ok: '✓ Valid email format',
+      input: $('u-email'), field: $('f-u-email'), msg: $('u-email-msg'), ok: 'Valid email format',
       check: function (v) { var t = v.trim(); return !t ? 'Enter your email address.' : (EMAIL_RE.test(t) ? null : 'Enter a valid email address.'); }
     },
     password: {
-      input: $('u-password'), field: $('f-u-password'), msg: $('u-password-msg'), ok: '✓ Password meets the rules',
+      input: $('u-password'), field: $('f-u-password'), msg: $('u-password-msg'), ok: 'Password meets the rules',
       check: function (v) { return passwordError(v); }
     },
     confirm: {
-      input: $('u-confirm'), field: $('f-u-confirm'), msg: $('u-confirm-msg'), ok: '✓ Passwords match',
+      input: $('u-confirm'), field: $('f-u-confirm'), msg: $('u-confirm-msg'), ok: 'Passwords match',
       check: function (v) { return !v ? 'Confirm your password.' : (v === $('u-password').value ? null : 'Passwords do not match.'); }
     }
   };
@@ -555,12 +495,6 @@
     Object.keys(USER_FIELDS).forEach(function (k) {
       if (validateSingle(USER_FIELDS, k, true)) errors++;
     });
-    if (!$('u-terms').checked) {
-      $('u-terms-msg').classList.add('is-error');
-      errors++;
-    } else {
-      $('u-terms-msg').classList.remove('is-error');
-    }
     if (errors > 0) {
       EL.uSummary.textContent = 'Please fix the highlighted fields below.';
       EL.uSummary.hidden = false;
@@ -607,22 +541,31 @@
       check: function (v) { var t = v.trim(); return !t ? 'Enter a phone number.' : (t.replace(/\D/g, '').length >= 7 ? null : 'Enter a valid phone number.'); }
     },
     password: {
-      input: $('v-password'), field: $('f-v-password'), msg: $('v-password-msg'), ok: '✓ Password meets the rules',
+      input: $('v-password'), field: $('f-v-password'), msg: $('v-password-msg'), ok: 'Password meets the rules',
       check: function (v) { return passwordError(v); }
     }
   };
+
+  function validateVendorProfileImage() {
+    var msg = $('v-portfolio-msg');
+    var input = $('v-portfolio');
+    var hasFile = Boolean(uploadedPortfolioName || window._uploadedPortfolioDataUrl || (input && input.files && input.files[0]));
+    if (!hasFile) {
+      if (msg) {
+        msg.textContent = 'Please upload your User Profile image (JPG, PNG or WebP).';
+        msg.className = 'msg is-error';
+      }
+      return false;
+    }
+    return true;
+  }
 
   function validateVendorAll() {
     var errors = 0;
     Object.keys(VENDOR_FIELDS).forEach(function (k) {
       if (validateSingle(VENDOR_FIELDS, k, true)) errors++;
     });
-    if (!$('v-terms').checked) {
-      $('v-terms-msg').classList.add('is-error');
-      errors++;
-    } else {
-      $('v-terms-msg').classList.remove('is-error');
-    }
+    if (!validateVendorProfileImage()) errors++;
     if (errors > 0) {
       EL.vSummary.textContent = 'Some details need attention.';
       EL.vSummary.hidden = false;
@@ -644,9 +587,6 @@
     });
     input.addEventListener('blur', function () { validateSingle(USER_FIELDS, k, false); });
   });
-  $('u-terms').addEventListener('change', function () {
-    if (this.checked) $('u-terms-msg').classList.remove('is-error');
-  });
 
   Object.keys(VENDOR_FIELDS).forEach(function (k) {
     var input = VENDOR_FIELDS[k].input;
@@ -656,9 +596,6 @@
       validateSingle(VENDOR_FIELDS, k, false);
     });
     input.addEventListener('blur', function () { validateSingle(VENDOR_FIELDS, k, false); });
-  });
-  $('v-terms').addEventListener('change', function () {
-    if (this.checked) $('v-terms-msg').classList.remove('is-error');
   });
 
   // ---------- Mode & Tabs ----------
@@ -728,10 +665,14 @@
     var chip = $('file-chip');
     chip.hidden = true;
     msg.className = 'msg';
+    msg.textContent = '';
     uploadedPortfolioName = '';
+    portfolioReadPromise = null;
+    window._uploadedPortfolioDataUrl = '';
     if (!file) return;
-    if (ALLOWED_TYPES.indexOf(file.type) === -1) {
-      msg.textContent = 'Upload a JPG, PNG or PDF file.';
+    var isAllowedExt = /\.(jpe?g|png|webp)$/i.test(file.name || '');
+    if (ALLOWED_TYPES.indexOf(file.type) === -1 && !( !file.type && isAllowedExt )) {
+      msg.textContent = 'Upload a JPG, PNG or WebP image.';
       msg.className = 'msg is-error';
       this.value = '';
       return;
@@ -743,21 +684,58 @@
       return;
     }
     uploadedPortfolioName = file.name;
-    chip.textContent = '✓ ' + file.name + ' · ' + (file.size / (1024 * 1024)).toFixed(1) + ' MB';
+    chip.textContent = '' + file.name + ' · ' + (file.size / (1024 * 1024)).toFixed(1) + ' MB';
     chip.hidden = false;
+    msg.textContent = 'User Profile image ready';
+    msg.className = 'msg is-ok';
+    portfolioReadPromise = new Promise(function (resolve) {
+      var reader = new FileReader();
+      reader.onload = function (ev) {
+        var rawDataUrl = ev && ev.target && ev.target.result ? String(ev.target.result) : '';
+        var img = new Image();
+        img.onload = function () {
+          try {
+            var maxW = 900;
+            var scale = img.width > maxW ? (maxW / img.width) : 1;
+            var canvas = document.createElement('canvas');
+            canvas.width = Math.max(1, Math.round(img.width * scale));
+            canvas.height = Math.max(1, Math.round(img.height * scale));
+            canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+            window._uploadedPortfolioDataUrl = canvas.toDataURL('image/jpeg', 0.8);
+          } catch (_) {
+            window._uploadedPortfolioDataUrl = rawDataUrl;
+          }
+          resolve(window._uploadedPortfolioDataUrl);
+        };
+        img.onerror = function () {
+          window._uploadedPortfolioDataUrl = rawDataUrl;
+          resolve(rawDataUrl);
+        };
+        img.src = rawDataUrl;
+      };
+      reader.onerror = function () {
+        window._uploadedPortfolioDataUrl = '';
+        resolve('');
+      };
+      reader.readAsDataURL(file);
+    });
   });
 
   function redirectAfterAuth(user) {
-    var target = user && user.role === 'vendor' ? 'vendor-dashboard.html' : 'eventora-dashboard.html';
-    if (user && user.role !== 'vendor') {
-      try {
+    var target = user && user.role === 'vendor' ? '/vendor-dashboard' : '/dashboard';
+    try {
+      var urlParams = new URLSearchParams(window.location.search);
+      var queryRedirect = urlParams.get('redirect');
+      if (queryRedirect && queryRedirect.charAt(0) === '/' && queryRedirect.indexOf('//') !== 0) {
+        target = queryRedirect;
+      } else if (user && user.role !== 'vendor') {
         var savedRedirect = sessionStorage.getItem('eventora_redirect');
         if (savedRedirect) {
           sessionStorage.removeItem('eventora_redirect');
           target = savedRedirect;
         }
-      } catch (e) {}
-    }
+      }
+    } catch (e) {}
     window.location.href = target;
   }
 
@@ -773,6 +751,7 @@
     try {
       var res = await fetch(url, {
         method: 'POST',
+        credentials: 'same-origin',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
         signal: controller.signal
@@ -781,6 +760,11 @@
       var result = await res.json();
       if (result.success && result.user) {
         localStorage.setItem('eventora_user', JSON.stringify(result.user));
+        if (result.sessionId) {
+          localStorage.setItem('oraSession', result.sessionId);
+        } else {
+          localStorage.removeItem('oraSession');
+        }
         showToast(successToast);
         setTimeout(function () { redirectAfterAuth(result.user); }, 180);
       } else {
@@ -814,7 +798,7 @@
       password: $('u-password').value,
       phone: phoneEl ? phoneEl.value.trim() : '',
       role: 'user',
-      eventType: 'Tamil Thirumanam & Celebration'
+      eventType: ''
     };
     submitAuth(
       '/api/auth/register',
@@ -822,22 +806,32 @@
       EL.userForm.querySelector('button[type="submit"]'),
       'Creating account...',
       EL.uSummary,
-      '✓ Account created! Opening dashboard...'
+      'Account created. Opening dashboard...'
     );
   });
 
   // ---------- Submit Vendor Registration ----------
-  EL.vendorForm.addEventListener('submit', function (e) {
+  EL.vendorForm.addEventListener('submit', async function (e) {
     e.preventDefault();
     if (validateVendorAll() > 0) {
       var firstInvalid = EL.vendorForm.querySelector('.is-invalid input, .is-invalid select');
       if (firstInvalid) firstInvalid.focus();
       return;
     }
+    if (portfolioReadPromise) {
+      await portfolioReadPromise;
+    }
     var bname = $('v-bname').value.trim();
     var category = $('v-category').value;
     var services = $('v-services').value.trim();
     var city = $('v-city').value.trim();
+    var initPic = window._uploadedPortfolioDataUrl || '';
+    if (!initPic) {
+      validateVendorProfileImage();
+      EL.vSummary.textContent = 'Please upload a valid User Profile image (JPG, PNG or WebP).';
+      EL.vSummary.hidden = false;
+      return;
+    }
     var payload = {
       name: $('v-contact').value.trim() || bname,
       businessName: bname,
@@ -849,7 +843,8 @@
       email: $('v-email').value.trim(),
       password: $('v-password').value,
       description: bname + ' — ' + category + ' in ' + city + ' (' + services + ')',
-      portfolio: uploadedPortfolioName ? [{ title: uploadedPortfolioName, description: 'Initial portfolio upload', image: '' }] : [],
+      portfolio: [{ title: uploadedPortfolioName || (bname + ' Profile'), description: 'Vendor User Profile image', image: initPic }],
+      pictures: [initPic],
       role: 'vendor'
     };
     submitAuth(
@@ -858,7 +853,7 @@
       EL.vendorForm.querySelector('button[type="submit"]'),
       'Creating vendor profile...',
       EL.vSummary,
-      '✓ Vendor registered! Opening dashboard...'
+      'Vendor registered. Opening dashboard...'
     );
   });
 
@@ -879,7 +874,7 @@
       $('btn-login-submit'),
       'Signing in...',
       EL.lSummary,
-      '✓ Signed in! Redirecting...'
+      'Signed in. Redirecting...'
     );
   });
 
@@ -919,21 +914,18 @@
 </script>
 
 <!-- ===== ORA FLOATING CHAT ===== -->
-<button id="ora-fab" class="ora-fab" aria-label="Chat with Ora" aria-expanded="false">💬</button>
+<button id="ora-fab" class="ora-fab" aria-label="Chat with Ora" aria-expanded="false"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
 <section id="ora-window" class="ora-window" hidden aria-label="Chat with Ora">
   <header class="ora-head">
-    <strong>Ora</strong> · your planning buddy
+    <strong>Ora</strong> · your planning assistant
     <button id="ora-close" class="ora-x" aria-label="Close chat">×</button>
   </header>
   <div id="ora-log" class="ora-log" role="log" aria-live="polite"></div>
-  <div class="ora-quick">
-    <button data-q="Find venues">Find venues</button>
+  <div class="ora-quick"><button data-q="Find venues">Find venues</button>
     <button data-q="Set a budget">Set a budget</button>
     <button data-q="Make an invite">Make an invite</button>
-    <button data-q="Talk to a human">Talk to a human</button>
   </div>
-  <div class="ora-form">
-    <label for="ora-input" class="sr-only">Message Ora</label>
+  <div class="ora-form"><label for="ora-input" class="sr-only">Message Ora</label>
     <input id="ora-input" type="text" maxlength="500" placeholder="Ask Ora anything..." autocomplete="off">
     <button id="ora-send" class="ora-send">Send</button>
   </div>

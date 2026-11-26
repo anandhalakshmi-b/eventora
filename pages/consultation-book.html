@@ -4,19 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Book a Wedding Consultant | Eventora</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Dancing+Script:wght@600&family=Playfair+Display:wght@600;800&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/theme.css">
-  <link rel="stylesheet" href="css/consultation.css">
-  <link rel="stylesheet" href="css/navbar.css">
-  <link rel="stylesheet" href="css/ora.css">
-</head>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Dancing+Script:wght@600&family=Playfair+Display:wght@600;800&family=Poppins:wght@400;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/theme.css"><link rel="stylesheet" href="css/consultation.css"><link rel="stylesheet" href="css/navbar.css"><link rel="stylesheet" href="css/ora.css"></head>
 <body>
 <!-- ===== SHARED TOP BAR ===== -->
 <nav>
   <a class="brand" href="index.html"><img src="images/logo.png" alt="Eventora logo">Eventora</a>
-  <button id="burger" aria-label="Open menu" aria-expanded="false">☰</button>
-  <div class="links" id="links">
-    <a href="index.html">Home</a>
+  <button id="burger" aria-label="Open menu" aria-expanded="false"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+  <div class="links" id="links"><a href="index.html">Home</a>
     <a href="venues.html">Venues &amp; Vendors</a>
     <a href="ideas.html">Ideas</a>
     <a href="budget.html">Budget</a>
@@ -24,7 +18,7 @@
     <a href="guests.html">Guests</a>
     <a href="consultation.html" class="on">Consultation</a>
     <a href="invites.html">Invites</a>
-    <a href="favorites.html">Favourites ♥</a>
+    <a href="favorites.html">Favourites</a>
     <a class="btn sm" href="register.html">Register</a>
   </div>
 </nav>
@@ -35,8 +29,7 @@
     <source src="images/venues/venues.mp4" type="video/mp4">
   </video>
   <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <p class="hero-kicker">✦ 1-ON-1 CULTURAL EVENT EXPERT ✦</p>
+  <div class="hero-content"><p class="hero-kicker">1-ON-1 CULTURAL EVENT EXPERT </p>
     <h1>Book a Wedding Consultant</h1>
     <p>Free 20-minute discovery call with an experienced Indian wedding and event planner.</p>
   </div>
@@ -44,13 +37,12 @@
 
 <main class="container" style="padding-top:40px;">
   <section id="confirm" class="card tile confirm" role="status" hidden style="box-shadow:0 10px 25px rgba(15,23,42,0.06);">
-    <h2>Dhanyavad! Namaste 🎉</h2>
+    <h2>Thank you! </h2>
     <p>Our senior wedding consultant will call you at your preferred time slot. We look forward to planning your special day!</p>
     <p><a class="btn consult-btn" href="index.html">Back to home</a></p>
   </section>
 
-  <div id="book-section">
-    <div id="errors" class="alert" role="alert" hidden></div>
+  <div id="book-section"><div id="errors" class="alert" role="alert" hidden></div>
     <form id="book-form" class="card form-card" novalidate style="box-shadow: 0 10px 25px rgba(15,23,42,0.06);">
       <h2 style="margin:0 0 16px;">Schedule Your Free Planning Call</h2>
       <input type="hidden" id="planId" name="planId">
@@ -67,7 +59,7 @@
         <option>Evening (4 PM - 8 PM)</option>
       </select>
       <label for="notes">Ritual details or special questions (optional)</label>
-      <textarea id="notes" name="notes" rows="4" placeholder="Tell us about your mandap, city preferences, catering style, or family requirements..."></textarea>
+      <textarea id="notes" name="notes" rows="4" placeholder="Tell us about your Ceremony Stage, city preferences, catering style, or family requirements..."></textarea>
       <p><button class="btn consult-btn" type="submit">Request call</button></p>
     </form>
   </div>
@@ -81,21 +73,17 @@
 <script src="js/consultation.js"></script>
 
 <!-- ===== ORA FLOATING CHAT ===== -->
-<button id="ora-fab" class="ora-fab" aria-label="Chat with Ora" aria-expanded="false">💬</button>
+<button id="ora-fab" class="ora-fab" aria-label="Chat with Ora" aria-expanded="false"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
 <section id="ora-window" class="ora-window" hidden aria-label="Chat with Ora">
   <header class="ora-head">
-    <strong>Ora</strong> · your planning buddy
+    <strong>Ora</strong> · your planning assistant
     <button id="ora-close" class="ora-x" aria-label="Close chat">×</button>
   </header>
   <div id="ora-log" class="ora-log" role="log" aria-live="polite"></div>
-  <div class="ora-quick">
-    <button data-q="Find venues">Find venues</button>
+  <div class="ora-quick"><button data-q="Find venues">Find venues</button>
     <button data-q="Set a budget">Set a budget</button>
-    <button data-q="Make an invite">Make an invite</button>
-    <button data-q="Talk to a human">Talk to a human</button>
-  </div>
-  <div class="ora-form">
-    <label for="ora-input" class="sr-only">Message Ora</label>
+    <button data-q="Make an invite">Make an invite</button>  </div>
+  <div class="ora-form"><label for="ora-input" class="sr-only">Message Ora</label>
     <input id="ora-input" type="text" maxlength="500" placeholder="Ask Ora anything..." autocomplete="off">
     <button id="ora-send" class="ora-send">Send</button>
   </div>

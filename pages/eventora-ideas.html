@@ -4,13 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Ideas &amp; Inspiration · Eventora</title>
-  <link rel="icon" href="images/logo.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/navbar.css">
-  <link rel="stylesheet" href="css/ora.css">
-  <style>
+  <link rel="icon" href="images/logo.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/navbar.css"><link rel="stylesheet" href="css/ora.css"><style>
     :root {
       --ink: #0F172A;
       --muted: #475569;
@@ -131,9 +125,8 @@
 
 <nav>
   <a class="brand" href="index.html"><img src="images/logo.png" alt="Eventora logo">Eventora</a>
-  <button id="burger" aria-label="Open menu" aria-expanded="false">☰</button>
-  <div class="links" id="links">
-    <a href="index.html">Home</a>
+  <button id="burger" aria-label="Open menu" aria-expanded="false"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+  <div class="links" id="links"><a href="index.html">Home</a>
     <a href="venues.html">Venues &amp; Vendors</a>
     <a href="ideas.html" class="on">Ideas</a>
     <a href="budget.html">Budget</a>
@@ -141,7 +134,7 @@
     <a href="guests.html">Guests</a>
     <a href="consultation.html">Consultation</a>
     <a href="invites.html">Invites</a>
-    <a href="favorites.html">Favourites ♥</a>
+    <a href="favorites.html">Favourites</a>
     <a class="btn sm" href="register.html">Register</a>
   </div>
 </nav>
@@ -152,13 +145,11 @@
     <source src="images/venues/venues.mp4" type="video/mp4">
   </video>
   <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <p class="hero-kicker">✦ INSPIRATION &amp; TRADITIONS ✦</p>
+  <div class="hero-content"><p class="hero-kicker">INSPIRATION &amp; TRADITIONS </p>
     <h1>Royal Themes, Rites &amp; Vibrant Celebrations</h1>
-    <p>Curated Indian moodboards, Shubh Muhurat traditions, and festive decor guides for Haldi, Sangeet, Mehendi, and Shaadi.</p>
-    <div class="hero-actions">
-      <button class="btn btn-solid" type="button" id="saved-hero" data-filter="Saved">♥ Saved Ideas (<span id="saved-count">0</span>)</button>
-      <a href="consultation.html" class="btn btn-outline">Free Shubh Plan</a>
+    <p>Curated Indian moodboards, Ceremony Date traditions, and festive decor guides for Pre-Wedding Morning, Music &amp; Dance Night, Henna, and Wedding.</p>
+    <div class="hero-actions"><button class="btn btn-solid" type="button" id="saved-hero" data-filter="Saved">Saved Ideas (<span id="saved-count">0</span>)</button>
+      <a href="consultation.html" class="btn btn-outline">Free Event Plan</a>
     </div>
   </div>
 </header>
@@ -166,13 +157,10 @@
 <main id="main" class="container">
 
   <!-- Search and sort -->
-  <div class="controls">
-    <div class="field">
-      <label for="search">Search ideas, rituals &amp; themes</label>
-      <input type="search" id="search" placeholder="Try 'Marigold Haldi', 'Sangeet Dhol', or 'Muhurat tips'" autocomplete="off">
+  <div class="controls"><div class="field"><label for="search">Search ideas, rituals &amp; themes</label>
+      <input type="search" id="search" placeholder="Try 'Marigold Pre-Wedding Morning', 'Music &amp; Dance Night Dhol', or 'Auspicious Date tips'" autocomplete="off">
     </div>
-    <div class="field">
-      <label for="sort">Sort by</label>
+    <div class="field"><label for="sort">Sort by</label>
       <select id="sort">
         <option value="fresh">Curated for Indian Weddings</option>
         <option value="title">Title A to Z</option>
@@ -185,33 +173,29 @@
 
   <!-- Royal Spotlight -->
   <section class="spotlight" aria-labelledby="spot-title">
-    <div class="spotlight-photo" role="img" aria-label="Heritage Mahal illuminated wedding mandap at night"></div>
-    <div class="spotlight-body">
-      <span class="tag-pill">Royal Spotlight · Shubh Vivah</span>
-      <h2 id="spot-title">The Royal Rajputana Shaadi &amp; Mandap</h2>
-      <p>Step into an illuminated heritage courtyard adorned with marigold malas, brass urlis with floating candles, traditional Shehnai welcome, and a majestic lotus floral mandap.</p>
+    <div class="spotlight-photo" role="img" aria-label="Heritage Mahal illuminated wedding Ceremony Stage at night"></div>
+    <div class="spotlight-body"><span class="tag-pill">Royal Spotlight · Wedding Celebration</span>
+      <h2 id="spot-title">The Royal Rajputana Wedding &amp; Ceremony Stage</h2>
+      <p>Step into an illuminated heritage courtyard adorned with marigold malas, brass urlis with floating candles, traditional Shehnai welcome, and a majestic lotus floral Ceremony Stage.</p>
       <button class="link-purple" type="button" data-open="spot">Explore the moodboard ↗</button>
     </div>
   </section>
 
   <!-- Idea cards -->
-  <div class="section-head">
-    <div>
-      <h2 class="section-heading">Curated Celebration Moodboards</h2>
+  <div class="section-head"><div><h2 class="section-heading">Curated Celebration Moodboards</h2>
       <p class="muted-small">Authentic themes crafted for multi-day Indian rituals</p>
     </div>
   </div>
 
   <div class="idea-grid" id="idea-grid"></div>
 
-  <div class="empty" id="empty" role="status">
-    <h3>No ideas match those filters</h3>
-    <p>Try searching for 'Haldi', 'Sangeet', 'Wedding', or switch back to All ideas.</p>
+  <div class="empty" id="empty" role="status"><h3>No ideas match those filters</h3>
+    <p>Try searching for 'Pre-Wedding Morning', 'Music &amp; Dance Night', 'Wedding', or switch back to All ideas.</p>
   </div>
 
   <!-- Cultural Guidance -->
   <section class="guidance" aria-labelledby="guidance-title">
-    <h2 class="section-heading" id="guidance-title" style="margin-bottom:20px;">Shaadi Planning Advice &amp; Ritual Guides</h2>
+    <h2 class="section-heading" id="guidance-title" style="margin-bottom:20px;">Wedding Planning Advice &amp; Ritual Guides</h2>
     <div class="advice-grid" id="advice-grid"></div>
   </section>
 
@@ -219,16 +203,13 @@
 
 <!-- Idea and advice detail dialog -->
 <dialog id="idea-dialog" aria-labelledby="dialog-title">
-  <div class="dialog-body">
-    <p class="cat" id="dialog-kicker"></p>
+  <div class="dialog-body"><p class="cat" id="dialog-kicker"></p>
     <h3 id="dialog-title"></h3>
     <p id="dialog-text"></p>
-    <div class="dialog-actions" id="dialog-actions">
-      <button type="button" class="btn btn-ghost" id="dialog-save">♡ Save</button>
+    <div class="dialog-actions" id="dialog-actions"><button type="button" class="btn btn-ghost" id="dialog-save"> Save</button>
       <button type="button" class="btn btn-solid" id="dialog-use" style="background:#2563EB; border-color:#2563EB; color:#fff;">Use this idea</button>
     </div>
-    <div class="dialog-send" id="dialog-send">
-      <p><strong>Where should this go?</strong></p>
+    <div class="dialog-send" id="dialog-send"><p><strong>Where should this go?</strong></p>
       <button type="button" class="btn btn-solid" data-target="checklist">Add to my checklist</button>
       <button type="button" class="btn btn-ghost" data-target="consultation">Send to free consultation</button>
     </div>
@@ -239,12 +220,10 @@
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <footer class="site-footer">
-  <div>
-    <b>Eventora</b><br>
+  <div><b>Eventora</b><br>
     Plan every royal Indian celebration, beautifully.
   </div>
-  <div>
-    <a href="index.html">Home</a>
+  <div><a href="index.html">Home</a>
     <a href="venues.html">Venues &amp; Vendors</a>
     <a href="ideas.html">Ideas</a>
     <a href="budget.html">Budget</a>
@@ -254,21 +233,17 @@
 </footer>
 
 <!-- ===== ORA FLOATING CHAT ===== -->
-<button id="ora-fab" class="ora-fab" aria-label="Chat with Ora" aria-expanded="false">💬</button>
+<button id="ora-fab" class="ora-fab" aria-label="Chat with Ora" aria-expanded="false"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
 <section id="ora-window" class="ora-window" hidden aria-label="Chat with Ora">
   <header class="ora-head">
-    <strong>Ora</strong> · your planning buddy
+    <strong>Ora</strong> · your planning assistant
     <button id="ora-close" class="ora-x" aria-label="Close chat">×</button>
   </header>
   <div id="ora-log" class="ora-log" role="log" aria-live="polite"></div>
-  <div class="ora-quick">
-    <button data-q="Find venues">Find venues</button>
+  <div class="ora-quick"><button data-q="Find venues">Find venues</button>
     <button data-q="Set a budget">Set a budget</button>
-    <button data-q="Make an invite">Make an invite</button>
-    <button data-q="Talk to a human">Talk to a human</button>
-  </div>
-  <div class="ora-form">
-    <label for="ora-input" class="sr-only">Message Ora</label>
+    <button data-q="Make an invite">Make an invite</button>  </div>
+  <div class="ora-form"><label for="ora-input" class="sr-only">Message Ora</label>
     <input id="ora-input" type="text" maxlength="500" placeholder="Ask Ora anything..." autocomplete="off">
     <button id="ora-send" class="ora-send">Send</button>
   </div>
@@ -279,28 +254,28 @@
     var FILTERS = ['All ideas', 'Wedding', 'Birthday', 'College & Graduation', 'Corporate & Team', 'Baby Shower', 'Housewarming', 'Anniversary', 'Festival', 'Saved'];
 
   var IDEAS = [
-    { id: 1, category: 'Wedding', title: 'Royal Heritage Mandap & Reception', desc: 'Pillared courtyards, floral lotus canopy, elegant stage lighting, and multi-course feast.', body: 'Incorporate timeless regal architecture with red carpet entryway, fragrant floral garlands, beautifully lit mandap stage for sacred vows, and a grand banquet reception.', img: 'images/venues/1.jpg', bg: 'linear-gradient(135deg,#FEE2E2,#DC2626)', alt: 'Royal Wedding Setup' },
+    { id: 1, category: 'Wedding', title: 'Royal Heritage Ceremony Stage & Reception', desc: 'Pillared courtyards, floral lotus canopy, elegant stage lighting, and multi-course feast.', body: 'Incorporate timeless regal architecture with red carpet entryway, fragrant floral garlands, beautifully lit Ceremony Stage stage for sacred vows, and a grand banquet reception.', img: 'images/venues/1.jpg', bg: 'linear-gradient(135deg,#FEE2E2,#DC2626)', alt: 'Royal Wedding Setup' },
     { id: 2, category: 'Birthday', title: 'Cheerful Birthday Bash & Cake Table', desc: 'Colourful balloon arches, custom photo backdrops, DJ dance floor, and live dessert counters.', body: 'Style your birthday celebration with vibrant theme decor, energetic music, interactive games corner, customized birthday cake table, and delicious buffet catering for all ages.', img: 'images/venues/7.jpg', bg: 'linear-gradient(135deg,#FEF9C3,#CA8A04)', alt: 'Birthday party setup' },
     { id: 3, category: 'College & Graduation', title: 'College Farewell & Convocation Gala', desc: 'Tiered auditorium, memorable slide shows, photo booths, awards stage, and dinner celebration.', body: 'Celebrate your academic milestone with class memories, farewell toasts, student band performances, custom yearbook photo corners, and a lively graduation dinner with classmates.', img: 'images/venues/8.jpg', bg: 'linear-gradient(135deg,#DCFCE7,#16A34A)', alt: 'College auditorium and graduation celebration' },
     { id: 4, category: 'Corporate & Team', title: 'Corporate Leadership Summit & Gala', desc: 'Conference hall, high-speed AV projectors, keynote stage, networking lounge, and banquet dinner.', body: 'Host professional conferences, product launches, or team awards galas with state-of-the-art audiovisual setups, acoustic stage, break-out meeting lounges, and premium dining service.', img: 'images/venues/5.jpg', bg: 'linear-gradient(135deg,#DBEAFE,#2563EB)', alt: 'Corporate conference and team gala' },
     { id: 5, category: 'Baby Shower', title: 'Joyous Baby Shower Gathering', desc: 'Pastel balloon clouds, blessings corner, floral backdrop, games, and celebratory feast.', body: 'Shower the parents-to-be with love, laughter, playful baby shower games, thoughtful gifts, decorative dessert tables, and wholesome catering for family and close friends.', img: 'images/photo/2.jpg', bg: 'linear-gradient(135deg,#F3E8FF,#9333EA)', alt: 'Baby shower celebration' },
-    { id: 6, category: 'Housewarming', title: 'Warm Housewarming & Family Pooja', desc: 'Floral entrance toran, welcoming lamps, auspicious blessings, and delicious sit-down lunch.', body: 'Celebrate stepping into your new home with auspicious threshold decorations, warm hospitality, family blessings, and a festive meal shared with neighbours and dear relatives.', img: 'images/decor/2.jpg', bg: 'linear-gradient(135deg,#FFEDD5,#EA580C)', alt: 'Housewarming decor' },
+    { id: 6, category: 'Housewarming', title: 'Warm Housewarming & Family Blessing', desc: 'Floral entrance toran, welcoming lamps, auspicious blessings, and delicious sit-down lunch.', body: 'Celebrate stepping into your new home with auspicious threshold decorations, warm hospitality, family blessings, and a festive meal shared with neighbours and dear relatives.', img: 'images/decor/2.jpg', bg: 'linear-gradient(135deg,#FFEDD5,#EA580C)', alt: 'Housewarming decor' },
     { id: 7, category: 'Anniversary', title: 'Romantic Anniversary Milestone Dinner', desc: 'City-view rooftop terrace, candlelight dining, live acoustic music, and champagne toasts.', body: 'Celebrate lasting love with ambient fairy lighting, romantic table centerpieces, heartfelt speeches, video memory reel, and an exquisite dinner with cherished family and friends.', img: 'images/venues/3.jpg', bg: 'linear-gradient(135deg,#FCE7F3,#DB2777)', alt: 'Anniversary rooftop celebration' },
-    { id: 8, category: 'Festival', title: 'Festive Lights, Music & Sweets Evening', desc: 'Glowing diyas and lanterns, live folk & acoustic melodies, mithai counters, and festive feast.', body: 'Brighten seasonal holidays (Diwali, Eid, Christmas, New Year) with traditional decorative lanterns, live classical or acoustic melodies, festive sweets, and joyous family get-togethers.', img: 'images/venues/6.jpg', bg: 'linear-gradient(135deg,#FEF3C7,#D97706)', alt: 'Festival celebration' }
+    { id: 8, category: 'Festival', title: 'Festive Lights, Music & Sweets Evening', desc: 'Glowing diyas and lanterns, live folk & acoustic melodies, Sweets counters, and festive feast.', body: 'Brighten seasonal holidays (Diwali, Eid, Christmas, New Year) with traditional decorative lanterns, live classical or acoustic melodies, festive sweets, and joyous family get-togethers.', img: 'images/venues/6.jpg', bg: 'linear-gradient(135deg,#FEF3C7,#D97706)', alt: 'Festival celebration' }
   ];
 
   var SPOTLIGHT = {
-    kicker: 'Royal Spotlight · Shubh Vivah',
-    title: 'The Royal Rajputana Shaadi & Mandap',
-    body: 'Step into an illuminated heritage courtyard adorned with marigold malas, brass urlis with floating candles, traditional Shehnai welcome, and a majestic lotus floral mandap.'
+    kicker: 'Royal Spotlight · Wedding Celebration',
+    title: 'The Royal Rajputana Wedding & Ceremony Stage',
+    body: 'Step into an illuminated heritage courtyard adorned with marigold malas, brass urlis with floating candles, traditional Shehnai welcome, and a majestic lotus floral Ceremony Stage.'
   };
 
   var ADVICE = [
-        { n: '05', title: 'Tamil Muhurtham & Ketti Melam Guide', topic: 'Tamil Traditions', mins: 6, body: 'From Janavasam car arrival and Kasi Yatra to Oonjal swing and tying the Thirumangalyam with 3 knots to Ketti Melam beats, follow the complete Tamil wedding sequence smoothly.' },
-    { n: '01', title: 'Shubh Muhurat & Pandit Consultation', topic: 'Rituals & Timing', mins: 6, body: 'Consult family priests early to calculate auspicious lagna timings, Rahu Kaalam windows, and required puja samagri for pre-wedding and pheras rituals.' },
-    { n: '02', title: 'Your ₹15L to ₹30L Shaadi Budget, Unpacked', topic: 'Budget Tips', mins: 8, body: 'Allocate about 35% for Mandap & venue, 25% for 3-day multi-cuisine catering, 15% for photography & decor, and 15% for jewellery, attire, and gifts.' },
-    { n: '03', title: 'Ladkewale & Ladkiwale Hospitality Guide', topic: 'Guest Care', mins: 5, body: 'Designate family coordinators for out-of-town baratis. Arrange welcome hampers with dry fruits, itinerary cards, airport cabs, and hotel room keys.' },
-    { n: '04', title: 'Curating the Multi-Day Shaadi Menu', topic: 'Catering Guide', mins: 7, body: 'Balance light Chaat and live counters for Sangeet night with a rich Sadya or North Indian buffet for the wedding, ensuring dedicated Jain counters.' }
+        { n: '05', title: 'Tamil Auspicious Date & Ketti Melam Guide', topic: 'Tamil Traditions', mins: 6, body: 'From Janavasam car arrival and Kasi Yatra to Oonjal swing and tying the Thirumangalyam with 3 knots to Ketti Melam beats, follow the complete Tamil wedding sequence smoothly.' },
+    { n: '01', title: 'Ceremony Date & Officiant Consultation', topic: 'Rituals & Timing', mins: 6, body: 'Consult family priests early to calculate auspicious Ceremony timings, Rahu Kaalam windows, and required Ceremony supplies for pre-wedding and Vows rituals.' },
+    { n: '02', title: 'Your ₹15L to ₹30L Wedding Budget, Unpacked', topic: 'Budget Tips', mins: 8, body: 'Allocate about 35% for Ceremony Stage & venue, 25% for 3-day multi-cuisine catering, 15% for photography & decor, and 15% for jewellery, attire, and gifts.' },
+    { n: '03', title: 'Groom and Bride Families Hospitality Guide', topic: 'Guest Care', mins: 5, body: 'Designate family coordinators for out-of-town guests. Arrange welcome hampers with dry fruits, itinerary cards, airport cabs, and hotel room keys.' },
+    { n: '04', title: 'Curating the Multi-Day Wedding Menu', topic: 'Catering Guide', mins: 7, body: 'Balance light Chaat and live counters for Music &amp; Dance Night night with a rich Traditional Feast or North Indian buffet for the wedding, ensuring dedicated Jain counters.' }
   ];
 
   var SAVED_KEY = 'eventora-saved-ideas';
@@ -369,7 +344,7 @@
           '<div class="idea-meta">' +
             '<span class="cat">' + escapeHtml(idea.category) + '</span>' +
             '<button type="button" class="save-btn" data-save="' + idea.id + '" aria-pressed="' + saved + '" aria-label="' + (saved ? 'Remove from saved: ' : 'Save: ') + escapeHtml(idea.title) + '">' +
-              (saved ? '♥ Saved' : '♡ Save') +
+              (saved ? ' Saved' : ' Save') +
             '</button>' +
           '</div>' +
           '<h3>' + escapeHtml(idea.title) + '</h3>' +
@@ -410,7 +385,7 @@
   function openIdea(id) {
     var idea = IDEAS.filter(function (i) { return i.id === id; })[0];
     if (id === 'spot') {
-      idea = { id: 'spot', category: 'Shubh Vivah', title: SPOTLIGHT.title, desc: SPOTLIGHT.body, body: SPOTLIGHT.body };
+      idea = { id: 'spot', category: 'Wedding Celebration', title: SPOTLIGHT.title, desc: SPOTLIGHT.body, body: SPOTLIGHT.body };
     }
     if (!idea) return;
     state.current = idea;
@@ -420,7 +395,7 @@
     var isCard = typeof idea.id === 'number';
     document.getElementById('dialog-save').style.display = isCard ? '' : 'none';
     document.getElementById('dialog-use').style.display = isCard ? '' : 'none';
-    document.getElementById('dialog-save').textContent = isSaved(idea.id) ? '♥ Saved' : '♡ Save';
+    document.getElementById('dialog-save').textContent = isSaved(idea.id) ? ' Saved' : ' Save';
     document.getElementById('dialog-send').classList.remove('is-visible');
     dialog.showModal();
   }

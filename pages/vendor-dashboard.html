@@ -4,13 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vendor Dashboard | Eventora</title>
-  <link rel="icon" href="images/logo.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/navbar.css">
-  <link rel="stylesheet" href="css/ora.css">
-  <style>
+  <link rel="icon" href="images/logo.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/navbar.css"><link rel="stylesheet" href="css/ora.css"><style>
     :root {
       --ink: #0F172A;
       --muted: #64748B;
@@ -76,6 +70,22 @@
       font-size: 1.05rem;
       max-width: 680px;
       margin: 0;
+    }
+    .hero-profile-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    #banner-profile-img {
+      width: 78px;
+      height: 78px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid rgba(255,255,255,0.45);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.28);
+      flex-shrink: 0;
+      background: #1E293B;
     }
     .stats-grid {
       display: grid;
@@ -378,12 +388,11 @@
 <!-- Dynamic Shared Navbar -->
 <nav>
   <a class="brand" href="index.html"><img src="images/logo.png" alt="Eventora logo">Eventora</a>
-  <button id="burger" aria-label="Open menu" aria-expanded="false">☰</button>
-  <div class="links" id="links">
-    <a href="vendor-dashboard.html" class="on">Vendor Dashboard</a>
+  <button id="burger" aria-label="Open menu" aria-expanded="false"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+  <div class="links" id="links"><a href="vendor-dashboard.html" class="on">Vendor Dashboard</a>
     <a href="index.html">Home</a>
     <a href="chatbot.html">Chatbot</a>
-    <span class="nav-user-badge" id="nav-vendor-badge">🏢 Vendor Partner</span>
+    <span class="nav-user-badge" id="nav-vendor-badge"> Vendor Partner</span>
     <button type="button" class="nav-logout-btn" id="nav-logout">Logout</button>
   </div>
 </nav>
@@ -391,57 +400,51 @@
 <main class="wrap">
   <!-- Vendor Header Banner -->
   <header class="hero-banner">
-    <span class="hero-kicker">✦ VERIFIED VENDOR PARTNER PORTAL ✦</span>
-    <h1 class="hero-title" id="banner-bname">Your Vendor Dashboard</h1>
-    <p class="hero-desc" id="banner-meta">Review and respond to client inquiries, update your service profile, add work portfolio items, and manage showcase photos.</p>
+    <div class="hero-profile-row">
+      <img id="banner-profile-img" src="" alt="Vendor profile image" hidden>
+      <div>
+        <span class="hero-kicker">VERIFIED VENDOR PARTNER PORTAL </span>
+        <h1 class="hero-title" id="banner-bname">Your Vendor Dashboard</h1>
+        <p class="hero-desc" id="banner-meta">Review and respond to client inquiries, update your service profile, add work portfolio items, and manage showcase photos.</p>
+      </div>
+    </div>
   </header>
 
   <!-- Quick Statistics -->
   <section class="stats-grid">
-    <div class="stat-card">
-      <span class="stat-label">User Queries Received</span>
+    <div class="stat-card"><span class="stat-label">User Queries Received</span>
       <b class="stat-val" id="stat-queries-count" style="color:var(--brand)">0</b>
       <small style="color:var(--muted); font-size:0.8rem;">Direct inquiries from event hosts</small>
     </div>
-    <div class="stat-card">
-      <span class="stat-label">Pending / New Inquiries</span>
+    <div class="stat-card"><span class="stat-label">Pending / New Inquiries</span>
       <b class="stat-val" id="stat-new-count" style="color:var(--amber)">0</b>
       <small style="color:var(--muted); font-size:0.8rem;">Awaiting your initial response</small>
     </div>
-    <div class="stat-card">
-      <span class="stat-label">Starting Service Price</span>
+    <div class="stat-card"><span class="stat-label">Starting Service Price</span>
       <b class="stat-val" id="stat-price" style="color:var(--purple)">₹0</b>
       <small style="color:var(--muted); font-size:0.8rem;">Published on Eventora listing</small>
     </div>
-    <div class="stat-card">
-      <span class="stat-label">Partner Profile Status</span>
-      <b class="stat-val" style="color:var(--green)">Active ✓</b>
+    <div class="stat-card"><span class="stat-label">Partner Profile Status</span>
+      <b class="stat-val" style="color:var(--green)">Active </b>
       <small style="color:var(--muted); font-size:0.8rem;">Synced with MongoDB database</small>
     </div>
   </section>
 
   <!-- Tabbed Navigation -->
-  <div class="nav-tabs">
-    <button type="button" class="tab-btn active" data-tab="queries">
-      💬 Client Queries <span class="badge-count" id="tab-count-queries">0</span>
+  <div class="nav-tabs"><button type="button" class="tab-btn active" data-tab="queries">Client Queries <span class="badge-count" id="tab-count-queries">0</span>
     </button>
-    <button type="button" class="tab-btn" data-tab="profile">
-      📝 Update Profile &amp; Services
+    <button type="button" class="tab-btn" data-tab="profile">Update Profile &amp; Services
     </button>
-    <button type="button" class="tab-btn" data-tab="portfolio">
-      🖼️ Work Portfolio &amp; Pictures
+    <button type="button" class="tab-btn" data-tab="portfolio">Work Portfolio &amp; Pictures
     </button>
   </div>
 
   <!-- SECTION 1: Client Queries Sent by Users -->
   <section id="tab-section-queries" class="panel">
-    <div class="panel-header">
-      <div>
-        <h2 class="panel-title">Inquiries &amp; Queries Sent by Users</h2>
+    <div class="panel-header"><div><h2 class="panel-title">Inquiries &amp; Queries Sent by Users</h2>
         <p class="panel-subtitle">Review event requirements, dates, headcount, and connect directly with planners.</p>
       </div>
-      <div style="display:flex; gap:10px; align-items:center;">
-        <select id="query-filter-status" style="padding:8px 14px; border-radius:999px; border:1px solid #CBD5E1; font-size:0.85rem; font-weight:600;">
+      <div style="display:flex; gap:10px; align-items:center;"><select id="query-filter-status" style="padding:8px 14px; border-radius:999px; border:1px solid #CBD5E1; font-size:0.85rem; font-weight:600;">
           <option value="all">All Inquiries</option>
           <option value="New">New Only</option>
           <option value="Contacted">Contacted</option>
@@ -450,148 +453,139 @@
       </div>
     </div>
 
-    <div id="queries-container">
-      <p style="text-align:center; padding:30px; color:var(--muted);">Loading queries from users...</p>
+    <div id="queries-container"><p style="text-align:center; padding:30px; color:var(--muted);">Loading queries from users...</p>
     </div>
   </section>
 
   <!-- SECTION 2: Update Vendor Profile & Services -->
   <section id="tab-section-profile" class="panel" style="display:none;">
-    <div class="panel-header">
-      <div>
-        <h2 class="panel-title">Update Vendor Profile &amp; Services</h2>
+    <div class="panel-header"><div><h2 class="panel-title">Update Vendor Profile &amp; Services</h2>
         <p class="panel-subtitle">Couples and event hosts see these details when browsing venues and service masters.</p>
       </div>
-      <button type="button" class="btn-action" id="btn-save-profile">💾 Save Profile Changes</button>
+      <button type="button" class="btn-action" id="btn-save-profile"> Save Profile Changes</button>
     </div>
 
     <form id="vendor-profile-form">
-      <div class="form-grid">
-        <div class="form-group">
-          <label for="v-bname">Business / Vendor Name *</label>
+      <div style="display:flex; align-items:center; gap:18px; flex-wrap:wrap; background:#F8FAFC; border:1px solid var(--line); border-radius:16px; padding:16px 18px; margin-bottom:20px;">
+        <img id="v-profile-preview" src="images/venues/1.jpg" alt="Listing profile preview" style="width:84px; height:84px; border-radius:14px; object-fit:cover; border:1px solid #CBD5E1; background:#E2E8F0; flex-shrink:0;" onerror="this.src='images/venues/1.jpg'">
+        <div style="flex:1; min-width:220px;">
+          <strong style="display:block; font-size:0.95rem; color:var(--ink);">User Profile &amp; Listing Cover Image</strong>
+          <p style="margin:4px 0 10px; font-size:0.84rem; color:var(--muted);">Shown on Venues &amp; Vendors listing cards and your Vendor Dashboard header.</p>
+          <label for="v-profile-pic-file" class="btn-outline" style="cursor:pointer; display:inline-block;">Upload New Profile / Listing Image</label>
+          <input type="file" id="v-profile-pic-file" accept=".jpg,.jpeg,.png,.webp,image/*" style="display:none;">
+        </div>
+      </div>
+
+      <div class="form-grid"><div class="form-group"><label for="v-bname">Business / Vendor Name *</label>
           <input type="text" id="v-bname" required placeholder="e.g. Lotus Grand Palace &amp; Banquets">
         </div>
 
-        <div class="form-group">
-          <label for="v-contact-name">Contact Person Name</label>
+        <div class="form-group"><label for="v-contact-name">Contact Person Name</label>
           <input type="text" id="v-contact-name" placeholder="e.g. Ramesh Sundaram">
         </div>
 
-        <div class="form-group">
-          <label for="v-category">Primary Category *</label>
+        <div class="form-group"><label for="v-category">Primary Category *</label>
           <select id="v-category" required>
             <option value="">Select Category</option>
+            <option value="Catering">Catering</option>
+            <option value="Decor">Decor</option>
+            <option value="Makeup &amp; Styling">Makeup &amp; Styling</option>
+            <option value="Photography &amp; Video">Photography &amp; Video</option>
+            <option value="Host &amp; Anchor">Host &amp; Anchor</option>
+            <option value="DJ &amp; Music">DJ &amp; Music</option>
+            <option value="Florist">Florist</option>
+            <option value="Banquet &amp; Ceremony Stage Venue">Banquet &amp; Ceremony Stage Venue</option>
             <option value="Banquet Hall">Banquet Hall &amp; Mahal</option>
             <option value="Palace Venue">Royal Palace &amp; Heritage Resort</option>
-            <option value="Catering">Sadya &amp; Royal Feast Catering</option>
-            <option value="Photography">Candid &amp; Traditional Photography</option>
-            <option value="Decor & Mandap">Mandapam &amp; Floral Decor</option>
-            <option value="DJ & Music">Bollywood DJ, Live Band &amp; Dhol</option>
-            <option value="Bridal Makeup">Bridal Makeup &amp; Mehendi</option>
-            <option value="Priest & Pandit">Auspicious Purohit / Pandit</option>
           </select>
         </div>
 
-        <div class="form-group">
-          <label for="v-city">Operating City *</label>
+        <div class="form-group"><label for="v-city">Operating City *</label>
           <input type="text" id="v-city" required placeholder="e.g. Chennai, Coimbatore, Bengaluru, Madurai">
         </div>
 
-        <div class="form-group">
-          <label for="v-phone">Contact Phone Number</label>
+        <div class="form-group"><label for="v-phone">Contact Phone Number</label>
           <input type="tel" id="v-phone" placeholder="e.g. +91 98401 23456">
         </div>
 
-        <div class="form-group">
-          <label for="v-price">Starting Price (₹)</label>
+        <div class="form-group"><label for="v-price">Starting Price (₹)</label>
           <input type="text" id="v-price" placeholder="e.g. 50000 or From ₹50,000">
         </div>
 
-        <div class="form-group full">
-          <label for="v-desc">Description of Service *</label>
+        <div class="form-group full"><label for="v-desc">Description of Service *</label>
           <textarea id="v-desc" rows="4" placeholder="Describe your experience, packages, setup specialties, client amenities, and why couples choose your services..."></textarea>
         </div>
 
-        <div class="form-group full">
-          <label for="v-services">List of Services &amp; Inclusions</label>
-          <input type="text" id="v-services" placeholder="e.g. Royal Stage Mandap, Banana Leaf Feast, Bridal Makeover, Haldi Setup (comma separated)">
+        <div class="form-group full"><label for="v-services">List of Services &amp; Inclusions</label>
+          <input type="text" id="v-services" placeholder="e.g. Royal Ceremony Stage, Banana Leaf Feast, Bridal Makeover (comma separated)">
           <small style="color:var(--muted); font-size:0.8rem;">Enter key offerings separated by commas for clear bullet points on your profile.</small>
         </div>
       </div>
       
-      <div style="margin-top:20px; text-align:right;">
-        <button type="submit" class="btn-action">💾 Save Profile &amp; Services</button>
+      <div style="margin-top:20px; text-align:right;"><button type="submit" class="btn-action" id="btn-save-profile-bottom">Save Changes</button>
       </div>
     </form>
   </section>
 
   <!-- SECTION 3: Work Portfolio & Pictures Gallery -->
   <section id="tab-section-portfolio" class="panel" style="display:none;">
-    <div class="panel-header">
-      <div>
-        <h2 class="panel-title">Add Work Portfolio &amp; Update Pictures</h2>
+    <div class="panel-header"><div><h2 class="panel-title">Add Work Portfolio &amp; Update Pictures</h2>
         <p class="panel-subtitle">Highlight real weddings, celebrations, and decor setups you have orchestrated.</p>
       </div>
-      <button type="button" class="btn-action" id="btn-save-portfolio-top">💾 Save Portfolio &amp; Gallery</button>
+      <button type="button" class="btn-action" id="btn-save-portfolio-top">Save Portfolio &amp; Gallery</button>
     </div>
 
     <!-- Part A: Add Work Portfolio Item -->
-    <div style="background:#F1F5F9; border-radius:18px; padding:22px; margin-bottom:28px;">
-      <h3 style="margin:0 0 14px; font-size:1.1rem; font-weight:800;">➕ Add a Work Portfolio Project</h3>
-      <div class="form-grid">
-        <div class="form-group">
-          <label for="p-title">Project / Event Title</label>
-          <input type="text" id="p-title" placeholder="e.g. Royal Marigold Mandap at Heritage Mahal">
+    <div style="background:#F1F5F9; border-radius:18px; padding:22px; margin-bottom:28px;"><h3 style="margin:0 0 14px; font-size:1.1rem; font-weight:800;">Add a Work Portfolio Project</h3>
+      <div class="form-grid"><div class="form-group"><label for="p-title">Project / Event Title</label>
+          <input type="text" id="p-title" placeholder="e.g. Royal Marigold Ceremony Stage at Heritage Mahal">
         </div>
-        <div class="form-group">
-          <label for="p-type">Event Type</label>
+        <div class="form-group"><label for="p-type">Event Type</label>
           <select id="p-type">
             <option>Wedding &amp; Reception</option>
-            <option>Haldi &amp; Sangeet</option>
+            <option>Pre-Wedding &amp; Music Night</option>
             <option>Birthday Milestone</option>
             <option>Corporate Summit</option>
             <option>Housewarming Blessing</option>
           </select>
         </div>
-        <div class="form-group">
-          <label for="p-img">Photo Path / URL</label>
-          <input type="text" id="p-img" placeholder="e.g. images/venues/1.jpg or photo link">
+        <div class="form-group"><label for="p-img">Photo Path / URL or Upload Image</label>
+          <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+            <input type="text" id="p-img" placeholder="e.g. images/venues/1.jpg or upload photo" style="flex:1; min-width:170px;">
+            <label for="p-img-file" class="btn-outline" style="cursor:pointer; white-space:nowrap;">Upload Photo</label>
+            <input type="file" id="p-img-file" accept=".jpg,.jpeg,.png,.webp,image/*" style="display:none;">
+          </div>
         </div>
-        <div class="form-group full">
-          <label for="p-desc">Work Description</label>
+        <div class="form-group full"><label for="p-desc">Work Description</label>
           <input type="text" id="p-desc" placeholder="Brief summary of setup, decor theme, client satisfaction, or guest capacity handled">
         </div>
       </div>
-      <div style="margin-top:10px;">
-        <button type="button" class="btn-action" id="btn-add-portfolio-item" style="padding:8px 20px; font-size:0.88rem;">+ Add Project to Portfolio</button>
+      <div style="margin-top:10px;"><button type="button" class="btn-action" id="btn-add-portfolio-item" style="padding:8px 20px; font-size:0.88rem;">+ Add Project to Portfolio</button>
       </div>
     </div>
 
     <!-- Part B: Existing Portfolio Items -->
     <h3 style="margin:0 0 10px; font-size:1.15rem; font-weight:800;">Your Work Portfolio (<span id="portfolio-count">0</span>)</h3>
-    <div class="portfolio-grid" id="portfolio-container">
-      <!-- Portfolio cards will be rendered here -->
+    <div class="portfolio-grid" id="portfolio-container"><!-- Portfolio cards will be rendered here -->
     </div>
 
     <hr style="margin:36px 0; border:none; border-top:1px solid var(--line);">
 
     <!-- Part C: Update Pictures Gallery -->
-    <div>
-      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
-        <div>
-          <h3 style="margin:0; font-size:1.15rem; font-weight:800;">Showcase Pictures Gallery (<span id="gallery-count">0</span>)</h3>
-          <p style="margin:4px 0 0; font-size:0.85rem; color:var(--muted);">Add high-resolution photos of your venue, food spreads, or decor styling.</p>
+    <div><div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;"><div><h3 style="margin:0; font-size:1.15rem; font-weight:800;">Showcase Pictures Gallery (<span id="gallery-count">0</span>)</h3>
+          <p style="margin:4px 0 0; font-size:0.85rem; color:var(--muted);">Add high-resolution photos from your device or via image path/URL.</p>
         </div>
       </div>
 
-      <div style="display:flex; gap:10px; margin-bottom:16px; flex-wrap:wrap;">
-        <input type="text" id="new-picture-url" placeholder="Enter image path (e.g. images/venues/3.jpg, images/decor/1.jpg) or image URL" style="flex:1; min-width:260px; padding:10px 14px; border:1px solid #CBD5E1; border-radius:10px;">
-        <button type="button" class="btn-action" id="btn-add-picture" style="padding:10px 20px; font-size:0.88rem;">Add Picture</button>
+      <div style="display:flex; gap:10px; margin-bottom:16px; flex-wrap:wrap; align-items:center;">
+        <input type="text" id="new-picture-url" placeholder="Enter image path (e.g. images/venues/3.jpg, images/decor/1.jpg) or image URL" style="flex:1; min-width:240px; padding:10px 14px; border:1px solid #CBD5E1; border-radius:10px;">
+        <button type="button" class="btn-action" id="btn-add-picture" style="padding:10px 20px; font-size:0.88rem;">Add Picture URL</button>
+        <label for="new-picture-file" class="btn-outline" style="cursor:pointer; display:inline-block;">Upload Image File</label>
+        <input type="file" id="new-picture-file" accept=".jpg,.jpeg,.png,.webp,image/*" style="display:none;">
         <button type="button" class="btn-outline" id="btn-quick-samples">+ Add Recommended Event Photos</button>
       </div>
 
-      <div class="gallery-grid" id="gallery-container">
-        <!-- Showcase photos will be rendered here -->
+      <div class="gallery-grid" id="gallery-container"><!-- Showcase photos will be rendered here -->
       </div>
     </div>
   </section>
@@ -600,20 +594,18 @@
 <div class="toast-msg" id="toast-msg">Notification</div>
 
 <!-- ORA FLOATING BOT -->
-<button id="ora-fab" class="ora-fab" aria-label="Chat with Ora" aria-expanded="false">💬</button>
+<button id="ora-fab" class="ora-fab" aria-label="Chat with Ora" aria-expanded="false"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
 <section id="ora-window" class="ora-window" hidden aria-label="Chat with Ora">
   <header class="ora-head">
-    <strong>Ora</strong> · your planning buddy
+    <strong>Ora</strong> · your planning assistant
     <button id="ora-close" class="ora-x" aria-label="Close chat">×</button>
   </header>
   <div id="ora-log" class="ora-log" role="log" aria-live="polite"></div>
-  <div class="ora-quick">
-    <button data-q="View my queries">View my queries</button>
+  <div class="ora-quick"><button data-q="View my queries">View my queries</button>
     <button data-q="Update my pricing">Update my pricing</button>
     <button data-q="Add a portfolio item">Add a portfolio item</button>
   </div>
-  <div class="ora-form">
-    <input id="ora-input" type="text" maxlength="500" placeholder="Ask Ora anything..." autocomplete="off">
+  <div class="ora-form"><input id="ora-input" type="text" maxlength="500" placeholder="Ask Ora anything..." autocomplete="off">
     <button id="ora-send" class="ora-send">Send</button>
   </div>
 </section>
@@ -642,11 +634,11 @@
         businessName: 'Heritage Mahal Palace & Banquets',
         category: 'Banquet Hall',
         price: 'From ₹1,20,000',
-        services: 'Royal Kalyanam Mandap, Sadya Feast Catering, Marigold Floral Backdrop, Acoustic Sound',
+        services: 'Royal Wedding Hall Ceremony Stage, Traditional Feast Feast Catering, Marigold Floral Backdrop, Acoustic Sound',
         description: 'With over 15 years of legacy, Heritage Mahal provides grand royal architecture, centralized climate control, dedicated bride and groom suites, and master wedding coordination across Tamil Nadu.',
         portfolio: [
-          { title: 'Royal Thirumanam Stage', description: 'Traditional Kanjivaram silk backdrop and authentic brass urlis with fresh mogra.', image: 'images/venues/1.jpg' },
-          { title: 'Grand Sangeet & Reception', description: 'Festive fairy light canopy and DJ sound setup for 600 wedding guests.', image: 'images/venues/2.jpg' }
+          { title: 'Royal Wedding Stage', description: 'Traditional Kanjivaram silk backdrop and authentic brass urlis with fresh mogra.', image: 'images/venues/1.jpg' },
+          { title: 'Grand Music &amp; Dance Night & Reception', description: 'Festive fairy light canopy and DJ sound setup for 600 wedding guests.', image: 'images/venues/2.jpg' }
         ],
         pictures: [
           'images/venues/1.jpg',
@@ -673,16 +665,46 @@
 
   // Populate Header Banner & Form
   function populateProfileUI() {
-    const vd = currentUser.vendorDetails;
+    const vd = currentUser.vendorDetails || {};
     const bname = vd.businessName || currentUser.name || 'Your Business';
-    $('banner-bname').textContent = bname;
-    $('nav-vendor-badge').textContent = '🏢 ' + (bname.length > 18 ? bname.slice(0, 16) + '...' : bname);
-    
-    $('banner-meta').textContent = `${vd.category || 'Event Partner'} · 📍 ${currentUser.city || 'Chennai'} · Direct inquiries & profile management`;
+    const bannerEl = $('banner-bname');
+    if (bannerEl) bannerEl.textContent = bname;
+    const badgeEl = $('nav-vendor-badge');
+    if (badgeEl) badgeEl.textContent = ' ' + (bname.length > 18 ? bname.slice(0, 16) + '...' : bname);
+
+    const metaEl = $('banner-meta');
+    if (metaEl) metaEl.textContent = `${vd.category || 'Event Partner'} · ${currentUser.city || 'Chennai'} · Direct inquiries & profile management`;
+
+    const profileImgEl = $('banner-profile-img');
+    const previewImgEl = $('v-profile-preview');
+    const picList = Array.isArray(vd.pictures) ? vd.pictures.filter(Boolean) : [];
+    const portList = Array.isArray(vd.portfolio) ? vd.portfolio.filter(p => p && (p.image || p.imageUrl)) : [];
+    const profilePic = picList[0] || (portList[0] && (portList[0].image || portList[0].imageUrl)) || '';
+    if (profileImgEl) {
+      if (profilePic) {
+        profileImgEl.src = profilePic;
+        profileImgEl.alt = bname + ' profile image';
+        profileImgEl.hidden = false;
+      } else {
+        profileImgEl.removeAttribute('src');
+        profileImgEl.hidden = true;
+      }
+    }
+    if (previewImgEl) {
+      previewImgEl.src = profilePic || 'images/venues/1.jpg';
+    }
 
     $('v-bname').value = vd.businessName || currentUser.name || '';
     $('v-contact-name').value = currentUser.name || '';
-    $('v-category').value = vd.category || '';
+    const catSel = $('v-category');
+    const catVal = vd.category || '';
+    if (catVal && !Array.from(catSel.options).some(o => o.value === catVal)) {
+      const opt = document.createElement('option');
+      opt.value = catVal;
+      opt.textContent = catVal;
+      catSel.appendChild(opt);
+    }
+    catSel.value = catVal;
     $('v-city').value = currentUser.city || 'Chennai';
     $('v-phone').value = currentUser.phone || '';
     $('v-price').value = vd.price || '';
@@ -731,7 +753,7 @@
           eventDate: '2027-02-18',
           guestCount: 450,
           budget: '₹1,50,000',
-          message: 'Vanakkam! We love your work. We are planning our traditional Tamil wedding ceremony in February. Are you available on 18 Feb and can you share package details?',
+          message: 'Hello! We love your work. We are planning our traditional Tamil wedding ceremony in February. Are you available on 18 Feb and can you share package details?',
           status: 'New',
           createdAt: new Date().toISOString()
         },
@@ -778,8 +800,7 @@
     const container = $('queries-container');
     if (filtered.length === 0) {
       container.innerHTML = `
-        <div style="text-align:center; padding:40px; color:var(--muted);">
-          <p style="font-size:1.1rem; font-weight:700;">No inquiries matching this filter.</p>
+        <div style="text-align:center; padding:40px; color:var(--muted);"><p style="font-size:1.1rem; font-weight:700;">No inquiries matching this filter.</p>
         </div>`;
       return;
     }
@@ -788,35 +809,28 @@
       const statusClass = q.status === 'New' ? 'status-new' : (q.status === 'Confirmed' ? 'status-confirmed' : 'status-contacted');
       const cleanPhone = (q.userPhone || '').replace(/\D/g, '');
       return `
-        <article class="query-card" data-qid="${q._id || q.id}">
-          <div class="query-top">
-            <div>
-              <span class="query-user">${q.userName || 'Event Host'}</span>
+        <article class="query-card" data-qid="${q._id || q.id}"><div class="query-top"><div><span class="query-user">${q.userName || 'Event Host'}</span>
               <span style="font-size:0.85rem; color:var(--muted); margin-left:8px;">${q.createdAt ? new Date(q.createdAt).toLocaleDateString() : ''}</span>
             </div>
             <span class="query-status ${statusClass}">${q.status || 'New'}</span>
           </div>
 
-          <div class="query-meta">
-            <span>🎉 <b>Event:</b> ${q.eventType || 'Event'}</span>
-            <span>📅 <b>Date:</b> ${q.eventDate || 'Flexible'}</span>
-            <span>👥 <b>Guests:</b> ${q.guestCount || 200}</span>
-            ${q.budget ? `<span>💰 <b>Budget:</b> ${q.budget}</span>` : ''}
-            <span>📧 <a href="mailto:${q.userEmail}" style="color:var(--brand); text-decoration:none;">${q.userEmail}</a></span>
-            ${q.userPhone ? `<span>📞 <a href="tel:${q.userPhone}" style="color:var(--brand); text-decoration:none;">${q.userPhone}</a></span>` : ''}
+          <div class="query-meta"><span> <b>Event:</b> ${q.eventType || 'Event'}</span>
+            <span> <b>Date:</b> ${q.eventDate || 'Flexible'}</span>
+            <span> <b>Guests:</b> ${q.guestCount || 200}</span>
+            ${q.budget ? `<span> <b>Budget:</b> ${q.budget}</span>` : ''}
+            <span> <a href="mailto:${q.userEmail}" style="color:var(--brand); text-decoration:none;">${q.userEmail}</a></span>
+            ${q.userPhone ? `<span> <a href="tel:${q.userPhone}" style="color:var(--brand); text-decoration:none;">${q.userPhone}</a></span>` : ''}
           </div>
 
-          <div class="query-message">
-            "${q.message || 'Client inquired about availability and pricing packages for their celebration.'}"
+          <div class="query-message">"${q.message || 'Client inquired about availability and pricing packages for their celebration.'}"
           </div>
 
-          <div class="query-actions">
-            ${cleanPhone ? `<a href="https://wa.me/${cleanPhone}" target="_blank" class="btn-outline" style="color:#16A34A; border-color:#86EFAC;">💬 WhatsApp Client</a>` : ''}
-            <a href="mailto:${q.userEmail}?subject=Eventora Inquiry Response from ${encodeURIComponent(currentUser.vendorDetails?.businessName || 'Vendor')}" class="btn-outline">✉️ Reply by Email</a>
+          <div class="query-actions">${cleanPhone ? `<a href="https://wa.me/${cleanPhone}" target="_blank" class="btn-outline" style="color:#16A34A; border-color:#86EFAC;"> WhatsApp Client</a>` : ''}
+            <a href="mailto:${q.userEmail}?subject=Eventora Inquiry Response from ${encodeURIComponent(currentUser.vendorDetails?.businessName || 'Vendor')}" class="btn-outline"> Reply by Email</a>
             
-            <div style="margin-left:auto; display:flex; gap:6px;">
-              <button type="button" class="btn-outline btn-set-status" data-qid="${q._id || q.id}" data-status="Contacted">Mark Contacted</button>
-              <button type="button" class="btn-outline btn-set-status" data-qid="${q._id || q.id}" data-status="Confirmed" style="color:var(--green); border-color:var(--green);">Confirm Booking ✓</button>
+            <div style="margin-left:auto; display:flex; gap:6px;"><button type="button" class="btn-outline btn-set-status" data-qid="${q._id || q.id}" data-status="Contacted">Mark Contacted</button>
+              <button type="button" class="btn-outline btn-set-status" data-qid="${q._id || q.id}" data-status="Confirmed" style="color:var(--green); border-color:var(--green);">Confirm Booking </button>
             </div>
           </div>
         </article>
@@ -848,25 +862,41 @@
 
   $('query-filter-status').addEventListener('change', renderQueries);
 
-  // 3. Save Profile & Services Form
-  async function saveProfile() {
+  // 3. Save Profile & Services + Portfolio & Pictures to Server/DB
+  async function saveProfile(customMessage) {
+    const bname = $('v-bname').value.trim();
+    const category = $('v-category').value;
+    const city = $('v-city').value.trim();
+    if (!bname) {
+      showToast('Please enter your business name.');
+      return false;
+    }
+    if (!category) {
+      showToast('Please select a category.');
+      return false;
+    }
+    if (!city) {
+      showToast('Please enter your operating city.');
+      return false;
+    }
+
     currentUser.name = $('v-contact-name').value.trim() || currentUser.name;
-    currentUser.city = $('v-city').value.trim() || currentUser.city;
+    currentUser.city = city;
     currentUser.phone = $('v-phone').value.trim();
 
-    currentUser.vendorDetails.businessName = $('v-bname').value.trim();
-    currentUser.vendorDetails.category = $('v-category').value;
+    currentUser.vendorDetails.businessName = bname;
+    currentUser.vendorDetails.category = category;
     currentUser.vendorDetails.price = $('v-price').value.trim();
     currentUser.vendorDetails.description = $('v-desc').value.trim();
     currentUser.vendorDetails.services = $('v-services').value.trim();
 
     localStorage.setItem('eventora_user', JSON.stringify(currentUser));
     populateProfileUI();
-    showToast('✓ Vendor Profile & Services saved successfully!');
 
     try {
-      await fetch('/api/vendor/profile', {
+      const res = await fetch('/api/vendor/profile', {
         method: 'PUT',
+        credentials: 'same-origin',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           email: currentUser.email,
@@ -882,8 +912,25 @@
           pictures: currentUser.vendorDetails.pictures
         })
       });
+      const json = await res.json();
+      if (res.ok && json && json.success && json.vendor) {
+        currentUser = { ...currentUser, ...json.vendor };
+        currentUser.vendorDetails = currentUser.vendorDetails || {};
+        currentUser.vendorDetails.portfolio = currentUser.vendorDetails.portfolio || [];
+        currentUser.vendorDetails.pictures = currentUser.vendorDetails.pictures || [];
+        localStorage.setItem('eventora_user', JSON.stringify(currentUser));
+        populateProfileUI();
+        renderPortfolio();
+        renderGallery();
+        if (window.initDynamicNavbar) window.initDynamicNavbar();
+        showToast(customMessage || 'Vendor profile & changes saved to database!');
+        return true;
+      }
+      showToast((json && json.message) || 'Could not save changes to server.');
+      return false;
     } catch (e) {
-      console.log('Saved to local storage');
+      showToast('Network error while saving changes.');
+      return false;
     }
   }
 
@@ -891,7 +938,7 @@
     e.preventDefault();
     saveProfile();
   });
-  $('btn-save-profile').addEventListener('click', saveProfile);
+  $('btn-save-profile').addEventListener('click', () => saveProfile());
 
   // 4. Portfolio & Gallery Management
   function renderPortfolio() {
@@ -905,10 +952,8 @@
     }
 
     container.innerHTML = list.map((item, idx) => `
-      <div class="portfolio-card">
-        <img src="${item.image || 'images/venues/1.jpg'}" alt="${item.title}" class="portfolio-img" onerror="this.src='images/venues/1.jpg'">
-        <div class="portfolio-body">
-          <h4>${item.title || 'Untitled Project'}</h4>
+      <div class="portfolio-card"><img src="${item.image || 'images/venues/1.jpg'}" alt="${item.title}" class="portfolio-img" onerror="this.src='images/venues/1.jpg'">
+        <div class="portfolio-body"><h4>${item.title || 'Untitled Project'}</h4>
           <p>${item.description || 'Special celebration arrangement'}</p>
           <button type="button" class="btn-outline btn-del-portfolio" data-idx="${idx}" style="color:#DC2626; border-color:#FECACA; font-size:0.75rem; padding:4px 10px;">Remove</button>
         </div>
@@ -919,11 +964,39 @@
       btn.addEventListener('click', () => {
         const i = Number(btn.dataset.idx);
         currentUser.vendorDetails.portfolio.splice(i, 1);
-        localStorage.setItem('eventora_user', JSON.stringify(currentUser));
         renderPortfolio();
-        showToast('Portfolio project removed.');
+        saveProfile('Portfolio project removed and saved.');
       });
     });
+  }
+
+  function readCompressedImageFile(file, onDone) {
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const rawDataUrl = ev && ev.target && ev.target.result ? String(ev.target.result) : '';
+      const img = new Image();
+      img.onload = () => {
+        try {
+          const maxW = 900;
+          const scale = img.width > maxW ? (maxW / img.width) : 1;
+          const canvas = document.createElement('canvas');
+          canvas.width = Math.max(1, Math.round(img.width * scale));
+          canvas.height = Math.max(1, Math.round(img.height * scale));
+          canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+          onDone(canvas.toDataURL('image/jpeg', 0.82));
+        } catch (_) {
+          onDone(rawDataUrl);
+        }
+      };
+      img.onerror = () => {
+        if (rawDataUrl) onDone(rawDataUrl);
+        else showToast('Could not read selected image file.');
+      };
+      img.src = rawDataUrl;
+    };
+    reader.onerror = () => showToast('Failed to read selected file.');
+    reader.readAsDataURL(file);
   }
 
   function renderGallery() {
@@ -932,25 +1005,75 @@
     const container = $('gallery-container');
 
     if (list.length === 0) {
-      container.innerHTML = '<p style="color:var(--muted); font-size:0.9rem;">No showcase pictures added yet. Enter an image URL or click "Add Recommended Event Photos".</p>';
+      container.innerHTML = '<p style="color:var(--muted); font-size:0.9rem;">No showcase pictures added yet. Upload an image file, enter an image URL, or click "Add Recommended Event Photos".</p>';
       return;
     }
 
     container.innerHTML = list.map((src, idx) => `
-      <div class="gallery-item">
-        <img src="${src}" alt="Showcase photo ${idx + 1}" onerror="this.src='images/venues/1.jpg'">
-        <button type="button" class="gallery-del" data-idx="${idx}" title="Remove photo">✕</button>
+      <div class="gallery-item"><img src="${src}" alt="Showcase photo ${idx + 1}" onerror="this.src='images/venues/1.jpg'">
+        ${idx === 0
+          ? '<span style="position:absolute;top:8px;left:8px;background:#2563EB;color:#fff;font-size:0.7rem;font-weight:700;padding:3px 8px;border-radius:999px;">Main Photo</span>'
+          : `<button type="button" class="gallery-primary" data-idx="${idx}" style="position:absolute;top:8px;left:8px;background:rgba(15,23,42,0.82);color:#fff;border:none;border-radius:999px;padding:3px 9px;font-size:0.7rem;font-weight:700;cursor:pointer;">Set as Main</button>`}
+        <button type="button" class="gallery-del" data-idx="${idx}" title="Remove photo">Remove</button>
       </div>
     `).join('');
+
+    container.querySelectorAll('.gallery-primary').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const i = Number(btn.dataset.idx);
+        const [picked] = currentUser.vendorDetails.pictures.splice(i, 1);
+        if (picked) {
+          currentUser.vendorDetails.pictures.unshift(picked);
+          populateProfileUI();
+          renderGallery();
+          saveProfile('Main profile & listing photo updated!');
+        }
+      });
+    });
 
     container.querySelectorAll('.gallery-del').forEach(btn => {
       btn.addEventListener('click', () => {
         const i = Number(btn.dataset.idx);
         currentUser.vendorDetails.pictures.splice(i, 1);
-        localStorage.setItem('eventora_user', JSON.stringify(currentUser));
+        populateProfileUI();
         renderGallery();
-        showToast('Showcase picture removed.');
+        saveProfile('Showcase picture removed and saved.');
       });
+    });
+  }
+
+  // Primary Profile & Listing Cover upload in Section 2
+  const profilePicFileEl = $('v-profile-pic-file');
+  if (profilePicFileEl) {
+    profilePicFileEl.addEventListener('change', function () {
+      const file = this.files[0];
+      if (!file) return;
+      readCompressedImageFile(file, (dataUrl) => {
+        if (!dataUrl) return;
+        const pics = (currentUser.vendorDetails.pictures || []).filter(p => p && p !== dataUrl);
+        pics.unshift(dataUrl);
+        currentUser.vendorDetails.pictures = pics;
+        populateProfileUI();
+        renderGallery();
+        saveProfile('New profile & listing image saved!');
+      });
+      this.value = '';
+    });
+  }
+
+  // Portfolio item file upload helper
+  const pImgFileEl = $('p-img-file');
+  if (pImgFileEl) {
+    pImgFileEl.addEventListener('change', function () {
+      const file = this.files[0];
+      if (!file) return;
+      readCompressedImageFile(file, (dataUrl) => {
+        if (dataUrl) {
+          $('p-img').value = dataUrl;
+          showToast('Project photo loaded. Click "+ Add Project to Portfolio" to save.');
+        }
+      });
+      this.value = '';
     });
   }
 
@@ -958,7 +1081,7 @@
   $('btn-add-portfolio-item').addEventListener('click', () => {
     const title = $('p-title').value.trim();
     if (!title) {
-      alert('Please enter a project title.');
+      showToast('Please enter a project title.');
       return;
     }
     const type = $('p-type').value;
@@ -966,28 +1089,50 @@
     const desc = $('p-desc').value.trim() || `${type} orchestration`;
 
     currentUser.vendorDetails.portfolio.push({ title, description: desc, image: img });
-    localStorage.setItem('eventora_user', JSON.stringify(currentUser));
+    if (img && (!currentUser.vendorDetails.pictures || currentUser.vendorDetails.pictures.length === 0)) {
+      currentUser.vendorDetails.pictures = [img];
+    }
 
     $('p-title').value = '';
     $('p-img').value = '';
     $('p-desc').value = '';
 
+    populateProfileUI();
     renderPortfolio();
-    showToast('✓ Project added to work portfolio!');
+    renderGallery();
+    saveProfile('Project added to work portfolio and saved!');
   });
 
-  // Add Picture to Gallery
+  // Add Picture URL to Gallery (set newly added URL as primary showcase photo)
   $('btn-add-picture').addEventListener('click', () => {
     const url = $('new-picture-url').value.trim();
     if (!url) {
-      alert('Please enter an image path or URL.');
+      showToast('Please enter an image path or URL.');
       return;
     }
-    currentUser.vendorDetails.pictures.push(url);
-    localStorage.setItem('eventora_user', JSON.stringify(currentUser));
+    const pics = (currentUser.vendorDetails.pictures || []).filter(p => p && p !== url);
+    pics.unshift(url);
+    currentUser.vendorDetails.pictures = pics;
     $('new-picture-url').value = '';
+    populateProfileUI();
     renderGallery();
-    showToast('✓ Picture added to showcase gallery!');
+    saveProfile('Picture set as main showcase image and saved!');
+  });
+
+  // Upload Image File directly from device (set newly uploaded image as primary listing & showcase photo)
+  $('new-picture-file').addEventListener('change', function () {
+    const file = this.files[0];
+    if (!file) return;
+    readCompressedImageFile(file, (dataUrl) => {
+      if (!dataUrl) return;
+      const pics = (currentUser.vendorDetails.pictures || []).filter(p => p && p !== dataUrl);
+      pics.unshift(dataUrl);
+      currentUser.vendorDetails.pictures = pics;
+      populateProfileUI();
+      renderGallery();
+      saveProfile('Uploaded image set as main photo and saved!');
+    });
+    this.value = '';
   });
 
   // Quick preset event pictures
@@ -1005,18 +1150,48 @@
         currentUser.vendorDetails.pictures.push(p);
       }
     });
-    localStorage.setItem('eventora_user', JSON.stringify(currentUser));
+    populateProfileUI();
     renderGallery();
-    showToast('✓ Added recommended event photos!');
+    saveProfile('Added recommended event photos and saved!');
   });
 
-  $('btn-save-portfolio-top').addEventListener('click', saveProfile);
+  $('btn-save-portfolio-top').addEventListener('click', () => saveProfile());
+
+  async function syncVendorProfileFromServer() {
+    try {
+      const meRes = await fetch('/api/auth/me', { credentials: 'same-origin', cache: 'no-store' }).catch(() => null);
+      if (meRes && meRes.ok) {
+        const meJson = await meRes.json().catch(() => null);
+        if (meJson && meJson.authenticated && meJson.user && meJson.user.role === 'vendor') {
+          currentUser = { ...meJson.user };
+          currentUser.vendorDetails = currentUser.vendorDetails || {};
+          currentUser.vendorDetails.portfolio = currentUser.vendorDetails.portfolio || [];
+          currentUser.vendorDetails.pictures = currentUser.vendorDetails.pictures || [];
+        }
+      }
+      const email = currentUser.email;
+      if (!email) return;
+      const res = await fetch(`/api/vendor/profile/${encodeURIComponent(email)}`, { credentials: 'same-origin', cache: 'no-store' });
+      const json = await res.json();
+      if (res.ok && json && json.success && json.vendor) {
+        currentUser = { ...currentUser, ...json.vendor };
+        currentUser.vendorDetails = currentUser.vendorDetails || {};
+        currentUser.vendorDetails.portfolio = currentUser.vendorDetails.portfolio || [];
+        currentUser.vendorDetails.pictures = currentUser.vendorDetails.pictures || [];
+        localStorage.setItem('eventora_user', JSON.stringify(currentUser));
+        populateProfileUI();
+        renderPortfolio();
+        renderGallery();
+      }
+    } catch (e) {}
+  }
 
   // Initialize all sections
   populateProfileUI();
   loadQueries();
   renderPortfolio();
   renderGallery();
+  syncVendorProfileFromServer();
 })();
 </script>
 </body>

@@ -64,7 +64,7 @@
       const heading = btn.dataset.heading || 'Celebration';
       const title = btn.dataset.title || 'Special Event';
       const message = btn.dataset.message || '';
-      const emoji = btn.querySelector('.tpl-emoji')?.textContent || '🪷';
+      const emoji = btn.querySelector('.tpl-emoji')?.textContent || '';
 
       $('template').value = key;
       card.style.setProperty('--bg', bg);
@@ -77,11 +77,15 @@
       const emojiEl = $('card-emoji');
       if (emojiEl) emojiEl.textContent = emoji;
 
-      $('heading').value = heading;
-      setField('heading', heading);
+      const userDefaults = window._eventoraInviteUserDefaults;
+      const finalHeading = (userDefaults && userDefaults.heading) ? userDefaults.heading : heading;
+      const finalTitle = (userDefaults && userDefaults.title) ? userDefaults.title : title;
 
-      $('title').value = title;
-      setField('title', title);
+      $('heading').value = finalHeading;
+      setField('heading', finalHeading);
+
+      $('title').value = finalTitle;
+      setField('title', finalTitle);
 
       $('message').value = message;
       setField('message', message);
@@ -202,6 +206,7 @@
       try {
         const res = await fetch('/api/invites', {
           method: 'POST',
+          credentials: 'same-origin',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         });
@@ -209,7 +214,7 @@
 
         if (result.success) {
           if (saveStatus) {
-            saveStatus.textContent = '✓ Saved to your MongoDB database successfully!';
+            saveStatus.textContent = 'Saved to your MongoDB database successfully.';
             saveStatus.style.display = 'block';
             setTimeout(() => { saveStatus.style.display = 'none'; }, 5000);
           }
@@ -221,7 +226,7 @@
         console.error('Error saving invite:', err);
         alert('Saved locally. MongoDB connection active.');
       } finally {
-        btnSaveMongo.textContent = '💾 Save to MongoDB';
+        btnSaveMongo.textContent = 'Save to MongoDB';
         btnSaveMongo.disabled = false;
       }
     });
@@ -254,7 +259,7 @@
         console.error('html2canvas error:', err);
         alert('Could not export PNG. Please try again.');
       } finally {
-        btnPng.textContent = '📷 Download as PNG';
+        btnPng.textContent = 'Download as PNG';
       }
     });
   }
@@ -286,7 +291,7 @@
         console.error('PDF error:', err);
         alert('Could not export PDF. Please try again.');
       } finally {
-        btnPdf.textContent = '📄 Download as PDF';
+        btnPdf.textContent = 'Download as PDF';
       }
     });
   }
@@ -304,14 +309,14 @@
       const rsvpVal = $('rsvpContact')?.value || '';
       const messageVal = $('message')?.value || '';
 
-      const msg = `🎉 *${title}*\n` +
+      const msg = `*${title}*\n` +
         (hosts ? `${hosts}\n\n` : '\n') +
-        `📅 *Date:* ${dateVal}\n` +
-        `⏰ *Time:* ${timeVal}\n` +
-        `📍 *Venue:* ${venueVal}, ${addressVal}\n` +
-        (rsvpVal ? `🙏 *RSVP:* ${rsvpVal}\n` : '') +
+        `*Date:* ${dateVal}\n` +
+        `*Time:* ${timeVal}\n` +
+        `*Venue:* ${venueVal}, ${addressVal}\n` +
+        (rsvpVal ? `*RSVP:* ${rsvpVal}\n` : '') +
         (messageVal ? `\n"${messageVal}"\n` : '') +
-        `\nCreated with ❤️ on Eventora: ${window.location.origin}/invites`;
+        `\nCreated on Eventora: ${window.location.origin}/invites`;
 
       window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
     });
@@ -324,7 +329,7 @@
     if (!listEl) return;
 
     try {
-      const res = await fetch('/api/invites');
+      const res = await fetch('/api/invites', { credentials: 'same-origin' });
       const result = await res.json();
 
       if (result.success && result.data && result.data.length > 0) {
@@ -335,7 +340,7 @@
           <div style="display:flex; justify-content:space-between; align-items:center; background:#F8FAFC; border:1px solid #E2E8F0; border-radius:12px; padding:12px 16px;">
             <div>
               <strong style="font-size:14px; color:#0F172A; display:block;">${escapeHtml(inv.title || 'Untitled Invite')}</strong>
-              <span style="font-size:12px; color:#64748B;">${escapeHtml(inv.heading || inv.template)} • ${escapeHtml(inv.date || '')}</span>
+              <span style="font-size:12px; color:#64748B;">${escapeHtml(inv.heading || inv.template)} · ${escapeHtml(inv.date || '')}</span>
             </div>
             <div style="display:flex; gap:8px;">
               <button type="button" class="btn sm" style="padding:4px 12px; font-size:12px; background:#FFFFFF; border:1px solid #CBD5E1; cursor:pointer;" onclick="loadSavedIntoCard('${inv._id || inv.id}')">Load</button>
@@ -345,7 +350,7 @@
         `).join('');
       } else {
         if (countEl) countEl.textContent = '0';
-        listEl.innerHTML = `<p style="font-size:13px; color:#94A3B8; text-align:center; padding:12px;">Saved invitation designs will appear here.</p>`;
+        listEl.innerHTML = `<p style="font-size:13px; color:#94A3B8; text-align:center; padding:12px;">Saved invitation designs for your account will appear here.</p>`;
       }
     } catch (e) {
       console.error('Error fetching saved invites:', e);
@@ -391,7 +396,7 @@
   window.deleteSavedCard = async function (id) {
     if (!confirm('Delete this saved invitation design?')) return;
     try {
-      const res = await fetch(`/api/invites/${id}`, { method: 'DELETE' });
+      const res = await fetch(`/api/invites/${id}`, { method: 'DELETE', credentials: 'same-origin' });
       const result = await res.json();
       if (result.success) loadSavedInvites();
     } catch (e) {
@@ -405,14 +410,99 @@
     }[c]));
   }
 
-  // Load saved cards on startup
-  loadSavedInvites();
+  function resolveUserInviteDefaults(u) {
+    if (!u) return null;
+    const d = u.eventDetails || {};
+    const type = String(u.eventType || '').trim();
+    let title = String(u.eventName || '').trim();
+    if (!title) {
+      if (d.brideName && d.groomName) title = `${d.brideName} & ${d.groomName}'s ${type || 'Wedding'}`;
+      else if (d.partner1Name && d.partner2Name) title = `${d.partner1Name} & ${d.partner2Name}'s ${type || 'Anniversary'}`;
+      else if (d.honoreeName) title = `${d.honoreeName}'s ${type || 'Celebration'}`;
+      else if (d.babyName) title = `${d.babyName}'s ${type || 'Naming Ceremony'}`;
+      else if (d.hostName) title = `${d.hostName}'s ${type || 'Celebration'}`;
+      else if (d.eventTitle) title = d.eventTitle;
+      else if (u.name && type) title = `${u.name}'s ${type}`;
+    }
 
-  // Auth button banner check
-  const user = JSON.parse(localStorage.getItem('eventora_user') || 'null');
-  const authBtn = $('nav-auth-btn');
-  if (user && authBtn) {
-    authBtn.textContent = user.name.split(' ')[0];
-    authBtn.href = 'eventora-dashboard.html';
+    const tLow = type.toLowerCase();
+    let templateKey = '';
+    if (tLow.includes('wedding')) templateKey = 'wedding';
+    else if (tLow.includes('birthday')) templateKey = 'birthday';
+    else if (tLow.includes('engagement')) templateKey = 'engagement';
+    else if (tLow.includes('corporate')) templateKey = 'corporate';
+    else if (tLow.includes('house')) templateKey = 'housewarming';
+    else if (tLow.includes('college') || tLow.includes('graduation')) templateKey = 'graduation';
+    else if (tLow.includes('baby')) templateKey = 'babyshower';
+    else if (tLow.includes('anniversary')) templateKey = 'anniversary';
+    else if (tLow.includes('naming')) templateKey = 'naming';
+    else if (tLow.includes('festival')) templateKey = 'festival';
+
+    return {
+      title,
+      heading: type ? `${type} Invitation` : '',
+      hosts: u.name ? `Hosted by ${u.name}` : '',
+      date: u.eventDate || '',
+      address: u.city || '',
+      rsvpContact: u.phone || u.email || '',
+      templateKey
+    };
   }
+
+  function applyUserInviteDefaults(u) {
+    const info = resolveUserInviteDefaults(u);
+    if (!info) return;
+    window._eventoraInviteUserDefaults = info;
+
+    const fillIfEmpty = (id, val, previewField) => {
+      const inp = $(id);
+      if (!inp || !val) return;
+      if (!inp.value || inp.dataset.autoFilled === '1') {
+        inp.value = val;
+        inp.dataset.autoFilled = '1';
+        setField(previewField || id, val);
+      }
+    };
+
+    if (info.heading) fillIfEmpty('heading', info.heading);
+    if (info.title) fillIfEmpty('title', info.title);
+    if (info.hosts) fillIfEmpty('hosts', info.hosts);
+    if (info.address) fillIfEmpty('address', info.address);
+    if (info.rsvpContact) fillIfEmpty('rsvpContact', info.rsvpContact);
+    if (info.date) {
+      const dInp = $('date');
+      if (dInp && (!dInp.value || dInp.dataset.autoFilled === '1')) {
+        dInp.value = info.date;
+        dInp.dataset.autoFilled = '1';
+        setField('dateText', fmtDate(info.date));
+      }
+    }
+
+    if (info.templateKey) {
+      document.querySelectorAll('.tpl').forEach((btn) => {
+        if (btn.dataset.key === info.templateKey) {
+          btn.style.boxShadow = '0 0 0 3px #0F172A';
+        }
+      });
+    }
+  }
+
+  // Startup user sync + saved invites load
+  try {
+    const cachedUser = JSON.parse(localStorage.getItem('eventora_user') || 'null');
+    if (cachedUser) applyUserInviteDefaults(cachedUser);
+  } catch (e) {}
+
+  fetch('/api/auth/me', { credentials: 'same-origin' })
+    .then((r) => (r.ok ? r.json() : null))
+    .then((data) => {
+      if (data && data.authenticated && data.user) {
+        localStorage.setItem('eventora_user', JSON.stringify(data.user));
+        applyUserInviteDefaults(data.user);
+        loadSavedInvites();
+      }
+    })
+    .catch(() => {});
+
+  loadSavedInvites();
 })();

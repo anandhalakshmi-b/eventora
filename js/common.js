@@ -80,99 +80,57 @@ function initDynamicNavbar() {
     currentUser = JSON.parse(localStorage.getItem('eventora_user'));
   } catch (e) {}
 
-  // Page protection guard for user-only modules and dashboards
-  const userOnlyPages = ['budget', 'checklist', 'guests', 'rsvp', 'favorites'];
-  const isUserOnlyPage = userOnlyPages.some(p => path.includes(p));
-
-  if (isUserOnlyPage) {
-    if (!currentUser) {
-      sessionStorage.setItem('eventora_redirect', window.location.pathname || window.location.href);
-      alert('This planning module (Checklist, Guests, Budget, Favorites) is available after registering or logging in. Please sign in or create an account.');
-      window.location.href = routes.register + '?mode=login';
-      return;
-    } else if (currentUser.role === 'vendor') {
-      alert('Vendor accounts cannot access customer planning modules. Redirecting to your Vendor Dashboard.');
-      window.location.href = routes.vendorDashboard;
-      return;
-    }
-  }
-
-  if (path.includes('vendor-dashboard')) {
-    if (!currentUser || currentUser.role !== 'vendor') {
-      alert('Please log in with a Vendor Partner account to access the Vendor Dashboard.');
-      window.location.href = routes.register + '?mode=login&role=vendor';
-      return;
-    }
-  }
-
-  if (path.includes('dashboard') && !path.includes('vendor')) {
-    if (!currentUser) {
-      sessionStorage.setItem('eventora_redirect', window.location.pathname || window.location.href);
-      alert('Please sign in to access your User Dashboard.');
-      window.location.href = routes.register + '?mode=login';
-      return;
-    } else if (currentUser.role === 'vendor') {
-      window.location.href = routes.vendorDashboard;
-      return;
-    }
-  }
-
   let navHtml = '';
 
   if (!currentUser) {
-    // ----------------------------------------------------
-    // 1. VISITOR / NOT LOGGED IN
-    // Home + basic modules visible; Checklist, Guests, Budget, Favorites hidden
-    // ----------------------------------------------------
     navHtml = `
       <a href="${routes.home}" class="${isActive('home') ? 'on' : ''}">Home</a>
-      <a href="${routes.venues}" class="${isActive('venues') ? 'on' : ''}">Venues &amp; Vendors</a>
-      <a href="${routes.ideas}" class="${isActive('ideas') ? 'on' : ''}">Ideas</a>
-      <a href="${routes.consultation}" class="${isActive('consultation') ? 'on' : ''}">Consultation</a>
-      <a href="${routes.invites}" class="${isActive('invites') ? 'on' : ''}">Invites</a>
       <a href="${routes.chatbot}" class="${isActive('chatbot') ? 'on' : ''}">Chatbot</a>
       <a class="btn sm ${isActive('register') ? 'on' : ''}" href="${routes.register}" id="nav-auth-btn">Login / Register</a>
     `;
   } else if (currentUser.role === 'vendor') {
-    // ----------------------------------------------------
-    // 2. VENDOR LOGIN
-    // Shows vendor dashboard, home, listings; user planning modules hidden
-    // ----------------------------------------------------
     const vName = (currentUser.vendorDetails && currentUser.vendorDetails.businessName) || currentUser.name || 'Vendor';
     navHtml = `
       <a href="${routes.vendorDashboard}" class="${isActive('vendorDashboard') ? 'on' : ''}">Vendor Dashboard</a>
       <a href="${routes.home}" class="${isActive('home') ? 'on' : ''}">Home</a>
-      <a href="${routes.ideas}" class="${isActive('ideas') ? 'on' : ''}">Ideas</a>
       <a href="${routes.chatbot}" class="${isActive('chatbot') ? 'on' : ''}">Chatbot</a>
-      <span class="nav-user-badge" title="${esc(vName)}">🏢 ${esc(vName.length > 16 ? vName.slice(0, 14) + '...' : vName)}</span>
+      <span class="nav-user-badge" title="${esc(vName)}">${esc(vName.length > 16 ? vName.slice(0, 14) + '...' : vName)}</span>
       <button type="button" class="nav-logout-btn" id="nav-logout">Logout</button>
     `;
   } else {
-    // ----------------------------------------------------
-    // 3. LOGGED-IN CUSTOMER (USER)
-    // Access to Dashboard where personal planning tools reside
-    // ----------------------------------------------------
     const uFirstName = (currentUser.name || 'User').split(' ')[0];
     navHtml = `
-      <a href="${routes.home}" class="${isActive('home') ? 'on' : ''}">Home</a>
-      <a href="${routes.userDashboard}" class="${isActive('userDashboard') ? 'on' : ''}">Dashboard</a>
-      <a href="${routes.venues}" class="${isActive('venues') ? 'on' : ''}">Venues &amp; Vendors</a>
-      <a href="${routes.ideas}" class="${isActive('ideas') ? 'on' : ''}">Ideas</a>
-      <a href="${routes.consultation}" class="${isActive('consultation') ? 'on' : ''}">Consultation</a>
-      <a href="${routes.invites}" class="${isActive('invites') ? 'on' : ''}">Invites</a>
-      <a href="${routes.chatbot}" class="${isActive('chatbot') ? 'on' : ''}">Chatbot</a>
-      <span class="nav-user-badge" title="${esc(currentUser.name || '')}">👤 ${esc(uFirstName)}</span>
+      <a href="${routes.userDashboard}" class="${isActive('userDashboard') ? 'on' : ''}">Home</a>
+      <a href="${routes.userDashboard}?registerEvent=1#register-event-section" id="nav-register-event">Register New Event</a>
+      <span class="nav-user-badge" title="${esc(currentUser.name || '')}">${esc(uFirstName)}</span>
       <button type="button" class="nav-logout-btn" id="nav-logout">Logout</button>
     `;
   }
 
   linksContainer.innerHTML = navHtml;
 
-  // Handle Logout
+  const regEvLink = document.getElementById('nav-register-event');
+  if (regEvLink) {
+    regEvLink.addEventListener('click', (e) => {
+      if (typeof window.openRegisterEventPanel === 'function') {
+        e.preventDefault();
+        window.openRegisterEventPanel();
+      }
+    });
+  }
+
+  // Handle Logout (clear server cookie + local state)
   const logoutBtn = document.getElementById('nav-logout');
   if (logoutBtn) {
-    logoutBtn.addEventListener('click', () => {
+    logoutBtn.addEventListener('click', async () => {
+      try {
+        await fetch('/api/auth/logout', { method: 'POST', credentials: 'same-origin' });
+      } catch (e) {}
       localStorage.removeItem('eventora_user');
+      localStorage.removeItem('oraSession');
+      localStorage.removeItem('eventora-budget');
+      localStorage.removeItem('eventora-checklist-shubh-v1');
+      localStorage.removeItem('eventora-checklist-queue-v1');
       window.location.href = routes.home;
     });
   }
@@ -188,10 +146,50 @@ function initDynamicNavbar() {
   }
 }
 
+async function syncAuthSessionWithServer() {
+  if (window.location.protocol === 'file:' || window._eventoraSessionSynced) return;
+  window._eventoraSessionSynced = true;
+
+  const p = window.location.pathname.toLowerCase();
+  const isPublic =
+    p === '/' ||
+    p === '' ||
+    p.includes('index') ||
+    p.includes('home') ||
+    p.includes('register') ||
+    p.includes('chatbot') ||
+    p.includes('ora') ||
+    p.includes('rsvp') ||
+    p.includes('invites-view') ||
+    p.includes('invites/view');
+
+  try {
+    const res = await fetch('/api/auth/me', { credentials: 'same-origin' });
+    if (res.ok) {
+      const data = await res.json();
+      if (data && data.authenticated && data.user) {
+        localStorage.setItem('eventora_user', JSON.stringify(data.user));
+        initDynamicNavbar();
+        return;
+      }
+    }
+    localStorage.removeItem('eventora_user');
+    localStorage.removeItem('oraSession');
+    initDynamicNavbar();
+    if (!isPublic) {
+      window.location.href = '/register?mode=login&redirect=' + encodeURIComponent(window.location.pathname + window.location.search);
+    }
+  } catch (e) {}
+}
+
 window.initDynamicNavbar = initDynamicNavbar;
 
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initDynamicNavbar);
+  document.addEventListener('DOMContentLoaded', () => {
+    initDynamicNavbar();
+    syncAuthSessionWithServer();
+  });
 } else {
   initDynamicNavbar();
+  syncAuthSessionWithServer();
 }
