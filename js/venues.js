@@ -4,106 +4,65 @@
   const CITIES = ['Coimbatore', 'Chennai', 'Bengaluru', 'Madurai', 'Pondicherry', 'Kochi'];
   const VTYPES = ['Banquet hall', 'Outdoor lawn', 'Rooftop', 'Resort', 'Conference centre'];
 
-  const VENUES = [
-    {
-      id: 'v1', name: 'Lotus Grand Banquet', city: 'Coimbatore', type: 'Banquet hall', cap: 600, price: 90000, rating: 4.8, tone: 'pink', e: '🏛️', image: 'images/venues/1.jpg',
-      ev: ['Wedding', 'Engagement', 'Anniversary', 'Corporate & Team', 'Festival'], booked: ['2026-11-14', '2026-11-15', '2026-12-06'],
-      desc: 'Air-conditioned hall with a grand stage, in-house kitchen and a bridal suite.', am: ['AC hall', 'Stage and lighting', 'Parking for 150 cars', 'Bridal suite']
-    },
-    {
-      id: 'v2', name: 'Palm Garden Lawn', city: 'Coimbatore', type: 'Outdoor lawn', cap: 400, price: 65000, rating: 4.6, tone: 'green', e: '🌴', image: 'images/venues/2.jpg', imagePosition: 'center 84%',
-      ev: ['Wedding', 'Birthday', 'Festival', 'Engagement', 'Anniversary'], booked: ['2026-11-08', '2026-12-12'],
-      desc: 'A green open lawn with fairy-light setup. Best for evening receptions and garden parties.', am: ['Open lawn', 'Fairy lights', 'Generator backup', 'Outside catering allowed']
-    },
-    {
-      id: 'v3', name: 'Skyline Terrace', city: 'Chennai', type: 'Rooftop', cap: 150, price: 45000, rating: 4.5, tone: 'purple', e: '🌆', image: 'images/venues/3.jpg',
-      ev: ['Birthday', 'Anniversary', 'Baby Shower', 'Corporate & Team', 'Naming Ceremony'], booked: ['2026-11-21', '2026-11-22'],
-      desc: 'Rooftop venue with city views, a lounge corner and a DJ platform.', am: ['City view', 'DJ platform', 'Lounge seating', 'Lift access']
-    },
-    {
-      id: 'v4', name: 'Heritage Mahal', city: 'Madurai', type: 'Banquet hall', cap: 800, price: 120000, rating: 4.7, tone: 'orange', e: '🕌', image: 'images/venues/4.jpg',
-      ev: ['Wedding', 'Engagement', 'Housewarming', 'Naming Ceremony', 'Anniversary'], booked: ['2026-12-05', '2026-12-06', '2026-12-13'],
-      desc: 'Traditional pillared hall with a dining area for 500 and rooms for family.', am: ['Dining for 500', 'Guest rooms', 'Mandap stage', 'Valet parking']
-    },
-    {
-      id: 'v5', name: 'Bloom Conference Centre', city: 'Bengaluru', type: 'Conference centre', cap: 250, price: 70000, rating: 4.4, tone: 'cyan', e: '💼', image: 'images/venues/5.jpg', imagePosition: 'center 76%',
-      ev: ['Corporate & Team', 'College & Graduation'], booked: ['2026-11-10', '2026-11-11'],
-      desc: 'Projector, sound system and break-out rooms for meets, launches and seminars.', am: ['Projector and screen', 'Fast Wi-Fi', 'Break-out rooms', 'Tea and coffee area']
-    },
-    {
-      id: 'v6', name: 'Seaside Resort Lawn', city: 'Pondicherry', type: 'Resort', cap: 300, price: 110000, rating: 4.9, tone: 'yellow', e: '🌊', image: 'images/venues/6.jpg',
-      ev: ['Wedding', 'Anniversary', 'Birthday', 'Festival', 'Corporate & Team'], booked: ['2026-12-19', '2026-12-20'],
-      desc: 'Beachfront lawn with rooms for guests and sunset ceremony spots.', am: ['Beachfront', '60 guest rooms', 'Sunset deck', 'Pool area']
-    },
-    {
-      id: 'v7', name: 'Little Star Party Hall', city: 'Kochi', type: 'Banquet hall', cap: 120, price: 28000, rating: 4.3, tone: 'red', e: '🎈', image: 'images/venues/7.jpg',
-      ev: ['Birthday', 'Baby Shower', 'Naming Ceremony', 'Housewarming'], booked: ['2026-11-15'],
-      desc: 'A cheerful small hall with a kids corner, cake table and balloon-friendly ceilings.', am: ['Kids corner', 'Cake table', 'Sound system', 'Parking']
-    },
-    {
-      id: 'v8', name: 'Campus Green Auditorium', city: 'Chennai', type: 'Conference centre', cap: 500, price: 55000, rating: 4.2, tone: 'cyan', e: '🎓', image: 'images/venues/8.jpg',
-      ev: ['College & Graduation', 'Corporate & Team'], booked: ['2026-12-02'],
-      desc: 'Large auditorium with tiered seating, ideal for convocations and annual days.', am: ['Tiered seating', 'Stage', 'Green room', 'Live-stream corner']
-    }
-  ];
+  const VENUES = [];
 
   const CATS = [
-    { k: 'catering', n: 'Catering', c: 'orange', e: '🍽️', image: 'images/catering/1.jpg', about: 'Menus and service teams to make your celebration delicious.' },
-    { k: 'decor', n: 'Decor', c: 'purple', e: '🎀', image: 'images/decor/1.jpg', about: 'Bring your event theme to life with talented decorators.' },
-    { k: 'makeup', n: 'Makeup & Styling', c: 'pink', e: '💄', image: 'images/makeup/1.jpg', about: 'Find artists for bridal looks, hair styling and special occasions.' },
-    { k: 'photo', n: 'Photography & Video', c: 'cyan', e: '📸', image: 'images/photo/1.jpg', about: 'Capture every candid, ceremony and celebration worth remembering.' },
-    { k: 'host', n: 'Host & Anchor', c: 'yellow', e: '🎤', image: 'images/emcee/1.JPG', about: 'Hosts and anchors to keep your guests engaged all event long.' },
-    { k: 'dj', n: 'DJ & Music', c: 'red', e: '🎧', image: 'images/dj/1.jpg', about: 'Set the mood with DJs, live bands and professional sound.' },
-    { k: 'florist', n: 'Florist', c: 'green', e: '💐', image: 'images/decor/5.jpg', about: 'Fresh flowers, bouquets and beautiful ceremony arrangements.' }
+    { k: 'catering', n: 'Catering', c: 'orange', e: '', image: 'images/catering/1.jpg', about: 'Menus and service teams to make your celebration delicious.' },
+    { k: 'decor', n: 'Decor', c: 'purple', e: '', image: 'images/decor/1.jpg', about: 'Bring your event theme to life with talented decorators.' },
+    { k: 'makeup', n: 'Makeup & Styling', c: 'pink', e: '', image: 'images/makeup/1.jpg', about: 'Find artists for bridal looks, hair styling and special occasions.' },
+    { k: 'photo', n: 'Photography & Video', c: 'cyan', e: '', image: 'images/photo/1.jpg', about: 'Capture every candid, ceremony and celebration worth remembering.' },
+    { k: 'host', n: 'Host & Anchor', c: 'yellow', e: '', image: 'images/emcee/1.JPG', about: 'Hosts and anchors to keep your guests engaged all event long.' },
+    { k: 'dj', n: 'DJ & Music', c: 'red', e: '', image: 'images/dj/1.jpg', about: 'Set the mood with DJs, live bands and professional sound.' },
+    { k: 'florist', n: 'Florist', c: 'green', e: '', image: 'images/decor/5.jpg', about: 'Fresh flowers, bouquets and beautiful ceremony arrangements.' }
   ];
 
   // Category-specific UI, filter, detail, and booking schemas so only relevant details are shown
   const CATEGORY_CONFIG = {
     catering: {
       unit: 'per plate', min: 150, max: 2500, step: 50,
-      heroKicker: '✦ CATERING & FEAST SPECIALISTS ✦',
-      heroDesc: 'Explore South Indian sadya teams, North Indian spreads, live food counters, and custom dessert & cake tables.',
+      heroKicker: 'CATERING & FEAST SPECIALISTS',
+      heroDesc: 'Explore traditional feast teams, regional spreads, live food counters, and custom dessert & cake tables.',
       filterLabel: 'Cuisine & Menu Specialty',
       detailsLabel: 'Menu & Catering Offerings',
-      bookingPlaceholder: 'Preferred dishes, Jain/allergen requirements, or tasting request',
+      bookingPlaceholder: 'Preferred dishes, vegetarian/allergen requirements, or tasting request',
       bookingFields: [
         { name: 'plateCount', label: 'Estimated plates / guests', type: 'number', placeholder: 'e.g. 250', required: true },
-        { name: 'menuType', label: 'Menu preference', type: 'select', options: ['Pure Vegetarian / Sadya', 'Veg & Non-Veg Spread', 'Jain Friendly Menu', 'Snacks, Chaat & Desserts'], required: true },
-        { name: 'serviceStyle', label: 'Service style', type: 'select', options: ['Traditional Banana Leaf', 'Buffet & Live Counters', 'Plated / Cocktail Snacks'], required: true }
+        { name: 'menuType', label: 'Menu preference', type: 'select', options: ['Pure Vegetarian Feast', 'Veg & Non-Veg Spread', 'Allergen-Friendly Menu', 'Snacks & Desserts'], required: true },
+        { name: 'serviceStyle', label: 'Service style', type: 'select', options: ['Traditional Leaf Service', 'Buffet & Live Counters', 'Plated / Cocktail Snacks'], required: true }
       ]
     },
     decor: {
       unit: 'per event', min: 5000, max: 150000, step: 2500,
-      heroKicker: '✦ EVENT DECOR & MANDAP STUDIOS ✦',
-      heroDesc: 'Browse floral mandap designers, pastel reception stage stylists, and vibrant balloon & theme decorators.',
+      heroKicker: 'EVENT DECOR & STAGE STUDIOS',
+      heroDesc: 'Browse floral stage designers, pastel reception stylists, and vibrant balloon & theme decorators.',
       filterLabel: 'Decor Style & Setup',
       detailsLabel: 'Decor & Styling Offerings',
       bookingPlaceholder: 'Colour palette, floral theme, or venue stage dimensions',
       bookingFields: [
-        { name: 'setupArea', label: 'Primary setup area', type: 'select', options: ['Mandap & Main Stage', 'Balloon & Theme Backdrop', 'Entrance, Lighting & Tables', 'Full Venue Decor'], required: true },
+        { name: 'setupArea', label: 'Primary setup area', type: 'select', options: ['Ceremony & Main Stage', 'Balloon & Theme Backdrop', 'Entrance, Lighting & Tables', 'Full Venue Decor'], required: true },
         { name: 'themePalette', label: 'Theme / colour palette', type: 'text', placeholder: 'e.g. Marigold & Silk, Pastel Peach', required: true }
       ]
     },
     makeup: {
       unit: 'per person', min: 1500, max: 40000, step: 500,
-      heroKicker: '✦ MAKEUP & STYLING ARTISTS ✦',
-      heroDesc: 'Verified bridal makeup artists, party stylists, hair stylists, and saree draping specialists for every occasion.',
+      heroKicker: 'MAKEUP & STYLING ARTISTS',
+      heroDesc: 'Verified bridal makeup artists, party stylists, hair stylists, and draping specialists for every occasion.',
       filterLabel: 'Makeup & Styling Service',
       detailsLabel: 'Makeup & Hair Services',
       bookingPlaceholder: 'Outfit colours, preferred look (dewy/matte/traditional), or getting-ready location',
       bookingFields: [
-        { name: 'makeupLook', label: 'Makeup look / package', type: 'select', options: ['Bridal HD / Airbrush Makeup', 'Engagement / Reception Glam', 'Party & Occasion Makeup', 'Hair Styling & Saree Draping'], required: true },
+        { name: 'makeupLook', label: 'Makeup look / package', type: 'select', options: ['Bridal HD / Airbrush Makeup', 'Engagement / Reception Glam', 'Party & Occasion Makeup', 'Hair Styling & Draping'], required: true },
         { name: 'peopleCount', label: 'Number of people', type: 'number', placeholder: 'e.g. 1', required: true },
         { name: 'trialSession', label: 'Trial session needed?', type: 'select', options: ['Yes, schedule a trial', 'No trial needed'], required: true }
       ]
     },
     photo: {
       unit: 'per event', min: 5000, max: 150000, step: 2500,
-      heroKicker: '✦ PHOTOGRAPHY & CINEMATIC VIDEO ✦',
-      heroDesc: 'Candid storytellers, drone cinematographers, pre-wedding filmmakers, and instant photo booth teams.',
+      heroKicker: 'PHOTOGRAPHY & CINEMATIC VIDEO',
+      heroDesc: 'Candid storytellers, drone cinematographers, pre-event filmmakers, and instant photo booth teams.',
       filterLabel: 'Coverage & Deliverables',
       detailsLabel: 'Photo & Video Deliverables',
-      bookingPlaceholder: 'Key rituals to capture, drone permissions, or album requirements',
+      bookingPlaceholder: 'Key moments to capture, drone permissions, or album requirements',
       bookingFields: [
         { name: 'coveragePackage', label: 'Coverage package', type: 'select', options: ['Candid Photography Only', 'Candid + Traditional Photo & Video', 'Cinematic Film + Drone Coverage', 'Party Reels & Photo Booth'], required: true },
         { name: 'duration', label: 'Coverage duration', type: 'select', options: ['Half Day (4 hrs)', 'Full Day (8-10 hrs)', 'Multi-Day Celebration'], required: true }
@@ -111,58 +70,43 @@
     },
     host: {
       unit: 'per event', min: 5000, max: 60000, step: 1000,
-      heroKicker: '✦ EVENT HOSTS, EMCEES & ANCHORS ✦',
-      heroDesc: 'Bilingual and multilingual hosts to run sangeet nights, corporate galas, birthday games, and stage shows.',
+      heroKicker: 'EVENT HOSTS, EMCEES & ANCHORS',
+      heroDesc: 'Bilingual and multilingual hosts to run music nights, corporate galas, birthday games, and stage shows.',
       filterLabel: 'Language & Hosting Style',
       detailsLabel: 'Languages & Program Formats',
       bookingPlaceholder: 'Audience profile, preferred games, or stage run-of-show notes',
       bookingFields: [
         { name: 'languages', label: 'Preferred language(s)', type: 'text', placeholder: 'e.g. English & Tamil', required: true },
-        { name: 'hostFormat', label: 'Program format', type: 'select', options: ['Wedding / Sangeet Hosting', 'Birthday & Interactive Games', 'Corporate Summit & Awards', 'Cultural / Community Stage'], required: true }
+        { name: 'hostFormat', label: 'Program format', type: 'select', options: ['Wedding & Music Night Hosting', 'Birthday & Interactive Games', 'Corporate Summit & Awards', 'Cultural / Community Stage'], required: true }
       ]
     },
     dj: {
       unit: 'per event', min: 5000, max: 100000, step: 2500,
-      heroKicker: '✦ DJS, LIVE BANDS & SOUND PRODUCTION ✦',
-      heroDesc: 'Club-grade DJ consoles, live fusion bands, traditional nadaswaram troupes, and concert stage lighting.',
+      heroKicker: 'DJS, LIVE BANDS & SOUND PRODUCTION',
+      heroDesc: 'Club-grade DJ consoles, live fusion bands, traditional instrumental troupes, and concert stage lighting.',
       filterLabel: 'Music & Entertainment Type',
       detailsLabel: 'Music, Sound & Band Setup',
       bookingPlaceholder: 'Favourite genres, song requests, or venue sound curfew timings',
       bookingFields: [
-        { name: 'musicFormat', label: 'Entertainment format', type: 'select', options: ['DJ with Sound & Lights', 'Live Band & Singers', 'Traditional Nadaswaram / Folk', 'Sangeet & Dhol Setup'], required: true },
+        { name: 'musicFormat', label: 'Entertainment format', type: 'select', options: ['DJ with Sound & Lights', 'Live Band & Singers', 'Traditional Live Ensemble', 'Dance & Percussion Setup'], required: true },
         { name: 'venueSetting', label: 'Venue setting', type: 'select', options: ['Indoor Banquet Hall', 'Outdoor Lawn / Rooftop'], required: true }
       ]
     },
     florist: {
       unit: 'per event', min: 2000, max: 80000, step: 1000,
-      heroKicker: '✦ FRESH FLORISTS & GARLAND ARTISANS ✦',
-      heroDesc: 'Daily-sourced jasmine garlands, varmalas, mandap floral drapes, bouquets, and bridal hair flowers.',
+      heroKicker: 'FRESH FLORISTS & GARLAND ARTISANS',
+      heroDesc: 'Daily-sourced jasmine garlands, ceremonial flower wreaths, stage floral drapes, bouquets, and bridal hair flowers.',
       filterLabel: 'Floral Arrangement Type',
       detailsLabel: 'Fresh Flowers & Garlands',
-      bookingPlaceholder: 'Preferred blooms (mogra, roses, lotus), quantities, or early morning delivery time',
+      bookingPlaceholder: 'Preferred blooms (jasmine, roses, lotus), quantities, or early morning delivery time',
       bookingFields: [
-        { name: 'floralType', label: 'Floral requirement', type: 'select', options: ['Wedding Garlands & Varmala', 'Mandap & Floral Arch', 'Bouquets & Table Centerpieces', 'Fresh Hair Flowers (Veni / Mogra)'], required: true },
+        { name: 'floralType', label: 'Floral requirement', type: 'select', options: ['Wedding Garlands & Wreaths', 'Stage & Floral Arch', 'Bouquets & Table Centerpieces', 'Fresh Hair Flowers'], required: true },
         { name: 'preferredBlooms', label: 'Preferred flowers & colours', type: 'text', placeholder: 'e.g. Jasmine, Marigold, Pastel Roses', required: true }
       ]
     }
   };
 
-  const VENDORS = [
-    { id: 'd1', cat: 'catering', name: 'Spice Route Caterers', city: 'Coimbatore', from: 350, unit: 'per plate', rating: 4.7, ev: ['Wedding', 'Birthday', 'Corporate & Team', 'Engagement', 'Housewarming', 'Festival'], sv: ['South Indian', 'North Indian', 'Live counters'], image: 'images/catering/1.jpg', desc: 'Veg and non-veg menus for 50 to 2,000 guests, prepared by an experienced kitchen team. Choose regional favourites, multi-course spreads and live counters, with service staff available for the full event.' },
-    { id: 'd2', cat: 'catering', name: 'Sweet Bites & Co', city: 'Chennai', from: 250, unit: 'per plate', rating: 4.4, ev: ['Birthday', 'Baby Shower', 'College & Graduation', 'Naming Ceremony'], sv: ['Snacks', 'Desserts', 'Cake table'], image: 'images/catering/2.jpg', desc: 'A small-event catering team serving fresh snacks, dessert tables and custom cakes. Menus can be tailored for birthdays, showers and intimate celebrations.' },
-    { id: 'd3', cat: 'decor', name: 'Petal Pursuit Decor', city: 'Coimbatore', from: 25000, unit: 'per event', rating: 4.8, ev: ['Wedding', 'Engagement', 'Anniversary', 'Baby Shower', 'Housewarming'], sv: ['Stage', 'Floral', 'Theme decor'], image: 'images/decor/1.jpg', desc: 'A creative decor studio designing coordinated stages, entrances and tables in soft pastel themes. The team works with you on a concept and setup plan to suit your venue and celebration.' },
-    { id: 'd4', cat: 'decor', name: 'Balloon Bazaar', city: 'Kochi', from: 6000, unit: 'per event', rating: 4.5, ev: ['Birthday', 'Baby Shower', 'College & Graduation', 'Naming Ceremony'], sv: ['Balloon arches', 'Backdrops', 'Props'], image: 'images/decor/2.jpg', desc: 'Colourful balloon arches, backdrops and playful props for birthdays, baby showers and graduation parties. Packages can be adapted to your theme and event space.' },
-    { id: 'd5', cat: 'makeup', name: 'Glow by Meera', city: 'Madurai', from: 8000, unit: 'per person', rating: 4.9, ev: ['Wedding', 'Engagement', 'Anniversary', 'College & Graduation'], sv: ['Bridal makeup', 'Hair styling', 'Saree draping'], image: 'images/makeup/1.jpg', desc: 'Bridal and occasion makeup with a personal consultation and trial session. Services include hair styling and saree draping, with looks tailored to your outfit and event.' },
-    { id: 'd6', cat: 'makeup', name: 'Studio Shine', city: 'Bengaluru', from: 3000, unit: 'per person', rating: 4.3, ev: ['Birthday', 'College & Graduation', 'Corporate & Team', 'Anniversary'], sv: ['Party makeup', 'Hair styling'], image: 'images/makeup/2.jpg', desc: 'A beauty team creating quick, natural makeup and polished hairstyles for parties, graduations and photoshoots. Share your schedule to plan a relaxed getting-ready session.' },
-    { id: 'd7', cat: 'photo', name: 'Frame & Flame Studio', city: 'Chennai', from: 40000, unit: 'per event', rating: 4.8, ev: ['Wedding', 'Engagement', 'Anniversary', 'Corporate & Team', 'College & Graduation'], sv: ['Candid', 'Drone', 'Albums', 'Video'], image: 'images/photo/1.jpg', desc: 'A wedding and event photography studio focused on candid storytelling, ceremony coverage and cinematic video. Packages can include drone coverage and printed albums, with a preview gallery delivered the same week.' },
-    { id: 'd8', cat: 'photo', name: 'Click Cafe', city: 'Pondicherry', from: 12000, unit: 'per event', rating: 4.5, ev: ['Birthday', 'Baby Shower', 'College & Graduation', 'Naming Ceremony'], sv: ['Photos', 'Reels', 'Photo booth'], image: 'images/photo/2.jpg', desc: 'Fun, fast photo and video coverage for birthdays and small events. Choose candid photos, short social-ready reels or a photo booth to give guests a keepsake.' },
-    { id: 'd9', cat: 'host', name: 'Arjun the Anchor', city: 'Coimbatore', from: 15000, unit: 'per event', rating: 4.7, ev: ['Wedding', 'Corporate & Team', 'Anniversary', 'College & Graduation', 'Festival'], sv: ['English', 'Tamil', 'Games and quizzes'], image: 'images/emcee/1.JPG', desc: 'An energetic bilingual emcee for stage shows, weddings and award nights. Event run-of-show planning, audience games and announcements are coordinated with your team.' },
-    { id: 'd10', cat: 'host', name: 'Priya Events Host', city: 'Bengaluru', from: 10000, unit: 'per event', rating: 4.4, ev: ['Birthday', 'Baby Shower', 'Engagement', 'Naming Ceremony', 'Festival'], sv: ['English', 'Hindi', 'Kannada'], image: 'images/emcee/2.jpg', desc: 'A warm, multilingual host for family functions, kids parties and engagement celebrations. The programme is tailored to your guests, schedule and preferred languages.' },
-    { id: 'd11', cat: 'dj', name: 'BeatBox DJ', city: 'Bengaluru', from: 15000, unit: 'per event', rating: 4.6, ev: ['Birthday', 'Wedding', 'Corporate & Team', 'College & Graduation', 'Festival'], sv: ['DJ', 'Sound', 'Lights'], image: 'images/dj/1.jpg', desc: 'A DJ and production setup with club-quality sound, lighting and playlists for crowds of different sizes. Share your venue and music preferences to plan the right setup.' },
-    { id: 'd12', cat: 'dj', name: 'Raga & Rhythm Band', city: 'Madurai', from: 30000, unit: 'per event', rating: 4.8, ev: ['Wedding', 'Engagement', 'Anniversary', 'Housewarming', 'Festival'], sv: ['Live band', 'Nadaswaram', 'Singers'], image: 'images/dj/2.jpg', desc: 'Live performers bringing together classical music, film favourites and traditional wedding music. Set lists and performance timings can be planned around your ceremony.' },
-    { id: 'd13', cat: 'florist', name: 'Bloom & Co', city: 'Kochi', from: 5000, unit: 'per event', rating: 4.5, ev: ['Wedding', 'Birthday', 'Anniversary', 'Baby Shower', 'Corporate & Team'], sv: ['Bouquets', 'Garlands', 'Flower arches'], image: 'images/decor/3.jpg', desc: 'Fresh flowers sourced daily for bouquets, garlands and flower arches. The team coordinates delivery and setup to complement your event colours and venue.' },
-    { id: 'd14', cat: 'florist', name: 'Jasmine Lane', city: 'Madurai', from: 4000, unit: 'per event', rating: 4.6, ev: ['Wedding', 'Engagement', 'Baby Shower', 'Housewarming', 'Naming Ceremony'], sv: ['Garlands', 'Mandap flowers', 'Hair flowers'], image: 'images/decor/4.jpg', desc: 'Traditional garlands, mandap flowers and hair flowers arranged with fresh seasonal blooms. Share your ceremony style and quantities for a tailored estimate.' }
-  ];
+  const VENDORS = [];
 
   /* ---------- helpers ---------- */
   const el = id => document.getElementById(id);
@@ -171,9 +115,33 @@
 
   let tab = 'venues';
   let cat = 'all'; // 'all' (categories view), 'all-list' (all vendors list), or a category key ('makeup', 'catering', ...)
+  const heartSvg = (on) => `<svg viewBox="0 0 24 24" width="18" height="18" fill="${on ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`;
+  const getFavKey = () => {
+    try {
+      const u = JSON.parse(localStorage.getItem('eventora_user') || 'null');
+      const uk = u && (u.email || u.id) ? String(u.email || u.id).toLowerCase().trim() : '';
+      return uk ? `eventora-fav:${uk}` : 'eventora-fav';
+    } catch (e) {
+      return 'eventora-fav';
+    }
+  };
+  const FAV_KEY = getFavKey();
   let fav = new Set();
-  try { fav = new Set(JSON.parse(localStorage.getItem('eventora-fav') || '[]')); } catch (e) {}
-  const saveFav = () => { try { localStorage.setItem('eventora-fav', JSON.stringify([...fav])); } catch (e) {} };
+  try {
+    const rawFav = localStorage.getItem(FAV_KEY);
+    if (rawFav !== null) {
+      fav = new Set(JSON.parse(rawFav || '[]'));
+    } else if (FAV_KEY !== 'eventora-fav' && localStorage.getItem('eventora-fav')) {
+      fav = new Set(JSON.parse(localStorage.getItem('eventora-fav') || '[]'));
+      localStorage.setItem(FAV_KEY, JSON.stringify([...fav]));
+      localStorage.removeItem('eventora-fav');
+    }
+  } catch (e) {}
+  const saveFav = () => {
+    try {
+      localStorage.setItem(FAV_KEY, JSON.stringify([...fav]));
+    } catch (e) {}
+  };
   const opts = (arr, first) => `<option value="">${escHtml(first)}</option>` + arr.map(x => `<option value="${escHtml(x)}">${escHtml(x)}</option>`).join('');
 
   function getUniqueServices(categoryKey) {
@@ -189,6 +157,7 @@
   function getUniqueCities() {
     const set = new Set(CITIES);
     VENDORS.forEach(d => { if (d.city) set.add(d.city); });
+    VENUES.forEach(v => { if (v.city) set.add(v.city); });
     return [...set];
   }
 
@@ -215,7 +184,8 @@
     const p = el('price');
     if (!p) return;
     if (tab === 'venues') {
-      p.min = 20000; p.max = 150000; p.step = 5000;
+      const maxVenuePrice = VENUES.reduce((m, d) => Math.max(m, d.price || 0), 150000);
+      p.min = 5000; p.max = maxVenuePrice; p.step = 5000;
     } else if (CATEGORY_CONFIG[cat]) {
       const cfg = CATEGORY_CONFIG[cat];
       const maxVendorPrice = VENDORS.filter(d => d.cat === cat).reduce((m, d) => Math.max(m, d.from), cfg.max);
@@ -282,15 +252,15 @@
   function venueCard(v, f) {
     const on = fav.has(v.id);
     return `<article class="card c-${v.tone}">
-      <div class="banner"><img class="venue-image" src="${escHtml(v.image)}" alt="${escHtml(v.name)}" style="object-position:${v.imagePosition || 'center'}" loading="lazy">
-        <button class="heart" data-act="fav" data-id="${v.id}" aria-pressed="${on}" aria-label="Save ${escHtml(v.name)}">${on ? '♥' : '♡'}</button></div>
+      <div class="banner"><img class="venue-image" src="${escHtml(v.image)}" alt="${escHtml(v.name)}" style="object-position:${v.imagePosition || 'center'}" loading="lazy" onerror="this.src='images/venues/1.jpg'">
+        <button class="heart" data-act="fav" data-id="${v.id}" aria-pressed="${on}" aria-label="${on ? 'Remove' : 'Save'} ${escHtml(v.name)} ${on ? 'from' : 'to'} favourites" title="${on ? 'Remove from favourites' : 'Add to favourites'}">${heartSvg(on)}</button></div>
       <div class="body">
         <h3>${escHtml(v.name)}</h3>
-        <p class="meta">📍 ${escHtml(v.city)} · ${escHtml(v.type)}</p>
-        <p class="meta">★ ${v.rating.toFixed(1)} · up to ${v.cap} guests</p>
+        <p class="meta">${escHtml(v.city)} · ${escHtml(v.type)}</p>
+        <p class="meta">Rating ${v.rating.toFixed(1)} · up to ${v.cap} guests</p>
         <p class="price">${rupee(v.price)} <small style="display:inline">per day</small></p>
         <div class="tags">${v.ev.slice(0, 3).map(e => `<span class="tag">${escHtml(e)}</span>`).join('')}</div>
-        ${f.date ? '<p class="avail">✓ Available on your date</p>' : ''}
+        ${f.date ? '<p class="avail">Available on your date</p>' : ''}
         <div class="acts"><button class="btn alt" data-act="view" data-id="${v.id}">View details</button>
           <button class="btn" data-act="contact" data-id="${v.id}">Contact</button></div>
       </div></article>`;
@@ -420,10 +390,14 @@
       openVendorDetails(id);
       return;
     }
-    el('dbody').innerHTML = `<div class="dtop ${colourOf(x)}"><h2>${escHtml(x.name)}</h2><p>📍 ${escHtml(x.city)} · ★ ${x.rating.toFixed(1)}</p></div>
-     <div class="dmain"><p>${escHtml(x.desc)}</p>
+    const pics = Array.isArray(x.pictures) ? x.pictures.filter(Boolean) : [];
+    const gallery = pics.length > 1
+      ? `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;margin-top:12px;">${pics.map(src => `<img src="${escHtml(src)}" alt="${escHtml(x.name)}" style="width:100%;height:74px;object-fit:cover;border-radius:8px;" onerror="this.style.display='none'">`).join('')}</div>`
+      : '';
+    el('dbody').innerHTML = `<div class="dtop ${colourOf(x)}"><h2>${escHtml(x.name)}</h2><p>${escHtml(x.city)} · Rating ${x.rating.toFixed(1)}</p></div>
+     <div class="dmain"><img class="vendor-detail-image" src="${escHtml(x.image || 'images/venues/1.jpg')}" alt="${escHtml(x.name)}" onerror="this.src='images/venues/1.jpg'"><p>${escHtml(x.desc)}</p>
      <p><b>${rupee(x.price)}</b> per day · up to <b>${x.cap}</b> guests · ${escHtml(x.type)}</p><b>Facilities</b><ul>${x.am.map(a => `<li>${escHtml(a)}</li>`).join('')}</ul>
-     <p><b>Good for:</b> ${x.ev.map(escHtml).join(', ')}</p>
+     <p><b>Good for:</b> ${x.ev.map(escHtml).join(', ')}</p>${gallery}
      <div class="acts"><button class="btn" data-act="contact" data-id="${x.id}">Contact</button><button class="btn alt" data-act="close">Close</button></div></div>`;
     el('dlg').showModal();
   }
@@ -438,10 +412,10 @@
           <p style="font-size:1.05rem; color:#334155; margin-bottom:24px;">${escHtml(auth.message)}</p>
           <div class="acts" style="justify-content:center;">
             ${auth.reason === 'login_required' ? `
-              <a class="btn" href="register.html?mode=login">Sign In (Login) →</a>
-              <a class="btn alt" href="register.html?mode=register">Create Account →</a>
+              <a class="btn" href="register.html?mode=login">Sign In (Login)</a>
+              <a class="btn alt" href="register.html?mode=register">Create Account</a>
             ` : `
-              <a class="btn" href="vendor-dashboard.html">Go to Vendor Dashboard →</a>
+              <a class="btn" href="vendor-dashboard.html">Go to Vendor Dashboard</a>
             `}
             <button type="button" class="btn alt" data-act="close">Cancel</button>
           </div>
@@ -451,11 +425,16 @@
     }
 
     const u = auth.user;
+    const prefillDetails = [
+      u.eventName || u.eventType || '',
+      u.eventDate ? ('Date: ' + u.eventDate) : '',
+      u.city ? ('City: ' + u.city) : ''
+    ].filter(Boolean).join(' · ');
     el('dbody').innerHTML = `<div class="dtop ${colourOf(x)}"><h2>Contact &amp; Book ${escHtml(x.name)}</h2></div>
      <form class="dmain" id="cform">
       <label for="cn">Your name</label><input id="cn" value="${escHtml(u.name || '')}" required>
       <label for="cp">Phone</label><input id="cp" type="tel" value="${escHtml(u.phone || '')}" required>
-      <label for="cm">Event Details &amp; Date</label><textarea id="cm" rows="3" placeholder="Event type, date and guest headcount" required></textarea>
+      <label for="cm">Event Details &amp; Date</label><textarea id="cm" rows="3" placeholder="Event type, date and guest headcount" required>${escHtml(prefillDetails)}</textarea>
       <div class="acts"><button class="btn">Send booking request</button><button type="button" class="btn alt" data-act="close">Cancel</button></div></form>`;
     if (!el('dlg').open) el('dlg').showModal();
     el('cform').onsubmit = e => {
@@ -473,6 +452,7 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             vendorId: x.id,
+            vendorEmail: x.email || '',
             userName: name,
             userPhone: phone,
             userEmail: u.email || 'customer@eventora.com',
@@ -481,7 +461,7 @@
         });
       } catch (err) {}
 
-      el('dbody').innerHTML = `<div class="dmain"><div class="message-note" style="background:#DCFCE7; color:#166534; border:1px solid #BBF7D0;">✓ Booking inquiry for ${escHtml(x.name)} sent successfully!</div><div class="acts"><button type="button" class="btn alt" data-act="close">Close</button></div></div>`;
+      el('dbody').innerHTML = `<div class="dmain"><div class="message-note" style="background:#DCFCE7; color:#166534; border:1px solid #BBF7D0;">Booking inquiry for ${escHtml(x.name)} sent successfully.</div><div class="acts"><button type="button" class="btn alt" data-act="close">Close</button></div></div>`;
     };
   }
 
@@ -615,26 +595,26 @@
     const bookedDates = d.booked || [];
     const f = el('date') ? getF() : null;
 
-    let availText = '<p class="avail" style="color:#16A34A; font-size:12px; font-weight:700; margin:4px 0;">✓ Available for bookings</p>';
+    let availText = '<p class="avail" style="color:#16A34A; font-size:12px; font-weight:700; margin:4px 0;">Available for bookings</p>';
     if (f && f.date) {
       availText = bookedDates.includes(f.date)
-        ? `<p class="avail" style="color:#DC2626; font-size:12px; font-weight:700; margin:4px 0;">❌ Booked on ${escHtml(f.date)}</p>`
-        : `<p class="avail" style="color:#16A34A; font-size:12px; font-weight:700; margin:4px 0;">✓ Available on ${escHtml(f.date)}</p>`;
+        ? `<p class="avail" style="color:#DC2626; font-size:12px; font-weight:700; margin:4px 0;">Booked on ${escHtml(f.date)}</p>`
+        : `<p class="avail" style="color:#16A34A; font-size:12px; font-weight:700; margin:4px 0;">Available on ${escHtml(f.date)}</p>`;
     } else if (bookedDates.length > 0) {
-      availText = `<p class="avail" style="color:#B45309; font-size:12px; font-weight:600; margin:4px 0;">📅 Booked on ${bookedDates.length} date(s)</p>`;
+      availText = `<p class="avail" style="color:#B45309; font-size:12px; font-weight:600; margin:4px 0;">Booked on ${bookedDates.length} date(s)</p>`;
     }
 
     const catTag = (!catObj || (cat && cat !== 'all' && cat !== 'all-list'))
       ? ''
-      : `<span class="tag" style="margin-bottom:4px;">${catObj.e} ${escHtml(catObj.n)}</span>`;
+      : `<span class="tag" style="margin-bottom:4px;">${escHtml(catObj.n)}</span>`;
 
     return `<article class="card ${catObj ? 'c-' + catObj.c : ''}">
       <img class="vendor-image" src="${escHtml(d.image)}" alt="${escHtml(d.name)}" loading="lazy" onerror="this.src='images/venues/1.jpg'">
-      <button class="heart" data-vendor-act="favorite" data-id="${d.id}" aria-pressed="${on}" aria-label="${on ? 'Remove' : 'Add'} ${escHtml(d.name)} ${on ? 'from' : 'to'} favourites">${on ? '♥' : '♡'}</button>
+      <button class="heart" data-vendor-act="favorite" data-id="${d.id}" aria-pressed="${on}" aria-label="${on ? 'Remove' : 'Add'} ${escHtml(d.name)} ${on ? 'from' : 'to'} favourites" title="${on ? 'Remove from favourites' : 'Add to favourites'}">${heartSvg(on)}</button>
       <div class="body">
         ${catTag}
         <button class="profile-link" data-vendor-act="details" data-id="${d.id}"><h3>${escHtml(d.name)}</h3></button>
-        <p class="meta">📍 ${escHtml(d.city)} · ★ ${Number(d.rating || 4.8).toFixed(1)}</p>
+        <p class="meta">${escHtml(d.city)} · Rating ${Number(d.rating || 4.8).toFixed(1)}</p>
         <p class="price">From ${rupee(d.from)} <small style="display:inline">${escHtml(d.unit || cfg.unit || 'per event')}</small></p>
         ${availText}
         <div class="tags">${(d.sv || []).slice(0, 3).map(s => `<span class="tag">${escHtml(s)}</span>`).join('')}</div>
@@ -647,7 +627,7 @@
   function openVendorDetails(id) {
     const d = VENDORS.find(x => x.id === id);
     if (!d) return;
-    const category = CATS.find(c => c.k === d.cat) || { e: '✨', n: d.categoryName || 'Vendor', c: 'blue' };
+    const category = CATS.find(c => c.k === d.cat) || { e: '', n: d.categoryName || 'Vendor', c: 'blue' };
     const cfg = CATEGORY_CONFIG[d.cat] || { detailsLabel: 'Services & Inclusions', unit: 'per event' };
     const on = fav.has(d.id);
 
@@ -655,7 +635,7 @@
     if (d.portfolio && d.portfolio.length > 0) {
       portfolioHtml = `
         <div style="margin-top:20px; border-top:1px solid #E2E8F0; padding-top:16px;">
-          <b style="font-size:1rem; display:block; margin-bottom:10px;">🌟 Work Portfolio (${d.portfolio.length} Projects)</b>
+          <b style="font-size:1rem; display:block; margin-bottom:10px;">Work Portfolio (${d.portfolio.length} Projects)</b>
           <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(190px, 1fr)); gap:12px;">
             ${d.portfolio.map(p => `
               <div style="border:1px solid #E2E8F0; border-radius:12px; overflow:hidden; background:#F8FAFC;">
@@ -675,7 +655,7 @@
     if (d.pictures && d.pictures.length > 0) {
       galleryHtml = `
         <div style="margin-top:18px;">
-          <b style="font-size:1rem; display:block; margin-bottom:8px;">🖼️ Showcase Pictures Gallery</b>
+          <b style="font-size:1rem; display:block; margin-bottom:8px;">Showcase Pictures Gallery</b>
           <div style="display:flex; gap:10px; overflow-x:auto; padding:6px 0;">
             ${d.pictures.map(img => `
               <img src="${escHtml(img)}" alt="Showcase photo" style="width:100px; height:100px; object-fit:cover; border-radius:12px; border:1px solid #E2E8F0; flex-shrink:0;" onerror="this.src='images/venues/1.jpg'">
@@ -688,22 +668,22 @@
     const bookedDates = d.booked || [];
     const availabilityHtml = bookedDates.length > 0
       ? `<div style="margin-top:16px; padding:12px 16px; background:#FEF3C7; border-radius:12px; border:1px solid #FDE68A; font-size:0.88rem; color:#92400E;">
-          <strong>📅 Date Availability:</strong> Booked on <b>${bookedDates.map(escHtml).join(', ')}</b>.<br>
+          <strong>Date Availability:</strong> Booked on <b>${bookedDates.map(escHtml).join(', ')}</b>.<br>
           <span style="color:#78350F;">${escHtml(d.availability?.note || 'Available for inquiries on other dates.')}</span>
         </div>`
       : `<div style="margin-top:16px; padding:10px 14px; background:#DCFCE7; border-radius:12px; border:1px solid #BBF7D0; font-size:0.85rem; color:#166534;">
-          ✓ <strong>Full Availability:</strong> Currently accepting bookings across all dates.
+          <strong>Full Availability:</strong> Currently accepting bookings across all dates.
         </div>`;
 
     el('vendor-dialog-body').innerHTML = `<img class="vendor-detail-image" src="${escHtml(d.image)}" alt="${escHtml(d.name)}" onerror="this.src='images/venues/1.jpg'">
-      <div class="dmain"><h2>${escHtml(d.name)}</h2><p class="meta">${category.e} ${escHtml(category.n)} · 📍 ${escHtml(d.city)} · ★ ${Number(d.rating || 4.8).toFixed(1)}</p>
+      <div class="dmain"><h2>${escHtml(d.name)}</h2><p class="meta">${escHtml(category.n)} · ${escHtml(d.city)} · Rating ${Number(d.rating || 4.8).toFixed(1)}</p>
       <p>${escHtml(d.desc)}</p><p class="price">From ${rupee(d.from)} <small style="display:inline">${escHtml(d.unit || cfg.unit)}</small></p>
       <b>${escHtml(cfg.detailsLabel)}</b><ul>${(d.sv || []).map(s => `<li>${escHtml(s)}</li>`).join('')}</ul>
       <p><b>Ideal occasions:</b> ${(d.ev || []).map(escHtml).join(', ')}</p>
       ${availabilityHtml}
       ${portfolioHtml}
       ${galleryHtml}
-      <div class="acts" style="margin-top:20px;"><button class="btn alt" data-vendor-act="favorite" data-id="${d.id}" aria-pressed="${on}">${on ? '♥ Added to favourites' : '♡ Add to favourites'}</button>
+      <div class="acts" style="margin-top:20px;"><button class="btn alt" data-vendor-act="favorite" data-id="${d.id}" aria-pressed="${on}">${on ? 'Added to favourites' : 'Add to favourites'}</button>
       <button class="btn" data-vendor-act="book" data-id="${d.id}">Book ${escHtml(category.n)}</button>
       <button class="btn alt" data-vendor-act="close">Close</button></div></div>`;
     el('vendor-dialog').showModal();
@@ -727,10 +707,10 @@
           <p style="font-size:1.05rem; color:#334155; margin-bottom:24px;">${escHtml(auth.message)}</p>
           <div class="acts" style="justify-content:center;">
             ${auth.reason === 'login_required' ? `
-              <a class="btn" href="register.html?mode=login">Sign In (Login) →</a>
-              <a class="btn alt" href="register.html?mode=register">Create Account →</a>
+              <a class="btn" href="register.html?mode=login">Sign In (Login)</a>
+              <a class="btn alt" href="register.html?mode=register">Create Account</a>
             ` : `
-              <a class="btn" href="vendor-dashboard.html">Go to Vendor Dashboard →</a>
+              <a class="btn" href="vendor-dashboard.html">Go to Vendor Dashboard</a>
             `}
             <button type="button" class="btn alt" data-vendor-act="close">Cancel</button>
           </div>
@@ -740,16 +720,25 @@
     }
 
     const u = auth.user;
-    const category = CATS.find(c => c.k === d.cat) || { e: '✨', n: 'Vendor' };
+    const category = CATS.find(c => c.k === d.cat) || { e: '', n: 'Vendor' };
     const cfg = CATEGORY_CONFIG[d.cat] || { unit: 'per event', bookingFields: [], bookingPlaceholder: 'Any specific preferences or notes' };
     const extraFieldsHtml = (cfg.bookingFields || []).map(renderBookingField).join('');
+    const todayIso = new Date().toISOString().slice(0, 10);
+    const defaultDate = (u.eventDate && /^\d{4}-\d{2}-\d{2}$/.test(u.eventDate) && u.eventDate >= todayIso) ? u.eventDate : '';
+    const minDate = (u.eventDate && u.eventDate < todayIso) ? u.eventDate : todayIso;
+    const userOccasion = String(u.eventType || u.eventName || '').trim();
+    const matchedOccasion = EVENTS.find(e => e.toLowerCase() === userOccasion.toLowerCase())
+      || EVENTS.find(e => userOccasion && userOccasion.toLowerCase().includes(e.toLowerCase()))
+      || '';
+    const occasionOptions = matchedOccasion ? EVENTS : (userOccasion ? [userOccasion, ...EVENTS] : EVENTS);
+    const selectedOccasion = matchedOccasion || userOccasion || '';
 
-    el('vendor-dialog-body').innerHTML = `<div class="dtop ${colourOf(d)}"><h2>Book ${escHtml(d.name)}</h2><p>${category.e} ${escHtml(category.n)} · From ${rupee(d.from)} ${escHtml(d.unit || cfg.unit)}</p></div>
+    el('vendor-dialog-body').innerHTML = `<div class="dtop ${colourOf(d)}"><h2>Book ${escHtml(d.name)}</h2><p>${escHtml(category.n)} · From ${rupee(d.from)} ${escHtml(d.unit || cfg.unit)}</p></div>
       <form class="dmain booking-form" id="booking-form">
         <label>Your name<input name="name" value="${escHtml(u.name || '')}" autocomplete="name" required></label>
         <label>Phone number<input name="phone" type="tel" value="${escHtml(u.phone || '')}" autocomplete="tel" required></label>
-        <label>Event date<input name="date" type="date" min="${new Date().toISOString().slice(0, 10)}" required></label>
-        <label>Occasion<select name="event" required><option value="">Choose occasion</option>${EVENTS.map(e => `<option>${escHtml(e)}</option>`).join('')}</select></label>
+        <label>Event date<input name="date" type="date" value="${escHtml(u.eventDate || defaultDate)}" min="${minDate}" required></label>
+        <label>Occasion<select name="event" required><option value="">Choose occasion</option>${occasionOptions.map(e => `<option${e === selectedOccasion ? ' selected' : ''}>${escHtml(e)}</option>`).join('')}</select></label>
         ${extraFieldsHtml}
         <label class="full">${escHtml(category.n)} notes<textarea name="details" rows="3" placeholder="${escHtml(cfg.bookingPlaceholder)}"></textarea></label>
         <div class="acts"><button class="btn">Send booking request</button><button class="btn alt" type="button" data-vendor-act="details" data-id="${id}">Back to profile</button><button class="btn alt" type="button" data-vendor-act="close">Cancel</button></div>
@@ -787,7 +776,7 @@
         });
       } catch (err) {}
 
-      el('vendor-dialog-body').innerHTML = `<div class="dmain"><div class="message-note" style="background:#DCFCE7; color:#166534; border:1px solid #BBF7D0;">✓ Your ${escHtml(category.n.toLowerCase())} inquiry for ${escHtml(d.name)} was sent!</div>
+      el('vendor-dialog-body').innerHTML = `<div class="dmain"><div class="message-note" style="background:#DCFCE7; color:#166534; border:1px solid #BBF7D0;">Your ${escHtml(category.n.toLowerCase())} inquiry for ${escHtml(d.name)} was sent.</div>
         <div class="acts"><button class="btn alt" data-vendor-act="close">Close</button></div></div>`;
     };
   }
@@ -812,22 +801,22 @@
       const cfg = selected ? CATEGORY_CONFIG[selected.k] : null;
 
       if (el('vendors-hero-kicker')) {
-        el('vendors-hero-kicker').textContent = cfg ? cfg.heroKicker : '✦ TRUSTED INDIAN WEDDING & EVENT MASTERS ✦';
+        el('vendors-hero-kicker').textContent = cfg ? cfg.heroKicker : 'TRUSTED EVENT VENDORS & SPECIALISTS';
       }
       if (el('vendors-hero-title')) {
-        el('vendors-hero-title').textContent = selected ? `${selected.e} ${selected.n}` : 'Event Vendors & Masters';
+        el('vendors-hero-title').textContent = selected ? selected.n : 'Event Vendors & Specialists';
       }
       if (el('vendors-hero-desc')) {
-        el('vendors-hero-desc').textContent = cfg ? cfg.heroDesc : 'Discover award-winning caterers, bridal makeup & styling artists, decorators, DJs, anchors, florists, and photographers across India.';
+        el('vendors-hero-desc').textContent = cfg ? cfg.heroDesc : 'Discover caterers, makeup and styling artists, decorators, DJs, hosts, florists, and photographers across India.';
       }
 
-      el('directory-heading').textContent = selected ? `${selected.e} ${selected.n}` : 'All Event Vendors';
+      el('directory-heading').textContent = selected ? selected.n : 'All Event Vendors';
       el('directory-intro').textContent = selected ? selected.about : 'Browse trusted professionals for your next celebration.';
       if (el('category-back')) el('category-back').hidden = !selected;
 
       if (el('vchips')) {
         const allBtn = `<button type="button" class="chip" data-dir-cat="all" aria-pressed="${!selected}">All Vendors</button>`;
-        const btns = CATS.map(c => `<button type="button" class="chip c-${c.c}" data-dir-cat="${c.k}" aria-pressed="${activeCatKey === c.k}">${c.e} ${escHtml(c.n)}</button>`).join('');
+        const btns = CATS.map(c => `<button type="button" class="chip c-${c.c}" data-dir-cat="${c.k}" aria-pressed="${activeCatKey === c.k}">${escHtml(c.n)}</button>`).join('');
         el('vchips').innerHTML = allBtn + btns;
       }
 
@@ -945,25 +934,44 @@
     loadDynamicVendors();
   }
 
-  /* ---------- load registered vendors from backend ---------- */
+  /* ---------- load registered vendors & venues from backend ---------- */
   async function loadDynamicVendors() {
     try {
-      const res = await fetch('/api/vendors');
-      const json = await res.json();
-      if (json.success && Array.isArray(json.data) && json.data.length > 0) {
-        json.data.forEach(v => {
+      const [vendorsRes, venuesRes, meRes] = await Promise.all([
+        fetch('/api/vendors', { cache: 'no-store' }).then(r => r.json()).catch(() => null),
+        fetch('/api/venues', { cache: 'no-store' }).then(r => r.json()).catch(() => null),
+        fetch('/api/auth/me', { credentials: 'same-origin', cache: 'no-store' }).then(r => r.ok ? r.json() : null).catch(() => null)
+      ]);
+      if (meRes && meRes.success && meRes.user) {
+        try { localStorage.setItem('eventora_user', JSON.stringify(meRes.user)); } catch (e) {}
+      }
+      let changed = false;
+
+      if (vendorsRes && vendorsRes.success && Array.isArray(vendorsRes.data) && vendorsRes.data.length > 0) {
+        vendorsRes.data.forEach(v => {
           const idx = VENDORS.findIndex(x => x.id === v.id || (x.email && v.email && x.email === v.email));
-          if (idx !== -1) {
-            VENDORS[idx] = { ...VENDORS[idx], ...v };
-          } else {
-            VENDORS.unshift(v);
-          }
+          if (idx !== -1) VENDORS[idx] = { ...VENDORS[idx], ...v };
+          else VENDORS.unshift(v);
         });
+        changed = true;
+      }
+
+      if (venuesRes && venuesRes.success && Array.isArray(venuesRes.data) && venuesRes.data.length > 0) {
+        venuesRes.data.forEach(v => {
+          const idx = VENUES.findIndex(x => x.id === v.id || (x.email && v.email && x.email === v.email));
+          if (idx !== -1) VENUES[idx] = { ...VENUES[idx], ...v };
+          else VENUES.unshift(v);
+        });
+        changed = true;
+      }
+
+      if (changed) {
         if (el('city')) {
           const prevCity = el('city').value;
           el('city').innerHTML = opts(getUniqueCities(), 'All locations');
           el('city').value = prevCity;
         }
+        setPriceRange();
         if (el('vspec') && tab === 'vendors') {
           populateServiceFilter(el('vspec'), cat, el('vspec-label'));
         }
@@ -972,7 +980,7 @@
         else if (el('favorite-venues')) renderFavorites();
       }
     } catch (e) {
-      // Fallback to built-in vendors list silently
+      // Fallback to built-in lists silently
     }
   }
 

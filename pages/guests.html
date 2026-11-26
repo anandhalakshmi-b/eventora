@@ -13,9 +13,8 @@
 <body class="t-yellow">
 <nav>
   <a class="brand" href="index.html"><img src="images/logo.png" alt="Eventora logo">Eventora</a>
-  <button id="burger" aria-label="Open menu" aria-expanded="false">☰</button>
-  <div class="links" id="links">
-    <a href="index.html">Home</a>
+  <button id="burger" aria-label="Open menu" aria-expanded="false"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+  <div class="links" id="links"><a href="index.html">Home</a>
     <a href="venues.html">Venues &amp; Vendors</a>
     <a href="ideas.html">Ideas</a>
     <a href="budget.html">Budget</a>
@@ -23,32 +22,33 @@
     <a href="guests.html" class="on">Guests</a>
     <a href="consultation.html">Consultation</a>
     <a href="invites.html">Invites</a>
-    <a href="favorites.html">Favourites ♥</a>
+    <a href="favorites.html">Favourites</a>
     <a class="btn sm" href="register.html">Register</a>
   </div>
 </nav>
 
-<!-- Royal Video Hero -->
 <header class="hero">
   <video class="hero-video" autoplay muted loop playsinline poster="images/venues/1.jpg" aria-hidden="true">
     <source src="images/venues/venues.mp4" type="video/mp4">
   </video>
   <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <p class="hero-kicker">✦ ATITHI DEVO BHAVA ✦</p>
-    <h1>Guests &amp; Atithi RSVPs</h1>
-    <p>Manage celebration guest lists for weddings, birthdays, college farewells, corporate summits &amp; family celebrations. Track dietary preferences and send WhatsApp RSVP links.</p>
+  <div class="hero-content"><p class="hero-kicker">GUEST MANAGEMENT &amp; RSVPS</p>
+    <h1>Guests &amp; RSVPs</h1>
+    <p>Manage celebration guest lists for weddings, birthdays, college farewells, corporate summits, and family celebrations. Track dietary preferences and share RSVP links.</p>
   </div>
 </header>
 
 <main class="wrap">
   <section class="panel">
     <h2>Your Celebration</h2>
-    <div class="row">
-      <div><label for="ename">Event name</label><input id="ename" placeholder="e.g. Aarav &amp; Meera's Grand Shaadi"></div>
+    <div class="row"><div><label for="ename">Event name</label><input id="ename" placeholder="e.g. Aarav &amp; Meera's Wedding"></div>
       <div><label for="edate">Date</label><input id="edate" type="date"></div>
-      <button class="btn main" id="copy" type="button">Copy WhatsApp RSVP link</button>
-      <a class="btn alt" id="open" href="rsvp.html" target="_blank" rel="noopener">Preview RSVP page</a>
+      <div><label for="ewa">Host WhatsApp number</label><input id="ewa" type="tel" placeholder="e.g. 919840012345"></div>
+    </div>
+    <div class="acts" style="margin-top:14px;">
+      <a class="btn main" id="shareWa" href="https://wa.me/" target="_blank" rel="noopener">Send RSVP via WhatsApp</a>
+      <button class="btn alt" id="copy" type="button">Copy RSVP link</button>
+      <a class="btn alt" id="open" href="/rsvp" target="_blank" rel="noopener">Preview RSVP page</a>
     </div>
     <p id="copied" class="err" style="color:#16A34A" role="status"></p>
   </section>
@@ -56,10 +56,9 @@
   <div class="cards" id="sum"></div>
 
   <section class="panel">
-    <div class="row">
-      <div><label for="q">Search atithi</label><input id="q" type="search" placeholder="Name, email or phone"></div>
+    <div class="row"><div><label for="q">Search guests</label><input id="q" type="search" placeholder="Name, email or phone"></div>
       <div><label for="grp">Side / Group</label><select id="grp"></select></div>
-      <button class="btn main" id="add" type="button">+ Add atithi</button>
+      <button class="btn main" id="add" type="button">+ Add guest</button>
       <button class="btn alt" id="imp" type="button">Import CSV</button>
       <button class="btn alt" id="exp" type="button">Export CSV</button>
       <input id="file" type="file" accept=".csv,text/csv" hidden>
@@ -69,9 +68,8 @@
     <small>CSV columns: name, email, phone, group, dietary, plusones, status</small>
   </section>
 
-  <div class="tablewrap">
-    <table>
-      <thead><tr><th>Atithi Name</th><th>Contact</th><th>Side / Group</th><th>Plus-ones</th><th>Dietary Notes</th><th>RSVP</th><th>Actions</th></tr></thead>
+  <div class="tablewrap"><table>
+      <thead><tr><th>Guest Name</th><th>Contact</th><th>Side / Group</th><th>Plus-ones</th><th>Dietary Notes</th><th>RSVP</th><th>Actions</th></tr></thead>
       <tbody id="rows"></tbody>
     </table>
   </div>
@@ -79,42 +77,40 @@
 
 <dialog id="dlg" aria-labelledby="dt">
   <form id="gf" novalidate>
-    <h2 id="dt">Add atithi</h2>
+    <h2 id="dt">Add guest</h2>
     <label for="gn">Full name</label><input id="gn" required placeholder="e.g. Suresh &amp; Malini Sharma">
     <div class="row"><div><label for="ge">Email</label><input id="ge" type="email" placeholder="email@example.com"></div><div><label for="gp">Phone (WhatsApp)</label><input id="gp" type="tel" placeholder="98400 12345"></div></div>
-    <div class="row">
-      <div>
-        <label for="gg">Side / Group</label>
-        <input id="gg" list="grouplist" placeholder="Ladkiwale, Ladkewale, VIP Elders">
+    <div class="row"><div><label for="gg">Side / Group</label>
+        <input id="gg" list="grouplist" placeholder="Bride's Family, Groom's Family, VIP Elders">
         <datalist id="grouplist">
           <option value="Family &amp; Relatives">
-          <option value="Ladkiwale (Bride's Family)">
-          <option value="Ladkewale (Groom's Side)">
+          <option value="Bride's Family">
+          <option value="Groom's Family">
           <option value="Friends &amp; Batchmates">
           <option value="College Faculty &amp; Alumni">
           <option value="Corporate Team &amp; Clients">
-          <option value="VIP Elders &amp; Gurus">
+          <option value="VIP Guests">
           <option value="Neighbours &amp; Community">
         </datalist>
       </div>
       <div><label for="gpl">Plus-ones</label><input id="gpl" type="number" min="0" max="10" value="0"></div>
     </div>
     <label for="gd">Dietary preferences</label>
-    <input id="gd" list="dietlist" placeholder="Traditional Pure Veg / Jain, Sadya...">
+    <input id="gd" list="dietlist" placeholder="Pure Veg, South Indian Feast...">
     <datalist id="dietlist">
-      <option value="Traditional Pure Veg / Jain">
-      <option value="South Indian Sadya">
+      <option value="Pure Vegetarian">
+      <option value="South Indian Vegetarian Feast">
       <option value="North Indian Feast">
       <option value="Non-Veg Special">
     </datalist>
     <label for="gs">RSVP status</label><select id="gs"><option>Pending</option><option>Accepted</option><option>Declined</option></select>
     <p class="err" id="gerr" role="alert"></p>
-    <div class="acts"><button class="btn main">Save atithi</button><button class="btn alt" type="button" id="gx">Cancel</button></div>
+    <div class="acts"><button class="btn main">Save guest</button><button class="btn alt" type="button" id="gx">Cancel</button></div>
   </form>
 </dialog>
 
 <footer class="site-footer">
-  <div><b>Eventora</b><br>Plan every royal Indian celebration, beautifully.</div>
+  <div><b>Eventora</b><br>Plan every celebration, beautifully.</div>
   <div><a href="index.html">Home</a><a href="venues.html">Venues &amp; Vendors</a><a href="budget.html">Budget</a><a href="guests.html">Guests</a></div>
 </footer>
 
@@ -122,21 +118,18 @@
 <script src="js/guests.js"></script>
 
 <!-- ===== ORA FLOATING CHAT ===== -->
-<button id="ora-fab" class="ora-fab" aria-label="Chat with Ora" aria-expanded="false">💬</button>
+<button id="ora-fab" class="ora-fab" aria-label="Chat with Ora" aria-expanded="false"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
 <section id="ora-window" class="ora-window" hidden aria-label="Chat with Ora">
   <header class="ora-head">
-    <strong>Ora</strong> · your planning buddy
+    <strong>Ora</strong> · your planning assistant
     <button id="ora-close" class="ora-x" aria-label="Close chat">×</button>
   </header>
   <div id="ora-log" class="ora-log" role="log" aria-live="polite"></div>
-  <div class="ora-quick">
-    <button data-q="Find venues">Find venues</button>
+  <div class="ora-quick"><button data-q="Find venues">Find venues</button>
     <button data-q="Set a budget">Set a budget</button>
     <button data-q="Make an invite">Make an invite</button>
-    <button data-q="Talk to a human">Talk to a human</button>
   </div>
-  <div class="ora-form">
-    <label for="ora-input" class="sr-only">Message Ora</label>
+  <div class="ora-form"><label for="ora-input" class="sr-only">Message Ora</label>
     <input id="ora-input" type="text" maxlength="500" placeholder="Ask Ora anything..." autocomplete="off">
     <button id="ora-send" class="ora-send">Send</button>
   </div>

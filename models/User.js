@@ -35,11 +35,32 @@ const UserSchema = new mongoose.Schema({
   },
   eventType: {
     type: String,
-    default: 'Tamil Thirumanam'
+    default: ''
+  },
+  eventName: {
+    type: String,
+    trim: true,
+    default: ''
   },
   eventDate: {
     type: String,
     default: ''
+  },
+  eventDetails: {
+    type: mongoose.Schema.Types.Mixed,
+    default: {}
+  },
+  eventBudget: {
+    type: Number,
+    default: 0
+  },
+  budgetData: {
+    type: mongoose.Schema.Types.Mixed,
+    default: () => ({ total: 0, items: [] })
+  },
+  checklistData: {
+    type: mongoose.Schema.Types.Mixed,
+    default: () => ({ tasks: [] })
   },
   guestCount: {
     type: Number,

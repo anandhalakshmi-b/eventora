@@ -13,9 +13,8 @@
 <body class="t-yellow">
 <nav>
   <a class="brand" href="index.html"><img src="images/logo.png" alt="Eventora logo">Eventora</a>
-  <button id="burger" aria-label="Open menu" aria-expanded="false">☰</button>
-  <div class="links" id="links">
-    <a href="index.html">Home</a>
+  <button id="burger" aria-label="Open menu" aria-expanded="false"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+  <div class="links" id="links"><a href="index.html">Home</a>
     <a href="venues.html">Venues &amp; Vendors</a>
     <a href="ideas.html">Ideas</a>
     <a href="budget.html">Budget</a>
@@ -23,22 +22,20 @@
     <a href="guests.html" class="on">Guests</a>
     <a href="consultation.html">Consultation</a>
     <a href="invites.html">Invites</a>
-    <a href="favorites.html">Favourites ♥</a>
+    <a href="favorites.html">Favourites</a>
     <a class="btn sm" href="register.html">Register</a>
   </div>
 </nav>
 
-<!-- Royal Video Hero -->
 <header class="hero">
   <video class="hero-video" autoplay muted loop playsinline poster="images/venues/1.jpg" aria-hidden="true">
     <source src="images/venues/venues.mp4" type="video/mp4">
   </video>
   <div class="hero-overlay"></div>
-  <div class="hero-content" style="text-align:center;">
-    <p class="hero-kicker">✦ SHUBH VIVAH INVITATION &amp; RSVP ✦</p>
-    <h1 id="ev">Aarav &amp; Meera's Grand Shaadi</h1>
+  <div class="hero-content" style="text-align:center;"><p class="hero-kicker">CELEBRATION INVITATION &amp; RSVP</p>
+    <h1 id="ev">Aarav &amp; Meera's Wedding</h1>
     <p id="dt" style="font-weight:600; color:#FCD34D; font-size:1.15rem;"></p>
-    <p style="margin:8px auto 0; max-width:600px;">Your presence and warm blessings will make our celebration complete.</p>
+    <p style="margin:8px auto 0; max-width:600px;">Your presence and warm wishes will make our celebration complete.</p>
   </div>
 </header>
 
@@ -49,79 +46,166 @@
     <input id="n" required autocomplete="name" placeholder="e.g. Suresh &amp; Malini Sharma">
 
     <label style="margin-top:14px;">Your response</label>
-    <div class="chips" id="resp">
-      <button type="button" class="chip" data-v="Accepted" aria-pressed="true">🎉 Yes, we will attend with joy</button>
-      <button type="button" class="chip" data-v="Declined" aria-pressed="false">Sending blessings from afar</button>
+    <div class="chips" id="resp"><button type="button" class="chip" data-v="Accepted" aria-pressed="true">Yes, we will attend</button>
+      <button type="button" class="chip" data-v="Declined" aria-pressed="false">Sending warm wishes from afar</button>
     </div>
 
-    <div id="more" style="margin-top:14px;">
-      <label for="pl">Additional family members accompanying you</label>
+    <div id="more" style="margin-top:14px;"><label for="pl">Additional family members accompanying you</label>
       <input id="pl" type="number" min="0" max="10" value="0">
 
       <label for="d" style="margin-top:12px;">Meal &amp; dietary preferences</label>
-      <input id="d" list="dietlist" placeholder="Traditional Pure Veg / Jain, Sadya...">
+      <input id="d" list="dietlist" placeholder="Pure Vegetarian, South Indian Feast...">
       <datalist id="dietlist">
-        <option value="Traditional Pure Veg / Jain">
-        <option value="South Indian Sadya">
+        <option value="Pure Vegetarian">
+        <option value="South Indian Vegetarian Feast">
         <option value="North Indian Feast">
         <option value="Non-Veg Special">
       </datalist>
     </div>
 
     <p class="err" id="err" role="alert"></p>
-    <div class="acts" style="margin-top:20px;">
-      <button class="btn main" style="width:100%;">Confirm RSVP</button>
+    <div class="acts" style="margin-top:20px;"><button class="btn main" id="rsvp-submit" style="width:100%;">Confirm RSVP</button>
+      <button type="button" class="btn alt" id="rsvp-wa-direct" style="width:100%;">Confirm &amp; Send via WhatsApp</button>
     </div>
   </form>
-  <div class="banner ok" id="done" hidden role="status" style="font-size:1.1rem; text-align:center; padding:24px;"></div>
+  <div class="banner ok" id="done" hidden role="status" style="font-size:1.1rem; text-align:center; padding:24px;">
+    <p id="done-msg" style="margin:0 0 14px;"></p>
+    <a id="done-wa" class="btn main" href="https://wa.me/" target="_blank" rel="noopener">Send Reply on WhatsApp</a>
+  </div>
 </main>
 
 <footer class="site-footer">
-  <div><b>Eventora</b><br>Plan every royal Indian celebration, beautifully.</div>
+  <div><b>Eventora</b><br>Plan every celebration, beautifully.</div>
   <div><a href="index.html">Home</a><a href="venues.html">Venues &amp; Vendors</a><a href="budget.html">Budget</a><a href="guests.html">Guests</a></div>
 </footer>
 
 <script src="js/common.js"></script>
 <script>
-/* Public RSVP page. Front-end demo: replies update the guest list saved in this browser. */
-const ev = load('eventora-event-v2', null) || load('eventora-event', { name: "Aarav & Meera's Grand Shaadi", date: '2027-02-18' });
-$('ev').textContent = ev.name || "Aarav & Meera's Grand Shaadi";
-$('dt').textContent = ev.date ? new Date(ev.date + 'T00:00').toLocaleDateString('en-IN', { dateStyle: 'full' }) : 'Thursday, 18 February 2027';
+const params = new URLSearchParams(window.location.search);
+const ownerEmail = params.get('owner') || '';
+const hostWa = (params.get('wa') || '').replace(/\D/g, '');
+let activeEvent = load('eventora-event-v2', null) || load('eventora-event', { name: "Aarav & Meera's Wedding", date: '2027-02-18' });
+
+function renderEventHeader(ev) {
+  $('ev').textContent = ev.name || "Aarav & Meera's Wedding";
+  $('dt').textContent = ev.date
+    ? new Date(ev.date + 'T00:00').toLocaleDateString('en-IN', { dateStyle: 'full' })
+    : 'Thursday, 18 February 2027';
+}
+renderEventHeader(activeEvent);
+
+fetch('/api/rsvp/event' + (ownerEmail ? '?owner=' + encodeURIComponent(ownerEmail) : ''), { credentials: 'same-origin' })
+  .then((r) => r.json())
+  .then((res) => {
+    if (res && res.success && res.event) {
+      activeEvent = res.event;
+      renderEventHeader(activeEvent);
+    }
+  })
+  .catch(() => {});
+
 let resp = 'Accepted';
-$('resp').onclick = e => { const v = e.target.dataset.v; if (!v) return; resp = v;
-  document.querySelectorAll('#resp .chip').forEach(c => c.setAttribute('aria-pressed', c.dataset.v === v));
-  $('more').hidden = v === 'Declined'; };
-$('f').onsubmit = e => {
-  e.preventDefault();
-  const name = $('n').value.trim();
-  if (!name) return $('err').textContent = 'Please enter your name.';
-  const GK = 'eventora-guests-v2';
-  const G = load(GK, []) || load('eventora-guests', []);
-  const g = G.find(x => x.name.toLowerCase() === name.toLowerCase());
-  const data = { status: resp, plus: resp === 'Accepted' ? Math.max(0, +$('pl').value || 0) : 0, diet: $('d').value.trim() };
-  if (g) Object.assign(g, data, { diet: data.diet || g.diet }); else G.push({ id: uid(), name, email: '', phone: '', group: 'RSVP Link', ...data });
-  save(GK, G);
-  $('f').hidden = true; $('done').hidden = false;
-  $('done').textContent = resp === 'Accepted' ? `Dhanyavad, ${name}! We eagerly look forward to celebrating with you.` : `Thank you for your blessings, ${name}. You will be warmly remembered.`;
+$('resp').onclick = (e) => {
+  const v = e.target.dataset.v;
+  if (!v) return;
+  resp = v;
+  document.querySelectorAll('#resp .chip').forEach((c) => c.setAttribute('aria-pressed', c.dataset.v === v));
+  $('more').hidden = v === 'Declined';
 };
+
+function buildRsvpWhatsAppUrl(name, status, plus, diet) {
+  const eventTitle = activeEvent.name || 'Celebration';
+  const lines = [
+    `RSVP for ${eventTitle}`,
+    `Guest: ${name}`,
+    `Response: ${status}`
+  ];
+  if (status === 'Accepted') {
+    lines.push(`Additional guests: ${plus}`);
+    if (diet) lines.push(`Meal preference: ${diet}`);
+  }
+  const targetWa = hostWa || (activeEvent.whatsapp ? String(activeEvent.whatsapp).replace(/\D/g, '') : '');
+  const base = targetWa ? `https://wa.me/${targetWa}` : 'https://wa.me/';
+  return `${base}?text=${encodeURIComponent(lines.join('\n'))}`;
+}
+
+async function submitRsvp(openWhatsApp) {
+  $('err').textContent = '';
+  const name = $('n').value.trim();
+  if (!name) return ($('err').textContent = 'Please enter your name.');
+
+  const plus = resp === 'Accepted' ? Math.max(0, +$('pl').value || 0) : 0;
+  const diet = $('d').value.trim();
+  const submitBtn = $('rsvp-submit');
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Saving RSVP...';
+
+  try {
+    const res = await fetch('/api/rsvp', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name,
+        status: resp,
+        plus,
+        diet,
+        ownerEmail,
+        eventName: activeEvent.name,
+        eventDate: activeEvent.date
+      })
+    });
+    const result = await res.json();
+    if (!res.ok || !result.success) {
+      $('err').textContent = (result && result.message) || 'Could not save your RSVP. Please try again.';
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Confirm RSVP';
+      return;
+    }
+  } catch (err) {
+    const GK = 'eventora-guests-v2';
+    const G = load(GK, []) || load('eventora-guests', []);
+    const g = G.find((x) => x.name.toLowerCase() === name.toLowerCase());
+    const data = { status: resp, plus, diet };
+    if (g) Object.assign(g, data, { diet: data.diet || g.diet });
+    else G.push({ id: uid(), name, email: '', phone: '', group: 'RSVP Link', ...data });
+    save(GK, G);
+  }
+
+  const waUrl = buildRsvpWhatsAppUrl(name, resp, plus, diet);
+  $('done-wa').href = waUrl;
+  $('f').hidden = true;
+  $('done').hidden = false;
+  $('done-msg').textContent =
+    resp === 'Accepted'
+      ? `Thank you, ${name}! We look forward to celebrating with you.`
+      : `Thank you for letting us know, ${name}. You will be warmly remembered.`;
+
+  if (openWhatsApp) {
+    window.open(waUrl, '_blank', 'noopener');
+  }
+}
+
+$('f').onsubmit = (e) => {
+  e.preventDefault();
+  submitRsvp(false);
+};
+$('rsvp-wa-direct').onclick = () => submitRsvp(true);
 </script>
 
 <!-- ===== ORA FLOATING CHAT ===== -->
-<button id="ora-fab" class="ora-fab" aria-label="Chat with Ora" aria-expanded="false">💬</button>
+<button id="ora-fab" class="ora-fab" aria-label="Chat with Ora" aria-expanded="false"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
 <section id="ora-window" class="ora-window" hidden aria-label="Chat with Ora">
   <header class="ora-head">
-    <strong>Ora</strong> · your planning buddy
+    <strong>Ora</strong> · your planning assistant
     <button id="ora-close" class="ora-x" aria-label="Close chat">×</button>
   </header>
   <div id="ora-log" class="ora-log" role="log" aria-live="polite"></div>
-  <div class="ora-quick">
-    <button data-q="Find venues">Find venues</button>
+  <div class="ora-quick"><button data-q="Find venues">Find venues</button>
     <button data-q="Set a budget">Set a budget</button>
     <button data-q="Make an invite">Make an invite</button>
-    <button data-q="Talk to a human">Talk to a human</button>
   </div>
-  <div class="ora-form">
-    <label for="ora-input" class="sr-only">Message Ora</label>
+  <div class="ora-form"><label for="ora-input" class="sr-only">Message Ora</label>
     <input id="ora-input" type="text" maxlength="500" placeholder="Ask Ora anything..." autocomplete="off">
     <button id="ora-send" class="ora-send">Send</button>
   </div>

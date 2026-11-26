@@ -24,6 +24,5 @@
     "url": "https://github.com/anandhalakshmi-b/eventora/issues"
   },
   "homepage": "https://github.com/anandhalakshmi-b/eventora#readme",
-  "type": "commonjs",
-  "devDependencies": {}
+  "type": "commonjs"
 }

@@ -2,6 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const { connectDB } = require('./db');
+const { getSessionFromRequest } = require('./utils/session');
+const { handleChatRequest } = require('./utils/chatbot');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -13,11 +15,26 @@ connectDB();
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'public', 'ejs'));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(express.urlencoded({ extended: true, limit: '15mb' }));
+app.use(express.json({ limit: '15mb' }));
 
-// API Routes for MongoDB registration, auth, and invites
+// API Routes for MongoDB registration, auth, invites, chatbot, and RSVPs
 app.use('/api', require('./routes/api'));
+
+// ----- Auth Middleware for Protected Pages -----
+async function requirePageAuth(req, res, next) {
+  try {
+    const session = await getSessionFromRequest(req);
+    if (session) {
+      req.session = session;
+      return next();
+    }
+  } catch (err) {
+    console.warn('Session check error:', err.message);
+  }
+  const redirectTarget = req.originalUrl || '/dashboard';
+  return res.redirect('/register?mode=login&redirect=' + encodeURIComponent(redirectTarget));
+}
 
 // ----- Data shared by the layout -----
 // One entry per module. Colour keys match the classes in styles.css.
@@ -45,35 +62,35 @@ const modules = [
 
 // Celebration categories for Home page
 const celebrationEvents = [
-  { name: '💍 Weddings & Receptions', tag: 'Palaces & Mandaps', image: 'images/home/wedding.jpg', color: 'purple',
-    desc: 'Grand Kalyana mandapams, royal heritage palaces, master banquet feasts, and bridal styling.',
+  { name: 'Weddings & Receptions', tag: 'Palaces & Banquet Halls', image: 'images/home/wedding.jpg', color: 'purple',
+    desc: 'Grand wedding halls, heritage palaces, curated banquet feasts, and bridal styling.',
     venueLink: '/venues?event=Wedding', budgetLink: '/budget', inviteLink: '/invites' },
-  { name: '💞 Engagements & Roka', tag: 'Ring Ceremonies', image: 'images/home/engagement.jpg', color: 'pink',
+  { name: 'Engagements & Ring Ceremonies', tag: 'Ring Ceremonies', image: 'images/home/engagement.jpg', color: 'pink',
     desc: 'Scenic rooftop terraces, romantic floral backdrops, and intimate catering spreads.',
     venueLink: '/venues?event=Engagement', inviteLink: '/invites' },
-  { name: '🎂 Birthday Parties', tag: 'Kids & Milestones', image: 'images/home/birthday.jpg', color: 'orange',
+  { name: 'Birthday Parties', tag: 'Kids & Milestones', image: 'images/home/birthday.jpg', color: 'orange',
     desc: 'Fun party halls with play corners, custom designer cakes, balloon arches, and party DJs.',
     venueLink: '/venues?event=Birthday', budgetLink: '/budget', inviteLink: '/invites' },
-  { name: '🎓 College Fests & Farewells', tag: 'Campus & Convocations', image: 'images/home/9.jpg', color: 'cyan',
+  { name: 'College Fests & Farewells', tag: 'Campus & Convocations', image: 'images/home/9.jpg', color: 'cyan',
     desc: 'Tiered auditoriums, stage lighting, live sound consoles, DJ nights, and batch mementos.',
     venueLink: '/venues?event=College%20%26%20Graduation', budgetLink: '/budget', inviteLink: '/invites' },
-  { name: '💼 Corporate & Team Meets', tag: 'Offsites & Summits', image: 'images/home/10.jpg', color: 'blue',
+  { name: 'Corporate & Team Meets', tag: 'Offsites & Summits', image: 'images/home/10.jpg', color: 'blue',
     desc: 'Modern conference centres, break-out rooms, AV projectors, executive dining, and team resorts.',
     venueLink: '/venues?event=Corporate%20%26%20Team', budgetLink: '/budget', inviteLink: '/invites' },
-  { name: '🍼 Baby Showers & Godh Bharai', tag: 'Seemantham & Blessings', image: 'images/home/babyshower.jpg', color: 'yellow',
-    desc: 'Charming celebration spaces, fresh flower venis, 7-variety traditional feasts, and gifts.',
+  { name: 'Baby Showers & Blessings', tag: 'Family Blessings', image: 'images/home/babyshower.jpg', color: 'yellow',
+    desc: 'Charming celebration spaces, fresh flower arrangements, 7-course traditional feasts, and gifts.',
     venueLink: '/venues?event=Baby%20Shower', budgetLink: '/budget', inviteLink: '/invites' },
-  { name: '🏠 Griha Pravesh & Housewarming', tag: 'New Home Blessings', image: 'images/home/girha.jpg', color: 'green',
-    desc: 'Satvik lunch catering, fresh mango leaf torans, and auspicious puja coordination.',
+  { name: 'Housewarming Celebrations', tag: 'New Home Blessings', image: 'images/home/girha.jpg', color: 'green',
+    desc: 'Vegetarian lunch catering, fresh leaf garlands, and auspicious ceremony coordination.',
     venueLink: '/venues?event=Housewarming', budgetLink: '/budget', inviteLink: '/invites' },
-  { name: '🥂 Anniversary Celebrations', tag: 'Milestone Romance', image: 'images/home/anniversary.jpg', color: 'red',
+  { name: 'Anniversary Celebrations', tag: 'Milestone Romance', image: 'images/home/anniversary.jpg', color: 'red',
     desc: 'Beachfront lawns, sunset dining, acoustic live musicians, and romantic banquets.',
     venueLink: '/venues?event=Anniversary', budgetLink: '/budget', inviteLink: '/invites' },
-  { name: '👶 Naming Ceremonies', tag: 'Cradle Functions', image: 'images/home/12.jpg', color: 'pink',
+  { name: 'Naming Ceremonies', tag: 'Cradle Functions', image: 'images/home/12.jpg', color: 'pink',
     desc: 'Cradle decoration with fresh jasmine and silks, family feast caterers, and digital announcements.',
     venueLink: '/venues?event=Naming%20Ceremony', inviteLink: '/invites' },
-  { name: '🪔 Festivals & Cultural Events', tag: 'Community Celebrations', image: 'images/venues/7.jpg', color: 'orange',
-    desc: 'Open-air grounds with fairy lights, live Dhol and folk bands, and festive feasts.',
+  { name: 'Festivals & Cultural Events', tag: 'Community Celebrations', image: 'images/venues/7.jpg', color: 'orange',
+    desc: 'Open-air grounds with fairy lights, live percussion and folk bands, and festive feasts.',
     venueLink: '/venues?event=Festival', budgetLink: '/budget', inviteLink: '/invites' }
 ];
 
@@ -91,7 +108,7 @@ const stats = [
 ];
 
 const quotes = [
-  { text: 'Planning our 3-day royal wedding in Madurai was effortless. Eventora connected us with our mandap decorator, Sadya caterer, and nadaswaram troupe seamlessly.', by: 'Priya & Karthik · Wedding, Bengaluru' },
+  { text: 'Planning our 3-day royal wedding in Madurai was effortless. Eventora connected us with our stage decorator, traditional caterer, and live music troupe seamlessly.', by: 'Priya & Karthik · Wedding, Bengaluru' },
   { text: 'Organised my daughter\'s 1st birthday party in Coimbatore. The balloon decorator and dessert table caterer were punctual and amazing!', by: 'Ananya & Vikram · Birthday, Coimbatore' },
   { text: 'We organised our 2026 College Farewell for 400 students using Eventora’s budget tracker and auditorium booking. Unbelievably smooth!', by: 'Arjun · College Farewell, Chennai' },
   { text: 'Booked Bloom Conference Centre and executive buffet catering for our 150-person corporate offsite. The WhatsApp RSVP links saved hours.', by: 'Deepa R. · Corporate Summit, Bengaluru' }
@@ -117,24 +134,8 @@ app.post('/newsletter', (req, res) => {
   res.redirect('/#newsletter');
 });
 
-// Ora Chatbot API route
-app.post('/ora/message', (req, res) => {
-  const message = String((req.body && req.body.message) || '').trim();
-  const sessionId = (req.body && req.body.sessionId) || ('ora-' + Math.random().toString(36).slice(2, 9));
-  if (!message) return res.status(400).json({ reply: 'Type something and I will help! 😊', sessionId });
-
-  try {
-    const { ruleReply } = require('./public/data/oraRules');
-    const result = ruleReply(message);
-    res.json({ reply: result.reply, link: result.link, sessionId });
-  } catch (err) {
-    res.json({
-      reply: 'Namaste! 🙏 I can assist with venues, vendors, budget, checklist, guests and invites.',
-      link: '/venues',
-      sessionId
-    });
-  }
-});
+// Ora Chatbot API route (powered by OpenAI / Gemini + Eventora project context)
+app.post('/ora/message', handleChatRequest);
 
 // ----- Other pages -----
 // Each nav link maps to an HTML file inside the /pages folder.
@@ -149,25 +150,31 @@ const pages = [
   { route: '/consultation/plan',  file: 'consultation-plan.html',  aliases: ['consultation-plan.html'] },
   { route: '/checklist',          file: 'eventora-checklist.html', aliases: ['checklist.html', 'eventora-checklist.html'] },
   { route: '/guests',             file: 'guests.html',             aliases: ['guests.html'] },
-  { route: '/rsvp',               file: 'rsvp.html',               aliases: ['rsvp.html'] },
-  { route: '/register',           file: 'eventora-register.html',  aliases: ['register.html', 'eventora-register.html'] },
-  { route: '/ora',                file: 'chatbot.html',            aliases: ['ora.html', 'chatbot.html'] },
+  { route: '/rsvp',               file: 'rsvp.html',               aliases: ['rsvp.html'], public: true },
+  { route: '/register',           file: 'eventora-register.html',  aliases: ['register.html', 'eventora-register.html'], public: true },
+  { route: '/ora',                file: 'chatbot.html',            aliases: ['ora.html', 'chatbot.html'], public: true },
   { route: '/invites',            file: 'invites.html',            aliases: ['invites.html'] },
-  { route: '/invites/view',       file: 'invites-view.html',       aliases: ['invites-view.html'] },
+  { route: '/invites/view',       file: 'invites-view.html',       aliases: ['invites-view.html'], public: true },
   { route: '/event',              file: 'event.html',              aliases: ['event.html'] },
   { route: '/dashboard',          file: 'eventora-dashboard.html', aliases: ['eventora-dashboard.html', 'dashboard.html'] },
   { route: '/vendor-dashboard',   file: 'vendor-dashboard.html',   aliases: ['vendor-dashboard.html'] },
-  { route: '/chatbot',            file: 'chatbot.html',            aliases: ['chatbot.html'] }
+  { route: '/chatbot',            file: 'chatbot.html',            aliases: ['chatbot.html'], public: true }
 ];
 
 pages.forEach((page) => {
-  app.get(page.route, (req, res) => {
+  const middlewares = page.public ? [] : [requirePageAuth];
+  app.get(page.route, ...middlewares, (req, res) => {
     res.sendFile(path.join(__dirname, 'pages', page.file));
   });
   // Old-style links such as "venues.html" go to the clean URL "/venues".
   page.aliases.forEach((alias) => {
-    app.get('/' + alias, (req, res) => res.redirect(page.route));
+    app.get('/' + alias, ...middlewares, (req, res) => res.redirect(page.route));
   });
+});
+
+// Alias singular /guest to /guests (protected by auth)
+app.get(['/guest', '/guest.html'], requirePageAuth, (req, res) => {
+  res.redirect('/guests');
 });
 
 // Old links back to the home page
@@ -175,8 +182,26 @@ pages.forEach((page) => {
   app.get('/' + name, (req, res) => res.redirect('/'));
 });
 
-// Static serve for pages folder
-app.use('/pages', express.static(path.join(__dirname, 'pages')));
+// Static serve for pages folder (enforce auth for protected HTML files)
+const PUBLIC_PAGE_FILES = new Set([
+  'chatbot.html',
+  'ora.html',
+  'register.html',
+  'eventora-register.html',
+  'rsvp.html',
+  'invites-view.html',
+  'home.html',
+  'index.html',
+  'eventora-home.html'
+]);
+
+app.use('/pages', async (req, res, next) => {
+  const requested = path.basename((req.path || '').toLowerCase());
+  if (!requested || PUBLIC_PAGE_FILES.has(requested)) {
+    return next();
+  }
+  return requirePageAuth(req, res, next);
+}, express.static(path.join(__dirname, 'pages')));
 
 // Logo redirect
 app.get('/eventora_logo_slanted.png', (req, res) => res.redirect('/images/logo.png'));

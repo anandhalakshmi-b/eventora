@@ -4,19 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Favourites | Eventora</title>
-<link rel="icon" href="images/logo.png">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap">
-<link rel="stylesheet" href="css/venues.css">
-<link rel="stylesheet" href="css/navbar.css">
-<link rel="stylesheet" href="css/ora.css">
-</head>
+<link rel="icon" href="images/logo.png"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"><link rel="stylesheet" href="css/venues.css"><link rel="stylesheet" href="css/navbar.css"><link rel="stylesheet" href="css/ora.css"></head>
 <body>
 
 <nav>
   <a class="brand" href="index.html"><img src="images/logo.png" alt="Eventora logo">Eventora</a>
-  <button id="burger" aria-label="Open menu" aria-expanded="false">☰</button>
-  <div class="links" id="links">
-    <a href="index.html">Home</a>
+  <button id="burger" aria-label="Open menu" aria-expanded="false"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+  <div class="links" id="links"><a href="index.html">Home</a>
     <a href="venues.html">Venues &amp; Vendors</a>
     <a href="ideas.html">Ideas</a>
     <a href="budget.html">Budget</a>
@@ -24,7 +18,7 @@
     <a href="guests.html">Guests</a>
     <a href="consultation.html">Consultation</a>
     <a href="invites.html">Invites</a>
-    <a href="favorites.html" class="on">Favourites ♥</a>
+    <a href="favorites.html" class="on">Favourites</a>
     <a class="btn sm" href="register.html">Register</a>
   </div>
 </nav>
@@ -35,10 +29,9 @@
     <source src="images/venues/venues.mp4" type="video/mp4">
   </video>
   <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <p class="hero-kicker">✦ SHORTLIST &amp; SAVED MASTERS ✦</p>
-    <h1>Your Shortlist &amp; Favourites ♥</h1>
-    <p>Your handpicked heritage venues, kalyana mandapams, and event masters all in one place.</p>
+  <div class="hero-content"><p class="hero-kicker">SHORTLIST &amp; SAVED MASTERS </p>
+    <h1>Your Shortlist &amp; Favourites</h1>
+    <p>Your handpicked heritage venues, Wedding Hall, and event masters all in one place.</p>
   </div>
 </header>
 
@@ -60,24 +53,21 @@
 
 <dialog id="dlg" aria-label="Venue details"><div id="dbody"></div></dialog>
 <dialog id="vendor-dialog" class="detail-dialog" aria-label="Vendor details"><div id="vendor-dialog-body"></div></dialog>
+<script src="js/common.js"></script>
 <script src="js/venues.js"></script>
 
 <!-- ===== ORA FLOATING CHAT ===== -->
-<button id="ora-fab" class="ora-fab" aria-label="Chat with Ora" aria-expanded="false">💬</button>
+<button id="ora-fab" class="ora-fab" aria-label="Chat with Ora" aria-expanded="false"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
 <section id="ora-window" class="ora-window" hidden aria-label="Chat with Ora">
   <header class="ora-head">
-    <strong>Ora</strong> · your planning buddy
+    <strong>Ora</strong> · your planning assistant
     <button id="ora-close" class="ora-x" aria-label="Close chat">×</button>
   </header>
   <div id="ora-log" class="ora-log" role="log" aria-live="polite"></div>
-  <div class="ora-quick">
-    <button data-q="Find venues">Find venues</button>
+  <div class="ora-quick"><button data-q="Find venues">Find venues</button>
     <button data-q="Set a budget">Set a budget</button>
-    <button data-q="Make an invite">Make an invite</button>
-    <button data-q="Talk to a human">Talk to a human</button>
-  </div>
-  <div class="ora-form">
-    <label for="ora-input" class="sr-only">Message Ora</label>
+    <button data-q="Make an invite">Make an invite</button>  </div>
+  <div class="ora-form"><label for="ora-input" class="sr-only">Message Ora</label>
     <input id="ora-input" type="text" maxlength="500" placeholder="Ask Ora anything..." autocomplete="off">
     <button id="ora-send" class="ora-send">Send</button>
   </div>

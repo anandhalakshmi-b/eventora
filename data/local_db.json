@@ -247,8 +247,8 @@
       "phone": "",
       "role": "user",
       "city": "Chennai",
-      "eventType": "Tamil Thirumanam & Celebration",
-      "eventDate": "",
+      "eventType": "Engagement",
+      "eventDate": "2026-11-05",
       "guestCount": 200,
       "vendorDetails": {
         "businessName": "26MX229 M",
@@ -260,7 +260,24 @@
         "portfolio": [],
         "pictures": []
       },
-      "createdAt": "2026-11-24T17:31:31.480Z"
+      "createdAt": "2026-11-24T17:31:31.480Z",
+      "eventName": "nandy & karan's Engagement",
+      "eventDetails": {
+        "brideName": "nandy",
+        "groomName": "karan"
+      },
+      "eventBudget": 500000,
+      "budgetData": {
+        "total": 500000,
+        "items": [
+          {
+            "id": "pfs72ah",
+            "cat": "Ceremony Venue & Hall",
+            "est": 150000,
+            "act": 10000
+          }
+        ]
+      }
     },
     {
       "_id": "user_1795595652822_usox4",
@@ -453,5 +470,8 @@
       "status": "Confirmed",
       "createdAt": "2026-11-16T17:29:25.868Z"
     }
-  ]
+  ],
+  "sessions": [],
+  "guests": [],
+  "chatMessages": []
 }

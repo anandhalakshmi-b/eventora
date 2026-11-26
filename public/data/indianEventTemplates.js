@@ -2,24 +2,24 @@
 // budgetSplit values are percentages and must add up to 100.
 const templates = {
   wedding: {
-    label: 'Wedding (Hindu / Christian / Muslim / Sikh)',
+    label: 'Wedding Celebration',
     timeline: [
-      ['12 months before', 'Fix budget, guest estimate, muhurat / date with family priest or elders'],
-      ['10 months before', 'Book venue (banquet / lawn / temple hall) and wedding planner'],
+      ['12 months before', 'Fix budget, guest estimate, and auspicious date with family elders'],
+      ['10 months before', 'Book venue (banquet / lawn / ceremony hall) and wedding planner'],
       ['8 months before', 'Book photographer, caterer, makeup artist and decorator'],
-      ['6 months before', 'Shop for outfits and jewellery; book mehendi artist, DJ and band / baraat arrangements'],
+      ['6 months before', 'Shop for outfits and jewellery; book henna artist, DJ and live band arrangements'],
       ['3 months before', 'Print and send invitations; book hotel rooms and travel for outstation guests'],
-      ['1 month before', 'Finalise menu tasting, seating, return gifts and pandit / officiant'],
-      ['1 week before', 'Haldi, mehendi and sangeet rehearsals; confirm every vendor'],
-      ['Wedding week', 'Functions, wedding day, reception and vidaai / send-off']
+      ['1 month before', 'Finalise menu tasting, seating, return gifts and ceremony officiant'],
+      ['1 week before', 'Pre-wedding rehearsals and family gatherings; confirm every vendor'],
+      ['Wedding week', 'Pre-wedding functions, wedding day, reception and send-off']
     ],
-    venueTypes: ['Banquet hall', 'Lawn / farmhouse', 'Palace / heritage hotel', 'Temple hall / Kalyana Mandapam', 'Destination resort'],
-    vendors: ['Caterer', 'Photographer', 'Decorator', 'DJ', 'Florist', 'Mehendi artist', 'Makeup artist', 'Pandit / Officiant'],
+    venueTypes: ['Banquet hall', 'Lawn / farmhouse', 'Palace / heritage hotel', 'Traditional wedding hall', 'Destination resort'],
+    vendors: ['Caterer', 'Photographer', 'Decorator', 'DJ', 'Florist', 'Henna artist', 'Makeup artist', 'Officiant'],
     budgetSplit: { 'Venue': 25, 'Catering': 30, 'Decor & Flowers': 12, 'Photography & Video': 8, 'Outfits & Jewellery': 12, 'Music & Entertainment': 5, 'Invites & Gifts': 4, 'Miscellaneous': 4 },
-    decor: ['Marigold and jasmine mandap', 'Rangoli entrance', 'Fairy-light canopy', 'Brass urli with floating flowers', 'Traditional haldi yellow and mehendi green corners']
+    decor: ['Marigold and jasmine stage arch', 'Floral entrance', 'Fairy-light canopy', 'Brass bowls with floating flowers', 'Yellow and green pre-wedding corners']
   },
   engagement: {
-    label: 'Engagement / Roka / Sagai',
+    label: 'Engagement & Ring Ceremony',
     timeline: [
       ['2 months before', 'Fix date and guest list; book venue or home arrangement'],
       ['1 month before', 'Book caterer, decorator and photographer; shop for outfits and rings'],
@@ -46,25 +46,25 @@ const templates = {
     decor: ['Balloon arch', 'Theme backdrop with photo corner', 'Colourful buntings and streamers']
   },
   housewarming: {
-    label: 'Griha Pravesh / Housewarming',
+    label: 'Housewarming Celebration',
     timeline: [
-      ['1 month before', 'Fix auspicious muhurat with the pandit; make guest list'],
-      ['2 weeks before', 'Book pandit, caterer and decorator; send invites'],
-      ['1 week before', 'Buy puja items, kalash, coconut, mango leaves and flowers'],
-      ['Event day', 'Griha Pravesh puja, havan, lunch for guests']
+      ['1 month before', 'Fix celebration date and prepare guest list'],
+      ['2 weeks before', 'Book officiant, caterer and decorator; send invites'],
+      ['1 week before', 'Buy ceremony items, coconut, mango leaves and flowers'],
+      ['Event day', 'Housewarming blessing ceremony and lunch for guests']
     ],
-    venueTypes: ['New home', 'Society community hall'],
-    vendors: ['Pandit', 'Caterer', 'Florist', 'Decorator', 'Photographer'],
-    budgetSplit: { 'Puja & Pandit': 15, 'Catering': 45, 'Decor & Flowers': 15, 'Gifts & Prasad': 15, 'Miscellaneous': 10 },
-    decor: ['Toran at the main door', 'Rangoli and diyas', 'Marigold garlands', 'Kalash at entrance']
+    venueTypes: ['New home', 'Community hall'],
+    vendors: ['Officiant', 'Caterer', 'Florist', 'Decorator', 'Photographer'],
+    budgetSplit: { 'Ceremony & Arrangements': 15, 'Catering': 45, 'Decor & Flowers': 15, 'Gifts & Sweets': 15, 'Miscellaneous': 10 },
+    decor: ['Leaf garland at the main door', 'Floral entrance and lamps', 'Marigold garlands', 'Welcome vessel at entrance']
   },
   babyshower: {
-    label: 'Baby Shower / Godh Bharai / Seemantham',
+    label: 'Baby Shower & Family Blessings',
     timeline: [
       ['6 weeks before', 'Choose date and decide traditional or modern theme'],
       ['4 weeks before', 'Book venue, caterer and decorator'],
-      ['2 weeks before', 'Send invites; plan games and rituals'],
-      ['Event day', 'Rituals, games, gifting and photographs']
+      ['2 weeks before', 'Send invites; plan games and family blessings'],
+      ['Event day', 'Blessings, games, gifting and photographs']
     ],
     venueTypes: ['Home', 'Banquet / party hall', 'Garden venue'],
     vendors: ['Caterer', 'Decorator', 'Photographer', 'Florist'],
@@ -72,30 +72,30 @@ const templates = {
     decor: ['Flower swing for photos', 'Pastel balloons', 'Bangles and flower jewellery display']
   },
   naming: {
-    label: 'Naming Ceremony / Namkaran',
+    label: 'Naming Ceremony',
     timeline: [
-      ['3 weeks before', 'Check muhurat with pandit; shortlist names'],
+      ['3 weeks before', 'Choose date and shortlist names'],
       ['2 weeks before', 'Book venue / arrange home; book caterer'],
       ['1 week before', 'Send invites; arrange cradle, decor and gifts'],
-      ['Event day', 'Puja, naming ritual and lunch']
+      ['Event day', 'Blessing ceremony, naming moment and lunch']
     ],
-    venueTypes: ['Home', 'Community hall', 'Temple hall'],
-    vendors: ['Pandit', 'Caterer', 'Decorator', 'Photographer'],
-    budgetSplit: { 'Venue': 15, 'Catering': 45, 'Decor': 15, 'Puja & Pandit': 10, 'Return Gifts': 10, 'Miscellaneous': 5 },
-    decor: ['Decorated cradle (palna)', 'Flower and balloon backdrop', 'Rangoli']
+    venueTypes: ['Home', 'Community hall', 'Celebration hall'],
+    vendors: ['Officiant', 'Caterer', 'Decorator', 'Photographer'],
+    budgetSplit: { 'Venue': 15, 'Catering': 45, 'Decor': 15, 'Ceremony Arrangements': 10, 'Return Gifts': 10, 'Miscellaneous': 5 },
+    decor: ['Decorated cradle', 'Flower and balloon backdrop', 'Floral entrance']
   },
   festival: {
-    label: 'Festival Party (Diwali / Ganesh Chaturthi / Navratri / Eid / Christmas)',
+    label: 'Festival Party & Cultural Gathering',
     timeline: [
       ['4 weeks before', 'Decide festival theme and guest list'],
-      ['3 weeks before', 'Book venue / society hall and caterer'],
+      ['3 weeks before', 'Book venue / community hall and caterer'],
       ['2 weeks before', 'Arrange decor, lights, sweets and gifts'],
-      ['Event day', 'Puja or celebration, food, music and photos']
+      ['Event day', 'Celebration, food, music and photos']
     ],
     venueTypes: ['Society clubhouse', 'Banquet hall', 'Terrace / lawn'],
     vendors: ['Caterer', 'Decorator', 'DJ', 'Florist', 'Sweet shop'],
     budgetSplit: { 'Venue': 20, 'Food & Sweets': 40, 'Decor & Lights': 18, 'Music': 10, 'Gifts': 8, 'Miscellaneous': 4 },
-    decor: ['Diyas and string lights', 'Rangoli', 'Torans', 'Festival-specific flowers']
+    decor: ['Lamps and string lights', 'Floral floor art', 'Door garlands', 'Festival flowers']
   },
   corporate: {
     label: 'Corporate Event / Annual Day / Conference',

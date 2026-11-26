@@ -36,7 +36,7 @@ const records = [
         { category: 'Invites & Gifts', percent: 4, amount: 60000 },
         { category: 'Miscellaneous', percent: 4, amount: 60000 }
       ],
-      decor: ['Marigold and jasmine mandap', 'Rangoli entrance'],
+      decor: ['Marigold and jasmine stage backdrop', 'Floral entrance', 'String light canopy'],
       saved: true
     }
   },
@@ -59,7 +59,7 @@ const records = [
       _id: new mongoose.Types.ObjectId('672000000000000000000003'),
       slug: 'eventora-demo-wedding',
       template: 'wedding',
-      heading: 'Shubh Vivah',
+      heading: 'Wedding Invitation',
       title: 'Aarav & Meera',
       hosts: 'Together with their families',
       date: new Date('2027-02-14T00:00:00.000Z'),

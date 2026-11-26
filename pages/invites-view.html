@@ -4,23 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Your Event Invitation | Eventora</title>
-  <link rel="icon" href="images/logo.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/theme.css">
-  <link rel="stylesheet" href="css/navbar.css">
-  <link rel="stylesheet" href="css/invites.css">
-  <link rel="stylesheet" href="css/ora.css">
-</head>
+  <link rel="icon" href="images/logo.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/theme.css"><link rel="stylesheet" href="css/navbar.css"><link rel="stylesheet" href="css/invites.css"><link rel="stylesheet" href="css/ora.css"></head>
 <body>
 
 <!-- ===== SHARED TOP BAR ===== -->
 <nav>
   <a class="brand" href="index.html"><img src="images/logo.png" alt="Eventora logo">Eventora</a>
-  <button id="burger" aria-label="Open menu" aria-expanded="false">☰</button>
-  <div class="links" id="links">
-    <a href="index.html">Home</a>
+  <button id="burger" aria-label="Open menu" aria-expanded="false"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+  <div class="links" id="links"><a href="index.html">Home</a>
     <a href="venues.html">Venues &amp; Vendors</a>
     <a href="ideas.html">Ideas</a>
     <a href="budget.html">Budget</a>
@@ -28,31 +19,25 @@
     <a href="guests.html">Guests</a>
     <a href="consultation.html">Consultation</a>
     <a href="invites.html" class="on">Invites</a>
-    <a href="favorites.html">Favourites ♥</a>
+    <a href="favorites.html">Favourites</a>
     <a class="btn sm" href="register.html">Register</a>
   </div>
 </nav>
 
 <main class="container" style="padding-top: 40px; padding-bottom: 60px;">
-  <div id="view-root">
-    <div style="text-align: center; margin-bottom: 28px;">
-      <h1 style="font-size: 32px; font-weight: 800; margin-bottom: 8px;">Your Invitation Card is Ready 🎉</h1>
+  <div id="view-root"><div style="text-align: center; margin-bottom: 28px;"><h1 style="font-size: 32px; font-weight: 800; margin-bottom: 8px;">Your Invitation Card is Ready </h1>
       <p style="color: #64748B; font-size: 15px;">Download high-resolution image files or share the invitation directly with friends, family, and colleagues.</p>
     </div>
 
-    <div class="two-col">
-      <!-- Left: The Pretty Card -->
-      <div class="preview-wrap">
-        <article id="invite-card" class="invite-card" style="--bg:#FEE2E2;--fg:#DC2626;font-family:'Playfair Display',serif">
-          <div class="inv-lotus" id="card-emoji" aria-hidden="true">🎉</div>
+    <div class="two-col"><!-- Left: The Pretty Card -->
+      <div class="preview-wrap"><article id="invite-card" class="invite-card" style="--bg:#FEE2E2;--fg:#DC2626;font-family:'Playfair Display',serif"><div class="inv-lotus" id="card-emoji" aria-hidden="true"></div>
           <p class="inv-heading" data-field="heading">Special Celebration</p>
           <img class="inv-photo" data-field="photo" alt="Event photo" hidden>
           <h2 class="inv-title" data-field="title">Event Title</h2>
           <p class="inv-hosts" data-field="hosts">Together with their families</p>
           <p class="inv-message" data-field="message">Cordially request the pleasure of your company to celebrate this memorable occasion.</p>
           
-          <div class="inv-details">
-            <p><strong>When:</strong> <span data-field="dateText"></span> <span data-field="time"></span></p>
+          <div class="inv-details"><p><strong>When:</strong> <span data-field="dateText"></span> <span data-field="time"></span></p>
             <p><strong>Where:</strong> <span data-field="venue"></span>, <span data-field="address"></span></p>
             <p><strong>Dress code:</strong> <span data-field="dressCode"></span></p>
             <p><strong>RSVP:</strong> <span data-field="rsvpContact"></span></p>
@@ -62,25 +47,21 @@
       </div>
 
       <!-- Right: Share and Export Actions -->
-      <div class="card form-panel">
-        <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 16px;">Download &amp; Share</h2>
+      <div class="card form-panel"><h2 style="font-size: 22px; font-weight: 800; margin-bottom: 16px;">Download &amp; Share</h2>
 
-        <div class="nav-row" style="margin-top: 0; margin-bottom: 20px;">
-          <button class="btn inv-btn" id="dl-png" type="button">📷 Download PNG</button>
-          <button class="btn inv-btn" id="dl-pdf" type="button">📄 Download PDF</button>
-          <a class="btn inv-btn" id="wa-link" href="#" target="_blank" rel="noopener" style="background:#16A34A; border-color:#16A34A;">💬 WhatsApp</a>
+        <div class="nav-row" style="margin-top: 0; margin-bottom: 20px;"><button class="btn inv-btn" id="dl-png" type="button"> Download PNG</button>
+          <button class="btn inv-btn" id="dl-pdf" type="button"> Download PDF</button>
+          <a class="btn inv-btn" id="wa-link" href="#" target="_blank" rel="noopener" style="background:#16A34A; border-color:#16A34A;"> WhatsApp</a>
         </div>
 
         <label for="share-url">Shareable Web Link</label>
-        <div style="display:flex; gap:8px;">
-          <input id="share-url" readonly value="">
+        <div style="display:flex; gap:8px;"><input id="share-url" readonly value="">
           <button class="btn inv-btn-outline" id="copy-link" type="button">Copy</button>
         </div>
-        <p id="copy-msg" class="small" style="color:#16A34A; font-weight:700; margin-top:6px; display:none;">✓ Copied to clipboard!</p>
+        <p id="copy-msg" class="small" style="color:#16A34A; font-weight:700; margin-top:6px; display:none;">Copied to clipboard!</p>
 
-        <div style="margin-top: 24px; padding-top: 18px; border-top: 1px solid #E2E8F0;">
-          <a href="invites.html" class="btn inv-btn-outline" style="display:inline-block;">✏️ Create another invite</a>
-          <a href="guests.html" class="btn inv-btn-outline" style="display:inline-block;">👥 Manage RSVPs</a>
+        <div style="margin-top: 24px; padding-top: 18px; border-top: 1px solid #E2E8F0;"><a href="invites.html" class="btn inv-btn-outline" style="display:inline-block;"> Create another invite</a>
+          <a href="guests.html" class="btn inv-btn-outline" style="display:inline-block;"> Manage RSVPs</a>
         </div>
       </div>
     </div>
@@ -134,11 +115,41 @@ document.addEventListener('DOMContentLoaded', async () => {
           setField('dateText', d.toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }));
         }
 
-        // WhatsApp Link
+        // WhatsApp Link + Image Copy/Share
         const waLink = document.getElementById('wa-link');
         if (waLink) {
-          const msg = `🎉 *${inv.title}*\n${inv.hosts}\n\n📅 *When:* ${inv.date} ${inv.time}\n📍 *Where:* ${inv.venue}, ${inv.address}\n\n"${inv.message}"\n\nView Digital Card: ${window.location.href}`;
+          const loc = [inv.venue, inv.address].filter(Boolean).join(', ');
+          const waLines = [`*${inv.title}*`];
+          if (inv.hosts) waLines.push(inv.hosts);
+          waLines.push('');
+          if (inv.date) waLines.push(`*When:* ${[inv.date, inv.time].filter(Boolean).join(' ')}`);
+          if (loc) waLines.push(`*Where:* ${loc}`);
+          if (inv.message) {
+            waLines.push('');
+            waLines.push(`"${inv.message}"`);
+          }
+          waLines.push('');
+          waLines.push(`View Digital Card: ${window.location.href}`);
+          const msg = waLines.join('\n');
           waLink.href = `https://wa.me/?text=${encodeURIComponent(msg)}`;
+          waLink.addEventListener('click', async (ev) => {
+            if (typeof html2canvas === 'undefined') return;
+            ev.preventDefault();
+            const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent || '');
+            try {
+              const canvas = await html2canvas(card, { scale: 2.5, useCORS: true, backgroundColor: null });
+              const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
+              const file = blob ? new File([blob], 'Eventora_Invitation.png', { type: 'image/png' }) : null;
+              if (isMobile && file && navigator.canShare && navigator.canShare({ files: [file] })) {
+                await navigator.share({ files: [file], title: inv.title || 'Event Invitation', text: msg });
+                return;
+              }
+              if (blob && navigator.clipboard && typeof ClipboardItem !== 'undefined') {
+                await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]).catch(() => {});
+              }
+            } catch (_) {}
+            window.open(waLink.href, '_blank', 'noopener');
+          });
         }
       }
     } catch (e) {
@@ -173,7 +184,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         a.download = 'Eventora_Invitation.png';
         a.click();
       } finally {
-        btnPng.textContent = '📷 Download PNG';
+        btnPng.textContent = ' Download PNG';
       }
     });
   }
@@ -193,7 +204,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 12, 16, w - 24, h);
         pdf.save('Eventora_Invitation.pdf');
       } finally {
-        btnPdf.textContent = '📄 Download PDF';
+        btnPdf.textContent = ' Download PDF';
       }
     });
   }
@@ -201,21 +212,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 </script>
 
 <!-- ===== ORA FLOATING CHAT ===== -->
-<button id="ora-fab" class="ora-fab" aria-label="Chat with Ora" aria-expanded="false">💬</button>
+<button id="ora-fab" class="ora-fab" aria-label="Chat with Ora" aria-expanded="false"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
 <section id="ora-window" class="ora-window" hidden aria-label="Chat with Ora">
   <header class="ora-head">
-    <strong>Ora</strong> · your planning buddy
+    <strong>Ora</strong> · your planning assistant
     <button id="ora-close" class="ora-x" aria-label="Close chat">×</button>
   </header>
   <div id="ora-log" class="ora-log" role="log" aria-live="polite"></div>
-  <div class="ora-quick">
-    <button data-q="Find venues">Find venues</button>
+  <div class="ora-quick"><button data-q="Find venues">Find venues</button>
     <button data-q="Set a budget">Set a budget</button>
-    <button data-q="Make an invite">Make an invite</button>
-    <button data-q="Talk to a human">Talk to a human</button>
-  </div>
-  <div class="ora-form">
-    <label for="ora-input" class="sr-only">Message Ora</label>
+    <button data-q="Make an invite">Make an invite</button>  </div>
+  <div class="ora-form"><label for="ora-input" class="sr-only">Message Ora</label>
     <input id="ora-input" type="text" maxlength="500" placeholder="Ask Ora anything..." autocomplete="off">
     <button id="ora-send" class="ora-send">Send</button>
   </div>
