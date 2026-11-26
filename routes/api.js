@@ -596,7 +596,6 @@ router.get('/vendor/queries', async (req, res) => {
 
       let queries = await Query.find(filter).sort({ createdAt: -1 });
       if (!queries || queries.length === 0) {
-        // Return realistic initial queries for smooth vendor experience
         queries = SAMPLE_QUERIES;
       }
 
@@ -772,26 +771,23 @@ router.get('/vendors', async (req, res) => {
   try {
     const mongoReady = await ensureDB().catch(() => false);
     let vendorUsers = [];
+    let usedMongo = false;
 
     if (mongoReady && isMongooseConnected()) {
       try {
         vendorUsers = await User.find({ role: 'vendor' }).select('-password').maxTimeMS(3000).lean();
+        usedMongo = true;
       } catch (mongoErr) {
         console.warn('MongoDB vendors fetch fallback:', mongoErr.message);
       }
     }
 
-    if (!vendorUsers || vendorUsers.length === 0) {
+    if (!usedMongo) {
       const db = getLocalDb();
       vendorUsers = (db.users || []).filter(u => u.role === 'vendor');
     }
 
-    const mapped = vendorUsers
-      .filter(u => {
-        const c = String(u.vendorDetails?.category || '').toLowerCase();
-        return c && !c.includes('banquet') && !c.includes('palace');
-      })
-      .map(mapVendorDoc);
+    const mapped = vendorUsers.map(mapVendorDoc);
 
     return res.json({ success: true, data: mapped });
   } catch (err) {

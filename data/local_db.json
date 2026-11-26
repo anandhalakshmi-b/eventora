@@ -315,6 +315,36 @@
         "pictures": []
       },
       "createdAt": "2026-11-25T09:20:54.566Z"
+    },
+    {
+      "_id": "user_1795702247763_sjiiv",
+      "id": "user_1795702247763_sjiiv",
+      "name": "Anu",
+      "email": "26mx202@psgtech.ac.in",
+      "password": "814b8090006792ef820063f7efb26712:6b1446a1871996167508308f2441c28b89fff95bccd5da36f4f3f98b290ac98391cf083cd0dcf4d88f80a102f7bac8662c468f0f3c6c1f514354c95063b66b99",
+      "phone": "8888888888",
+      "role": "vendor",
+      "city": "Coimbatore",
+      "eventType": "Tamil Thirumanam",
+      "eventDate": "",
+      "guestCount": 200,
+      "vendorDetails": {
+        "businessName": "26mx202@psgtech.ac.in",
+        "category": "Florist",
+        "price": "8000",
+        "services": "Decor",
+        "description": "26mx202@psgtech.ac.in — Florist in Coimbatore (Decor)",
+        "portfolioUrl": "",
+        "portfolio": [
+          {
+            "title": "4.jpg",
+            "description": "Initial portfolio upload",
+            "image": ""
+          }
+        ],
+        "pictures": []
+      },
+      "createdAt": "2026-11-26T14:10:47.764Z"
     }
   ],
   "invites": [
