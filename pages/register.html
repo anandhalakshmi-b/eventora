@@ -193,7 +193,7 @@
               <input type="text" id="u-first" autocomplete="given-name" placeholder="Aarav">
               <p class="msg" id="u-first-msg"></p>
             </div>
-            <div class="field" id="f-u-last"><label for="u-last">Last name</label>
+            <div class="field" id="f-u-last"><label for="u-last">Last name (optional)</label>
               <input type="text" id="u-last" autocomplete="family-name" placeholder="Sharma">
               <p class="msg" id="u-last-msg"></p>
             </div>
@@ -203,8 +203,8 @@
               <input type="email" id="u-email" autocomplete="email" placeholder="aarav@example.com">
               <p class="msg" id="u-email-msg"></p>
             </div>
-            <div class="field" id="f-u-phone"><label for="u-phone">Phone (optional)</label>
-              <input type="tel" id="u-phone" autocomplete="tel" placeholder="+91 98765 43210">
+            <div class="field" id="f-u-phone"><label for="u-phone">Phone number *</label>
+              <input type="tel" id="u-phone" autocomplete="tel" inputmode="numeric" maxlength="10" placeholder="9876543210" required>
               <p class="msg" id="u-phone-msg"></p>
             </div>
           </div>
@@ -279,8 +279,8 @@
               <input type="email" id="v-email" autocomplete="email" placeholder="hello@glowbymeera.in">
               <p class="msg" id="v-email-msg"></p>
             </div>
-            <div class="field" id="f-v-phone"><label for="v-phone">Phone</label>
-              <input type="tel" id="v-phone" autocomplete="tel" placeholder="+91 98765 43210">
+            <div class="field" id="f-v-phone"><label for="v-phone">Phone number *</label>
+              <input type="tel" id="v-phone" autocomplete="tel" inputmode="numeric" maxlength="10" placeholder="9876543210" required>
               <p class="msg" id="v-phone-msg"></p>
             </div>
           </div>
@@ -445,6 +445,14 @@
     showToast.timer = setTimeout(function () { EL.toast.classList.remove('is-visible'); }, 2200);
   }
 
+  function phoneError(v, isRequired) {
+    var t = String(v || '').trim();
+    if (!t) return isRequired ? 'Enter a 10-digit phone number.' : null;
+    if (!/^\d+$/.test(t)) return 'Phone number must contain digits only.';
+    if (t.length !== 10) return 'Phone number must be 10 digits.';
+    return null;
+  }
+
   var USER_FIELDS = {
     first: {
       input: $('u-first'), field: $('f-u-first'), msg: $('u-first-msg'),
@@ -452,11 +460,15 @@
     },
     last: {
       input: $('u-last'), field: $('f-u-last'), msg: $('u-last-msg'),
-      check: function (v) { return v.trim() ? null : 'Enter your last name.'; }
+      check: function () { return null; }
     },
     email: {
       input: $('u-email'), field: $('f-u-email'), msg: $('u-email-msg'), ok: 'Valid email format',
       check: function (v) { var t = v.trim(); return !t ? 'Enter your email address.' : (EMAIL_RE.test(t) ? null : 'Enter a valid email address.'); }
+    },
+    phone: {
+      input: $('u-phone'), field: $('f-u-phone'), msg: $('u-phone-msg'), ok: 'Valid 10-digit number',
+      check: function (v) { return phoneError(v, true); }
     },
     password: {
       input: $('u-password'), field: $('f-u-password'), msg: $('u-password-msg'), ok: 'Password meets the rules',
@@ -527,8 +539,8 @@
       check: function (v) { var t = v.trim(); return !t ? 'Enter your business email.' : (EMAIL_RE.test(t) ? null : 'Enter a valid email address.'); }
     },
     phone: {
-      input: $('v-phone'), field: $('f-v-phone'), msg: $('v-phone-msg'),
-      check: function (v) { var t = v.trim(); return !t ? 'Enter a phone number.' : (t.replace(/\D/g, '').length >= 7 ? null : 'Enter a valid phone number.'); }
+      input: $('v-phone'), field: $('f-v-phone'), msg: $('v-phone-msg'), ok: 'Valid 10-digit number',
+      check: function (v) { return phoneError(v, true); }
     },
     password: {
       input: $('v-password'), field: $('f-v-password'), msg: $('v-password-msg'), ok: 'Password meets the rules',
@@ -568,6 +580,7 @@
   Object.keys(USER_FIELDS).forEach(function (k) {
     var input = USER_FIELDS[k].input;
     input.addEventListener('input', function () {
+      if (k === 'phone') input.value = input.value.replace(/\D/g, '').slice(0, 10);
       if (k === 'password') {
         updateRules(input.value, 'ur');
         if (USER_FIELDS.confirm.input.value) validateSingle(USER_FIELDS, 'confirm', false);
@@ -581,6 +594,7 @@
     var input = VENDOR_FIELDS[k].input;
     var evt = input.tagName === 'SELECT' ? 'change' : 'input';
     input.addEventListener(evt, function () {
+      if (k === 'phone') input.value = input.value.replace(/\D/g, '').slice(0, 10);
       if (k === 'password') updateRules(input.value, 'r');
       validateSingle(VENDOR_FIELDS, k, false);
     });

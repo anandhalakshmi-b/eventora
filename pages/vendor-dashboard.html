@@ -503,8 +503,8 @@
           <input type="text" id="v-city" required placeholder="e.g. Chennai, Coimbatore, Bengaluru, Madurai">
         </div>
 
-        <div class="form-group"><label for="v-phone">Contact Phone Number</label>
-          <input type="tel" id="v-phone" placeholder="e.g. +91 98401 23456">
+        <div class="form-group"><label for="v-phone">Contact Phone Number *</label>
+          <input type="tel" id="v-phone" inputmode="numeric" maxlength="10" required placeholder="9876543210">
         </div>
 
         <div class="form-group"><label for="v-price">Starting Price (₹)</label>
@@ -805,50 +805,99 @@
     }
 
     container.innerHTML = filtered.map(q => {
+      const qid = q._id || q.id;
       const statusClass = q.status === 'New' ? 'status-new' : (q.status === 'Confirmed' ? 'status-confirmed' : 'status-contacted');
       const cleanPhone = (q.userPhone || '').replace(/\D/g, '');
+      const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+      const replyPreview = q.vendorReply
+        ? `<div style="margin:10px 0 12px; padding:10px 14px; border-radius:12px; background:#EFF6FF; border:1px solid #BFDBFE; color:#1E3A8A; font-size:0.9rem;">
+             <b>Your Response${q.repliedAt ? ' (' + new Date(q.repliedAt).toLocaleDateString() + ')' : ''}:</b> ${esc(q.vendorReply)}
+           </div>`
+        : '';
       return `
-        <article class="query-card" data-qid="${q._id || q.id}"><div class="query-top"><div><span class="query-user">${q.userName || 'Event Host'}</span>
+        <article class="query-card" data-qid="${esc(qid)}"><div class="query-top"><div><span class="query-user">${esc(q.userName || 'Event Host')}</span>
               <span style="font-size:0.85rem; color:var(--muted); margin-left:8px;">${q.createdAt ? new Date(q.createdAt).toLocaleDateString() : ''}</span>
             </div>
-            <span class="query-status ${statusClass}">${q.status || 'New'}</span>
+            <span class="query-status ${statusClass}">${esc(q.status || 'New')}</span>
           </div>
 
-          <div class="query-meta"><span> <b>Event:</b> ${q.eventType || 'Event'}</span>
-            <span> <b>Date:</b> ${q.eventDate || 'Flexible'}</span>
-            <span> <b>Guests:</b> ${q.guestCount || 200}</span>
-            ${q.budget ? `<span> <b>Budget:</b> ${q.budget}</span>` : ''}
-            <span> <a href="mailto:${q.userEmail}" style="color:var(--brand); text-decoration:none;">${q.userEmail}</a></span>
-            ${q.userPhone ? `<span> <a href="tel:${q.userPhone}" style="color:var(--brand); text-decoration:none;">${q.userPhone}</a></span>` : ''}
+          <div class="query-meta"><span> <b>Event:</b> ${esc(q.eventType || 'Event')}</span>
+            <span> <b>Date:</b> ${esc(q.eventDate || 'Flexible')}</span>
+            <span> <b>Guests:</b> ${esc(q.guestCount || 200)}</span>
+            ${q.budget ? `<span> <b>Budget:</b> ${esc(q.budget)}</span>` : ''}
+            <span> <a href="mailto:${esc(q.userEmail)}" style="color:var(--brand); text-decoration:none;">${esc(q.userEmail)}</a></span>
+            ${q.userPhone ? `<span> <a href="tel:${esc(q.userPhone)}" style="color:var(--brand); text-decoration:none;">${esc(q.userPhone)}</a></span>` : ''}
           </div>
 
-          <div class="query-message">"${q.message || 'Client inquired about availability and pricing packages for their celebration.'}"
+          <div class="query-message">"${esc(q.message || 'Client inquired about availability and pricing packages for their celebration.')}"
+          </div>
+          ${replyPreview}
+
+          <div style="margin:10px 0 12px; display:flex; gap:8px; align-items:flex-start; flex-wrap:wrap;">
+            <textarea class="query-reply-input" data-qid="${esc(qid)}" rows="2" placeholder="Write a response, package quote, or availability note to display in the client's dashboard..." style="flex:1 1 260px; padding:10px 12px; border:1px solid #CBD5E1; border-radius:10px; font:inherit; font-size:0.9rem; resize:vertical;">${esc(q.vendorReply || '')}</textarea>
+            <button type="button" class="btn-outline btn-send-reply" data-qid="${esc(qid)}" style="background:var(--brand); color:#fff; border-color:var(--brand); padding:10px 16px;">Send Response</button>
           </div>
 
           <div class="query-actions">${cleanPhone ? `<a href="https://wa.me/${cleanPhone}" target="_blank" class="btn-outline" style="color:#16A34A; border-color:#86EFAC;"> WhatsApp Client</a>` : ''}
-            <a href="mailto:${q.userEmail}?subject=Eventora Inquiry Response from ${encodeURIComponent(currentUser.vendorDetails?.businessName || 'Vendor')}" class="btn-outline"> Reply by Email</a>
+            <a href="mailto:${esc(q.userEmail)}?subject=Eventora Inquiry Response from ${encodeURIComponent(currentUser.vendorDetails?.businessName || 'Vendor')}" class="btn-outline"> Reply by Email</a>
             
-            <div style="margin-left:auto; display:flex; gap:6px;"><button type="button" class="btn-outline btn-set-status" data-qid="${q._id || q.id}" data-status="Contacted">Mark Contacted</button>
-              <button type="button" class="btn-outline btn-set-status" data-qid="${q._id || q.id}" data-status="Confirmed" style="color:var(--green); border-color:var(--green);">Confirm Booking </button>
+            <div style="margin-left:auto; display:flex; gap:6px;"><button type="button" class="btn-outline btn-set-status" data-qid="${esc(qid)}" data-status="Contacted">Mark Contacted</button>
+              <button type="button" class="btn-outline btn-set-status" data-qid="${esc(qid)}" data-status="Confirmed" style="color:var(--green); border-color:var(--green);">Confirm Booking </button>
             </div>
           </div>
         </article>
       `;
     }).join('');
 
+    container.querySelectorAll('.btn-send-reply').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const qid = btn.dataset.qid;
+        const card = btn.closest('.query-card');
+        const input = card ? card.querySelector('.query-reply-input') : null;
+        const replyText = input ? input.value.trim() : '';
+        if (!replyText) {
+          showToast('Enter a response message before sending.');
+          if (input) input.focus();
+          return;
+        }
+        const item = cachedQueries.find(x => String(x._id || x.id) === String(qid));
+        const nextStatus = item && item.status === 'New' ? 'Contacted' : (item ? item.status : 'Contacted');
+        btn.disabled = true;
+        try {
+          const res = await fetch(`/api/vendor/queries/${encodeURIComponent(qid)}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ vendorReply: replyText, status: nextStatus })
+          });
+          if (!res.ok) throw new Error('Failed');
+          if (item) {
+            item.vendorReply = replyText;
+            item.repliedAt = new Date().toISOString();
+            item.status = nextStatus;
+          }
+          renderQueries();
+          showToast('Response sent to user dashboard!');
+        } catch (e) {
+          showToast('Could not send response. Please try again.');
+        } finally {
+          btn.disabled = false;
+        }
+      });
+    });
+
     // Attach status toggle handlers
     container.querySelectorAll('.btn-set-status').forEach(btn => {
       btn.addEventListener('click', async () => {
         const qid = btn.dataset.qid;
         const newStatus = btn.dataset.status;
-        const item = cachedQueries.find(x => (x._id || x.id) === qid);
+        const item = cachedQueries.find(x => String(x._id || x.id) === String(qid));
         if (item) {
           item.status = newStatus;
           renderQueries();
           showToast(`Inquiry marked as ${newStatus}!`);
 
           try {
-            await fetch(`/api/vendor/queries/${qid}`, {
+            await fetch(`/api/vendor/queries/${encodeURIComponent(qid)}`, {
               method: 'PATCH',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ status: newStatus })
@@ -878,10 +927,17 @@
       showToast('Please enter your operating city.');
       return false;
     }
+    const cleanPhone = $('v-phone').value.replace(/\D/g, '').slice(0, 10);
+    if (cleanPhone.length !== 10) {
+      showToast('Please enter a valid 10-digit contact phone number.');
+      $('v-phone').focus();
+      return false;
+    }
+    $('v-phone').value = cleanPhone;
 
     currentUser.name = $('v-contact-name').value.trim() || currentUser.name;
     currentUser.city = city;
-    currentUser.phone = $('v-phone').value.trim();
+    currentUser.phone = cleanPhone;
 
     currentUser.vendorDetails.businessName = bname;
     currentUser.vendorDetails.category = category;
@@ -1183,6 +1239,12 @@
         renderGallery();
       }
     } catch (e) {}
+  }
+
+  if ($('v-phone')) {
+    $('v-phone').addEventListener('input', () => {
+      $('v-phone').value = $('v-phone').value.replace(/\D/g, '').slice(0, 10);
+    });
   }
 
   // Initialize all sections

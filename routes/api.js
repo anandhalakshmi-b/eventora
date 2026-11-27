@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const router = express.Router();
 const { User, hashPasswordAsync, verifyPasswordAsync } = require('../models/User');
 const { Invite } = require('../models/Invite');
@@ -146,6 +147,14 @@ router.post('/auth/register', async (req, res) => {
       return res.status(400).json({
         success: false,
         message: 'Name, email, and password are required.'
+      });
+    }
+
+    const cleanPhone = String(phone || '').trim();
+    if (!/^\d{10}$/.test(cleanPhone)) {
+      return res.status(400).json({
+        success: false,
+        message: 'A valid 10-digit phone number is required.'
       });
     }
 
@@ -1101,8 +1110,10 @@ router.get('/vendor/queries', async (req, res) => {
 // Submit a new query / inquiry from user to vendor
 router.post('/vendor/queries', async (req, res) => {
   try {
+    const session = await getSessionFromRequest(req).catch(() => null);
     const {
       vendorId = '',
+      vendorName = '',
       vendorEmail = '',
       userName,
       userEmail,
@@ -1114,25 +1125,32 @@ router.post('/vendor/queries', async (req, res) => {
       message = ''
     } = req.body;
 
-    if (!userName || !userEmail) {
+    const canonicalUserEmail = ((session && session.email) || userEmail || '').toLowerCase().trim();
+    const canonicalUserName = String(userName || (session && session.name) || '').trim();
+
+    if (!canonicalUserName || !canonicalUserEmail) {
       return res.status(400).json({ success: false, message: 'Name and email are required.' });
     }
 
     const queryData = {
-      vendorId,
+      vendorId: String(vendorId || '').trim(),
+      vendorName: String(vendorName || '').trim(),
       vendorEmail: (vendorEmail || '').toLowerCase().trim(),
-      userName: userName.trim(),
-      userEmail: userEmail.toLowerCase().trim(),
-      userPhone: userPhone.trim(),
+      userName: canonicalUserName,
+      userEmail: canonicalUserEmail,
+      userPhone: String(userPhone || '').trim(),
       eventType,
       eventDate,
       guestCount: Number(guestCount) || 200,
       budget: budget || '',
       message: message || '',
+      vendorReply: '',
+      repliedAt: null,
       status: 'New'
     };
 
-    if (isMongooseConnected()) {
+    const mongoReady = await ensureDB().catch(() => false);
+    if (mongoReady && isMongooseConnected()) {
       const newQuery = new Query(queryData);
       await newQuery.save();
       return res.status(201).json({ success: true, message: 'Query sent to vendor successfully!', data: newQuery });
@@ -1159,28 +1177,71 @@ router.post('/vendor/queries', async (req, res) => {
   }
 });
 
-// Update query status (e.g. Mark as Contacted, Confirmed, Declined)
+// Get queries & vendor responses for the currently signed-in customer
+router.get('/user/queries', async (req, res) => {
+  try {
+    res.setHeader('Cache-Control', 'no-store');
+    const session = await getSessionFromRequest(req);
+    if (!session || !session.email) {
+      return res.status(401).json({ success: false, message: 'Authentication required.' });
+    }
+    const cleanEmail = String(session.email).toLowerCase().trim();
+
+    const mongoReady = await ensureDB().catch(() => false);
+    if (mongoReady && isMongooseConnected()) {
+      const queries = await Query.find({ userEmail: cleanEmail }).sort({ createdAt: -1 }).maxTimeMS(3000).lean();
+      return res.json({ success: true, data: queries || [] });
+    } else {
+      const db = getLocalDb();
+      const queries = (db.queries || [])
+        .filter(q => String(q.userEmail || '').toLowerCase().trim() === cleanEmail)
+        .sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+      return res.json({ success: true, data: queries });
+    }
+  } catch (err) {
+    console.error('Fetch user queries error:', err);
+    return res.status(500).json({ success: false, message: 'Error retrieving your inquiries.' });
+  }
+});
+
+// Update query status and/or vendor reply response
 router.patch('/vendor/queries/:id', async (req, res) => {
   try {
     const id = req.params.id;
-    const { status } = req.body;
+    const { status, vendorReply } = req.body || {};
+    const ALLOWED_STATUSES = ['New', 'Contacted', 'Confirmed', 'Declined'];
+    const updateFields = {};
 
-    if (isMongooseConnected()) {
-      const query = await Query.findByIdAndUpdate(id, { status }, { new: true });
-      return res.json({ success: true, message: 'Status updated.', data: query });
+    if (typeof status === 'string' && ALLOWED_STATUSES.includes(status)) {
+      updateFields.status = status;
+    }
+    if (typeof vendorReply === 'string') {
+      const cleanReply = vendorReply.trim();
+      updateFields.vendorReply = cleanReply;
+      updateFields.repliedAt = cleanReply ? new Date() : null;
+      if (!updateFields.status && cleanReply) {
+        updateFields.status = 'Contacted';
+      }
+    }
+
+    const mongoReady = await ensureDB().catch(() => false);
+    if (mongoReady && isMongooseConnected() && mongoose.Types.ObjectId.isValid(id)) {
+      const query = await Query.findByIdAndUpdate(id, { $set: updateFields }, { returnDocument: 'after' });
+      return res.json({ success: true, message: 'Response saved.', data: query });
     } else {
       const db = getLocalDb();
       if (!db.queries) db.queries = [...SAMPLE_QUERIES];
       const q = db.queries.find(x => x._id === id || x.id === id);
       if (q) {
-        q.status = status;
+        Object.assign(q, updateFields);
+        if (q.repliedAt instanceof Date) q.repliedAt = q.repliedAt.toISOString();
         saveLocalDb(db);
       }
-      return res.json({ success: true, message: 'Status updated.', data: q });
+      return res.json({ success: true, message: 'Response saved.', data: q });
     }
   } catch (err) {
-    console.error('Update query status error:', err);
-    return res.status(500).json({ success: false, message: 'Could not update status.' });
+    console.error('Update query status/reply error:', err);
+    return res.status(500).json({ success: false, message: 'Could not update query.' });
   }
 });
 

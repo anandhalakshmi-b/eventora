@@ -156,6 +156,16 @@
         <a class="btn-ghost" href="invites.html">Design Invites</a>
       </div>
     </div>
+
+    <div class="panel" id="dash-inquiries-panel">
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:14px;">
+        <h2 style="margin:0;">Venue &amp; Vendor Inquiries &amp; Responses</h2>
+        <a class="stat-link" href="venues.html">Contact More →</a>
+      </div>
+      <div id="dash-queries-list" style="display:flex; flex-direction:column; gap:12px;">
+        <p style="margin:0; color:#475569;">Loading your vendor and venue inquiries...</p>
+      </div>
+    </div>
   </div>
 </main>
 
@@ -562,6 +572,99 @@
     })
     .catch(function () {});
 
+  function renderUserQueries(queries) {
+    var box = document.getElementById('dash-queries-list');
+    if (!box) return;
+    box.innerHTML = '';
+    if (!Array.isArray(queries) || queries.length === 0) {
+      var none = document.createElement('p');
+      none.style.margin = '0';
+      none.style.color = '#475569';
+      none.textContent = 'You have not contacted any venue or vendor yet. Visit Venues & Vendors to send an inquiry.';
+      box.appendChild(none);
+      return;
+    }
+
+    var badgeStyle = {
+      New: 'background:#FEF3C7; color:#92400E;',
+      Contacted: 'background:#DBEAFE; color:#1D4ED8;',
+      Confirmed: 'background:#DCFCE7; color:#166534;',
+      Declined: 'background:#FEE2E2; color:#B91C1C;'
+    };
+
+    queries.forEach(function (q) {
+      var card = document.createElement('div');
+      card.style.cssText = 'padding:14px 16px; background:#F8FAFC; border:1px solid #E2E8F0; border-radius:14px; display:flex; flex-direction:column; gap:8px;';
+
+      var top = document.createElement('div');
+      top.style.cssText = 'display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap;';
+
+      var left = document.createElement('div');
+      var title = document.createElement('strong');
+      title.style.fontSize = '1rem';
+      title.textContent = q.vendorName || q.vendorEmail || q.vendorId || 'Venue / Vendor Inquiry';
+      var meta = document.createElement('span');
+      meta.style.cssText = 'margin-left:8px; font-size:0.82rem; color:#64748B; font-weight:600;';
+      var metaParts = [];
+      if (q.eventType) metaParts.push(q.eventType);
+      if (q.eventDate) metaParts.push(formatDisplayDate(q.eventDate));
+      meta.textContent = metaParts.join(' · ');
+      left.appendChild(title);
+      if (meta.textContent) left.appendChild(meta);
+
+      var statusBadge = document.createElement('span');
+      var st = q.status || 'New';
+      statusBadge.style.cssText = 'padding:3px 10px; border-radius:999px; font-size:0.75rem; font-weight:700; ' + (badgeStyle[st] || badgeStyle.New);
+      statusBadge.textContent = st;
+
+      top.appendChild(left);
+      top.appendChild(statusBadge);
+      card.appendChild(top);
+
+      if (q.message) {
+        var sentEl = document.createElement('p');
+        sentEl.style.cssText = 'margin:0; font-size:0.88rem; color:#475569;';
+        var sentPrefix = document.createElement('b');
+        sentPrefix.textContent = 'Your message: ';
+        sentEl.appendChild(sentPrefix);
+        sentEl.appendChild(document.createTextNode(q.message));
+        card.appendChild(sentEl);
+      }
+
+      var respBox = document.createElement('div');
+      if (q.vendorReply) {
+        respBox.style.cssText = 'padding:10px 12px; border-radius:10px; background:#DCFCE7; border:1px solid #86EFAC; color:#166534; font-size:0.9rem;';
+        var respHdr = document.createElement('strong');
+        respHdr.textContent = 'Vendor Response' + (q.repliedAt ? ' (' + new Date(q.repliedAt).toLocaleDateString('en-IN') + ')' : '') + ': ';
+        respBox.appendChild(respHdr);
+        respBox.appendChild(document.createTextNode(q.vendorReply));
+      } else if (st !== 'New') {
+        respBox.style.cssText = 'padding:8px 12px; border-radius:10px; background:#EFF6FF; border:1px solid #BFDBFE; color:#1E40AF; font-size:0.86rem; font-weight:600;';
+        respBox.textContent = 'Status updated to "' + st + '" by the vendor.';
+      } else {
+        respBox.style.cssText = 'font-size:0.84rem; color:#64748B; font-style:italic;';
+        respBox.textContent = 'Awaiting response from vendor.';
+      }
+      card.appendChild(respBox);
+      box.appendChild(card);
+    });
+  }
+
+  function loadUserQueries() {
+    fetch('/api/user/queries', { credentials: 'same-origin', cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (res) {
+        if (res && res.success) {
+          renderUserQueries(res.data || []);
+        } else {
+          renderUserQueries([]);
+        }
+      })
+      .catch(function () {
+        renderUserQueries([]);
+      });
+  }
+
   fetch('/api/guests', { credentials: 'same-origin' })
     .then(function (r) { return r.ok ? r.json() : null; })
     .then(function (res) {
@@ -573,6 +676,8 @@
       }
     })
     .catch(function () {});
+
+  loadUserQueries();
 })();
 </script>
 <script src="js/ora.js"></script>
