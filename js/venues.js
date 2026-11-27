@@ -4,7 +4,72 @@
   const CITIES = ['Coimbatore', 'Chennai', 'Bengaluru', 'Madurai', 'Pondicherry', 'Kochi'];
   const VTYPES = ['Banquet hall', 'Outdoor lawn', 'Rooftop', 'Resort', 'Conference centre'];
 
-  const VENUES = [];
+  const VENUES = [
+    {
+      id: 'venue-1',
+      name: 'Chola Grand Palace',
+      city: 'Coimbatore',
+      type: 'Banquet hall',
+      rating: 4.9,
+      cap: 650,
+      price: 120000,
+      ev: ['Wedding', 'Engagement', 'Corporate & Team', 'Anniversary'],
+      booked: [],
+      image: 'images/venues/1.jpg',
+      pictures: ['images/venues/1.jpg', 'images/venues/5.jpg', 'images/venues/6.jpg'],
+      am: ['Air-conditioned Main Hall', 'Bridal Changing Suite', 'Dining Banquet Wing', 'Valet Parking'],
+      desc: 'Column-free heritage banquet hall with chandelier lighting, acoustic stage setup, and dedicated feast dining hall.',
+      tone: 'blue'
+    },
+    {
+      id: 'venue-2',
+      name: 'Marigold Heritage Lawns',
+      city: 'Chennai',
+      type: 'Outdoor lawn',
+      rating: 4.8,
+      cap: 500,
+      price: 95000,
+      ev: ['Wedding', 'Engagement', 'Birthday', 'Festival', 'Housewarming'],
+      booked: [],
+      image: 'images/venues/2.jpg',
+      pictures: ['images/venues/2.jpg', 'images/venues/7.jpg', 'images/venues/8.jpg'],
+      am: ['Manicured Open Lawn', 'Stage Power Backup', 'Covered Buffet Pavilion', 'Parking for 150 Cars'],
+      desc: 'Lush landscaped garden lawn tailored for open-air mandap ceremonies, fairy-light evenings, and festive receptions.',
+      tone: 'green'
+    },
+    {
+      id: 'venue-3',
+      name: 'Skyline Terrace Rooftop',
+      city: 'Bengaluru',
+      type: 'Rooftop',
+      rating: 4.7,
+      cap: 220,
+      price: 65000,
+      ev: ['Birthday', 'Engagement', 'Anniversary', 'College & Graduation', 'Baby Shower'],
+      booked: [],
+      image: 'images/venues/3.jpg',
+      pictures: ['images/venues/3.jpg', 'images/venues/9.jpg'],
+      am: ['Panoramic Terrace Deck', 'Ambient String Lighting', 'Sound-Ready Lounge', 'Lift Access'],
+      desc: 'Modern open-sky rooftop terrace overlooking the city skyline, ideal for evening parties, milestones, and cocktail socials.',
+      tone: 'purple'
+    },
+    {
+      id: 'venue-4',
+      name: 'Coromandel Seafront Resort',
+      city: 'Pondicherry',
+      type: 'Resort',
+      rating: 4.9,
+      cap: 400,
+      price: 145000,
+      ev: ['Wedding', 'Corporate & Team', 'Anniversary', 'Naming Ceremony'],
+      booked: [],
+      image: 'images/venues/4.jpg',
+      pictures: ['images/venues/4.jpg', 'images/venues/10.jpg', 'images/venues/11.jpg', 'images/venues/12.jpg'],
+      am: ['Beachfront Lawn', '35 Guest Rooms', 'Poolside Pre-Event Deck', 'Private Parking'],
+      desc: 'Coastal resort property featuring sea-breeze ceremony decks, overnight guest suites, and multi-day celebration spaces.',
+      tone: 'orange'
+    }
+  ];
 
   const CATS = [
     { k: 'catering', n: 'Catering', c: 'orange', e: '', image: 'images/catering/1.jpg', about: 'Menus and service teams to make your celebration delicious.' },
@@ -106,7 +171,49 @@
     }
   };
 
-  const VENDORS = [];
+  const VENDORS = [
+    // Catering (4)
+    { id: 'cat-1', cat: 'catering', name: 'Annapoorna Royal Feast', city: 'Coimbatore', from: 450, unit: 'per plate', rating: 4.9, ev: ['Wedding', 'Engagement', 'Housewarming', 'Naming Ceremony'], sv: ['Pure Vegetarian Feast', 'Traditional Leaf Service', 'Live Counters'], image: 'images/catering/1.jpg', pictures: ['images/catering/1.jpg', 'images/catering/5.jpg', 'images/catering/6.jpg'], desc: 'Authentic South Indian traditional banana-leaf feast, regional sweets, and morning tiffin catering.', booked: [] },
+    { id: 'cat-2', cat: 'catering', name: 'Deccan Spice Kitchen', city: 'Chennai', from: 650, unit: 'per plate', rating: 4.8, ev: ['Wedding', 'Corporate & Team', 'Anniversary', 'Birthday'], sv: ['Veg & Non-Veg Spread', 'Buffet & Live Counters', 'Cocktail Starters'], image: 'images/catering/2.jpg', pictures: ['images/catering/2.jpg', 'images/catering/7.jpg'], desc: 'Full-service buffet and multi-cuisine gala dining team with live tandoor, chaat, and carved stations.', booked: [] },
+    { id: 'cat-3', cat: 'catering', name: 'Malabar Spice & Sadya', city: 'Kochi', from: 550, unit: 'per plate', rating: 4.8, ev: ['Wedding', 'Festival', 'Housewarming', 'Baby Shower'], sv: ['Traditional Leaf Service', 'Allergen-Friendly Menu', 'Sadya Specials'], image: 'images/catering/3.jpg', pictures: ['images/catering/3.jpg', 'images/catering/8.jpg'], desc: 'Coastal feast specialists serving ceremonial sadya spreads, payasam bars, and custom guest dietary menus.', booked: [] },
+    { id: 'cat-4', cat: 'catering', name: 'Sugar & Crumb Artisans', city: 'Bengaluru', from: 350, unit: 'per plate', rating: 4.7, ev: ['Birthday', 'Baby Shower', 'College & Graduation', 'Engagement'], sv: ['Snacks & Desserts', 'Designer Celebration Cakes', 'Hi-Tea Plated Menus'], image: 'images/catering/4.jpg', pictures: ['images/catering/4.jpg', 'images/catering/11.jpg'], desc: 'Artisanal dessert bars, live waffle and chaat counters, and custom tiered milestone cakes.', booked: [] },
+
+    // Decor (4)
+    { id: 'dec-1', cat: 'decor', name: 'Kaveri Mandap & Stage Craft', city: 'Chennai', from: 45000, unit: 'per event', rating: 4.9, ev: ['Wedding', 'Engagement', 'Housewarming', 'Festival'], sv: ['Ceremony & Main Stage', 'Temple Pillar Backdrops', 'Full Venue Decor'], image: 'images/decor/1.jpg', pictures: ['images/decor/1.jpg', 'images/decor/5.jpg'], desc: 'Grand carved mandap pillars, brass lamps, silk canopy drapes, and aisle styling for heritage venues.', booked: [] },
+    { id: 'dec-2', cat: 'decor', name: 'Emerald Waters Decor Studio', city: 'Kochi', from: 55000, unit: 'per event', rating: 4.8, ev: ['Wedding', 'Engagement', 'Anniversary'], sv: ['Entrance, Lighting & Tables', 'Ceremony & Main Stage', 'Waterfront Installations'], image: 'images/decor/2.jpg', pictures: ['images/decor/2.jpg', 'images/decor/4.jpg'], desc: 'Botanical palm canopies, floating lantern setups, and serene riverside ceremony pavilions.', booked: [] },
+    { id: 'dec-3', cat: 'decor', name: 'Blush Drapes & Themes', city: 'Bengaluru', from: 35000, unit: 'per event', rating: 4.7, ev: ['Birthday', 'Baby Shower', 'Naming Ceremony', 'Engagement'], sv: ['Balloon & Theme Backdrop', 'Pastel Stage Draping', 'Photo Frame Booths'], image: 'images/decor/3.jpg', pictures: ['images/decor/3.jpg', 'images/decor/12.jpg'], desc: 'Pastel floral backdrops, custom milestone arches, and bespoke photo frame installations for indoor events.', booked: [] },
+    { id: 'dec-4', cat: 'decor', name: 'Sundown Chandelier Designs', city: 'Pondicherry', from: 60000, unit: 'per event', rating: 4.9, ev: ['Wedding', 'Corporate & Team', 'College & Graduation', 'Anniversary'], sv: ['Full Venue Decor', 'Crystal Chandeliers & Canopy', 'Outdoor Lawn Lighting'], image: 'images/decor/4.jpg', pictures: ['images/decor/4.jpg', 'images/decor/2.jpg'], desc: 'Transparent marquee canopies with warm crystal chandeliers and sunset aisle lanterns.', booked: [] },
+
+    // Makeup & Styling (4)
+    { id: 'mak-1', cat: 'makeup', name: 'Nandini Bridal Studio', city: 'Chennai', from: 18000, unit: 'per person', rating: 4.9, ev: ['Wedding', 'Engagement', 'Anniversary'], sv: ['Bridal HD / Airbrush Makeup', 'Hair Styling & Draping', 'Muhurtham Saree Draping'], image: 'images/makeup/1.jpg', pictures: ['images/makeup/1.jpg', 'images/makeup/5.jpg'], desc: 'Long-wear bridal HD and airbrush artistry with traditional flower hairstyling and crisp saree pre-pleating.', booked: [] },
+    { id: 'mak-2', cat: 'makeup', name: 'Apsara Silk & Glam', city: 'Coimbatore', from: 14000, unit: 'per person', rating: 4.8, ev: ['Wedding', 'Engagement', 'Festival', 'Baby Shower'], sv: ['Engagement / Reception Glam', 'Family Styling Packages', 'Jewellery Setting'], image: 'images/makeup/2.jpg', pictures: ['images/makeup/2.jpg', 'images/makeup/6.jpg'], desc: 'Classic South Indian bridal glow, silk saree draping, and complete bridesmaid & family styling.', booked: [] },
+    { id: 'mak-3', cat: 'makeup', name: 'Meera Hair & Glow Artistry', city: 'Bengaluru', from: 12000, unit: 'per person', rating: 4.7, ev: ['Birthday', 'Engagement', 'College & Graduation', 'Anniversary'], sv: ['Party & Occasion Makeup', 'Hair Styling & Draping', 'Dewy Natural Glam'], image: 'images/makeup/3.jpg', pictures: ['images/makeup/3.jpg', 'images/makeup/1.jpg'], desc: 'Soft-glam makeup and modern textured hairstyling for receptions, cocktail nights, and milestone parties.', booked: [] },
+    { id: 'mak-4', cat: 'makeup', name: 'Vaishali Classic Makeovers', city: 'Madurai', from: 10500, unit: 'per person', rating: 4.8, ev: ['Wedding', 'Naming Ceremony', 'Baby Shower', 'Housewarming'], sv: ['Bridal HD / Airbrush Makeup', 'Trial Consultation', 'Saree & Veil Draping'], image: 'images/makeup/4.jpg', pictures: ['images/makeup/4.jpg', 'images/makeup/2.jpg'], desc: 'Skin-friendly traditional and festive makeovers delivered on location across Madurai and neighbouring cities.', booked: [] },
+
+    // Photography & Video (4)
+    { id: 'pho-1', cat: 'photo', name: 'LensCraft Candid Co.', city: 'Chennai', from: 38000, unit: 'per event', rating: 4.9, ev: ['Wedding', 'Engagement', 'Anniversary'], sv: ['Candid Photography Only', 'Cinematic Film + Drone Coverage', 'Pre-Event Couple Shoots'], image: 'images/photo/1.jpg', pictures: ['images/photo/1.jpg', 'images/photo/5.jpg'], desc: 'Warm editorial storytelling capturing candid family emotions, rituals, and fine-art portraits.', booked: [] },
+    { id: 'pho-2', cat: 'photo', name: 'Temple Town Frames', city: 'Madurai', from: 32000, unit: 'per event', rating: 4.8, ev: ['Wedding', 'Naming Ceremony', 'Housewarming', 'Festival'], sv: ['Candid + Traditional Photo & Video', 'Heirloom Print Albums', 'Multi-Camera Stage Setup'], image: 'images/photo/2.jpg', pictures: ['images/photo/2.jpg', 'images/photo/4.jpg'], desc: 'Complete traditional and candid photo-video coverage with hand-bound layflat wedding albums.', booked: [] },
+    { id: 'pho-3', cat: 'photo', name: 'Aura Cinema & Drones', city: 'Bengaluru', from: 55000, unit: 'per event', rating: 4.9, ev: ['Wedding', 'Corporate & Team', 'College & Graduation'], sv: ['Cinematic Film + Drone Coverage', 'Same-Day Edit Reels', '4K Highlight Films'], image: 'images/photo/3.jpg', pictures: ['images/photo/3.jpg', 'images/photo/1.jpg'], desc: 'Aerial 4K drone cinematography, stabilized gimbal films, and crisp next-morning social highlight reels.', booked: [] },
+    { id: 'pho-4', cat: 'photo', name: 'SnapJoy Event Studios', city: 'Coimbatore', from: 18000, unit: 'per event', rating: 4.7, ev: ['Birthday', 'Baby Shower', 'College & Graduation', 'Corporate & Team'], sv: ['Party Reels & Photo Booth', 'Instant Print Kiosk', 'Birthday Coverage'], image: 'images/photo/4.jpg', pictures: ['images/photo/4.jpg', 'images/photo/5.jpg'], desc: 'Fun interactive photo booths, vertical event reels, and fast-turnaround birthday & campus photography.', booked: [] },
+
+    // Host & Anchor (4)
+    { id: 'hst-1', cat: 'host', name: 'Anirudh Live Emcee', city: 'Chennai', from: 18000, unit: 'per event', rating: 4.9, ev: ['Wedding', 'Engagement', 'Corporate & Team', 'College & Graduation'], sv: ['Wedding & Music Night Hosting', 'English & Tamil Hosting', 'Crowd Interaction'], image: 'images/emcee/1.JPG', pictures: ['images/emcee/1.JPG', 'images/emcee/2.jpg'], desc: 'High-energy bilingual host known for sangeet nights, grand couple entries, and smooth ceremony pacing.', booked: [] },
+    { id: 'hst-2', cat: 'host', name: 'Divya Stage & Gala Anchors', city: 'Bengaluru', from: 22000, unit: 'per event', rating: 4.8, ev: ['Corporate & Team', 'Anniversary', 'College & Graduation'], sv: ['Corporate Summit & Awards', 'Multilingual Anchoring', 'Keynote Cue Management'], image: 'images/emcee/2.jpg', pictures: ['images/emcee/2.jpg', 'images/emcee/3.jpg'], desc: 'Polished corporate summit and gala moderator keeping panel discussions, award ceremonies, and dinners on cue.', booked: [] },
+    { id: 'hst-3', cat: 'host', name: 'Karthik Celebration Hosts', city: 'Coimbatore', from: 14000, unit: 'per event', rating: 4.7, ev: ['Birthday', 'Baby Shower', 'Naming Ceremony', 'Engagement'], sv: ['Birthday & Interactive Games', 'Family Icebreakers', 'Audience Trivia'], image: 'images/emcee/3.jpg', pictures: ['images/emcee/3.jpg', 'images/emcee/4.jpg'], desc: 'Warm, family-friendly anchor bringing custom stage games and lively hosting for birthdays and showers.', booked: [] },
+    { id: 'hst-4', cat: 'host', name: 'Neha Cultural Anchor Team', city: 'Kochi', from: 16000, unit: 'per event', rating: 4.8, ev: ['Festival', 'Wedding', 'College & Graduation', 'Housewarming'], sv: ['Cultural / Community Stage', 'Bilingual Hosting', 'Script & Flow Coordination'], image: 'images/emcee/4.jpg', pictures: ['images/emcee/4.jpg', 'images/emcee/1.JPG'], desc: 'Expressive stage hosts for cultural showcases, college farewells, and multi-family reception evenings.', booked: [] },
+
+    // DJ & Music (4)
+    { id: 'dj-1', cat: 'dj', name: 'DJ Vikram SoundLab', city: 'Bengaluru', from: 24000, unit: 'per event', rating: 4.9, ev: ['Wedding', 'Birthday', 'College & Graduation', 'Corporate & Team'], sv: ['DJ with Sound & Lights', 'Club Moving-Head Rig', 'Bollywood & EDM Mixes'], image: 'images/dj/1.jpg', pictures: ['images/dj/1.jpg', 'images/dj/5.jpg'], desc: 'Touring party DJ with dual consoles, intelligent dance-floor lighting, and custom playlist curation.', booked: [] },
+    { id: 'dj-2', cat: 'dj', name: 'Marina Beats & Percussion', city: 'Chennai', from: 30000, unit: 'per event', rating: 4.8, ev: ['Wedding', 'Engagement', 'Festival', 'College & Graduation'], sv: ['Dance & Percussion Setup', 'DJ + Live Dhol & Drums', 'Wireless Stage PA'], image: 'images/dj/2.jpg', pictures: ['images/dj/2.jpg', 'images/dj/6.jpg'], desc: 'Fusion DJ paired with live acoustic percussionists and dhol players to energize sangeet and baraat entries.', booked: [] },
+    { id: 'dj-3', cat: 'dj', name: 'Rhythm Collective Live Band', city: 'Kochi', from: 42000, unit: 'per event', rating: 4.9, ev: ['Anniversary', 'Corporate & Team', 'Wedding', 'Engagement'], sv: ['Live Band & Singers', 'Acoustic Reception Sets', 'Full Sound Engineering'], image: 'images/dj/3.jpg', pictures: ['images/dj/3.jpg', 'images/dj/7.jpg'], desc: 'Four-piece multilingual live band performing soulful acoustic sets, Tamil/Hindi classics, and upbeat hits.', booked: [] },
+    { id: 'dj-4', cat: 'dj', name: 'Kovai Classical & Folk Ensemble', city: 'Coimbatore', from: 18000, unit: 'per event', rating: 4.8, ev: ['Wedding', 'Housewarming', 'Naming Ceremony', 'Festival'], sv: ['Traditional Live Ensemble', 'Nadaswaram & Thavil', 'Ceremony Welcome Music'], image: 'images/dj/4.jpg', pictures: ['images/dj/4.jpg', 'images/dj/1.jpg'], desc: 'Traditional classical and folk instrumental ensemble tailored for morning ceremonies and housewarmings.', booked: [] },
+
+    // Florist (4)
+    { id: 'flr-1', cat: 'florist', name: 'Madurai Malligai Florals', city: 'Madurai', from: 12000, unit: 'per event', rating: 4.9, ev: ['Wedding', 'Engagement', 'Housewarming', 'Naming Ceremony'], sv: ['Wedding Garlands & Wreaths', 'Fresh Hair Flowers', 'Morning Garland Delivery'], image: 'images/decor/5.jpg', pictures: ['images/decor/5.jpg', 'images/decor/3.jpg'], desc: 'Hand-woven jasmine and rose muhurtham garlands, hair venis, and cascading ceremony floral strings.', booked: [] },
+    { id: 'flr-2', cat: 'florist', name: 'Rosewood Blossom Studio', city: 'Bengaluru', from: 18000, unit: 'per event', rating: 4.8, ev: ['Birthday', 'Baby Shower', 'Anniversary', 'Engagement'], sv: ['Bouquets & Table Centerpieces', 'Stage & Floral Arch', 'Pastel Exotic Blooms'], image: 'images/decor/3.jpg', pictures: ['images/decor/3.jpg', 'images/decor/12.jpg'], desc: 'Custom floral centerpieces, bridal bouquets, and pastel rose arches using fresh farm-direct blooms.', booked: [] },
+    { id: 'flr-3', cat: 'florist', name: 'Lotus & Palm Garland Makers', city: 'Chennai', from: 15000, unit: 'per event', rating: 4.8, ev: ['Wedding', 'Festival', 'Housewarming'], sv: ['Wedding Garlands & Wreaths', 'Lotus Urli Bowls', 'Traditional Puja Florals'], image: 'images/decor/2.jpg', pictures: ['images/decor/2.jpg', 'images/decor/5.jpg'], desc: 'Sacred lotus arrangements, brass urli welcome blooms, and fragrant floral curtains for traditional ceremonies.', booked: [] },
+    { id: 'flr-4', cat: 'florist', name: 'Coastal Petal Artisans', city: 'Pondicherry', from: 20000, unit: 'per event', rating: 4.7, ev: ['Wedding', 'Anniversary', 'Corporate & Team', 'Engagement'], sv: ['Stage & Floral Arch', 'Bouquets & Table Centerpieces', 'Garden Aisle Petals'], image: 'images/decor/4.jpg', pictures: ['images/decor/4.jpg', 'images/decor/2.jpg'], desc: 'Sunlit aisle meadow borders, outdoor floral pergolas, and fragrant banquet table arrangements.', booked: [] }
+  ];
 
   /* ---------- helpers ---------- */
   const el = id => document.getElementById(id);
@@ -430,17 +537,26 @@
       u.eventDate ? ('Date: ' + u.eventDate) : '',
       u.city ? ('City: ' + u.city) : ''
     ].filter(Boolean).join(' · ');
+    const initPhone = String(u.phone || '').replace(/\D/g, '').slice(0, 10);
     el('dbody').innerHTML = `<div class="dtop ${colourOf(x)}"><h2>Contact &amp; Book ${escHtml(x.name)}</h2></div>
      <form class="dmain" id="cform">
       <label for="cn">Your name</label><input id="cn" value="${escHtml(u.name || '')}" required>
-      <label for="cp">Phone</label><input id="cp" type="tel" value="${escHtml(u.phone || '')}" required>
+      <label for="cp">Phone *</label><input id="cp" type="tel" inputmode="numeric" maxlength="10" pattern="\\d{10}" placeholder="9876543210" value="${escHtml(initPhone)}" required>
       <label for="cm">Event Details &amp; Date</label><textarea id="cm" rows="3" placeholder="Event type, date and guest headcount" required>${escHtml(prefillDetails)}</textarea>
       <div class="acts"><button class="btn">Send booking request</button><button type="button" class="btn alt" data-act="close">Cancel</button></div></form>`;
     if (!el('dlg').open) el('dlg').showModal();
+    el('cp').addEventListener('input', () => {
+      el('cp').value = el('cp').value.replace(/\D/g, '').slice(0, 10);
+    });
     el('cform').onsubmit = e => {
       e.preventDefault();
       const name = el('cn').value.trim();
-      const phone = el('cp').value.trim();
+      const phone = el('cp').value.replace(/\D/g, '').slice(0, 10);
+      if (phone.length !== 10) {
+        alert('Please enter a valid 10-digit phone number.');
+        el('cp').focus();
+        return;
+      }
       const details = el('cm').value.trim();
       const bookings = JSON.parse(localStorage.getItem('eventora-booking-requests') || '[]');
       bookings.push({ name, phone, details, vendorId: x.id, vendorName: x.name, requestedAt: new Date().toISOString() });
@@ -449,13 +565,17 @@
       try {
         fetch('/api/vendor/queries', {
           method: 'POST',
+          credentials: 'same-origin',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             vendorId: x.id,
+            vendorName: x.name,
             vendorEmail: x.email || '',
             userName: name,
             userPhone: phone,
             userEmail: u.email || 'customer@eventora.com',
+            eventType: u.eventType || 'Celebration',
+            eventDate: u.eventDate || '',
             message: `Booking inquiry for venue ${x.name}: ${details}`
           })
         });
@@ -733,10 +853,11 @@
     const occasionOptions = matchedOccasion ? EVENTS : (userOccasion ? [userOccasion, ...EVENTS] : EVENTS);
     const selectedOccasion = matchedOccasion || userOccasion || '';
 
+    const initVendorPhone = String(u.phone || '').replace(/\D/g, '').slice(0, 10);
     el('vendor-dialog-body').innerHTML = `<div class="dtop ${colourOf(d)}"><h2>Book ${escHtml(d.name)}</h2><p>${escHtml(category.n)} · From ${rupee(d.from)} ${escHtml(d.unit || cfg.unit)}</p></div>
       <form class="dmain booking-form" id="booking-form">
         <label>Your name<input name="name" value="${escHtml(u.name || '')}" autocomplete="name" required></label>
-        <label>Phone number<input name="phone" type="tel" value="${escHtml(u.phone || '')}" autocomplete="tel" required></label>
+        <label>Phone number *<input name="phone" type="tel" inputmode="numeric" maxlength="10" pattern="\\d{10}" placeholder="9876543210" value="${escHtml(initVendorPhone)}" autocomplete="tel" required></label>
         <label>Event date<input name="date" type="date" value="${escHtml(u.eventDate || defaultDate)}" min="${minDate}" required></label>
         <label>Occasion<select name="event" required><option value="">Choose occasion</option>${occasionOptions.map(e => `<option${e === selectedOccasion ? ' selected' : ''}>${escHtml(e)}</option>`).join('')}</select></label>
         ${extraFieldsHtml}
@@ -745,10 +866,23 @@
       </form>`;
     el('vendor-dialog').showModal();
 
+    const bookingPhoneInput = el('booking-form').querySelector('input[name="phone"]');
+    if (bookingPhoneInput) {
+      bookingPhoneInput.addEventListener('input', () => {
+        bookingPhoneInput.value = bookingPhoneInput.value.replace(/\D/g, '').slice(0, 10);
+      });
+    }
+
     el('booking-form').onsubmit = e => {
       e.preventDefault();
-      const bookings = JSON.parse(localStorage.getItem('eventora-booking-requests') || '[]');
       const booking = Object.fromEntries(new FormData(e.currentTarget).entries());
+      booking.phone = String(booking.phone || '').replace(/\D/g, '').slice(0, 10);
+      if (booking.phone.length !== 10) {
+        alert('Please enter a valid 10-digit phone number.');
+        if (bookingPhoneInput) bookingPhoneInput.focus();
+        return;
+      }
+      const bookings = JSON.parse(localStorage.getItem('eventora-booking-requests') || '[]');
       bookings.push({ ...booking, vendorId: d.id, vendorName: d.name, category: d.cat, requestedAt: new Date().toISOString() });
       localStorage.setItem('eventora-booking-requests', JSON.stringify(bookings));
 
@@ -761,9 +895,11 @@
       try {
         fetch('/api/vendor/queries', {
           method: 'POST',
+          credentials: 'same-origin',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             vendorId: d.id,
+            vendorName: d.name,
             vendorEmail: d.email || '',
             userName: booking.name,
             userPhone: booking.phone,

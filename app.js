@@ -164,6 +164,7 @@ const pages = [
 pages.forEach((page) => {
   const middlewares = page.public ? [] : [requirePageAuth];
   app.get(page.route, ...middlewares, (req, res) => {
+    if (page.route === '/register') res.setHeader('Cache-Control', 'no-store');
     res.sendFile(path.join(__dirname, 'pages', page.file));
   });
   // Old-style links such as "venues.html" go to the clean URL "/venues".
