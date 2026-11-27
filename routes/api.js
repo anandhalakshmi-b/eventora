@@ -1079,7 +1079,6 @@ router.get('/vendor/queries', async (req, res) => {
 
       let queries = await Query.find(filter).sort({ createdAt: -1 });
       if (!queries || queries.length === 0) {
-        // Return realistic initial queries for smooth vendor experience
         queries = SAMPLE_QUERIES;
       }
 
